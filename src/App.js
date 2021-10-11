@@ -1,8 +1,9 @@
 import React from "react";
-import Homepage from "./Homepage";
+// import Homepage from "./Homepage";
+import { LoginScreen } from "./screens/LoginScreen";
 
 function App() {
-  return <Homepage />;
+  return <LoginScreen />;
 }
 
 export default App;
