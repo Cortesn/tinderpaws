@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu as MenuIcon } from "@mui/icons-material";
+import { Pets as PetsIcon } from "@mui/icons-material";
 import {
 	AppBar,
 	Box,
@@ -13,7 +13,7 @@ export const Navbar = () => {
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static">
-				<Toolbar>
+				<Toolbar sx={{justifyContent: 'space-between' }}>
 					<IconButton
 						size="large"
 						edge="start"
@@ -21,16 +21,22 @@ export const Navbar = () => {
 						aria-label="menu"
 						sx={{ mr: 2 }}
 					>
-						<MenuIcon />
+						<Typography
+							variant="h6"
+							component="div"
+						>
+							Tinder Paws
+						</Typography>
+						<PetsIcon />
 					</IconButton>
-					<Typography
-						variant="h6"
-						component="div"
-						sx={{ flexGrow: 1 }}
-					>
-						News
-					</Typography>
-					<Button color="inherit">Login</Button>
+          <span>Mission</span>
+          <span>About</span>
+          <span>News</span>
+					<Box sx={{justifyContent: 'flex-end' }}>
+            <Button variant="contained" color="info">
+              Login
+            </Button>
+          </Box>
 				</Toolbar>
 			</AppBar>
 		</Box>
