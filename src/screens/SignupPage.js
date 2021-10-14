@@ -1,5 +1,4 @@
 import React from 'react'
-import {Navbar} from '../Components/Navbar';
 import UserTab from '../Components/UserTab';
 import ShelterTab from '../Components/ShelterTab';
 import SwipeableViews from 'react-swipeable-views';
@@ -45,42 +44,43 @@ const SignupPage = () => {
 
     return (
         // main container for the signup forms set to max width of screen
-        <Grid container sx={{display:'block'}}>
-            <Navbar/>
+        <Grid container>
             {/* lifted paper has max width of 400 px -> should probaby change this with grid sizing */}
-            <Paper elevation={10} sx={{width: '400px', margin: '100px auto'}}>
-                    <Tabs 
-                        sx={{
-                            // controlls the selected tab display by using ui classes
-                            '.Mui-selected':{
-                                bgcolor: 'primary.main',
-                                borderRadius: '5px 5px 0px 0px',
-                                color: 'white'
-                            }
-                        }}
-                        value={value} 
-                        onChange={handleChange}
-                        indicatorColor="inherit"
-                        textColor="inherit" 
-                        variant="fullWidth">
-                        <Tab label="User Sign Up" />
-                        <Tab label="Shelter Sign Up"/>
-                    </Tabs>
-                {/* use older version of react swipeable views(0.12.4) vs 0.14.0 has bugs that prevent first swipe */}
-                <SwipeableViews
-                    axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                    index={value}
-                    onChangeIndex={handleChangeIndex}>
-                    <TabPanel value={value} index={0} dir={theme.direction}>
-                        {/* form specific for new user signup */}
-                        <UserTab/>
-                    </TabPanel>
-                    <TabPanel value={value} index={1} dir={theme.direction}>
-                        {/* form specific for new shelter/ employee signup */}
-                        <ShelterTab/>
-                    </TabPanel>
-                </SwipeableViews>
-            </Paper>
+            <Grid xs={12} sm={7} md={5} lg={4} xl={3} sx={{margin: '100px auto'}} item>
+                <Paper elevation={10} >
+                        <Tabs 
+                            sx={{
+                                // controlls the selected tab display by using mui classes
+                                '.Mui-selected':{
+                                    bgcolor: 'primary.main',
+                                    borderRadius: '5px 5px 0px 0px',
+                                    color: 'white'
+                                }
+                            }}
+                            value={value} 
+                            onChange={handleChange}
+                            indicatorColor="inherit"
+                            textColor="inherit" 
+                            variant="fullWidth">
+                            <Tab label="User Sign Up" />
+                            <Tab label="Shelter Sign Up"/>
+                        </Tabs>
+                    {/* use older version of react swipeable views(0.12.4) vs 0.14.0 has bugs that prevent first swipe */}
+                    <SwipeableViews
+                        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                        index={value}
+                        onChangeIndex={handleChangeIndex}>
+                        <TabPanel value={value} index={0} dir={theme.direction}>
+                            {/* form specific for new user signup */}
+                            <UserTab/>
+                        </TabPanel>
+                        <TabPanel value={value} index={1} dir={theme.direction}>
+                            {/* form specific for new shelter/ employee signup */}
+                            <ShelterTab/>
+                        </TabPanel>
+                    </SwipeableViews>
+                </Paper>
+            </Grid>
         </Grid>
     )
 }
