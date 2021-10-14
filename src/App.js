@@ -2,6 +2,7 @@ import React from "react";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import HomePage from "./screens/HomePage";
 import MissionPage from "./screens/MissionPage";
+import {LoginScreen}  from "./screens/LoginScreen";
 
 
 function App() {
@@ -18,11 +19,13 @@ function App() {
           <Route path="/mission">
             <MissionPage />
           </Route>
+          <Route path="/login">
+            <LoginScreen />
+          </Route>
         </Switch>
       </div>
     </div>
   </Router>
   )
-}
-
+  }
 export default App;
