@@ -14,7 +14,7 @@ const UserTab = () => {
             </Avatar>
             <Typography variant='subtitle1' sx={{textAlign: 'center'}}>Please complete this form to create a new user account!</Typography>
             <Grid item sx={{textAlign:'center'}}>
-                <Link href='#' underline='none' color='primary'>Already have an account?</Link>
+                <Link href='/login' underline='none' color='primary'>Already have an account?</Link>
             </Grid>
             <UserSignupForm/>
         </>

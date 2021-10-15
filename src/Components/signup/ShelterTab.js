@@ -23,7 +23,7 @@ const ShelterTab = () => {
             </Avatar>
             <Typography variant='subtitle1' sx={{textAlign: 'center'}}>Please complete this form to create a new shelter or employee account!</Typography>
             <Grid item sx={{textAlign:'center'}}>
-                <Link href='#' underline='none' color='primary' sx={{textAlign:'center'}}>Already have an account?</Link>
+                <Link href='/login' underline='none' color='primary' sx={{textAlign:'center'}}>Already have an account?</Link>
             </Grid>
             
             <FormGroup>
