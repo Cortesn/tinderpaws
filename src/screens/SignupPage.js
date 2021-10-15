@@ -1,6 +1,6 @@
 import React from 'react'
-import UserTab from '../Components/UserTab';
-import ShelterTab from '../Components/ShelterTab';
+import UserTab from '../Components/signup/UserTab';
+import ShelterTab from '../Components/signup/ShelterTab';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
 import Tabs from '@mui/material/Tabs';
@@ -46,7 +46,7 @@ const SignupPage = () => {
         // main container for the signup forms set to max width of screen
         <Grid container>
             {/* lifted paper has max width of 400 px -> should probaby change this with grid sizing */}
-            <Grid xs={12} sm={7} md={5} lg={4} xl={3} sx={{margin: '100px auto'}} item>
+            <Grid xs={12} sm={7} md={5} lg={4} xl={3} sx={{margin: 'auto'}} item>
                 <Paper elevation={10} >
                         <Tabs 
                             sx={{
