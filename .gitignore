@@ -26,5 +26,6 @@ yarn-error.log*
 /.vscode
 dbcon.js
 
+/Database/dbcon.js
 # package-lock.json
 package-lock.json
