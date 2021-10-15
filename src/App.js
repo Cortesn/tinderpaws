@@ -4,14 +4,14 @@ import HomePage from "./screens/HomePage";
 import MissionPage from "./screens/MissionPage";
 import SignupPage from "./screens/SignupPage";
 import {LoginScreen}  from "./screens/LoginScreen";
-
+import Navbar from "./Components/Navbar";
 
 function App() {
   return (
     <Router>
-    <div className="App">
-      {/* <Navbar /> */}
-      <div className="content">
+    {/* <div className="App"> */}
+      <Navbar />
+      {/* <div className="content"> */}
         {/* can be a string, int, float, array, even math.random */}
         <Switch>
           <Route exact path="/">
@@ -27,8 +27,8 @@ function App() {
             <SignupPage />
           </Route>
         </Switch>
-      </div>
-    </div>
+      {/* </div> */}
+    {/* </div> */}
   </Router>
   )
 }
