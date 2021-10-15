@@ -21,7 +21,7 @@ function TabPanel(props) {
             {...other}>
             {value === index && (
             <Paper sx={{ p: 3 }}>
-                <Typography>{children}</Typography>
+                <Typography component={'span'}>{children}</Typography>
             </Paper>
             )}
         </div>
@@ -59,7 +59,8 @@ const SignupPage = () => {
                             }}
                             value={value} 
                             onChange={handleChange}
-                            indicatorColor="inherit"
+                            TabIndicatorProps={{style: {background: 'none'}}}
+                            indicatorColor="primary"
                             textColor="inherit" 
                             variant="fullWidth">
                             <Tab label="User Sign Up" />
