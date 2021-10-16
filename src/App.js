@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import HomePage from "./screens/HomePage";
 import MissionPage from "./screens/MissionPage";
 import {LoginScreen}  from "./screens/LoginScreen";
+import { UserPage } from "./screens/UserPage";
 
 
 function App() {
@@ -16,11 +17,14 @@ function App() {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Route path="/mission">
+          <Route exact path="/mission">
             <MissionPage />
           </Route>
-          <Route path="/login">
+          <Route exact path="/login">
             <LoginScreen />
+          </Route>
+          <Route exact path="/user">
+            <UserPage/>
           </Route>
         </Switch>
       </div>
