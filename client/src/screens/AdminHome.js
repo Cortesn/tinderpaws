@@ -14,10 +14,10 @@ const AdminHome = () => {
               }
             }
           })
-    // commented the bottom out until we have data
     // useParams is to get the ID passed into the parent route
     const {id} = useParams()
     // query the shelter info with the admin id
+    // not getting anything bc server is not sending data back yet
     const {data} = getShelterInfo(id);
     console.log("hello")
     console.log(data)
