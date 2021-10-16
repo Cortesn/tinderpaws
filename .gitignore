@@ -29,3 +29,6 @@ dbcon.js
 /Database/dbcon.js
 # package-lock.json
 package-lock.json
+
+/client/node_modules
+/server/node_modules
