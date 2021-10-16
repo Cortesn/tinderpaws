@@ -3,13 +3,16 @@ import {useParams} from "react-router";
 import { Typography, Box, Button, Stack } from "@mui/material";
 import {createTheme} from '@mui/material/styles';
 import { ThemeProvider } from "@mui/system";
+import { yellow } from '@mui/material/colors'
 import getShelterInfo from "../helperFunctions/AdminHomePage/getShelterInfo";
 
 const AdminHome = () => {
     const theme = createTheme({
             palette: {
-              primary: 'yellow',
-            },
+              primary: {
+                  main: yellow[500],
+              }
+            }
           })
     // commented the bottom out until we have data
     // useParams is to get the ID passed into the parent route
@@ -29,7 +32,8 @@ const AdminHome = () => {
                 margin: 'auto',
                 padding: '1rem',
                 borderRadius:"12px",
-                marginBottom: "2rem"
+                marginBottom: "2rem",
+                marginTop:"1rem"
             }}>
                 <Typography 
                 variant="h6"
@@ -69,7 +73,8 @@ const AdminHome = () => {
             <Stack
             direction="row"
             alignItems="center"
-            justifyContent="space-evenly">
+            justifyContent="center"
+            spacing={6}>
                 <ThemeProvider theme={theme}>
                     <Button variant="contained" color="success" href="/addAnimalProfile">
                         Add new animal profile
