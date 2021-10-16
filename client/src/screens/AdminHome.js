@@ -3,16 +3,22 @@ import {useParams} from "react-router";
 import { Typography, Box, Button, Stack } from "@mui/material";
 import {createTheme} from '@mui/material/styles';
 import { ThemeProvider } from "@mui/system";
+import getShelterInfo from "../helperFunctions/AdminHomePage/getShelterInfo";
+
 const AdminHome = () => {
     const theme = createTheme({
             palette: {
               primary: 'yellow',
-              secondary: 'pink',
             },
           })
+    // commented the bottom out until we have data
+    // useParams is to get the ID passed into the parent route
     const {id} = useParams()
     // query the shelter info with the admin id
-
+    const {data} = getShelterInfo(id);
+    console.log("hello")
+    console.log(data)
+    
     return ( 
         <Box>
             {/* Navbar goes here */}
@@ -43,8 +49,18 @@ const AdminHome = () => {
                 marginBottom: "2rem"
             }}>
                 <Typography
-                component="span"
-                ariant="body1"
+                variant="h3"
+                align="left">
+                    shelter title
+                </Typography>
+                <Typography
+                variant="h6"
+                align="left">
+                    shelter address
+                </Typography>
+
+                <Typography
+                variant="body1"
                 align="center">
                     shelter info
                 </Typography>
@@ -58,13 +74,10 @@ const AdminHome = () => {
                     <Button variant="contained" color="success" href="/addAnimalProfile">
                         Add new animal profile
                     </Button>
-                    <Button variant="contained" color="primary" href="/editAnimalProfile">
-                        Modify animal profile
-                    </Button>
                     <Button variant="contained" color="error" href="/editAnimalProfile">
-                        Delete animal profile
+                        Edit animal profile
                     </Button>
-                    <Button variant="contained" color="secondary" href="/editAnimalProfile">
+                    <Button variant="contained" color="primary" href="/editShelter">
                         Edit shelter info
                     </Button>
                 </ThemeProvider>
