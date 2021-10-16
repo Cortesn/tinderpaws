@@ -1,7 +1,6 @@
 import React from "react";
-import { Box, Button, Typography } from "@mui/material"; 
+import { Box, Button, Typography } from "@mui/material";
 import { Pets as PetsIcon } from "@mui/icons-material";
-import { Navbar } from "../Components/Navbar";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import useInputState from "../hooks/useInputState";
 
@@ -16,7 +15,6 @@ export const LoginScreen = () => {
 
 	return (
 		<Box height="100vh" sx={{backgroundColor: "#cadee3"}}>
-			<Navbar />
 			<Box
 				sx={{
 					textAlign: "center",
