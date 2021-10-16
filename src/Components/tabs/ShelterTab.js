@@ -10,11 +10,7 @@ import EmployeeSignupForm from '../forms/EmployeeSignupForm';
 const ShelterTab = () => {
     const [shelter, setShelter] = React.useState(true);
     const toggleForms = (event, value) => {
-        if (value){
-            setShelter(false);
-        }else {
-            setShelter(true);
-        }
+        setShelter(value ? false : true);
     };
     return (
         <>
