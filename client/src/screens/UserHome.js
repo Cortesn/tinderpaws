@@ -1,14 +1,6 @@
 import React from "react";
-import { Typography, Box, Button, Stack } from "@mui/material";
-import {createTheme} from '@mui/material/styles';
-import { ThemeProvider } from "@mui/system";
+import { Typography, Box, Stack } from "@mui/material";
 const UserHome = () => {
-    const theme = createTheme({
-            palette: {
-              primary: 'yellow',
-              secondary: 'pink',
-            },
-          })
     return ( 
         <Box>
             {/* Navbar goes here */}
@@ -44,27 +36,12 @@ const UserHome = () => {
                 align="center">
                     hello
                 </Typography>
-            </Box>
-
-            <Stack
+                <Stack
             direction="row"
             alignItems="center"
             justifyContent="space-evenly">
-                <ThemeProvider theme={theme}>
-                    <Button variant="contained" color="success" href="/addAnimalProfile">
-                        Add new animal profile
-                    </Button>
-                    <Button variant="contained" color="primary" href="/editAnimalProfile">
-                        Modify animal profile
-                    </Button>
-                    <Button variant="contained" color="error" href="/editAnimalProfile">
-                        Delete animal profile
-                    </Button>
-                    <Button variant="contained" color="secondary" href="/editAnimalProfile">
-                        Edit shelter info
-                    </Button>
-                </ThemeProvider>
             </Stack>
+            </Box>
         </Box>
      );
 }
