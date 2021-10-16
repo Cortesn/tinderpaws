@@ -4,7 +4,7 @@ import HomePage from "./screens/HomePage";
 import MissionPage from "./screens/MissionPage";
 import SignupPage from "./screens/SignupPage";
 import {LoginScreen}  from "./screens/LoginScreen";
-import Navbar from "./Components/Navbar";
+import Navbar from "./Components/navbar/Navbar.js";
 
 function App() {
   return (
