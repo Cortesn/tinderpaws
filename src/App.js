@@ -2,7 +2,7 @@ import React from "react";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import HomePage from "./screens/HomePage";
 import MissionPage from "./screens/MissionPage";
-// import SignupPage from "./screens/SignupPage";
+import SignupPage from "./screens/SignupPage";
 import {LoginScreen}  from "./screens/LoginScreen";
 import Navbar from "./Components/navbar/Navbar.js";
 
@@ -24,7 +24,7 @@ function App() {
             <LoginScreen />
           </Route>
           <Route path="/signup">
-            {/* <SignupPage /> */}
+            <SignupPage />
           </Route>
         </Switch>
       {/* </div> */}
