@@ -14,8 +14,8 @@ const UserSignupForm = () => {
         handleClickShowPassword1, 
         handleMouseDownPassword1] 
         = useSignupFormState({
-            password1: '',
-            showPassword1: false,
+            password: '',
+            showPassword: false,
         }
     );
     const [ pass2, 
@@ -23,8 +23,8 @@ const UserSignupForm = () => {
         handleClickShowPassword2, 
         handleMouseDownPassword2] 
         = useSignupFormState({
-            password2: '',
-            showPassword2: false,
+            password: '',
+            showPassword: false,
         }
     );
 
@@ -61,9 +61,9 @@ const UserSignupForm = () => {
                         <InputLabel htmlFor="password1">Password</InputLabel>
                         <FilledInput
                             id="password1"
-                            type={pass1.showPassword1 ? 'text' : 'password'}
-                            value={pass1.password1}
-                            onChange={handleChange1('password1')}
+                            type={pass1.showPassword ? 'text' : 'password'}
+                            value={pass1.password}
+                            onChange={handleChange1('password')}
                             endAdornment={
                                 <InputAdornment position="end">
                                 <IconButton
@@ -71,7 +71,7 @@ const UserSignupForm = () => {
                                     onClick={handleClickShowPassword1}
                                     onMouseDown={handleMouseDownPassword1}
                                     edge="end">
-                                    {pass1.showPassword1 ? <VisibilityOff /> : <Visibility />}
+                                    {pass1.showPassword ? <VisibilityOff /> : <Visibility />}
                                 </IconButton>
                                 </InputAdornment>}/>
                     </FormControl>
@@ -81,9 +81,9 @@ const UserSignupForm = () => {
                         <InputLabel htmlFor="password2">Confirm Password</InputLabel>
                             <FilledInput
                                 id="password2"
-                                type={pass2.showPassword2 ? 'text' : 'password'}
-                                value={pass2.password2}
-                                onChange={handleChange2('password2')}
+                                type={pass2.showPassword ? 'text' : 'password'}
+                                value={pass2.password}
+                                onChange={handleChange2('password')}
                                 endAdornment={
                                     <InputAdornment position="end">
                                     <IconButton
@@ -91,7 +91,7 @@ const UserSignupForm = () => {
                                         onClick={handleClickShowPassword2}
                                         onMouseDown={handleMouseDownPassword2}
                                         edge="end">
-                                        {pass2.showPassword2 ? <VisibilityOff /> : <Visibility />}
+                                        {pass2.showPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                     </InputAdornment>}/>
                     </FormControl>

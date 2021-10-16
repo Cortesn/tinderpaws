@@ -11,10 +11,10 @@ const useSignupFormState = (initialValue) =>{
     const handleClickShowPassword = () => {
         setValues({
             ...values,
-            showPassword1: !values.showPassword1,
-            showPassword2: !values.showPassword2,
+            showPassword: !values.showPassword,
         });
     };
+
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
