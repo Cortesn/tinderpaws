@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Avatar, Link, FormGroup, Stack, Switch } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import ShelterSignupForm from '../forms/ShelterSingupForm';
+import ShelterSignupForm from '../forms/ShelterSignupForm';
 import EmployeeSignupForm from '../forms/EmployeeSignupForm';
 
 
