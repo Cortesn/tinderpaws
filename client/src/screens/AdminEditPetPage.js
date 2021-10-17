@@ -1,10 +1,10 @@
 import React from 'react'
 import MatchList from '../Components/MatchList.js'
-import { Divider, Grid, Paper, Typography } from '@mui/material'
 import PetProfile from '../Components/PetProfile.js'
+import { Grid, Paper } from '@mui/material'
 
 
-const AdminPetProfilePage = () => {
+const AdminEditPetPage = () => {
     return (
 
         <Grid xs={12} sm={10} md={8} lg={7} xl={5} sx={{margin: 'auto'}} >
@@ -22,4 +22,4 @@ const AdminPetProfilePage = () => {
     )
 }
 
-export default AdminPetProfilePage
+export default AdminEditPetPage
