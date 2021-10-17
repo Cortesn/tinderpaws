@@ -1,46 +1,22 @@
 import React, { useState } from "react";
 import {
 	Box,
-	Container,
 	Typography,
 	Card,
 	CardContent,
 	CardMedia,
 	IconButton,
-  CardActions,
+	CardActions,
+	Grid,
+	Paper,
 } from "@mui/material";
-import { NavigateBefore, NavigateNext, Clear, StarRate, Favorite } from "@mui/icons-material";
-import { Navbar } from "../Components/Navbar";
-
-const pets = [
-	{
-		name: "Skippy",
-		type: "dog",
-		breed: "Russell Terrier",
-		description:
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget condimentum lorem. Etiam et scelerisque urna, id auctor dolor. Sed feugiat ex ut nibh maximus, eget dapibus libero pellentesque. In in sapien venenatis, vulputate libero in, egestas ante. Donec tellus nisl, vehicula sit amet elit sit amet, aliquet aliquet odio. Aenean pharetra dictum enim in hendrerit. Praesent blandit fringilla porta. Aliquam erat volutpat. Nullam eget arcu ex. Aenean laoreet consequat ex, posuere porttitor dolor ultricies at. Nullam id mattis tellus, viverra sodales lectus. Sed lacinia velit id maximus pharetra. Phasellus volutpat justo arcu, nec tempus metus euismod quis.",
-		shelter: "Happy Shelter",
-		images: [
-			"https://images.dog.ceo/breeds/terrier-russell/iguet1.jpeg",
-			"https://images.dog.ceo/breeds/terrier-russell/iguet2.jpeg",
-			"https://images.dog.ceo/breeds/terrier-russell/iguet3.jpeg",
-			"https://images.dog.ceo/breeds/terrier-russell/iguet4.jpeg",
-		],
-	},
-	{
-		name: "Toto",
-		type: "dog",
-		breed: "Cairn Terrier",
-		description: "I am a hap, hap, happe dog. I am a very, very happe dog",
-		shelter: "Happy Shelter",
-		images: [
-			"https://images.dog.ceo/breeds/terrier-cairn/n02096177_1518.jpg",
-			"https://images.dog.ceo/breeds/terrier-cairn/n02096177_2703.jpg",
-			"https://images.dog.ceo/breeds/terrier-cairn/n02096177_342.jpg",
-			"https://images.dog.ceo/breeds/terrier-cairn/n02096177_6700.jpg",
-		],
-	},
-];
+import {
+	NavigateBefore,
+	NavigateNext,
+	Clear,
+	Favorite,
+} from "@mui/icons-material";
+import { pets, randomAnimal } from "../TempData/petsData";
 
 export const UserPage = () => {
 	const [pet, setPet] = useState(pets[0]);
@@ -58,44 +34,55 @@ export const UserPage = () => {
 		}
 	};
 
+	const nextAnimal = () => {
+		setPet(randomAnimal());
+		setImgIdx(0);
+	};
+
 	return (
-		<Box height="100vh" sx={{ backgroundColor: "#cadee3" }}>
-			<Navbar />
-			<Container>
-				<Box
-					sx={{
-						display: "flex",
-						flexFlow: "column",
-						marginTop: "1rem",
-						backgroundColor: "white",
-					}}
-				>
-					<Card sx={{}}>
+		<Grid container>
+			<Grid
+				xs={12}
+				sm={9}
+				md={8}
+				lg={7}
+				xl={6}
+				sx={{ margin: "auto" }}
+				item
+			>
+				<Paper elevation={10}>
+					<Card>
 						<Box
 							sx={{
 								display: "flex",
 								flexDirection: "row",
-								justifyContent: "center",
+								justifyContent: "space-between",
 								alignItems: "center",
+								mx: 2,
 							}}
 						>
 							<IconButton onClick={prevImg}>
-								<NavigateBefore />
+								<NavigateBefore fontSize="large"/>
 							</IconButton>
 							<CardMedia
 								component="img"
 								image={pet.images[imgIdx]}
-								alt="dog"
-								sx={{ width: 300, height: 300 }}
+								alt={pet.name}
+								sx={{
+									maxWidth: "80%",
+									height: 450,
+									width: "auto",
+									objectFit: "contain"
+								}}
 							/>
 							<IconButton onClick={nextImg}>
-								<NavigateNext />
+								<NavigateNext fontSize="large"/>
 							</IconButton>
 						</Box>
 						<Typography align="center" variant="h6">
-              {`${imgIdx + 1}/${pet.images.length}`}
-            </Typography>
-						<CardContent>
+							{`${imgIdx + 1}/${pet.images.length}`}
+						</Typography>
+						<CardContent sx={{mx:2}}>
 							<Typography
 								gutterBottom
 								variant="h5"
@@ -114,20 +101,17 @@ export const UserPage = () => {
 								{pet.description}
 							</Typography>
 						</CardContent>
-            <CardActions sx={{justifyContent: "space-around"}}>
-              <IconButton onClick={prevImg} color="secondary">
-								<Clear />
+						<CardActions sx={{ justifyContent: "space-around" }}>
+							<IconButton onClick={nextAnimal} color="secondary">
+								<Clear fontSize="large"/>
 							</IconButton>
-              <IconButton onClick={prevImg} color="warning">
-								<StarRate />
+							<IconButton onClick={nextAnimal} color="error">
+								<Favorite fontSize="large"/>
 							</IconButton>
-              <IconButton onClick={prevImg} color="error">
-								<Favorite />
-							</IconButton>
-            </CardActions>
+						</CardActions>
 					</Card>
-				</Box>
-			</Container>
-		</Box>
+				</Paper>
+			</Grid>
+		</Grid>
 	);
 };
