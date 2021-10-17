@@ -5,7 +5,7 @@ import MissionPage from "./screens/MissionPage";
 import SignupPage from "./screens/SignupPage";
 import {LoginScreen}  from "./screens/LoginScreen";
 import Navbar from "./Components/navbar/Navbar.js";
-import AdminPetProfilePage from "./screens/AdminPetProfilePage";
+import AdminEditPetPage from "./screens/AdminEditPetPage";
 
 function App() {
   return (
@@ -27,8 +27,8 @@ function App() {
           <Route path="/signup">
             <SignupPage />
           </Route>
-          <Route path="/adminPetProfile">
-            <AdminPetProfilePage />
+          <Route path="/admin/editpet">
+            <AdminEditPetPage />
           </Route>
         </Switch>
       {/* </div> */}
