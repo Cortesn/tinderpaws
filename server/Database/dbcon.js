@@ -10,4 +10,4 @@ var pool = mysql.createPool({
   password        : [password],
   database        : [databaseName]
 });
-module.exports.pool = pool;
+export default pool;
