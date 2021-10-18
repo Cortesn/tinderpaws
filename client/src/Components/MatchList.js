@@ -15,11 +15,28 @@ const MatchList = () => {
     const [editClicked, handleChange] = useButtonState(false);
 
     // temp list of matched users
-    const tempMatchList = ['John Smith', 'Jane Doe', 'Test User 1', 'Test User 2'];
+    const tempMatchList = [
+        {
+            userId: 1,
+            name:'John Smith'
+        }, 
+        {
+            userId: 2,
+            name: 'Jane Doe'
+        }, 
+        {
+            userId: 3,
+            name:'Test User 1'
+        }, 
+        {
+            userId: 4,
+            name: 'Test User 2'
+        }
+    ];
     const [matches, deleteMatch] = useMatchState(tempMatchList);
 
     return (
-        <Grid sx={{paddingTop: '1rem'}}>
+        <Grid sx={{paddingTop: '1rem'}} item>
             {/* Heading */}
             {/* onClick event to hide/show delete buttons */}
             <Button 
@@ -34,15 +51,19 @@ const MatchList = () => {
                     paddingLeft:'4rem'}}>
                 Matches
             </Typography>
-            <Grid xs={11} >
+            <Grid xs={11} item>
                 <Divider variant='middle' sx={{paddingBottom: '.5rem'}}/>
             </Grid>
 
             {/* List of matched users */}
             <List> 
                 {/* iterate through list of users */}
-                {matches.map((name, index) => (
-                    <MatchItem name={name} editClicked={editClicked} deleteMatch={deleteMatch}/>   
+                {matches.map((user) => (
+                    <MatchItem 
+                        key={user.userId} 
+                        user={user} 
+                        editClicked={editClicked} 
+                        deleteMatch={deleteMatch}/>   
                 ))}
             </List>
         </Grid>

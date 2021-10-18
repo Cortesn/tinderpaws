@@ -12,25 +12,25 @@ import {
 } from '@mui/material';
 
 const MatchItem = (props) => {
-    const {editClicked, deleteMatch, name} = props;
+    const {editClicked, deleteMatch, user} = props;
     return (
         <>
             <ListItem >
                 <ListItemIcon>
                     <PersonIcon />
                 </ListItemIcon>
-                <ListItemText primary={name} />
+                <ListItemText primary={user.name} />
                 <Collapse orientation="horizontal" in={editClicked}>
                     <IconButton 
                         color='error' 
                         aria-label="delete"
                         sx={{marginRight: '1rem'}}
-                        onClick={() => deleteMatch(name)}>
+                        onClick={() => deleteMatch(user.userId)}>
                         <RemoveCircleOutlineIcon />
                     </IconButton>
                 </Collapse>  
             </ListItem>
-            <Grid xs={10}>
+            <Grid xs={10} item>
                 <Divider variant="inset" component="li" />
             </Grid>
         </>
