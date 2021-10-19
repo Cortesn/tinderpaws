@@ -6,15 +6,16 @@ import {
     FormControl, 
     Button, 
     MenuItem, 
-    Select } from '@mui/material';
+    Select, 
+    TextareaAutosize} from '@mui/material';
 
 
 const PetInfoForm = () => {
     return (
-        <form style={{display: 'block'}}>
+        <form style={{padding: '20px'}}>
             <Grid container direction={"column"} spacing={1}>
                 <Grid item>
-                    <FormControl fullWidth variant="filled">
+                    <FormControl fullWidth variant="filled" size="small">
                         <InputLabel htmlFor="petName">Pet Name</InputLabel>
                         <FilledInput
                             id='petName'
@@ -22,13 +23,12 @@ const PetInfoForm = () => {
                     </FormControl>
                 </Grid>
                 <Grid item>
-                    <FormControl fullWidth variant="filled">
+                    <FormControl fullWidth variant="filled" size="small">
                         <InputLabel htmlFor="type">Type</InputLabel>
                         <Select
                             labelId="type"
                             id="type"
-                            value=''
-                        >
+                            value='' >
                             <MenuItem value={1}>Dog</MenuItem>
                             <MenuItem value={2}>Cat</MenuItem>
                             <MenuItem value={3}>Other</MenuItem>
@@ -36,17 +36,39 @@ const PetInfoForm = () => {
                     </FormControl>
                 </Grid>
                 <Grid item>
-                    <FormControl fullWidth variant="filled">
+                    <FormControl fullWidth variant="filled" size="small">
                         <InputLabel htmlFor="type">Breed</InputLabel>
                         <Select
                             labelId="breed"
                             id="breed"
-                            value=''
-                        >
+                            value=''>
                             <MenuItem value={1}>Breed 1</MenuItem>
                             <MenuItem value={2}>Breed 2</MenuItem>
                             <MenuItem value={3}>Breed 3</MenuItem>
                         </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item>
+                    <FormControl fullWidth variant="filled" size="small">
+                        <InputLabel htmlFor="type">Status</InputLabel>
+                        <Select
+                            labelId="status"
+                            id="status"
+                            value=''>
+                            <MenuItem value={1}>Not Available</MenuItem>
+                            <MenuItem value={2}>Available</MenuItem>
+                            <MenuItem value={3}>Pending</MenuItem>
+                            <MenuItem value={3}>Adopted</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item>
+                    <FormControl fullWidth variant="filled" size="small">
+                        <TextareaAutosize
+                            aria-label="textarea"
+                            minRows={5}
+                            placeholder="Decription..."
+                            style={{resize: 'vertical', maxWidth: '100%' }}/>
                     </FormControl>
                 </Grid>
                 
