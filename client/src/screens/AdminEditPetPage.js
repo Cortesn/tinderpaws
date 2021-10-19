@@ -23,17 +23,18 @@ const AdminEditPetPage = () => {
     return (
         <Grid 
             container
+            justifyContent="center"
             alignItems="stretch"
             sx={{margin:'auto'}} 
             spacing={ matches ? 1 : 0 }>
             
             {/* Left side Matches card */}
-            <Grid item xs={12} sm={6} sx={{ display: { xs: buttonClicked ? 'block':'none', sm: 'block' } }}>
+            <Grid item xs={12} sm={5} md={4} lg={3} xl={2} sx={{ display: { xs: buttonClicked ? 'block':'none', sm: 'block' } }}>
                 <MatchList/>              
             </Grid>
             
             {/* Right side edit profile card */}
-            <Grid item xs={12} sm={6} sx={{ display: { xs: matches ? handleButtonChange : 'block' } }}>
+            <Grid item xs={12} sm={6} md={5} lg={4} xl={3} sx={{ display: { xs: matches ? handleButtonChange : 'block' } }}>
                 {/* view matches in mobile */}
                 <Box sx={{ '& > :not(style)': { m: 1 } , display: {xs: 'block' , sm: 'none'} }}>
                     <Fab size="small" color="secondary" aria-label="match">
