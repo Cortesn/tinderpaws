@@ -7,18 +7,12 @@ import {
 	CardContent,
 	CardMedia,
 	IconButton,
-	CardActions,
 	Paper,
 } from "@mui/material";
-import {
-	NavigateBefore,
-	NavigateNext,
-	Clear,
-	Favorite,
-} from "@mui/icons-material";
+import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import TinderCard from "react-tinder-card";
 
-export const AnimalCard = ({ pet }) => {
+export const AnimalCard = ({ pet, swiped, outOfFrame, index, childRefs }) => {
 	const [imgIdx, setImgIdx] = useState(0);
 
 	const prevImg = () => {
@@ -34,10 +28,18 @@ export const AnimalCard = ({ pet }) => {
 	};
 
 	return (
-		<Container sx={{ display: "block", position: "absolute" }}>
-			<TinderCard key={pet.name} preventSwipe={["up", "down"]}>
-				<Paper elevation={10}>
-					<Card>
+		<Container sx={{ position: "absolute", alignContent:"stretch" }}>
+			<TinderCard
+				key={pet.name}
+				ref={childRefs[index]}
+				onSwipe={(dir) => swiped(dir, pet.name)}
+				onCardLeftScreen={() => outOfFrame(pet.name)}
+			>
+				<Paper
+					elevation={10}
+					sx={{ position: "relative", border: 1, borderRadius: 10 }}
+				>
+					<Card sx={{ borderRadius: 10 }}>
 						<Box
 							sx={{
 								display: "flex",
@@ -71,7 +73,7 @@ export const AnimalCard = ({ pet }) => {
 						<CardContent sx={{ mx: 2 }}>
 							<Typography
 								gutterBottom
-								variant="h5"
+								variant="h4"
 								component="div"
 							>
 								{`${pet.type.toUpperCase()} - ${pet.breed}`}
@@ -83,24 +85,14 @@ export const AnimalCard = ({ pet }) => {
 							>
 								{pet.name}
 							</Typography>
-							<Typography variant="body2" color="text.secondary">
+							<Typography
+								variant="body2"
+								color="text.secondary"
+								sx={{ height: 125, overflowY: "auto" }}
+							>
 								{pet.description}
 							</Typography>
 						</CardContent>
-						<CardActions sx={{ justifyContent: "space-around" }}>
-							<IconButton
-								// onClick={}
-								color="secondary"
-							>
-								<Clear fontSize="large" />
-							</IconButton>
-							<IconButton
-								// onClick={}
-								color="error"
-							>
-								<Favorite fontSize="large" />
-							</IconButton>
-						</CardActions>
 					</Card>
 				</Paper>
 			</TinderCard>

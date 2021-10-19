@@ -56,8 +56,4 @@ const pets = [
 	},
 ];
 
-const randomAnimal = () => {
-	return pets[Math.floor(Math.random() * pets.length)];
-};
-
-export {pets, randomAnimal};
+export {pets};
