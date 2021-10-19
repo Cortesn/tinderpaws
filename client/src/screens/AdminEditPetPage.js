@@ -1,23 +1,48 @@
 import React from 'react'
-import MatchList from '../Components/MatchList.js'
-import PetProfile from '../Components/PetProfile.js'
-import { Grid, Paper } from '@mui/material'
+import MatchList from '../Components/petprofile/MatchList.js'
+import PetProfile from '../Components/petprofile/PetProfile.js'
+import { Fab, Grid } from '@mui/material'
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { Box } from '@mui/system';
+import ChatIcon from '@mui/icons-material/Chat';
+import useButtonState from '../hooks/useButtonState';
 
 
+/* Page to edit a Pet information, images, and matches */
 const AdminEditPetPage = () => {
-    return (
+    const theme = useTheme();
+    // matches = true when breakpoint is > xs
+    // removes column spacing between cards
+    const matches = useMediaQuery(theme.breakpoints.up('sm')); 
 
-        <Grid xs={12} sm={10} md={8} lg={7} xl={5} sx={{margin: 'auto'}} item>
-            <Paper elevation={10} >
-                <Grid container direction={'row'}>
-                    <Grid item xs={12} sm={6} sx={{ display: { xs: 'none', sm: 'block' } }}>
-                        <MatchList/>              
-                    </Grid>
-                    <Grid item xs={12} sm={6} sx={{margin:'auto', height: '50vh'}}>
-                        <PetProfile/>
-                    </Grid>
-                </Grid>
-            </Paper>
+    const [buttonClicked, handleButtonChange] = useButtonState(false);
+
+    // matches ? handleButtonChange: 'none'
+
+    return (
+        <Grid 
+            container
+            alignItems="stretch"
+            sx={{margin:'auto'}} 
+            spacing={ matches ? 1 : 0 }>
+            
+            {/* Left side Matches card */}
+            <Grid item xs={12} sm={6} sx={{ display: { xs: buttonClicked ? 'block':'none', sm: 'block' } }}>
+                <MatchList/>              
+            </Grid>
+            
+            {/* Right side edit profile card */}
+            <Grid item xs={12} sm={6} sx={{ display: { xs: matches ? handleButtonChange : 'block' } }}>
+                {/* view matches in mobile */}
+                <Box sx={{ '& > :not(style)': { m: 1 } , display: {xs: 'block' , sm: 'none'} }}>
+                    <Fab size="small" color="secondary" aria-label="match">
+                        <ChatIcon 
+                            onClick={handleButtonChange}/>
+                    </Fab>
+                </Box>
+                <PetProfile/>
+            </Grid>
         </Grid>
     )
 }
