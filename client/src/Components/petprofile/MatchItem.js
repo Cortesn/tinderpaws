@@ -11,8 +11,9 @@ import {
     Collapse 
 } from '@mui/material';
 
+/* Returns a single matched user for a pet */
 const MatchItem = (props) => {
-    const {editClicked, deleteMatch, user} = props;
+    const {buttonClicked, deleteItem, user} = props;
     return (
         <>
             <ListItem >
@@ -20,12 +21,12 @@ const MatchItem = (props) => {
                     <PersonIcon />
                 </ListItemIcon>
                 <ListItemText primary={user.name} />
-                <Collapse orientation="horizontal" in={editClicked}>
+                <Collapse orientation="horizontal" in={buttonClicked}>
                     <IconButton 
                         color='error' 
                         aria-label="delete"
                         sx={{marginRight: '1rem'}}
-                        onClick={() => deleteMatch(user.userId)}>
+                        onClick={() => deleteItem(user.id)}>
                         <RemoveCircleOutlineIcon />
                     </IconButton>
                 </Collapse>  
