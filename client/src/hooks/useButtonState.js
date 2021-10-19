@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 const useButtonState = (initialValue) => {
-    const [editClicked, setEditClicked] = useState(initialValue);
+    const [buttonClicked, setButtonClicked] = useState(initialValue);
 
-    const handleChange = () => {
-        setEditClicked((prev) => !prev);
+    const handleButtonChange = () => {
+        setButtonClicked((prev) => !prev);
     };
 
-    return [editClicked, handleChange];
+    return [buttonClicked, handleButtonChange];
 };
 
 export default useButtonState;
