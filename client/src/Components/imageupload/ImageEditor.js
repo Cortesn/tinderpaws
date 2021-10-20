@@ -1,20 +1,26 @@
-import { Button, Slider } from '@mui/material'
 import React from 'react'
+import { Button, Slider, Stack } from '@mui/material'
 import AvatarEditor from 'react-avatar-editor'
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
+
+/* Reference: https://www.npmjs.com/package/react-avatar-editor */
 class ImageEditor extends React.Component {
     state = {
         image: this.props.image,
         allowZoomOut: false,
         position: { x: 0.5, y: 0.5 },
-        scale: 1.2,
+        scale: 1.5,
         rotate: 0,
         borderRadius: 20,
         preview: null,
-        width: 250,
-        height: 300,
+        width: 300,
+        maxWidth:300,
+        height: 400,
+        maxHeight: 400,
         color: [255, 255, 255, 0.6], // RGBA
-        style: {display: 'flex', margin: 'auto', justifyContent: 'center', alignItems:'center'}
+        style: {display: 'flex', justifyContent: 'center'}
     }
 
     onClickSave = () => {
@@ -47,7 +53,7 @@ class ImageEditor extends React.Component {
 
     render() {
         return (
-            <div >
+            <div style={{paddingTop: '2.5rem'}}>
                 <div style={this.state.style}>
                 <AvatarEditor
                     ref={this.setEditorRef}
@@ -61,20 +67,21 @@ class ImageEditor extends React.Component {
                     rotate={this.state.rotate}/>
                 </div>
 
+                <Stack spacing={2} direction="row" sx={{ mt: 2, mb: 2 }} alignItems="center">
+                <RemoveIcon sx={{color: (theme) => theme.palette.grey[500]}} />
+                <Slider 
+                    onChange={this.onZoom}
+                    defaultValue={1.5} 
+                    aria-label="Image-Zoom-Slider" 
+                    max={2.4}
+                    min={1}
+                    step={0.01}/>
+                <AddIcon sx={{color: (theme) => theme.palette.grey[500]}}/>
+                </Stack>
+               
                 <div style={this.state.style}>
-                    <Slider 
-                        onChange={this.onZoom}
-                        defaultValue={1.2} 
-                        aria-label="Image-Zoom-Slider" 
-                        max={2.4}
-                        step={0.01}
-                        sx={{
-                            padding: '40px 0px',
-                            maxWidth: '80%'}}/>
-                </div>
-
                 <Button 
-                    
+                    sx={{maxWidth: '80%'}}
                     fullWidth
                     type='submit' 
                     variant='contained' 
@@ -82,6 +89,7 @@ class ImageEditor extends React.Component {
                     onClick={this.onClickSave}>
                     Submit Image
                 </Button>
+                </div>
             </div>
         )
     }
