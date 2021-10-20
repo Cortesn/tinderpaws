@@ -1,9 +1,11 @@
 import React from 'react'
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import {
+    IconButton,
+    Modal, 
+    Typography, 
+    Box  } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import ImageEditor from './ImageEditor';
-
 
 const style = {
     position: 'absolute',
@@ -13,17 +15,15 @@ const style = {
     width: 400,
     maxWidth: '85%',
     bgcolor: 'background.paper',
-    border: '2px solid #666',
-    borderRadius: '20px',
+    borderRadius: '10px',
     boxShadow: 24,
-    p: 4,
-    padding: '20px',
+    p: 3,
 };
 
   
 const ImageModal = (props) => {
     const {image, open, handleClose} = props
-   
+
     return (
         <Modal
             open={open}
@@ -32,9 +32,32 @@ const ImageModal = (props) => {
             aria-describedby="modal-modal-description">
 
             <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2" align='center' sx={{padding: '10px 0px 20px'}}>
+                <Typography 
+                    id="modal-modal-title" 
+                    variant="h6" 
+                    component="h2" 
+                    align='center' 
+                    sx={{
+                        position: 'absolute',
+                        // left: 40,
+                        top: 20,
+                        right: '50%',
+                        transform: 'translateX(50%)'}}>
                     Edit Image
                 </Typography>
+
+                <IconButton
+                    open={open}
+                    aria-label="close"
+                    onClick={handleClose}
+                    sx={{
+                        position: 'absolute',
+                        right: 10,
+                        top: 10,
+                        color: (theme) => theme.palette.grey[500],
+                    }}>
+                    <CloseIcon />
+                </IconButton>
 
                 <ImageEditor image={image} />
                 
