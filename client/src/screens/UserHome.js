@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, TextField, Button, Typography, Autocomplete, Stack, FormGroup, FormControlLabel, Checkbox, Accordion, AccordionDetails, AccordionSummary} from "@mui/material";
+import { Box, TextField, Button, Typography, Autocomplete, Stack, FormGroup, FormControlLabel, Checkbox, Accordion, AccordionDetails, AccordionSummary, Link, IconButton} from "@mui/material";
+import PetsIcon from '@mui/icons-material/Pets';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const UserHome = () => {
@@ -268,8 +269,8 @@ const UserHome = () => {
                             <FormControlLabel  control={<Checkbox checked={Available} onChange={handleDispositionChange} name="Available"/>} label="Available" />
                             <FormControlLabel  control={<Checkbox checked={Pending} onChange={handleDispositionChange} name="Pending" />} label="Pending" />
                         </FormGroup>
-                        <div >
-                        <Button sx={{marginLeft:"8%"}}variant="contained" color="success" href="/addAnimalProfile">
+                        <div align="center">
+                        <Button align="center" variant="contained" color="success" href="/addAnimalProfile">
                             Save Changes
                         </Button>
                         </div>
@@ -292,7 +293,80 @@ const UserHome = () => {
                 </AccordionSummary>
                 <AccordionDetails>
                     {/* for loop of queried matches for user id, will be static data for now */}
-                    
+                    <Stack>
+                        <Box
+                        sx={{
+                            border:1,
+                            borderColor: 'grey.500',
+                            padding: '1rem',
+                            borderRadius:"12px",
+                            marginBottom: "3%"
+                        }}
+                        >
+                            <Stack
+                            direction="row"
+                            justifyContent="flex-start"
+                            // might have to change the spacing below
+                            spacing={{ xs: 1, sm: 4, md: 6, lg:10, xl:20}}
+                            >
+                                <IconButton>
+                                    <PetsIcon/>
+                                </IconButton>
+                                <Typography
+                                component="div"
+                                align="center"
+                                padding="4%"
+                                >
+                                    <Link
+                                    href="/animalProfilePage/:id"
+                                    underline="none"
+                                    color="inherit"
+                                    align="center"
+                                    marginTop="2%"
+                                    >
+                                    Match 1
+                                    </Link>
+                                </Typography>
+                                
+                            </Stack>
+                        </Box>
+                        <Box
+                        sx={{
+                            border:1,
+                            borderColor: 'grey.500',
+                            padding: '1rem',
+                            borderRadius:"12px",
+                            marginBottom: "3%"
+                        }}
+                        >
+                            <Stack
+                            direction="row"
+                            justifyContent="flex-start"
+                            // might have to change the spacing below
+                            spacing={{ xs: 1, sm: 4, md: 6, lg:10, xl:20}}
+                            >
+                                <IconButton>
+                                    <PetsIcon/>
+                                </IconButton>
+                                <Typography
+                                component="div"
+                                align="center"
+                                padding="4%"
+                                >
+                                    <Link
+                                    href="/animalProfilePage/:id"
+                                    underline="none"
+                                    color="inherit"
+                                    align="center"
+                                    marginTop="2%"
+                                    >
+                                    Match 2
+                                    </Link>
+                                </Typography>
+                                
+                            </Stack>
+                        </Box>
+                    </Stack>
                                 
                 </AccordionDetails>
             </Accordion>
