@@ -1,11 +1,8 @@
 import React from 'react'
 import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import ImageEditor, {onClickSave} from './ImageEditor';
-
+import ImageEditor from './ImageEditor';
 
 
 const style = {
@@ -16,7 +13,8 @@ const style = {
     width: 400,
     maxWidth: '85%',
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '2px solid #666',
+    borderRadius: '20px',
     boxShadow: 24,
     p: 4,
     padding: '20px',
@@ -34,23 +32,12 @@ const ImageModal = (props) => {
             aria-describedby="modal-modal-description">
 
             <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2" align='center'>
+                <Typography id="modal-modal-title" variant="h6" component="h2" align='center' sx={{padding: '10px 0px 20px'}}>
                     Edit Image
                 </Typography>
 
                 <ImageEditor image={image} />
-
-                <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" sx={{ maxWidth: '80%'}}/>
-              
-                <Button 
-                    fullWidth
-                    type='submit' 
-                    variant='contained' 
-                    color='primary'
-                    onClick={onClickSave}>
-                    Save Changes
-                </Button>
-
+                
             </Box>
         </Modal>
     )
