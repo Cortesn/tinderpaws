@@ -6,6 +6,7 @@ import SignupPage from "./screens/SignupPage";
 import {LoginScreen}  from "./screens/LoginScreen";
 import Navbar from "./Components/navbar/Navbar.js";
 import AdminEditPetPage from "./screens/AdminEditPetPage";
+import NewsFeed from "./screens/NewsFeed";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
           </Route>
           <Route path="/mission">
             <MissionPage />
+          </Route>
+          <Route path="/news">
+            <NewsFeed />
           </Route>
           <Route path="/login">
             <LoginScreen />
