@@ -17,10 +17,16 @@ const MatchItem = (props) => {
     return (
         <>
             <ListItem >
+
+                {/* avatar */}
                 <ListItemIcon>
                     <PersonIcon />
                 </ListItemIcon>
+
+                {/* user name */}
                 <ListItemText primary={user.name} />
+
+                {/* delete button */}
                 <Collapse orientation="horizontal" in={buttonClicked}>
                     <IconButton 
                         color='error' 
@@ -30,7 +36,10 @@ const MatchItem = (props) => {
                         <RemoveCircleOutlineIcon />
                     </IconButton>
                 </Collapse>  
+                
             </ListItem>
+
+            {/* separator */}
             <Grid xs={10} item>
                 <Divider variant="inset" component="li" />
             </Grid>

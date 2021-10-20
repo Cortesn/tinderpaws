@@ -8,13 +8,17 @@ const PetProfile = () => {
     return (
         <Card>
             <Paper elevation={10} sx={{}} >
+
+                {/* all images of a pet */}
                 <Grid xs={12} item>
                     <PetProfileImages />
                 </Grid>
                 
+                {/* details about a pet */}
                 <Grid xs={12} item>
                     <PetInfoForm />
                 </Grid>
+
             </Paper>
         </Card>
     )

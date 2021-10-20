@@ -32,6 +32,7 @@ const tempMatchList = [
     }
 ];
 
+// transform keys to work with generic hook
 const rename = tempMatchList.map(user => ({id: user.userId, name: user.name}) )
 
 /* Returns a compiled list of user matches for a specific pet */
@@ -43,6 +44,7 @@ const MatchList = () => {
     return (
         <Card sx={{height:'100%'}}>
             <Paper elevation={10} sx={{height: '100%', paddingTop: '1rem'}} >
+
                 {/* Heading */}
                 {/* onClick event to hide/show delete buttons */}
                 <Button 
@@ -57,6 +59,7 @@ const MatchList = () => {
                         paddingLeft:'4rem'}}>
                     Matches
                 </Typography>
+
                 <Grid xs={11} item>
                     <Divider variant='middle' sx={{paddingBottom: '.5rem'}}/>
                 </Grid>
@@ -65,13 +68,16 @@ const MatchList = () => {
                 <List> 
                     {/* iterate through list of users */}
                     {items.map((user) => (
-                        <MatchItem 
-                            key={user.id} 
-                            user={user} 
-                            buttonClicked={buttonClicked} 
-                            deleteItem={deleteItem}/>   
-                    ))}
+                            <MatchItem 
+                                key={user.id} 
+                                user={user} 
+                                buttonClicked={buttonClicked} 
+                                deleteItem={deleteItem}/>   
+                            )
+                        )
+                    }
                 </List>
+                
             </Paper>
         </Card>
     )

@@ -24,23 +24,24 @@ const ImageItem = (props) => {
             <Collapse 
                 orientation="horizontal"
                 in={deleteClicked}>
+
                 <ImageListItemBar
-                // shadow effect from MUI examples
-                sx={{
-                    background:
-                    'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-                    'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-                }}
-                position="top"
-                actionIcon={
-                    <IconButton
-                        color='error' 
-                        aria-label={`delete ${image.name}`}
-                        onClick={()=>{deleteItem(image.id);}}>
-                        <RemoveCircleOutlineIcon />
-                    </IconButton>
-                }
-                actionPosition="right"/>
+                    sx={{
+                        // shadow effect from MUI examples
+                        background:
+                        'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
+                        'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+                    }}
+                    position="top"
+                    actionIcon={
+                        <IconButton
+                            color='error' 
+                            aria-label={`delete ${image.name}`}
+                            onClick={()=>{deleteItem(image.id);}}>
+                            <RemoveCircleOutlineIcon />
+                        </IconButton>
+                    }
+                    actionPosition="right"/>
 
             </Collapse>  
         </ImageListItem>
