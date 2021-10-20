@@ -7,7 +7,12 @@ import {
     Button, 
     MenuItem, 
     Select, 
-    TextareaAutosize} from '@mui/material';
+    TextareaAutosize,
+    FormLabel,
+    FormGroup,
+    FormControlLabel,
+    Checkbox,
+    FormHelperText} from '@mui/material';
 
 
 const PetInfoForm = () => {
@@ -62,6 +67,29 @@ const PetInfoForm = () => {
                         </Select>
                     </FormControl>
                 </Grid>
+
+                {/* Add dispostionsion */}
+                <Grid item>
+                    <FormLabel component="legend">Dispositions</FormLabel>
+                    <FormGroup>
+                        <FormControlLabel
+                            control={
+                            <Checkbox checked=''  name="Good with other animals" />
+                            }
+                            label="Good with other animals"/>
+                        <FormControlLabel
+                            control={
+                            <Checkbox checked=''  name="Good with children" />
+                            }
+                            label="Good with children"/>
+                        <FormControlLabel
+                            control={
+                            <Checkbox checked=''  name="Animal must be leashed at all times" />
+                            }
+                            label="Animal must be leashed at all times"/>
+                    </FormGroup>
+                </Grid>
+                
                 <Grid item>
                     <FormControl fullWidth variant="filled" size="small">
                         <TextareaAutosize
