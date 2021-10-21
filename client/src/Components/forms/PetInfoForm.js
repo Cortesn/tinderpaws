@@ -12,7 +12,7 @@ import {
     FormGroup,
     FormControlLabel,
     Checkbox,
-    FormHelperText} from '@mui/material';
+} from '@mui/material';
 
 
 const PetInfoForm = () => {
@@ -74,17 +74,17 @@ const PetInfoForm = () => {
                     <FormGroup>
                         <FormControlLabel
                             control={
-                            <Checkbox checked=''  name="Good with other animals" />
+                            <Checkbox checked='1'  name="Good with other animals" />
                             }
                             label="Good with other animals"/>
                         <FormControlLabel
                             control={
-                            <Checkbox checked=''  name="Good with children" />
+                            <Checkbox checked='2'  name="Good with children" />
                             }
                             label="Good with children"/>
                         <FormControlLabel
                             control={
-                            <Checkbox checked=''  name="Animal must be leashed at all times" />
+                            <Checkbox checked='3'  name="Animal must be leashed at all times" />
                             }
                             label="Animal must be leashed at all times"/>
                     </FormGroup>

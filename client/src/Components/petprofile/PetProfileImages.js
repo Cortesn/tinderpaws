@@ -10,37 +10,28 @@ import ImageUploader from '../imageupload/ImageUploader';
 import ImageItem from './ImageItem';
 import useButtonState from '../../hooks/useButtonState';
 import useDeleteItemState from '../../hooks/useDeleteItemState';
-// import updateDisplayCol from '../../helperFunctions/updateDisplayCol';
-// temp dog images
-import dog1 from '../../images/alvan-nee-LHeDYF6az38-unsplash.jpg'
-import dog2 from '../../images/fabian-gieske-3nQhyFuwUkk-unsplash.jpg'
-import dog3 from '../../images/karsten-winegeart-BJaqPaH6AGQ-unsplash.jpg'
 
 // Temp Data to be replaced when backend is connected
 const tempData = [
     {
         imageId: 1,
-        url: dog1
+        url: 'https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80'
     },
     {
         imageId: 2,
-        url: dog2
+        url: 'https://images.unsplash.com/photo-1552053831-71594a27632d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=962&q=80'
     },
     {
         imageId: 3,
-        url: dog3
+        url: 'https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=985&q=80'
     },
     {
         imageId: 4,
-        url: dog1
+        url: 'https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80'
     },
     {
         imageId: 5,
-        url: dog2
-    },
-    {
-        imageId: 6,
-        url: dog3
+        url: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80'
     }
 ]
 

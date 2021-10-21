@@ -1,12 +1,11 @@
 import React from 'react'
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import ImageEditor, {onClickSave} from './ImageEditor';
-
-
+import {
+    IconButton,
+    Modal, 
+    Typography, 
+    Box  } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import ImageEditor from './ImageEditor';
 
 const style = {
     position: 'absolute',
@@ -16,16 +15,15 @@ const style = {
     width: 400,
     maxWidth: '85%',
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    borderRadius: '10px',
     boxShadow: 24,
-    p: 4,
-    padding: '20px',
+    p: 3,
 };
 
   
 const ImageModal = (props) => {
     const {image, open, handleClose} = props
-   
+
     return (
         <Modal
             open={open}
@@ -34,23 +32,35 @@ const ImageModal = (props) => {
             aria-describedby="modal-modal-description">
 
             <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2" align='center'>
+                <Typography 
+                    id="modal-modal-title" 
+                    variant="h6" 
+                    component="h2" 
+                    align='center' 
+                    sx={{
+                        position: 'absolute',
+                        // left: 40,
+                        top: 20,
+                        right: '50%',
+                        transform: 'translateX(50%)'}}>
                     Edit Image
                 </Typography>
 
+                <IconButton
+                    open={open}
+                    aria-label="close"
+                    onClick={handleClose}
+                    sx={{
+                        position: 'absolute',
+                        right: 10,
+                        top: 10,
+                        color: (theme) => theme.palette.grey[500],
+                    }}>
+                    <CloseIcon />
+                </IconButton>
+
                 <ImageEditor image={image} />
-
-                <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" sx={{ maxWidth: '80%'}}/>
-              
-                <Button 
-                    fullWidth
-                    type='submit' 
-                    variant='contained' 
-                    color='primary'
-                    onClick={onClickSave}>
-                    Save Changes
-                </Button>
-
+                
             </Box>
         </Modal>
     )
