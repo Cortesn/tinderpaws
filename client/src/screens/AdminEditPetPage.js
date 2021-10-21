@@ -13,13 +13,11 @@ import useButtonState from '../hooks/useButtonState';
 /* Page to edit a Pet information, images, and matches */
 const AdminEditPetPage = () => {
     const theme = useTheme();
-    // matches = true when breakpoint is > xs
-    // removes column spacing between cards
+
+    // reference to remove column spacing between cards
     const matches = useMediaQuery(theme.breakpoints.up('sm')); 
 
     const [buttonClicked, handleButtonChange] = useButtonState(false);
-
-    // matches ? handleButtonChange: 'none'
 
     return (
         <Grid 
@@ -27,12 +25,12 @@ const AdminEditPetPage = () => {
             justifyContent="center"
             alignItems="stretch"
             sx={{margin:'auto'}} 
-            spacing={ matches ? 1 : 0 }>
+            columnSpacing={{ sm: matches ? 1 : 0 }}>
             
             {/* Left side Matches card */}
             <Grid 
                 item 
-                xs={12} sm={5} md={4} lg={3} xl={2} 
+                xs={12} sm={6} md={5} lg={4} xl={3} 
                 sx={{ 
                     display: 
                         { xs: buttonClicked ? 'block':'none', sm: 'block' } 
@@ -58,7 +56,6 @@ const AdminEditPetPage = () => {
                 xs={12} sm={6} md={5} lg={4} xl={3} 
                 sx={{ 
                     display: 
-                        // { xs: matches ? handleButtonChange : 'block', sm: 'block' } 
                         { xs: buttonClicked ? 'none':'block', sm: 'block' }
                     }}>
 

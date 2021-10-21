@@ -13,12 +13,9 @@ const ImageItem = (props) => {
 
     return (
         <ImageListItem key={image.id} >
-            {/* default img sizing from MUI */}
             <img
-                src={`${image.url}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${image.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                alt={image.id}
-                loading="lazy"/>
+                src={`${image.url}`}
+                alt={image.id}/>
 
             {/* delete button visible when delete is clicked */}
             <Collapse 
