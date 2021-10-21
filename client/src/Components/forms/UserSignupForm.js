@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import { InputAdornment, IconButton, FilledInput, InputLabel, FormControl } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import googleBtn from '../../images/googleBtn.png'
+// import googleBtn from '../../images/googleBtn.png'
 import useSignupFormState from '../../hooks/useSignupFormState';
 
 const UserSignupForm = () => {
@@ -110,7 +110,7 @@ const UserSignupForm = () => {
                 </Grid>
                 <Grid item sx={{textAlign:'center', margin:'auto'}}>
                     {/* temp button until we link backend */}
-                    <img src={googleBtn} alt='google oauth button'/>
+                    {/* <img src={googleBtn} alt='google oauth button'/> */}
                 </Grid>
             </Grid> 
         </form>
