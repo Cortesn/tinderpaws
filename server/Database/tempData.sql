@@ -1,4 +1,4 @@
-INSERT INTO Animals (name) VALUES
+INSERT INTO Animals (type) VALUES
 ('Dog'),
 ('Cat'),
 ('Other');
@@ -17,11 +17,11 @@ INSERT INTO Shelters (name, street, city, state, zip, date_created, last_updated
 ('Test Shelter No. 2', '4567 Adopted St', 'Seattle', 'WA', '88888', '2021-10-12', '2021-10-14', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'),
 ('Test Shelter No. 3', '888 Dog St', 'Seattle', 'WA', '88888', '2021-10-15', '2021-10-15', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
 
-INSERT INTO Pets (type, breed, status, date_created, last_updated, description, shelter_id) VALUES
-(1, 'Golden Retriever', 2, '2021-10-15', null, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 1),
-(1, 'German Sheperd', 2, '2021-10-15', null, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 2),
-(2, 'Bengal', 2, '2021-10-15', null, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 1),
-(2, 'Munchkin', 2, '2021-10-15', null, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 2);
+INSERT INTO Pets (name, type, breed, status, date_created, last_updated, description, shelter_id) VALUES
+('Spike', 1, 'Golden Retriever', 2, '2021-10-15', null, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 1),
+('Fluffy', 1, 'German Sheperd', 2, '2021-10-15', null, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 2),
+('Paul', 2, 'Bengal', 2, '2021-10-15', null, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 1),
+('Meowzer', 2, 'Munchkin', 2, '2021-10-15', null, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 2);
 
 INSERT INTO Dispositions (description) VALUES
 ('Good with other animals'),
