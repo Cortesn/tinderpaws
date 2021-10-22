@@ -1,1 +1,7 @@
 /.vscode
+# node modules - bulky
+/node_modules
+# db details
+/Database/dbcon.js
+# package-lock.json
+package-lock.json
