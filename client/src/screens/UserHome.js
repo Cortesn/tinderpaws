@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, TextField, Button, Typography, Autocomplete, Stack, FormGroup, FormControlLabel, Checkbox, Accordion, AccordionDetails, AccordionSummary, Link, IconButton} from "@mui/material";
+import { Box, TextField, Button, Typography, Autocomplete, Stack, FormGroup, FormControlLabel, Checkbox, Accordion, AccordionDetails, AccordionSummary, Link, IconButton, FormControl} from "@mui/material";
 import PetsIcon from '@mui/icons-material/Pets';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -103,7 +103,8 @@ const UserHome = () => {
             width: '30%',
             padding: '1rem',
             borderRadius:"12px",
-            marginBottom: "2rem"
+            marginBottom: "2rem",
+            marginLeft: "2%"
             }}
         >
             <Accordion expanded={expanded === 'profileSettings'} onChange={handleChangeAccordion('profileSettings')}>
@@ -125,45 +126,46 @@ const UserHome = () => {
                         noValidate
                         autoComplete="off"
                         >
-                        <div>
+                        <FormControl>
+                            <TextField
+                                id="outlined-first-name"
+                                label="First Name"
+                                defaultValue="Robert"
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <TextField
+                                id="outlined-last-name"
+                                label="Last Name"
+                                defaultValue="Hello World"
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <TextField
+                                    id="outlined-email"
+                                    label="Email"
+                                    defaultValue="robert@humanesocietysv.com"
+                                />
+                        </FormControl>
+                        <FormControl>
+                            <TextField
+                                    id="outlined-password"
+                                    label="Update Password"
+                                    type="password"
+                                    defaultValue="**********"
+                                />
+                        </FormControl>
+                       <FormControl>
                         <TextField
-                            id="outlined-first-name"
-                            label="First Name"
-                            defaultValue="Robert"
-                        />
-                        </div>
-                        <div>
-                        <TextField
-                            id="outlined-last-name"
-                            label="Last Name"
-                            defaultValue="Hello World"
-                        />
-                        </div>
-                        <div>
-                            <TextField
-                                id="outlined-email"
-                                label="Email"
-                                defaultValue="robert@humanesocietysv.com"
-                            />
-                        </div>
-                        <div>
-                            <TextField
-                                id="outlined-password"
-                                label="Update Password"
-                                type="password"
-                                defaultValue="**********"
-                            />
-                        </div>
-                        <div>
-                            <TextField
-                                id="outlined-confirm-password"
-                                label="Confirm Password"
-                                type="password"
-                                defaultValue="**********"
-                            />
-                        </div>
-                        <div >
-                            <Button sx={{marginLeft:"4%"}}variant="contained" color="success" href="/addAnimalProfile">
+                                    id="outlined-confirm-password"
+                                    label="Confirm Password"
+                                    type="password"
+                                    defaultValue="**********"
+                                />
+                       </FormControl>
+                       <div
+                       align="center">
+                            <Button sx={{marginLeft:"4%"}} type="submit" variant="contained" color="success">
                                 Save Changes
                             </Button>
                         </div>
@@ -270,9 +272,9 @@ const UserHome = () => {
                             <FormControlLabel  control={<Checkbox checked={Pending} onChange={handleDispositionChange} name="Pending" />} label="Pending" />
                         </FormGroup>
                         <div align="center">
-                        <Button align="center" variant="contained" color="success" href="/addAnimalProfile">
-                            Save Changes
-                        </Button>
+                            <Button align="center" variant="contained" color="success" href="/addAnimalProfile">
+                                Save Changes
+                            </Button>
                         </div>
 
                     </Stack>

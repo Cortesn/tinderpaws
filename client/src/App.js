@@ -5,7 +5,8 @@ import MissionPage from "./screens/MissionPage";
 import {LoginScreen}  from "./screens/LoginScreen";
 import SignupPage from "./screens/SignupPage";
 import AdminHome from "./screens/AdminHome";
-import UserHome from "./screens/UserHome";
+// import UserHome from "./screens/UserHome";
+import UserHomeAlt from "./screens/UserHomeAlt";
 
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
             <SignupPage />
           </Route>
           <Route path="/userHome/:id">
-            <UserHome />
+            <UserHomeAlt />
           </Route>
           <Route path="/adminHome/:id">
             <AdminHome />
