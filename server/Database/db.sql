@@ -86,7 +86,7 @@ CREATE TABLE Users (
 	f_name varchar(50) NOT NULL,
 	l_name varchar(50) NOT NULL,
 	email varchar(225) NOT NULL,
-	zip varchar(20) NOT NULL,
+	zip varchar(20),
 	password varchar(50) NOT NULL,
 	date_created date NOT NULL,
 	last_updated date
