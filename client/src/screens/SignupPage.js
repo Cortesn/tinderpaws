@@ -3,15 +3,15 @@ import UserTab from '../Components/tabs/UserTab';
 import ShelterTab from '../Components/tabs/ShelterTab';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+import { Tab, Tabs, Grid, Paper } from '@mui/material';
 import TabPanel from '../Components/tabs/TabPanel';
 import useTabState from '../hooks/useTabState';
 
 
-const SignupPage = () => {
+const SignupPage = (props) => {
+    // const {options} = props;
+    // temp list of shelters
+    const options = ['Shelter No.1', 'Shelter No.2', 'Shelter No.3']
     const theme = useTheme();
 
     const [value, handleChange, handleChangeIndex] = useTabState(0);
@@ -50,7 +50,7 @@ const SignupPage = () => {
                         </TabPanel>
                         <TabPanel value={value} index={1} dir={theme.direction}>
                             {/* form for new shelter/ employee signup */}
-                            <ShelterTab/>
+                            <ShelterTab options={options}/>
                         </TabPanel>
                     </SwipeableViews>
                 </Paper>
