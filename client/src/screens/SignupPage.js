@@ -1,9 +1,7 @@
 import React from 'react'
+import { Tab, Tabs, Grid, Paper } from '@mui/material';
 import UserTab from '../Components/tabs/UserTab';
 import ShelterTab from '../Components/tabs/ShelterTab';
-import SwipeableViews from 'react-swipeable-views';
-import { useTheme } from '@mui/material/styles';
-import { Tab, Tabs, Grid, Paper } from '@mui/material';
 import TabPanel from '../Components/tabs/TabPanel';
 import useTabState from '../hooks/useTabState';
 
@@ -12,9 +10,8 @@ const SignupPage = (props) => {
     // const {options} = props;
     // temp list of shelters
     const options = ['Shelter No.1', 'Shelter No.2', 'Shelter No.3']
-    const theme = useTheme();
 
-    const [value, handleChange, handleChangeIndex] = useTabState(0);
+    const [value, handleChange] = useTabState(0);
 
     return (
         // main container for the signup forms set to max width of screen
@@ -39,20 +36,16 @@ const SignupPage = (props) => {
                             <Tab label="User Sign Up" />
                             <Tab label="Shelter Sign Up"/>
                         </Tabs>
-                    {/* use older version of react swipeable views(0.12.4) vs 0.14.0 has bugs that prevent first swipe */}
-                    <SwipeableViews
-                        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                        index={value}
-                        onChangeIndex={handleChangeIndex}>
-                        <TabPanel value={value} index={0} dir={theme.direction}>
-                            {/* form for new user signup */}
-                            <UserTab/>
-                        </TabPanel>
-                        <TabPanel value={value} index={1} dir={theme.direction}>
-                            {/* form for new shelter/ employee signup */}
-                            <ShelterTab options={options}/>
-                        </TabPanel>
-                    </SwipeableViews>
+                    
+                    <TabPanel value={value} index={0} >
+                        {/* form for new user signup */}
+                        <UserTab/>
+                    </TabPanel>
+                    <TabPanel value={value} index={1} >
+                        {/* form for new shelter/ employee signup */}
+                        <ShelterTab options={options}/>
+                    </TabPanel>
+                   
                 </Paper>
             </Grid>
         </Grid>

@@ -1,6 +1,8 @@
 import React from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { UserFormik, ShelterFormik, EmployeeFormik } from './ValidationSchemas';
+import ShelterFormik from './ShelterSignup';
+import UserFormik from './UserSignup';
+import EmployeeFormik from './EmployeeSignup';
 import useFormPasswordState from '../../hooks/useFormPasswordState';
 
 var formik;
@@ -18,28 +20,29 @@ const FormInputs = (type, options) =>{
     }
   
     // state for changing password visability
-    const [ pass1, 
-        handleChange1,  
+    const [ 
+        pass1, 
         handleClickShowPassword1, 
-        handleMouseDownPassword1] 
-        = useFormPasswordState({
+        handleMouseDownPassword1
+    ] = useFormPasswordState({
             password: '',
             showPassword: false,
         }
     );
-    const [ pass2, 
-        handleChange2,  
+    const [ 
+        pass2, 
         handleClickShowPassword2, 
-        handleMouseDownPassword2] 
-        = useFormPasswordState({
+        handleMouseDownPassword2
+    ] = useFormPasswordState({
             password: '',
             showPassword: false,
         }
     );
 
-    // inputs to build the user signup form
-    // use the password prop for passwords and the options prop for select/options
+    // inputs to build the signup forms
+    // use the password prop for passwords and the options prop for select/options(dropdown)
     // all others that do not have these will be normal input fields
+    // ** add a checkbox and radio option
     const inputFields = [
         {
             types: ['employee'],
@@ -148,8 +151,8 @@ const FormInputs = (type, options) =>{
             label: 'Password',
             password: {
                 type: pass1.showPassword ? 'text' : 'password',
-                value: formik.values.password = pass1.password,
-                onChange: handleChange1('password'),
+                value: pass1.password = formik.values.password,
+                onChange: formik.handleChange('password'),
                 error: formik.touched.password && Boolean(formik.errors.password),
                 helperText: formik.touched.password && formik.errors.password,
                 endAdornment: {
@@ -165,8 +168,8 @@ const FormInputs = (type, options) =>{
             label: 'Confirm Password',
             password: {
                 type: pass2.showPassword ? 'text' : 'password',
-                value: formik.values.passwordConfirm = pass2.password,
-                onChange: handleChange2('password'),
+                value: pass2.password = formik.values.passwordConfirm,
+                onChange: formik.handleChange('passwordConfirm'),
                 error: formik.touched.passwordConfirm && Boolean(formik.errors.passwordConfirm),
                 helperText: formik.touched.passwordConfirm && formik.errors.passwordConfirm,
                 endAdornment: {

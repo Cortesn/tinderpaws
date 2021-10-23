@@ -21,6 +21,7 @@ const FormTemplate = (props) => {
                 
                 if (input.id === 'city'){
                     tempInput = input;
+                    return null;
 
                 } else if (input.id === 'zip' && tempInput !== null){
                     return(
