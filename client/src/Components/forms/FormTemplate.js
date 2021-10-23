@@ -19,7 +19,7 @@ const FormTemplate = (props) => {
             
             {filteredInputs.map(input =>{
                 
-                if (input.id === 'city'){
+                if (input.id === 'state'){
                     tempInput = input;
                     return null;
 
