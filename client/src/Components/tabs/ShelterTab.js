@@ -1,17 +1,26 @@
 import React from 'react'
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import { Avatar, Link, FormGroup, Stack, Switch } from '@mui/material';
+import { 
+    Grid, 
+    Typography, 
+    Avatar, 
+    Link, 
+    FormGroup, 
+    Stack, 
+    Switch } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import ShelterSignupForm from '../forms/ShelterSignupForm';
-import EmployeeSignupForm from '../forms/EmployeeSignupForm';
+import FormTemplate from '../forms/FormTemplate';
+import { FormInputs, formik } from '../forms/FormInputs';
 
 
-const ShelterTab = () => {
+const ShelterTab = (props) => {
+    const {options} = props;
     const [shelter, setShelter] = React.useState(true);
     const toggleForms = (event, value) => {
         setShelter(value ? false : true);
+        formik.resetForm(); // reset formik data
+        // need to also reset password data because its also store in a separate state
     };
+  
     return (
         <>
             <Avatar sx={{margin:'auto'}}>
@@ -25,12 +34,20 @@ const ShelterTab = () => {
             <FormGroup>
                 <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
                     <Typography>Shelter</Typography>
-                        <Switch onChange={toggleForms}/>
+                        <Switch onChange={toggleForms} />
                     <Typography>Employee</Typography>
                 </Stack>
             </FormGroup>
 
-            { shelter ? <ShelterSignupForm/> : <EmployeeSignupForm/>}
+            { shelter ? <FormTemplate 
+                            form={FormInputs} 
+                            type={'shelter'} 
+                            button={'Signup'}/> 
+                        : <FormTemplate 
+                            form={FormInputs} 
+                            type={'employee'} 
+                            options={options}
+                            button={'Signup'}/> }
         </>
     )
 }
