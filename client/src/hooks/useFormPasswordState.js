@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useSignupFormState = (initialValue) =>{
+const useFormPasswordState = (initialValue) =>{
     const [values, setValues] = useState(initialValue);
 
     const handleChange = (prop) => (event) => {
@@ -15,7 +15,6 @@ const useSignupFormState = (initialValue) =>{
         });
     };
 
-
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
@@ -23,4 +22,4 @@ const useSignupFormState = (initialValue) =>{
     return [values, handleChange, handleClickShowPassword, handleMouseDownPassword];
 }
 
-export default useSignupFormState;
+export default useFormPasswordState;
