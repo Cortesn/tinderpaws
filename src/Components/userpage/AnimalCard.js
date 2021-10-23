@@ -57,8 +57,8 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, childRefs }) => {
 								image={pet.images[imgIdx]}
 								alt={pet.name}
 								sx={{
-									maxWidth: "80%",
-									height: 450,
+									maxWidth: "60%",
+									height: 400,
 									width: "auto",
 									objectFit: "contain",
 								}}

@@ -63,7 +63,7 @@ export const UserPage = () => {
 						justifyContent: "center",
 						marginTop: "2vh",
 						// position: "relative",
-						// height: "800px",
+						height: "730px",
 						// alignItems: "stretch"
 					}}
 					item container
@@ -80,11 +80,11 @@ export const UserPage = () => {
 						/>
 					))}
 				</Container>
-				<Container sx={{textAlign:"center", display:"flex"}}>
-					<IconButton onClick={() => swipe("left")} color="secondary" sx={{pr:"5vw"}}>
+				<Container sx={{textAlign:"center"}}>
+					<IconButton onClick={() => swipe("left")} color="secondary" sx={{mr:"5vw"}}>
 						<Clear fontSize="large" />
 					</IconButton>
-					<IconButton onClick={() => swipe("right")} color="error" sx={{pl:"5vw"}}>
+					<IconButton onClick={() => swipe("right")} color="error" sx={{ml:"5vw"}}>
 						<Favorite fontSize="large" />
 					</IconButton>
 				</Container>
