@@ -41,10 +41,10 @@ INSERT INTO Employees (shelter_id, name, email, password, date_created) VALUES
 (1, 'Jane', 'jane@test.com', '123456', '2021-10-15'),
 (2, 'Test', 'test@test.com', '123456', '2021-10-15');
 
-INSERT INTO Users (f_name, l_name, email, password, date_created, last_updated) VALUES
-('Andrew', 'Jung', 'jungan@oregonstate.edu', '123456', '2021-10-15', '2021-10-15'),
-('TestUser', 'TestUser', 'testuser@test.com', '123456', '2021-10-15', '2021-10-15'),
-('TestUser2', 'TestUser2', 'testuser2@test.com', '123456', '2021-10-15', '2021-10-15');
+INSERT INTO Users (f_name, l_name, email, zip, password, date_created, last_updated) VALUES
+('Andrew', 'Jung', 'jungan@oregonstate.edu', '98145', '123456', '2021-10-15', '2021-10-15'),
+('TestUser', 'TestUser', 'testuser@test.com', '88888', '123456', '2021-10-15', '2021-10-15'),
+('TestUser2', 'TestUser2', 'testuser2@test.com', '88888', '123456', '2021-10-15', '2021-10-15');
 
 INSERT INTO Matches (pet_id, user_id, date_matched) VALUES
 (1, 1, '2021-10-15'),
