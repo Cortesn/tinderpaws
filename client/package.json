@@ -12,7 +12,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.23.0",
-    "mysql": "^2.18.1",
+    "formik": "^2.2.9",
     "react": "^17.0.2",
     "react-avatar-editor": "^12.0.0",
     "react-dom": "^17.0.2",
@@ -21,7 +21,8 @@
     "react-scripts": "4.0.3",
     "react-swipeable-views": "^0.14.0",
     "react-tinder-card": "^1.4.3",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",

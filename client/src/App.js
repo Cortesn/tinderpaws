@@ -7,6 +7,7 @@ import {LoginScreen}  from "./screens/LoginScreen";
 import { UserPage } from "./screens/UserPage";
 import Navbar from "./Components/navbar/Navbar.js";
 import AdminEditPetPage from "./screens/AdminEditPetPage";
+import NewsFeed from "./screens/NewsFeed";
 
 function App() {
   return (

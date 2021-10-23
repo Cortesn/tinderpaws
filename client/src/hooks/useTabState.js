@@ -9,11 +9,11 @@ const useTabState = (initialValue) => {
         setValue(newValue);
     };
 
-    const handleChangeIndex = (index) => {
-        setValue(index);
-    };
+    // const handleChangeIndex = (index) => {
+    //     setValue(index);
+    // };
 
-    return [value, handleChange, handleChangeIndex];
+    return [value, handleChange];
 };
 
 export default useTabState;
