@@ -1,9 +1,15 @@
 import express from 'express';
+import cors from 'cors';
 import pool from './Database/dbcon.js'
-
+import {signup} from './routes/signup.js'
 const app = express();
 const db = pool;
 
+app.use(cors());
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
+app.use('/signup', signup)
 // below works - need to figure out how to send back to client! 
 
 // endpoint to get shelter information given employee id
@@ -30,6 +36,7 @@ app.get("/employee/:id", (req,res)=>{
 
 })
 
-app.listen(3001, ()=>{
-    console.log("running on port 3001")
-})
+
+const port = process.env.PORT || 3001;
+const hostname = process.env.HOSTNAME || 'localhost';
+app.listen( port, () => console.log(`Server started on http://${hostname}:${port}`));
