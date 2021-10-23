@@ -9,15 +9,37 @@ app.use(cors())
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
+/*
+    Profile settings endpoint
+    - update profile
+*/
+app.patch("/updateProfile/:user_id", (req, res)=>{
+    const user_id = req.params.user_id;
+    const first_name = req.body.f_name;
+    const last_name = req.body.l_name;
+    const email = req.body.email;
+    const password = req.body.password;
+    // sql format
+    const last_updated = new Date().toISOString().slice(0,10);
+    const updateProfile = `UPDATE Users SET f_name = ${first_name}, l_name=${last_name}, email=${email}, password=${password}, last_updated=${last_updated} WHERE user_id=${user_id}`;
+    db.query(updateProfile, (err,result)=>{
+        if(err){
+            console.error(err.message);
+        }else{
+            res.send("Successfully updated user profile!")
+        }
+    })
+})
+
 /* 
-    user settings endpoints
+    filter settings endpoints
 
     - all shelters
     - selected animal breeds
     - animal cards results 
 */
 app.get("/shelters", (req,res)=>{
-    const getShelters = `SELECT Shelters.name FROM Shelters`
+    const getShelters = `SELECT DISTINCT(Shelters.name) FROM Shelters`;
     db.query(getShelters, (err,result)=>{
         if (err){
             console.error(err.message)
@@ -29,11 +51,11 @@ app.get("/shelters", (req,res)=>{
 
 app.get("/animals/breed", (req,res)=>{
     // animl types need to be an array of numbers 1 == Dog, 2==Cat, 3==Other
+    // 2 ways: query db table animals to convert all names to types or map them in react before sending over
     const animalTypes = req.body.animalTypes;
     
-    // 2nd way
-    const sqlAnimalTypesArray = animalTypes.join(',')
-    const getBreeds = `SELECT Pets.breed from Pets WHERE Pets.type IN (${sqlAnimalTypesArray})`
+    const sqlAnimalTypesArray = animalTypes.join(',');
+    const getBreeds = `SELECT DISTINCT(Pets.breed) from Pets WHERE Pets.type IN (${sqlAnimalTypesArray})`;
 
     db.query(getBreeds, (err, result)=>{
         if(err){
@@ -51,22 +73,43 @@ app.get("/animals/filtered", (req,res)=>{
     const dispositions = req.body.dispositions;
 
     // convert JS array to SQL array: breeds and dispositions
-    const sqlBreedsArray = breeds.join(',')
-    const sqlDispositionsArray = dispositions.join(',')
-    const shelterSubQuery = `SELECT Shelters.shelter_id FROM Shelters WHERE Shelters.shelter_id = ${shelter}`
-    const dispositionsSubQuery = `SELECT p.pet_id FROM tinder_paws.Pets_Dispositions pd 
+    const sqlBreedsArray = breeds.join(',');
+    const sqlDispositionsArray = dispositions.join(',');
+    console.log(sqlBreedsArray)
+    console.log(sqlDispositionsArray)
+    const shelterSubQuery = `SELECT Shelters.shelter_id FROM Shelters WHERE Shelters.shelter_id = ${shelter}`;
+    const dispositionsSubQuery = `SELECT DISTINCT(p.pet_id) FROM tinder_paws.Pets_Dispositions pd 
     join tinder_paws.Pets p on pd.pet_id = p.pet_id 
     join tinder_paws.Dispositions d on pd.disposition_id = d.disposition_id 
-    WHERE d.disposition_id IN ${sqlDispositionsArray}`
+    WHERE d.disposition_id IN ${sqlDispositionsArray}`;
 
     // final query
-    const getFilteredAnimals = `SELECT * FROM Pets INNER JOIN Shelters on Pets.shelter_id = Shelters.shelter_id WHERE Pets.shelter_id IN ${shelterSubQuery} AND Pets.breed IN ${sqlBreedsArray} AND Pets.pet_id IN ${dispositionsSubQuery}`
+    const getFilteredAnimals = `SELECT * FROM Pets INNER JOIN Shelters on Pets.shelter_id = Shelters.shelter_id WHERE Pets.shelter_id IN ${shelterSubQuery} AND Pets.breed IN ${sqlBreedsArray} AND Pets.pet_id IN ${dispositionsSubQuery}`;
     db.query(getFilteredAnimals, (err, result)=>{
-        res.send(result)
+        if(err){
+            console.error(err.message);
+        }else{
+            res.send(result);
+        }
     })
 
 })
 
+/* 
+    user matches endpoint
+    - get matches for user -> get names of animals
+*/
+app.get("/user/:id/matches", (req, res)=>{
+    const user_id = req.params.id;
+    const getMatches = `SELECT Pets.name FROM tinder_paws.Pets JOIN tinder_paws.Matches on Pets.pet_id = Matches.pet_id JOIN tinder_paws.Users on Users.user_id = Matches.user_id WHERE Users.user_id = ${user_id};`
+    db.query(getMatches, (err, result)=>{
+        if(err){
+            console.error(err.message);
+        }else{
+            res.send(result);
+        }
+    })
+})
 
 /*
     admin page endpoints 
