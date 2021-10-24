@@ -13,12 +13,24 @@ import Logout from "./Components/Logout";
 
 
 function App() {
-  const [values, setValues] = useState({user_id: '', email: '', auth: false})
+  const [values, setValues] = useState({
+      user_id: '', 
+      shelter_id: '',
+      employee_id: '',
+      email: '', 
+      auth: false
+    })
   // console.log(values)
 
-  const handleLogout = () => {
-    setValues({user_id: '', email: '', auth: false})
-  }
+  // const handleLogout = () => {
+  //   setValues({
+  //     user_id: '', 
+  //     shelter_id: '',
+  //     employee_id: '',
+  //     email: '', 
+  //     auth: false
+  //   })
+  // }
 
   // check if valid token and load user or admin information
   useEffect( () => {
@@ -42,7 +54,7 @@ function App() {
   return (
     <Router>
     {/* <div className="App"> */}
-      <Navbar user={values}/>
+      <Navbar account={values}/>
       {/* <div className="content"> */}
         {/* can be a string, int, float, array, even math.random */}
         <Switch>
@@ -65,7 +77,7 @@ function App() {
             <AdminEditPetPage />
           </Route>
           <Route exact path="/logout">
-            <Logout handleLogout={handleLogout}/>
+            <Logout />
           </Route>
         </Switch>
       {/* </div> */}

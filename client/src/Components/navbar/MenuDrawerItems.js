@@ -11,7 +11,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 
 
 // mobile slideout drawer menu
-export default function MenuDrawerItems(anchor, toggleDrawer, user){
+export default function MenuDrawerItems(anchor, toggleDrawer, account){
     return(
         <Box
             sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
@@ -28,7 +28,7 @@ export default function MenuDrawerItems(anchor, toggleDrawer, user){
             </List>
             <Divider />
             <List>
-                {user.auth ? 
+                {account.auth ? 
                     <ListItem button component='a' href='/logout' key='Logout'>
                         <ListItemText primary='Log Out' />
                         <ListItemIcon>

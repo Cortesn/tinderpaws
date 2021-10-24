@@ -7,7 +7,7 @@ import useNavbarState from '../../hooks/useNavbarState.js'
 
 
 export default function MobileMenu(props){
-    const {user} = props
+    const {account} = props
     // drawer state and toggle
     const [state, toggleDrawer] = useNavbarState({'right':false});
     const anchor = 'right';
@@ -20,7 +20,7 @@ export default function MobileMenu(props){
                 anchor={anchor}
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}>
-                {MenuDrawerItems(anchor, toggleDrawer, user)}
+                {MenuDrawerItems(anchor, toggleDrawer, account)}
             </Drawer>
         </React.Fragment>
     )

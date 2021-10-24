@@ -17,7 +17,7 @@ import MobileMenu from './MobileMenu.js'
 
 
 export default function Navbar(props) {
-    const {user} = props
+    const {account} = props
 
     return (
         // Main navbar items
@@ -40,7 +40,7 @@ export default function Navbar(props) {
                             Tinder Paws
                         </Typography>
                     </IconButton>
-                    {/* divider */}
+                    
                     <IconButton
                         size="small"
                         color="inherit"
@@ -61,14 +61,43 @@ export default function Navbar(props) {
                             About
                         </Typography>
                     </IconButton>
+
+                    {/* displays the "Pets button to view available pets" */}
+                    { account.user_id ?
+                        <IconButton
+                            size="small"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 2, display: { xs: 'none', sm: 'block' } }}
+                            href='/user'>
+                            <Typography component="div" sx={{ flexGrow: 1 }}>
+                                Pets
+                            </Typography>
+                        </IconButton>
+                    : null }
+
+                    {/* displays the "Pets button to view available pets" */}
+                    { account._id ?
+                        <IconButton
+                            size="small"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 2, display: { xs: 'none', sm: 'block' } }}
+                            href='/user'>
+                            <Typography component="div" sx={{ flexGrow: 1 }}>
+                                Pets
+                            </Typography>
+                        </IconButton>
+                    : null }
+                    
                     {/* divider */}
                     <Box sx={{ flexGrow: 1 }} />
                     {/* login/signup */}
                     <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                        {user.auth ?
+                        {account.auth ?
                             <div style={{height: '100%'}}>
                                 <Typography component="div" sx={{display: 'inline-block'}}>
-                                {user.email}
+                                {account.email}
                                 </Typography>
                                 
                                 <IconButton
@@ -94,7 +123,7 @@ export default function Navbar(props) {
                     </Box>
                     {/* render mobile menu */}
                     <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
-                        <MobileMenu user={user}/>
+                        <MobileMenu account={account}/>
                     </Box>
                 </Toolbar>
             </AppBar>
