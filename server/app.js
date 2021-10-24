@@ -5,9 +5,9 @@ import pool from './Database/dbcon.js'
 const app = express();
 const db = pool;
 
-app.use(cors())
-app.use(express.urlencoded({extended: true}))
-app.use(express.json())
+app.use(cors());
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 
 /*
     Profile settings endpoint
@@ -52,10 +52,19 @@ app.get("/shelters", (req,res)=>{
 app.get("/animals/breed", (req,res)=>{
     // animl types need to be an array of numbers 1 == Dog, 2==Cat, 3==Other
     // 2 ways: query db table animals to convert all names to types or map them in react before sending over
-    const animalTypes = req.body.animalTypes;
-    
+    const animalTypes = req.query.animalTypes;
+    const shelters = req.query.shelter ? req.query.shelter : null 
     const sqlAnimalTypesArray = animalTypes.join(',');
-    const getBreeds = `SELECT DISTINCT(Pets.breed) from Pets WHERE Pets.type IN (${sqlAnimalTypesArray})`;
+    let getBreeds = null
+    if(shelters){
+        // if shelters given we query for the id and then query for animals in the shelters
+        const sqlSheltersArray = shelters.join(', ');
+        const getShelterIdSubquery = `SELECT Shelters.shelter_id FROM Shelters WHERE Shelters.name IN (${sqlSheltersArray})`;
+        getBreeds = `SELECT DISTINCT(Pets.breed) FROM Pets WHERE Pets.type IN (${sqlAnimalTypesArray}) AND Pets.shelter_id IN (${getShelterIdSubquery})`;
+    }else{
+        // shelters not picked so we give all animals that match type
+        getBreeds = `SELECT DISTINCT(Pets.breed) from Pets WHERE Pets.type IN (${sqlAnimalTypesArray})`;
+    }
 
     db.query(getBreeds, (err, result)=>{
         if(err){
@@ -67,7 +76,7 @@ app.get("/animals/breed", (req,res)=>{
 })
 
 app.get("/animals/filtered", (req,res)=>{
-    const shelter = req.body.shelter;
+    const shelter = req.body.shelters;
     // do not need types again since we have breeds
     const breeds = req.body.breeds;
     const dispositions = req.body.dispositions;

@@ -1,17 +1,32 @@
 import React from "react";
-import { Typography, Accordion, AccordionDetails, AccordionSummary, Grid} from "@mui/material";
+import { Typography, Accordion, AccordionDetails, AccordionSummary, Grid, Button} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import UserProfileUpdateForm from "../Components/forms/UserProfileUpdateForm";
 import AnimalFilterForm from "../Components/forms/AnimalFilterForm";
 import MatchesGrid from "../Components/grids/MatchesGrid";
 import UserAccordionState from "../hooks/useAccordionState";
+// import UseSettingsShelterState from "../hooks/useSettingShelterState";
+import {useState, useEffect} from 'react';
+import axios from 'axios';
+
 
 const UserHome = () => {
     const [expanded, handleChangeAccordion] = UserAccordionState(false);
+    // create hook for shelters 
+    // const [shelters, handleGetShelter] = UseSettingsShelterState();
+    const [shelters, setShelters] = useState(null);
+    useEffect(() => {
+        const url = 'http://localhost:3001/shelters';
+        axios.get(url).then((response)=>{
+            setShelters(response.data);
+            });
+        },[]);
 
+    
     return ( 
         <Grid container>
             <Grid xs={12} sm={7} md={5} lg={4} xl={3} sx={{margin: 'auto'}} item>
+                <Button>Hello</Button>
                 <Accordion sx={{width: "100%"}} expanded={expanded === 'profileSettings'} onChange={handleChangeAccordion('profileSettings')}>
                     <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -37,7 +52,7 @@ const UserHome = () => {
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <AnimalFilterForm/>
+                        {shelters && <AnimalFilterForm shelters={shelters}/>}
                     </AccordionDetails>
                 </Accordion>
                     <Accordion expanded={expanded === 'matches'} onChange={handleChangeAccordion('matches')}>
