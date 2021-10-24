@@ -1,79 +1,46 @@
 import React from "react";
-import { Box, Button, Typography } from "@mui/material";
-import { Pets as PetsIcon } from "@mui/icons-material";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import useInputState from "../hooks/useInputState";
+import { Avatar, Grid, Link, Paper, Stack, Typography } from '@mui/material';
+import FormTemplate from '../Components/forms/FormTemplate';
+import { FormInputs } from '../Components/forms/FormInputs';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 
 export const LoginScreen = () => {
-	const [user, handleChangeUser, resetUser] = useInputState("");
-	const [password, handleChangePassword, resetPassword] = useInputState("");
-
-	const handleSubmit = () => {
-		resetUser();
-		resetPassword();
-	};
 
 	return (
-		<Box height="100vh" sx={{backgroundColor: "#cadee3"}}>
-			<Box
-				sx={{
-					textAlign: "center",
-				}}
-			>
-				<Box
-					sx={{
-						border: 1,
-            borderRadius: "5px",
-						display: "flex",
-						flexFlow: "column",
-						maxWidth: "40%",
-            margin: "auto",
-            padding: "2rem",
-            marginTop: "10rem",
-            backgroundColor: "white"
-					}}
-				>
-					<Typography variant="h2">
-						Tinder Paws <PetsIcon sx={{ fontSize: "4rem" }} />
+		// main container for the signup forms set to max width of screen
+        <Grid container>
+            <Grid xs={12} sm={7} md={5} lg={4} xl={3} sx={{margin: 'auto'}} item>
+                <Paper elevation={10} >
+				<Stack spacing={1}>
+
+					<Avatar sx={{margin:'auto', marginTop: '2rem'}}>
+						<VpnKeyIcon />
+					</Avatar>
+
+					<Grid item sx={{marginTop: '2rem', textAlign:'center'}}>
+						<Typography variant='h6' sx={{textAlign: 'center'}}>Sign in</Typography>
+						{/* link to signup page */}
+						<Typography variant='subtitle1' sx={{textAlign: 'center'}}>Don't have an account? Click 
+							<Link href='/signup' underline='none' color='primary'> here</Link>
+						</Typography>
+					</Grid>
+
+					<div style={{width: '90%', alignSelf:'center'}}>
+						<FormTemplate 
+							form={FormInputs} 
+							type={'login'} 
+							button={'Login'}/>
+					</div>
+
+					{/* forgot password -> reset password page */}
+					<Typography variant='subtitle1' sx={{paddingBottom: '2rem', textAlign: 'center'}}>
+						<Link href='/reset' underline='none' color='primary'>Forgot password?</Link>
 					</Typography>
-					<Typography variant="h5" sx={{ marginBottom: "1rem" }}>Log in to account</Typography>
-					<ValidatorForm
-						onSubmit={handleSubmit}
-						instantValidate={false}
-					>
-						<TextValidator
-							value={user}
-							placeholder="Username"
-							name="username"
-							margin="normal"
-							onChange={handleChangeUser}
-							validators={["required"]}
-							errorMessages={["Enter a username"]}
-              sx={{width:"50%"}}
-						/>
-						<TextValidator
-							value={password}
-              type="password"
-							placeholder="Password"
-							name="password"
-							margin="normal"
-							onChange={handleChangePassword}
-							validators={["required"]}
-							errorMessages={["Enter a password"]}
-              sx={{width:"50%"}}
-						/>
-						<Button
-							variant="contained"
-							type="submit"
-							color="primary"
-              size="large"
-              sx={{ marginTop: "2rem" }}
-						>
-							Submit
-						</Button>
-					</ValidatorForm>
-				</Box>
-			</Box>
-		</Box>
+					
+
+				</Stack>
+                </Paper>
+            </Grid>
+        </Grid>
 	);
 };
