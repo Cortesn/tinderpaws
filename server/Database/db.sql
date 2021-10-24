@@ -76,7 +76,7 @@ CREATE TABLE Employees (
 	shelter_id int NOT NULL,
 	name varchar(225) NOT NULL,
 	email varchar(225) NOT NULL,
-	password varchar(50) NOT NULL,
+	password varchar(255) NOT NULL,
 	date_created date NOT NULL,
 	FOREIGN KEY (shelter_id) REFERENCES Shelters (shelter_id)
 );
@@ -87,7 +87,7 @@ CREATE TABLE Users (
 	l_name varchar(50) NOT NULL,
 	email varchar(225) NOT NULL,
 	zip varchar(20),
-	password varchar(50) NOT NULL,
+	password varchar(255) NOT NULL,
 	date_created date NOT NULL,
 	last_updated date
 );
