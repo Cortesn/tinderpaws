@@ -24,21 +24,26 @@ const setToken = (token) => {
     }
 }
 
+// remove the azios header token and the local storage token
+const removeTokenLogout = () =>{
+    delete instance.defaults.headers.common['x-auth-token']
+    localStorage.removeItem('token')
+}
 
 // look up setting a refresh token
 
 // catch response coming from server auth.middleware with 401 unathenticated status
 // https://www.npmjs.com/package/axios#interceptors
-instance.interceptors.response.use(function(response){
-    // 2xx repsonse codes
-}, function(error){
-    // anything not 2xx
-    if (error.response.status === 401) {
-        // user is not authenticated . logout user
+// instance.interceptors.response.use(function(response){
+//     // 2xx repsonse codes
+// }, function(error){
+//     // anything not 2xx
+//     if (error.response.status === 401) {
+//         // user is not authenticated . logout user
 
-    }
-    return Promise.reject(error)
-})
+//     }
+//     return Promise.reject(error)
+// })
 
 export {instance as api}
-export {setToken}
+export {setToken, removeTokenLogout}

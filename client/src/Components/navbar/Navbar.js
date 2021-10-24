@@ -12,10 +12,13 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import PetsIcon from '@mui/icons-material/Pets';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MobileMenu from './MobileMenu.js'
 
 
-export default function Navbar() {
+export default function Navbar(props) {
+    const {user} = props
+
     return (
         // Main navbar items
         <Box sx={{ flexGrow: 1 , paddingBottom:'20px'}}>
@@ -62,18 +65,36 @@ export default function Navbar() {
                     <Box sx={{ flexGrow: 1 }} />
                     {/* login/signup */}
                     <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            color="inherit"
-                            href='/signup'>
-                            <AccountCircle />
-                        </IconButton>
+                        {user.auth ?
+                            <div style={{height: '100%'}}>
+                                <Typography component="div" sx={{display: 'inline-block'}}>
+                                {user.email}
+                                </Typography>
+                                
+                                <IconButton
+                                    size="large"
+                                    edge="end"
+                                    aria-label="logout current user"
+                                    color="inherit"
+                                    href='/logout'>
+                                        
+                                    <LogoutIcon />
+                                </IconButton>
+                            </div>
+                        :
+                            <IconButton
+                                size="large"
+                                edge="end"
+                                aria-label="account of current user"
+                                color="inherit"
+                                href='/login'>
+                                <AccountCircle />
+                            </IconButton>
+                        }        
                     </Box>
                     {/* render mobile menu */}
                     <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
-                        <MobileMenu/>
+                        <MobileMenu user={user}/>
                     </Box>
                 </Toolbar>
             </AppBar>

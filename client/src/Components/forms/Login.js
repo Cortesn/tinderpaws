@@ -42,7 +42,7 @@ const LoginFormik = () => useFormik({
                 window.location = '/'
             })
             .catch(function(error){
-                console.log(error)
+                // console.log(error)
                 // set error msg with formik
                 setFieldValue('error', error.response.data.msg)
             })
