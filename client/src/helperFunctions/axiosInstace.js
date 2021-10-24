@@ -12,19 +12,33 @@ const instance = axios.create({
 const setToken = (token) => {
     if(token){
         // set header tokens
-        instance.defaults.headers.common['Authorization'] = token
+        // use x-auth-token instead -> similar to OAuth2.0
+        instance.defaults.headers.common['x-auth-token'] = token
+        // instance.defaults.headers.common['Authorization'] = token
         // set local storage tokens
         localStorage.setItem('token', token)
     } else {
-        delete instance.defaults.headers.common['Authorization']
+        delete instance.defaults.headers.common['x-auth-token']
+        // delete instance.defaults.headers.common['Authorization']
         localStorage.removeItem('token')
     }
 }
 
+
 // look up setting a refresh token
 
-// may also use axios interceptors but not sure how they work yet.
+// catch response coming from server auth.middleware with 401 unathenticated status
 // https://www.npmjs.com/package/axios#interceptors
+instance.interceptors.response.use(function(response){
+    // 2xx repsonse codes
+}, function(error){
+    // anything not 2xx
+    if (error.response.status === 401) {
+        // user is not authenticated . logout user
 
-export {instance as axios}
+    }
+    return Promise.reject(error)
+})
+
+export {instance as api}
 export {setToken}

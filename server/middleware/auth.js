@@ -8,9 +8,8 @@ const auth = (req, res, next) => {
     // no token in the header
     if (!token){
         return res.status(401).json({msg: 'Please login'})
-        
     }
-
+    // if there is a token check if valid
     try {
         // read to token and set the user prop in the request
         const decode = jwt.verify(token, config.get('jwtSecret'));

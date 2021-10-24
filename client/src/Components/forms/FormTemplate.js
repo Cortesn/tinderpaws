@@ -19,6 +19,7 @@ const FormTemplate = (props) => {
             
             {/* display alert messages */}
             {formik.values.error ? <Alert severity="error">{formik.values.error}</Alert> : null}
+            {formik.values.success ? <Alert severity="success">{formik.values.success}</Alert> : null}
             
             {filteredInputs.map(input =>{
                 

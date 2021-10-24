@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import {axios, setToken} from '../../helperFunctions/axiosInstace'
+import {api, setToken} from '../../helperFunctions/axiosInstace'
 
 // Formik Schema (users)
 const userValidation = () => Yup.object({
@@ -35,26 +35,28 @@ const UserFormik = () => useFormik({
         email: '',
         password: '',
         passwordConfirm: '',
-        error: '',
     },
     validationSchema: userValidation(),
     onSubmit: (values, {resetForm, setFieldValue}) => {
         // make a copy and clean data
         var data = JSON.parse(JSON.stringify(values))
         delete data.passwordConfirm
-        delete data.error
 
         // make request
-        axios.post('/signup/user', data )
+        api.post('/signup/user', data )
             .then(function(response){
-                console.log(response)
-                console.log(response.data)
+                // console.log(response)
+                // console.log(response.data)
+                
                 const {token} = response.data
-
                 setToken(token)
 
-                // redirects to the user page
-                window.location = '/user'
+                // remove error if exists
+                setFieldValue('error', '')
+                setFieldValue('success', 'Success!')
+
+                // redirects page
+                window.location = '/'
             })
             .catch(function(error){
                 // set error msg with formik
@@ -62,7 +64,7 @@ const UserFormik = () => useFormik({
             })
             // might not need this promise -> always executes
             .then(function(){
-                resetForm()
+                // resetForm()
             })
     },
 });
