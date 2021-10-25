@@ -8,6 +8,7 @@ import { UserPage } from "./screens/UserPage";
 import Navbar from "./Components/navbar/Navbar.js";
 import AdminEditPetPage from "./screens/AdminEditPetPage";
 import NewsFeed from "./screens/NewsFeed";
+import { AdminPage } from "./screens/AdminPage";
 
 function App() {
   return (
@@ -32,9 +33,10 @@ function App() {
           <Route exact path="/signup">
             <SignupPage />
           </Route>
-          <Route path="/admin/editpet">
+          <Route exact path="/admin/editpet">
             <AdminEditPetPage />
           </Route>
+          <Route exact path="/admin" render={()=> <AdminPage/>}/>
         </Switch>
       {/* </div> */}
     {/* </div> */}
