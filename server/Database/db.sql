@@ -18,7 +18,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE Animals (
 	animal_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	name varchar(50) NOT NULL
+	type varchar(50) NOT NULL
 );
 
 CREATE TABLE Statuses (
@@ -45,6 +45,7 @@ CREATE TABLE Shelters (
 
 CREATE TABLE Pets (
 	pet_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name varchar(50) NOT NULL,
 	type int NOT NULL, 
 	breed varchar(50),
 	status int NOT NULL,
@@ -85,6 +86,7 @@ CREATE TABLE Users (
 	f_name varchar(50) NOT NULL,
 	l_name varchar(50) NOT NULL,
 	email varchar(225) NOT NULL,
+	zip varchar(20),
 	password varchar(50) NOT NULL,
 	date_created date NOT NULL,
 	last_updated date

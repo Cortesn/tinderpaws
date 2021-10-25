@@ -6,8 +6,10 @@ import {LoginScreen}  from "./screens/LoginScreen";
 import SignupPage from "./screens/SignupPage";
 import AdminHome from "./screens/AdminHome";
 import UserHome from "./screens/UserHome";
+import { UserPage } from "./screens/UserPage";
 import Navbar from "./Components/navbar/Navbar.js";
 import AdminEditPetPage from "./screens/AdminEditPetPage";
+import NewsFeed from "./screens/NewsFeed";
 
 function App() {
   return (
@@ -20,13 +22,16 @@ function App() {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Route path="/mission">
+          <Route exact path="/mission">
             <MissionPage />
           </Route>
-          <Route path="/login">
+          <Route exact path="/login">
             <LoginScreen />
           </Route>
-          <Route path="/signup">
+          <Route exact path="/user">
+            <UserPage/>
+          </Route>
+          <Route exact path="/signup">
             <SignupPage />
           </Route>
           <Route path="/userHome/:id">
@@ -37,6 +42,9 @@ function App() {
           </Route>
           <Route path="/admin/editpet">
             <AdminEditPetPage />
+          </Route>
+          <Route path="/newsFeed">
+            <NewsFeed />
           </Route>
         </Switch>
       </div>
