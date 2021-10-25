@@ -108,9 +108,9 @@ app.get("/animals/filtered", (req,res)=>{
     user matches endpoint
     - get matches for user -> get names of animals
 */
-app.get("/user/:id/matches", (req, res)=>{
+app.get("/users/:id/matches", (req, res)=>{
     const user_id = req.params.id;
-    const getMatches = `SELECT Pets.name FROM tinder_paws.Pets JOIN tinder_paws.Matches on Pets.pet_id = Matches.pet_id JOIN tinder_paws.Users on Users.user_id = Matches.user_id WHERE Users.user_id = ${user_id};`
+    const getMatches = `SELECT Pets.name, Pets.pet_id FROM tinder_paws.Pets JOIN tinder_paws.Matches on Pets.pet_id = Matches.pet_id JOIN tinder_paws.Users on Users.user_id = Matches.user_id WHERE Users.user_id = ${user_id};`
     db.query(getMatches, (err, result)=>{
         if(err){
             console.error(err.message);

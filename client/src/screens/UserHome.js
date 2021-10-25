@@ -5,12 +5,13 @@ import UserProfileUpdateForm from "../Components/forms/UserProfileUpdateForm";
 import AnimalFilterForm from "../Components/forms/AnimalFilterForm";
 import MatchesGrid from "../Components/grids/MatchesGrid";
 import UserAccordionState from "../hooks/useAccordionState";
-// import UseSettingsShelterState from "../hooks/useSettingShelterState";
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import { useParams } from "react-router";
 
 
 const UserHome = () => {
+    const {id} = useParams();
     const [expanded, handleChangeAccordion] = UserAccordionState(false);
     // create hook for shelters 
     // const [shelters, handleGetShelter] = UseSettingsShelterState();
@@ -66,7 +67,7 @@ const UserHome = () => {
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <MatchesGrid/>
+                            <MatchesGrid user_id={id}/>
                         </AccordionDetails>
                     </Accordion>
             </Grid>

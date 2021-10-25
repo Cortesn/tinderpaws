@@ -1,88 +1,23 @@
-import React from "react";
-import { Box, Typography, Link, IconButton, Grid} from "@mui/material";
-import PetsIcon from '@mui/icons-material/Pets';
-const MatchesGrid = () => {
+import React, {useState, useEffect} from "react";
+import {Grid} from "@mui/material";
+// import PetsIcon from '@mui/icons-material/Pets';
+import axios from'axios';
+import createDynamicMatches from "../../helperFunctions/UserHome/createDynamicMatches";
+
+const MatchesGrid = (props) => {
+    // populating breeds drop down -- cant move out due to initial render
+    const user_id = props.user_id
+    const [matchesState, setMatchesState] = useState([]);
+    useEffect(() => {
+        const url = `http://localhost:3001/users/${user_id}/matches`;
+        axios.get(url).then((response)=>{
+            setMatchesState(response.data);
+            });
+        },[user_id]);
+    
     return ( 
         <Grid container direction={"column"} spacing={1}>
-            <Grid item align="center">
-                {/* for loop of queried matches for user id, will be static data for now */}
-                <Box
-                sx={{
-                    border:1,
-                    borderColor: 'grey.500',
-                    padding: '1rem',
-                    borderRadius:"12px",
-                    marginBottom: "3%"
-                }}
-                >
-                    <Grid
-                    container 
-                    direction={"row"}
-                    // // might have to change the spacing below
-                    spacing={{ xs: 1, sm: 4, md: 6, lg:10, xl:20}}
-                    >
-                        <Grid item>
-                            <IconButton>
-                                <PetsIcon/>
-                            </IconButton>
-                        </Grid>
-                        <Grid item>
-                            <Typography
-                            component="div"
-                            align="center"
-                            paddingTop="10%"
-                            >
-                                <Link
-                                href="/animalProfilePage/:id"
-                                underline="none"
-                                color="inherit"
-                                >
-                                Match 1
-                                </Link>
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </Grid>
-            <Grid item>
-            {/* for loop of queried matches for user id, will be static data for now */}
-                <Box
-                sx={{
-                    border:1,
-                    borderColor: 'grey.500',
-                    padding: '1rem',
-                    borderRadius:"12px",
-                    marginBottom: "3%"
-                }}
-                >
-                    <Grid 
-                    container 
-                    direction={"row"}
-                    // // might have to change the spacing below
-                    spacing={{ xs: 1, sm: 4, md: 6, lg:10, xl:20}}
-                    >
-                        <Grid item>
-                            <IconButton>
-                                <PetsIcon/>
-                            </IconButton>
-                        </Grid>
-                        <Grid item>
-                            <Typography
-                                component="div"
-                                paddingTop="10%"
-                                >
-                                <Link
-                                href="/animalProfilePage/:id"
-                                underline="none"
-                                color="inherit"
-                                >
-                                Match 2
-                                </Link>
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </Grid>
+            {createDynamicMatches(matchesState)}
         </Grid>         
      );
 }

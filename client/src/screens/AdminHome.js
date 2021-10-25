@@ -24,7 +24,6 @@ const AdminHome = () => {
     
     return ( 
         <Box>
-            {/* Navbar goes here */}
             <Box sx={{
                 border:1,
                 borderColor: 'grey.500',
