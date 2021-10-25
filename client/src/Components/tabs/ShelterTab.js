@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { 
     Grid, 
     Typography, 
@@ -9,18 +9,31 @@ import {
     Switch } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import FormTemplate from '../forms/FormTemplate';
-import { FormInputs, formik } from '../forms/FormInputs';
+import { formik } from '../forms/FormInputs';
+import { api } from "../../helperFunctions/axiosInstace";
 
-
-const ShelterTab = (props) => {
-    const {options} = props;
+const ShelterTab = () => {
     const [shelter, setShelter] = React.useState(true);
     const toggleForms = (event, value) => {
         setShelter(value ? false : true);
         formik.resetForm(); // reset formik data
         // need to also reset password data because its also store in a separate state
     };
-  
+    // set options for list of shelters
+    const [options, setOptions] = useState()
+;    useEffect( () => {
+        api.get('/forms/shelters')
+          .then( response => {
+            // set state here
+            const data = response.data.map(shelter => ({ id: shelter.shelter_id , name: shelter.name }))
+            // console.log(data)
+            setOptions(data)
+          })
+          .catch( error => {
+            // console.log(error)
+          })
+      }, [])
+
     return (
         <>
             <Avatar sx={{margin:'auto'}}>
@@ -40,14 +53,14 @@ const ShelterTab = (props) => {
             </FormGroup>
 
             { shelter ? <FormTemplate 
-                            form={FormInputs} 
+                            // form={FormInputs} 
                             type={'shelter'} 
                             button={'Signup'}/> 
                         : <FormTemplate 
-                            form={FormInputs} 
+                            // form={FormInputs} 
                             type={'employee'} 
-                            options={options}
-                            button={'Signup'}/> }
+                            button={'Signup'}
+                            options={options}/> }
         </>
     )
 }

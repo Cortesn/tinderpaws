@@ -10,33 +10,46 @@ const db = pool
 // user login route
 router.post('/', (req,res) => {
     var {email, password} = req.body
-    console.log(req.body)
+    // console.log(req.body)
    
     // check if user already exists
-    const findUser = `SELECT user_id, email, password FROM Users WHERE email='${email}'`
-    db.query(findUser, async (error, results)  => {
+    const findUser = 'SELECT user_id, email, password FROM Users WHERE email=?'
+    const findShelter = 'SELECT shelter_id, email, password FROM Shelters WHERE email=?'
+    const findEmployees = 'SELECT employee_id, email, password FROM Employees WHERE email=?'
+    db.query(`${findUser}; ${findShelter}; ${findEmployees}`, [email, email, email], async (error, results)  => {
         if (error){
             // server error
+            console.log(error)
             return res.status(400).json({ msg : 'Somthing went wrong. Please try agian.' })
             // redirect back to login
         } else if (results.length <= 0){
-            console.log("error")
-            console.log(results)
+            // console.log("no results")
+            // console.log(results)
             // did not find a email match
             return res.status(400).json({ msg : 'Invalid credentials' })
         } else {
             // user is found
-            console.log('user found-> login route:')
-            console.log(results[0])
             try{
+                // console.log('user found-> login route:')
+                // console.log(results)
+                const result = await results.filter(arr => arr.length > 0)[0][0]
                 // match password
-                const isMatch = await bcrypt.compare(password, results[0].password);
+                const isMatch = await bcrypt.compare(password, result.password);
 
                 if(!isMatch){
                     return res.status(400).json({ msg : 'Invalid credentials'})
                 } else {
                     // password patches generate token
-                    const payload = { user: { id : results[0].user_id }}
+                    if(result.user_id){
+                        var payload = { user: { user_id : result.user_id }}
+                    } else if (result.shelter_id){
+                        payload = { user: { shelter_id : result.shelter_id }}
+                    } else {
+                        payload = { user: { employee_id : result.employee_id }}
+                    }
+                    // const payload = { user: { user_id : result.user_id ?? result.shelter_id ?? result.employee_id }}
+
+                    // console.log(payload)
                     jwt.sign( payload, config.get('jwtSecret'), {expiresIn: 360000}, (error, token) => {
                         if (error){
                             console.log(error)

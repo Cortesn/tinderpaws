@@ -4,6 +4,7 @@ import pool from './Database/dbcon.js'
 import { signup } from './routes/signup.js'
 import { login } from './routes/login.js'
 import { auth } from './routes/auth.js';
+import { forms } from './routes/forms.js';
 
 const app = express();
 const db = pool;
@@ -15,6 +16,9 @@ app.use(express.urlencoded({extended: true}))
 app.use('/auth', auth)
 app.use('/login', login)
 app.use('/signup', signup)
+app.use('/forms', forms)
+
+
 // below works - need to figure out how to send back to client! 
 
 // endpoint to get shelter information given employee id

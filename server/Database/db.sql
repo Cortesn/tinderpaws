@@ -38,6 +38,7 @@ CREATE TABLE Shelters (
 	city varchar(225) NOT NULL,
 	state char(2) NOT NULL,
 	zip varchar(20) NOT NULL,
+	password varchar(255) NOT NULL,
 	date_created date NOT NULL,
 	last_updated date,
 	info text

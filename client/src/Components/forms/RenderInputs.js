@@ -40,16 +40,22 @@ export const RenderInputs = (props) => {
             /> 
         )
     } else if (input.options){
+        console.log(input.options)
         // select/options
         return (
             <>
             <InputLabel htmlFor={input.id}>{input.label}</InputLabel>
             <Select
+                // onBlur={input.onBlur}
                 labelId={input.id}
                 id={input.id}
-                value=''>
+                defaultValue=''
+                value={input.value}
+                options={input.options}
+                onChange={input.onChange}
+                error={input.error}>
                 {input.options.map(option =>
-                    <MenuItem key={option} value={option}>{option}</MenuItem>
+                    <MenuItem key={option.id} id={option.id} value={option.id}>{option.name}</MenuItem>
                 )}
             </Select>
             </>

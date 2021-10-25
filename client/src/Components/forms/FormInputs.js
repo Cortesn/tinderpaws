@@ -50,7 +50,7 @@ const FormInputs = (type, options) =>{
             types: ['employee'],
             id: 'sname',
             label: 'Shelter Name',
-            value: ()=> this.types['employee'] ? formik.values.shelterOptions : '',
+            value: formik.values.shelterOptions,
             onChange: formik.handleChange,
             error: formik.touched.shelterOptions && Boolean(formik.errors.shelterOptions),
             helperText: formik.touched.shelterOptions && formik.errors.shelterOptions,
@@ -186,7 +186,7 @@ const FormInputs = (type, options) =>{
     // grab the types you need
     const filteredInputs = inputFields.filter(input => input.types.includes(type))
 
-    return {filteredInputs, formik}
+    return {filteredInputs}
 }
 
 export {FormInputs, formik}

@@ -44,7 +44,7 @@ const UserFormik = () => useFormik({
 
         // make request
         api.post('/signup/user', data )
-            .then(function(response){
+            .then( response => {
                 // console.log(response)
                 // console.log(response.data)
                 
@@ -58,14 +58,14 @@ const UserFormik = () => useFormik({
                 // redirects page
                 window.location = '/'
             })
-            .catch(function(error){
+            .catch( error => {
                 // set error msg with formik
                 setFieldValue('error', error.response.data.msg)
             })
             // might not need this promise -> always executes
-            .then(function(){
-                // resetForm()
-            })
+            // .then(function(){
+            //     // resetForm()
+            // })
     },
 });
 

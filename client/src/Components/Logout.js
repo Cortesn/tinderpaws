@@ -7,7 +7,7 @@ import { removeTokenLogout } from "../helperFunctions/axiosInstace"
 // used withRouter wrapper 
 // https://stackoverflow.com/questions/42701129/how-to-push-to-history-in-react-router-v4#:~:text=Use%20the%20withRouter%20high-order%20component
 const Logout = (props) => {
-    // const { handleLogout } = props
+    // const { logout } = props
     removeTokenLogout()
     // update state
     // handleLogout()

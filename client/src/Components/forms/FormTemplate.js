@@ -2,11 +2,11 @@ import React from 'react'
 import { Button, Stack, FormControl, Alert } from '@mui/material';
 import { RenderInputs } from './RenderInputs';
 import RenderTwoInputs from './RenderTwoInputs';
-
+import { FormInputs, formik } from './FormInputs';
 
 const FormTemplate = (props) => {
-    const {form, type, options, button} = props;
-    const {filteredInputs, formik} = form(type, options);
+    const {type, button, options} = props;
+    const {filteredInputs} = FormInputs(type, options);
     
     var tempInput = null;
     return (

@@ -29,8 +29,6 @@ const LoginFormik = () => useFormik({
         api.post('/login', data )
             .then(function(response){
                 // console.log(response)
-                // console.log(response.data)
-
                 const {token} = response.data
                 setToken(token)
 
@@ -42,7 +40,7 @@ const LoginFormik = () => useFormik({
                 window.location = '/'
             })
             .catch(function(error){
-                // console.log(error)
+                console.log(error)
                 // set error msg with formik
                 setFieldValue('error', error.response.data.msg)
             })

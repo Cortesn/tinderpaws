@@ -76,8 +76,8 @@ export default function Navbar(props) {
                         </IconButton>
                     : null }
 
-                    {/* displays the "Pets button to view available pets" */}
-                    { account._id ?
+                    {/* displays the "admin employee managment" */}
+                    {/* { account._id ?
                         <IconButton
                             size="small"
                             color="inherit"
@@ -85,10 +85,10 @@ export default function Navbar(props) {
                             sx={{ mr: 2, display: { xs: 'none', sm: 'block' } }}
                             href='/user'>
                             <Typography component="div" sx={{ flexGrow: 1 }}>
-                                Pets
+                                Manage
                             </Typography>
                         </IconButton>
-                    : null }
+                    : null } */}
                     
                     {/* divider */}
                     <Box sx={{ flexGrow: 1 }} />

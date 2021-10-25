@@ -5,7 +5,7 @@ import {api, setToken} from '../../helperFunctions/axiosInstace'
 // Formik Schema (employee)
 const employeeValidation = () => Yup.object({
     shelterOptions: Yup
-        .string()
+        .object()
         .required('Required'),
     employeeId: Yup
         .string()
@@ -30,6 +30,7 @@ const employeeValidation = () => Yup.object({
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
 });
 
+
 // formik state
 const EmployeeFormik = () => useFormik({
     initialValues: {
@@ -45,10 +46,10 @@ const EmployeeFormik = () => useFormik({
         // make a copy and clean data
         var data = JSON.parse(JSON.stringify(values))
         delete data.passwordConfirm
-
+        console.log(values)
         // make request
         api.post('/signup/employee', data )
-            .then(function(response){
+            .then( response => {
                 // console.log(response)
                 // console.log(response.data)
                 
@@ -62,14 +63,14 @@ const EmployeeFormik = () => useFormik({
                 // redirects page
                 window.location = '/'
             })
-            .catch(function(error){
+            .catch( error => {
                 // set error msg with formik
                 setFieldValue('error', error.response.data.msg)
             })
             // might not need this promise -> always executes
-            .then(function(){
-                // resetForm()
-            })
+            // .then(function(){
+            //     // resetForm()
+            // })
     },
 });
 
