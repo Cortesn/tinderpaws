@@ -5,7 +5,7 @@ import {api, setToken} from '../../helperFunctions/axiosInstace'
 // Formik Schema (employee)
 const employeeValidation = () => Yup.object({
     shelterOptions: Yup
-        .object()
+        .string()
         .required('Required'),
     employeeId: Yup
         .string()
@@ -33,6 +33,7 @@ const employeeValidation = () => Yup.object({
 
 // formik state
 const EmployeeFormik = () => useFormik({
+    enableReinitialize: true, // allows to reset the initial fields
     initialValues: {
         shelterOptions: '',
         employeeId: '',
@@ -43,16 +44,14 @@ const EmployeeFormik = () => useFormik({
     },
     validationSchema: employeeValidation(),
     onSubmit: (values, {resetForm, setFieldValue}) => {
+        // console.log(values)
         // make a copy and clean data
         var data = JSON.parse(JSON.stringify(values))
         delete data.passwordConfirm
-        console.log(values)
         // make request
         api.post('/signup/employee', data )
             .then( response => {
-                // console.log(response)
-                // console.log(response.data)
-                
+                // console.log(response) 
                 const {token} = response.data
                 setToken(token)
 

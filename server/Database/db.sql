@@ -38,6 +38,7 @@ CREATE TABLE Shelters (
 	city varchar(225) NOT NULL,
 	state char(2) NOT NULL,
 	zip varchar(20) NOT NULL,
+	email varchar(225) NOT NULL,
 	password varchar(255) NOT NULL,
 	date_created date NOT NULL,
 	last_updated date,
@@ -73,7 +74,7 @@ CREATE TABLE Pets_Dispositions (
 );
 
 CREATE TABLE Employees (
-	employee_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	employee_id int NOT NULL PRIMARY KEY,
 	shelter_id int NOT NULL,
 	name varchar(225) NOT NULL,
 	email varchar(225) NOT NULL,

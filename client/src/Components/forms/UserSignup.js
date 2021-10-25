@@ -29,6 +29,7 @@ const userValidation = () => Yup.object({
 
 // formik state & create new user
 const UserFormik = () => useFormik({
+    enableReinitialize: true, // allows to reset the initial fields
     initialValues: {
         fname: '',
         lname:'',

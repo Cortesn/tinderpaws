@@ -45,6 +45,7 @@ const shelterValidation = () => Yup.object({
 
 // formik state
 const ShelterFormik =()=> useFormik({
+    enableReinitialize: true, // allows to reset the initial fields
     initialValues: {
         sname: '',
         street: '',
@@ -57,6 +58,7 @@ const ShelterFormik =()=> useFormik({
     },
     validationSchema: shelterValidation,
     onSubmit: (values, {resetForm, setFieldValue}) => {
+        // console.log(values)
         // make a copy and clean data
         var data = JSON.parse(JSON.stringify(values))
         delete data.passwordConfirm

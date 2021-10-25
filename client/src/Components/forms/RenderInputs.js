@@ -20,7 +20,7 @@ export const RenderInputs = (props) => {
                 id={input.id}
                 label={input.label}
                 type={input.password.type}
-                value={input.password.value}
+                value={input.password.value || ''}
                 onChange={input.password.onChange}
                 error={input.password.error}
                 helperText={input.password.helperText}
@@ -40,7 +40,7 @@ export const RenderInputs = (props) => {
             /> 
         )
     } else if (input.options){
-        console.log(input.options)
+        // console.log(input.options)
         // select/options
         return (
             <>
@@ -49,9 +49,8 @@ export const RenderInputs = (props) => {
                 // onBlur={input.onBlur}
                 labelId={input.id}
                 id={input.id}
-                defaultValue=''
-                value={input.value}
-                options={input.options}
+                value={input.value || ''}
+                // options={input.options}
                 onChange={input.onChange}
                 error={input.error}>
                 {input.options.map(option =>
@@ -68,7 +67,7 @@ export const RenderInputs = (props) => {
                 id={input.id}
                 label={input.label}
                 name={input.id}
-                value={input.value}
+                value={input.value || ''}
                 onChange={input.onChange}
                 error={input.error}
                 helperText={input.helperText}/>

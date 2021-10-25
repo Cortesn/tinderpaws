@@ -51,7 +51,7 @@ const FormInputs = (type, options) =>{
             id: 'sname',
             label: 'Shelter Name',
             value: formik.values.shelterOptions,
-            onChange: formik.handleChange,
+            onChange: formik.handleChange('shelterOptions'),
             error: formik.touched.shelterOptions && Boolean(formik.errors.shelterOptions),
             helperText: formik.touched.shelterOptions && formik.errors.shelterOptions,
             options: options
