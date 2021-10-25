@@ -30,6 +30,8 @@ export const AdminPage = () => {
     }
   }
 
+  const animalTypes = ['all', 'dog', 'cat', 'fox']
+
 	return (
 		<Container>
 			<Grid container alignItems="center" sx={{ mt: "4rem", mb: "2rem" }}>
@@ -46,10 +48,9 @@ export const AdminPage = () => {
 							value={filter}
 							onChange={filterPets}
 						>
-							<MenuItem value="all">All</MenuItem>
-							<MenuItem value="dog">Dog</MenuItem>
-							<MenuItem value="cat">Cat</MenuItem>
-							<MenuItem value="fox">Fox</MenuItem>
+              {animalTypes.map((animal) => {
+                return <MenuItem key={animal} value={animal}>{animal[0].toUpperCase() + animal.slice(1)}</MenuItem>
+              })}
 						</Select>
 					</FormControl>
 				</Grid>
