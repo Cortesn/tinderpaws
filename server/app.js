@@ -76,24 +76,24 @@ app.get("/animals/breed", (req,res)=>{
 })
 
 app.get("/animals/filtered", (req,res)=>{
-    const shelter = req.body.shelters;
+    const shelters = req.query.shelters;
     // do not need types again since we have breeds
-    const breeds = req.body.breeds;
-    const dispositions = req.body.dispositions;
-
-    // convert JS array to SQL array: breeds and dispositions
+    const breeds = req.query.breeds;
+    const dispositions = req.query.dispositions;
+    // convert JS array to SQL array: breeds shelters dispositions
     const sqlBreedsArray = breeds.join(',');
     const sqlDispositionsArray = dispositions.join(',');
-    console.log(sqlBreedsArray)
-    console.log(sqlDispositionsArray)
-    const shelterSubQuery = `SELECT Shelters.shelter_id FROM Shelters WHERE Shelters.shelter_id = ${shelter}`;
+    const sqlSheltersArray = shelters.join(',');
+
+    const getDispositionIds = `SELECT Dispositions.disposition_id from Dispositions WHERE Dispositions.description IN (${sqlDispositionsArray})`;
+    const shelterSubQuery = `SELECT Shelters.shelter_id FROM Shelters WHERE Shelters.name IN (${sqlSheltersArray})`;
     const dispositionsSubQuery = `SELECT DISTINCT(p.pet_id) FROM tinder_paws.Pets_Dispositions pd 
     join tinder_paws.Pets p on pd.pet_id = p.pet_id 
     join tinder_paws.Dispositions d on pd.disposition_id = d.disposition_id 
-    WHERE d.disposition_id IN ${sqlDispositionsArray}`;
+    WHERE d.disposition_id IN (${getDispositionIds})`;
 
     // final query
-    const getFilteredAnimals = `SELECT * FROM Pets INNER JOIN Shelters on Pets.shelter_id = Shelters.shelter_id WHERE Pets.shelter_id IN ${shelterSubQuery} AND Pets.breed IN ${sqlBreedsArray} AND Pets.pet_id IN ${dispositionsSubQuery}`;
+    const getFilteredAnimals = `SELECT * FROM Pets INNER JOIN Shelters on Pets.shelter_id = Shelters.shelter_id WHERE Pets.shelter_id IN (${shelterSubQuery}) AND Pets.breed IN (${sqlBreedsArray}) AND Pets.pet_id IN (${dispositionsSubQuery})`;
     db.query(getFilteredAnimals, (err, result)=>{
         if(err){
             console.error(err.message);

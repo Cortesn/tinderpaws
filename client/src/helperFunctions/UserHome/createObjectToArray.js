@@ -1,4 +1,4 @@
-const createSheltersNameArray = (objectList, arr) => {
+const createObjectToArray = (objectList, arr) => {
     for(const idx in objectList){
         for(const key in objectList[idx]){
             arr.push(`"${objectList[idx][key]}"`)
@@ -7,4 +7,4 @@ const createSheltersNameArray = (objectList, arr) => {
     return ( arr );
 }
  
-export default createSheltersNameArray;
+export default createObjectToArray;
