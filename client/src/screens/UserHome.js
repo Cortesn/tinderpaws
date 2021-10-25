@@ -39,7 +39,7 @@ const UserHome = () => {
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                            <UserProfileUpdateForm/>
+                        <UserProfileUpdateForm user_id={id}/>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={expanded === 'filterSettings'} onChange={handleChangeAccordion('filterSettings')}>

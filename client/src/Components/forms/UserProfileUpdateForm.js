@@ -1,6 +1,9 @@
 import React from "react";
 import { Button, Typography, FormControl, Grid, FilledInput, InputLabel} from "@mui/material";
-const UserProfileUpdateForm = () => {
+const UserProfileUpdateForm = (props) => {
+    const user_id = props.user_id
+    
+
     return ( 
         <form >
             <Grid container direction={"column"} spacing={1}>
