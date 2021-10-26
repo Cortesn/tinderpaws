@@ -12,10 +12,13 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import PetsIcon from '@mui/icons-material/Pets';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MobileMenu from './MobileMenu.js'
 
 
-export default function Navbar() {
+export default function Navbar(props) {
+    const {account} = props
+
     return (
         // Main navbar items
         <Box sx={{ flexGrow: 1 , paddingBottom:'20px'}}>
@@ -37,7 +40,7 @@ export default function Navbar() {
                             Tinder Paws
                         </Typography>
                     </IconButton>
-                    {/* divider */}
+                    
                     <IconButton
                         size="small"
                         color="inherit"
@@ -58,22 +61,69 @@ export default function Navbar() {
                             About
                         </Typography>
                     </IconButton>
+
+                    {/* displays the "Pets button to view available pets" */}
+                    { account.user_id ?
+                        <IconButton
+                            size="small"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 2, display: { xs: 'none', sm: 'block' } }}
+                            href='/user'>
+                            <Typography component="div" sx={{ flexGrow: 1 }}>
+                                Pets
+                            </Typography>
+                        </IconButton>
+                    : null }
+
+                    {/* displays the "admin employee managment" */}
+                    {/* { account._id ?
+                        <IconButton
+                            size="small"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 2, display: { xs: 'none', sm: 'block' } }}
+                            href='/user'>
+                            <Typography component="div" sx={{ flexGrow: 1 }}>
+                                Manage
+                            </Typography>
+                        </IconButton>
+                    : null } */}
+                    
                     {/* divider */}
                     <Box sx={{ flexGrow: 1 }} />
                     {/* login/signup */}
                     <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            color="inherit"
-                            href='/signup'>
-                            <AccountCircle />
-                        </IconButton>
+                        {account.auth ?
+                            <div style={{height: '100%'}}>
+                                <Typography component="div" sx={{display: 'inline-block'}}>
+                                {account.email}
+                                </Typography>
+                                
+                                <IconButton
+                                    size="large"
+                                    edge="end"
+                                    aria-label="logout current user"
+                                    color="inherit"
+                                    href='/logout'>
+                                        
+                                    <LogoutIcon />
+                                </IconButton>
+                            </div>
+                        :
+                            <IconButton
+                                size="large"
+                                edge="end"
+                                aria-label="account of current user"
+                                color="inherit"
+                                href='/login'>
+                                <AccountCircle />
+                            </IconButton>
+                        }        
                     </Box>
                     {/* render mobile menu */}
                     <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
-                        <MobileMenu/>
+                        <MobileMenu account={account}/>
                     </Box>
                 </Toolbar>
             </AppBar>
