@@ -7,7 +7,6 @@ import { profileUserUpdate } from './routes/profileUserUpdate.js';
 import { filterSetting } from './routes/filterSetting.js';
 
 const app = express();
-const db = pool;
 
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
