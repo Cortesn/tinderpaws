@@ -1,6 +1,5 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import axios from 'axios'
 
 // Formik Schema (users)
 const userValidation = () => Yup.object({
@@ -35,7 +34,7 @@ const UserFormik = (initialValues, onSubmitFunction,functionName, user_id) => us
         if(functionName === "UpdateProfileRequest"){
             onSubmitFunction(values, user_id)
         }else{
-            onSubmitFunction(values, resetForm)
+            onSubmitFunction(values)
         }
     },
 });
