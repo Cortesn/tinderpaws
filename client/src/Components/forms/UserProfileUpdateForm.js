@@ -8,7 +8,7 @@ const UserProfileUpdateForm = (props) => {
     const [userData, setUserData] = useState(null)
     // query for user data here
     useEffect(() => {
-        const url = `http://localhost:3001/users/${user_id}`;
+        const url = `http://localhost:3001/userProfileUpdate/userData/${user_id}`;
         axios.get(url).then((response)=>{
             setUserData(
                 {

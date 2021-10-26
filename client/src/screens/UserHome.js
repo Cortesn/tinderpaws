@@ -17,7 +17,7 @@ const UserHome = () => {
     // const [shelters, handleGetShelter] = UseSettingsShelterState();
     const [shelters, setShelters] = useState(null);
     useEffect(() => {
-        const url = 'http://localhost:3001/shelters';
+        const url = 'http://localhost:3001/filterSetting/shelters';
         axios.get(url).then((response)=>{
             setShelters(response.data);
             });
@@ -27,7 +27,6 @@ const UserHome = () => {
     return ( 
         <Grid container>
             <Grid xs={12} sm={7} md={5} lg={4} xl={3} sx={{margin: 'auto'}} item>
-                <Button>Hello</Button>
                 <Accordion sx={{width: "100%"}} expanded={expanded === 'profileSettings'} onChange={handleChangeAccordion('profileSettings')}>
                     <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}

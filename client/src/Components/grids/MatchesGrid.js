@@ -9,7 +9,7 @@ const MatchesGrid = (props) => {
     const user_id = props.user_id
     const [matchesState, setMatchesState] = useState([]);
     useEffect(() => {
-        const url = `http://localhost:3001/users/${user_id}/matches`;
+        const url = `http://localhost:3001/matches/users/${user_id}`;
         axios.get(url).then((response)=>{
             setMatchesState(response.data);
             });

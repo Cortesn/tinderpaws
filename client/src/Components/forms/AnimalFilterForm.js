@@ -13,7 +13,7 @@ let animals = null; // not sure how nicolas will be using the queried data
 const AnimalFilterForm = (props) => {
 
     const submitAnimalFilter = ()=>{
-        const url = 'http://localhost:3001/animals/filtered';
+        const url = 'http://localhost:3001/filterSetting/filteredAnimals';
         const params = {params: {shelters: createObjectToArray(selectedShelters,[]), breeds: createObjectToArray(selectedBreeds,[]), dispositions: convertDispObjToArray(disposition,[])}}
         try{
             axios.get(url, params).then((response)=>{
@@ -42,7 +42,7 @@ const AnimalFilterForm = (props) => {
     const [breedState, setBreedState] = useState(null);
     useEffect(() => {
         const animalTypes = {params: {shelter: createObjectToArray(selectedShelters,[]), animalTypes: createAnimalTypeArray(state,[])}}
-        const url = 'http://localhost:3001/animals/breed';
+        const url = 'http://localhost:3001/filterSetting/animals/breed';
         axios.get(url, animalTypes).then((response)=>{
             setBreedState(response.data);
             });
