@@ -11,17 +11,33 @@ app.use(express.json());
 
 /*
     Profile settings endpoint
+    - get profile data
     - update profile
 */
+app.get("/users/:user_id",(req,res)=>{
+    const user_id = parseInt(req.params.user_id);
+    const getProfileData = `SELECT Users.f_name, Users.l_name, Users.email, Users.password FROM Users WHERE Users.user_id = ${user_id}`;
+    console.log(getProfileData)
+    db.query(getProfileData, (err,result)=>{
+        if(err){
+            console.error(err.message);
+        }else{
+            res.send(result)
+        }
+    })
+})
 app.patch("/updateProfile/:user_id", (req, res)=>{
     const user_id = req.params.user_id;
-    const first_name = req.body.f_name;
-    const last_name = req.body.l_name;
+    const first_name = req.body.fname;
+    const last_name = req.body.lname;
     const email = req.body.email;
     const password = req.body.password;
     // sql format
     const last_updated = new Date().toISOString().slice(0,10);
-    const updateProfile = `UPDATE Users SET f_name = ${first_name}, l_name=${last_name}, email=${email}, password=${password}, last_updated=${last_updated} WHERE user_id=${user_id}`;
+    // const last_updated =  new Date(Date.now()).toLocaleDateString('en-CA')
+    console.log(last_updated)
+    const updateProfile = `UPDATE Users SET f_name = "${first_name}", l_name="${last_name}", email="${email}", password="${password}", last_updated="${last_updated}" WHERE user_id=${user_id}`;
+    console.log(updateProfile)
     db.query(updateProfile, (err,result)=>{
         if(err){
             console.error(err.message);
