@@ -5,16 +5,12 @@ referenced MUI Drawer: https://mui.com/components/drawers/#temporary-drawer
 */
 
 import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+import {AppBar, Box, Toolbar, IconButton, Typography } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import PetsIcon from '@mui/icons-material/Pets';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MobileMenu from './MobileMenu.js'
-
+import NavLink from './NavLink.js';
 
 export default function Navbar(props) {
     const {account} = props
@@ -41,54 +37,23 @@ export default function Navbar(props) {
                         </Typography>
                     </IconButton>
                     
-                    <IconButton
-                        size="small"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2, display: { xs: 'none', sm: 'block' } }}
-                        href='/mission'>
-                        <Typography component="div" sx={{ flexGrow: 1 }}>
-                            Mission
-                        </Typography>
-                    </IconButton>
-                    <IconButton
-                        size="small"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2, display: { xs: 'none', sm: 'block' } }}
-                        href='/about'>
-                        <Typography component="div" sx={{ flexGrow: 1 }}>
-                            About
-                        </Typography>
-                    </IconButton>
-
+                    <NavLink name={'Mission'} link={'/mission'} />
+                    <NavLink name={'About'} link={'/about'} />
+                    
                     {/* displays the "Pets button to view available pets" */}
-                    { account.user_id ?
-                        <IconButton
-                            size="small"
-                            color="inherit"
-                            aria-label="menu"
-                            sx={{ mr: 2, display: { xs: 'none', sm: 'block' } }}
-                            href='/user'>
-                            <Typography component="div" sx={{ flexGrow: 1 }}>
-                                Pets
-                            </Typography>
-                        </IconButton>
+                    { account.employee_id || account.user_id ?
+                        <NavLink name={'Pets'} link={'/user'} />
                     : null }
 
-                    {/* displays the "admin employee managment" */}
-                    {/* { account._id ?
-                        <IconButton
-                            size="small"
-                            color="inherit"
-                            aria-label="menu"
-                            sx={{ mr: 2, display: { xs: 'none', sm: 'block' } }}
-                            href='/user'>
-                            <Typography component="div" sx={{ flexGrow: 1 }}>
-                                Manage
-                            </Typography>
-                        </IconButton>
-                    : null } */}
+                    {/* displays the "page to manage shelter pets */}
+                    { account.employee_id || account.shelter_id ?
+                        <NavLink name={'Manage'} link={'/'} />
+                    : null }
+
+                    {/* displays the "page to manage shelter employees" */}
+                    { account.shelter_id ?
+                        <NavLink name={'Admin'} link={'/'} />
+                    : null }
                     
                     {/* divider */}
                     <Box sx={{ flexGrow: 1 }} />
