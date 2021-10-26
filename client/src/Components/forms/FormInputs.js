@@ -4,19 +4,23 @@ import ShelterFormik from './ShelterSignup';
 import UserFormik from './UserSignup';
 import EmployeeFormik from './EmployeeSignup';
 import useFormPasswordState from '../../hooks/useFormPasswordState';
+import UpdateProfileRequest from '../../helperFunctions/UserHome/updateProfileRequest';
+import signUpRequest from '../../helperFunctions/signUp.js/signUpRequest';
 
 var formik;
 // all possible form inputs with validation
-const FormInputs = (type, options) =>{
-
+const FormInputs = (type, options, data, user_id) =>{
+    console.log(type)
     // get the validation schema
     if (type === 'user'){
-        formik = UserFormik();
+        formik = UserFormik(data, signUpRequest, "signUpRequest");
     }else if (type === 'shelter'){
         formik = ShelterFormik()
     }
     else if (type === 'employee'){
         formik = EmployeeFormik();
+    }else if(type === "userUpdate"){
+        formik = UserFormik(data, UpdateProfileRequest, "UpdateProfileRequest", user_id)
     }
   
     // state for changing password visability

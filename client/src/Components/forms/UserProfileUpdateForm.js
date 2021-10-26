@@ -1,78 +1,37 @@
-import React from "react";
-import { Button, Typography, FormControl, Grid, FilledInput, InputLabel} from "@mui/material";
+import React, {useEffect, useState} from "react";
+import {Grid} from "@mui/material";
+import FormTemplate from '../forms/FormTemplate';
+import { FormInputs } from '../forms/FormInputs';
+import axios from 'axios';
 const UserProfileUpdateForm = (props) => {
     const user_id = props.user_id
-    
+    const [userData, setUserData] = useState(null)
+    // query for user data here
+    useEffect(() => {
+        const url = `http://localhost:3001/users/${user_id}`;
+        axios.get(url).then((response)=>{
+            setUserData(
+                {
+                    fname: response.data[0].f_name,
+                    lname:response.data[0].l_name,
+                    email: response.data[0].email,
+                    password: response.data[0].password,
+                    passwordConfirm: response.data[0].password
+                }
+            )});
+        },[user_id]);
 
     return ( 
-        <form >
-            <Grid container direction={"column"} spacing={1}>
-                <Grid item align="center">
-                    <Typography
-                    variant="p"
-                    align="center"
-                    style={{fontWeight: 600, fontSize: "large"}}>
-                        Update Profile
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <FormControl fullWidth variant="filled">
-                        <InputLabel htmlFor="fName">First Name</InputLabel>
-                        <FilledInput
-                            id="fName"
-                            fullWidth
-                        />
-                    </FormControl>
-                </Grid>
-                <Grid item>
-                    <FormControl fullWidth variant="filled">
-                        <InputLabel htmlFor="lName">Last Name</InputLabel>
-                        <FilledInput
-                            id="lName"
-                            fullWidth
-                        />
-                    </FormControl>
-                </Grid>
-                <Grid item>
-                    <FormControl fullWidth variant="filled">
-                        <InputLabel htmlFor="email">Email</InputLabel>
-                        <FilledInput
-                            id="email"
-                            fullWidth
-                            variant="filled"
-                        />
-                    </FormControl>
-                </Grid>
-                <Grid item>
-                    <FormControl fullWidth variant="filled">
-                        <InputLabel htmlFor="updatePassword">Update Password</InputLabel>
-                        <FilledInput
-                            id="updatePassword"
-                            fullWidth
-                        />
-                    </FormControl>
-                </Grid>
-                <Grid item>
-                    <FormControl fullWidth variant="filled">
-                        <InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
-                        <FilledInput
-                            id="confirmPassword"
-                            fullWidth
-                        />
-                    </FormControl>
-                </Grid>
-                <Grid item>
-                    <Button
-                    fullWidth
-                    type='submit' 
-                    variant="contained" 
-                    color="success">
-                        Save Changes
-                    </Button>
-                </Grid>
-            </Grid>
-        </form>
-     );
+        <Grid>
+            {userData && 
+            <FormTemplate 
+            form={FormInputs} 
+            type={'userUpdate'} 
+            button={'Update Profile'}
+            data= {userData}
+            user_id={user_id}/>}
+        </Grid>
+    )
 }
  
 export default UserProfileUpdateForm;

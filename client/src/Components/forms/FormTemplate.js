@@ -5,8 +5,8 @@ import RenderTwoInputs from './RenderTwoInputs';
 
 
 const FormTemplate = (props) => {
-    const {form, type, options, button} = props;
-    const {filteredInputs, formik} = form(type, options);
+    const {form, type, options, button, data, user_id} = props;
+    const {filteredInputs, formik} = form(type, options, data, user_id);
    
     var tempInput = null;
     return (
