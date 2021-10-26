@@ -7,7 +7,7 @@ import {LoginScreen}  from "./screens/LoginScreen";
 import { UserPage } from "./screens/UserPage";
 import Navbar from "./Components/navbar/Navbar.js";
 import AdminEditPetPage from "./screens/AdminEditPetPage";
-// import NewsFeed from "./screens/NewsFeed";
+import NewsFeed from "./screens/NewsFeed";
 import Logout from "./Components/Logout";
 import useAuthState from "./hooks/useAuthState";
 
@@ -47,6 +47,9 @@ const App = () => {
                 </Route>
                 <Route exact path="/logout">
                     <Logout />
+                </Route>
+                <Route exact path="/news">
+                    <NewsFeed />
                 </Route>
             </Switch>
         </Router>
