@@ -22,17 +22,17 @@ router.post('/', (req,res) => {
             console.log(error)
             return res.status(400).json({ msg : 'Somthing went wrong. Please try agian.' })
             // redirect back to login
-        } else if (results.length <= 0){
-            // console.log("no results")
-            // console.log(results)
-            // did not find a email match
-            return res.status(400).json({ msg : 'Invalid credentials' })
         } else {
             // user is found
             try{
-                // console.log('user found-> login route:')
                 // console.log(results)
-                const result = await results.filter(arr => arr.length > 0)[0][0]
+                const result = await results.filter(arr => arr.length > 0)[0]
+                if (!result){
+                    // did not find a email match
+                    return res.status(400).json({ msg : 'Invalid credentials' })
+                }
+                // console.log('user found-> login route:')
+                console.log(result)
                 // match password
                 const isMatch = await bcrypt.compare(password, result.password);
 
