@@ -34,10 +34,7 @@ app.patch("/updateProfile/:user_id", (req, res)=>{
     const password = req.body.password;
     // sql format
     const last_updated = new Date().toISOString().slice(0,10);
-    // const last_updated =  new Date(Date.now()).toLocaleDateString('en-CA')
-    console.log(last_updated)
     const updateProfile = `UPDATE Users SET f_name = "${first_name}", l_name="${last_name}", email="${email}", password="${password}", last_updated="${last_updated}" WHERE user_id=${user_id}`;
-    console.log(updateProfile)
     db.query(updateProfile, (err,result)=>{
         if(err){
             console.error(err.message);
