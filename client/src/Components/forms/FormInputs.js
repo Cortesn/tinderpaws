@@ -1,5 +1,6 @@
 import React from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import ShelterUpdateFormik from './ShelterUpdate'
 import ShelterFormik from './ShelterSignup';
 import UserFormik from './UserSignup';
 import EmployeeFormik from './EmployeeSignup';
@@ -21,7 +22,10 @@ const FormInputs = (type, options, data, user_id) =>{
     }
     else if (type === 'userUpdate'){
         formik = UserFormik(data, UpdateProfileRequest, "UpdateProfileRequest", user_id)
-    }  
+    } 
+    else if (type === 'shelterUpdate'){
+        formik = ShelterUpdateFormik(data.data, data.data.shelter_id)
+    }
     // state for changing password visability
     const [ 
         pass1, 
@@ -95,7 +99,7 @@ const FormInputs = (type, options, data, user_id) =>{
         },
         
         {
-            types: ['shelter'],
+            types: ['shelter', 'shelterUpdate'],
             id: 'sname',
             label: 'Shelter Name',
             value: formik.values.sname,
@@ -104,7 +108,7 @@ const FormInputs = (type, options, data, user_id) =>{
             helperText: formik.touched.sname && formik.errors.sname
         },
         {
-            types: ['shelter'],
+            types: ['shelter', 'shelterUpdate'],
             id: 'street',
             label: 'Street',
             value: formik.values.street,
@@ -113,7 +117,7 @@ const FormInputs = (type, options, data, user_id) =>{
             helperText: formik.touched.street && formik.errors.street
         },
         {
-            types: ['shelter'],
+            types: ['shelter', 'shelterUpdate'],
             id: 'city',
             label: 'City',
             value: formik.values.city,
@@ -122,7 +126,7 @@ const FormInputs = (type, options, data, user_id) =>{
             helperText: formik.touched.city && formik.errors.city
         },
         {
-            types: ['shelter'],
+            types: ['shelter', 'shelterUpdate'],
             id: 'state',
             label: 'State',
             value: formik.values.state,
@@ -131,7 +135,7 @@ const FormInputs = (type, options, data, user_id) =>{
             helperText: formik.touched.state && formik.errors.state
         },
         {
-            types: ['shelter'],
+            types: ['shelter', 'shelterUpdate'],
             id: 'zip',
             label: 'Zip',
             value: formik.values.zip,
