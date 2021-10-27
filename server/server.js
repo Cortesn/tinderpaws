@@ -5,6 +5,7 @@ import { signup } from './routes/signup.js'
 import { login } from './routes/login.js'
 import { auth } from './routes/auth.js';
 import { forms } from './routes/forms.js';
+import { images } from './routes/images.js'
 
 const app = express();
 const db = pool;
@@ -13,13 +14,13 @@ app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
+// Routes
 app.use('/auth', auth)
 app.use('/login', login)
 app.use('/signup', signup)
+app.use('/images', images)
 app.use('/forms', forms)
 
-
-// below works - need to figure out how to send back to client! 
 
 // endpoint to get shelter information given employee id
 app.get("/shelters/employees/:id", (req,res)=>{
