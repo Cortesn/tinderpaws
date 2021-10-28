@@ -1,10 +1,11 @@
 const pets = [
 	{
+		id: 1,
 		name: "Skippy",
 		type: "dog",
 		breed: "Russell Terrier",
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget condimentum lorem. Etiam et scelerisque urna, id auctor dolor. Sed feugiat ex ut nibh maximus, eget dapibus libero pellentesque. In in sapien venenatis, vulputate libero in, egestas ante. Donec tellus nisl, vehicula sit amet elit sit amet, aliquet aliquet odio. Aenean pharetra dictum enim in hendrerit. Praesent blandit fringilla porta. Aliquam erat volutpat. Nullam eget arcu ex. Aenean laoreet consequat ex, posuere porttitor dolor ultricies at. Nullam id mattis tellus, viverra sodales lectus. Sed lacinia velit id maximus pharetra. Phasellus volutpat justo arcu, nec tempus metus euismod quis.",
+		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget condimentum lorem. Etiam et scelerisque urna, id auctor dolor. Sed feugiat ex ut nibh maximus, eget dapibus libero pellentesque. In in sapien venenatis, vulputate libero in, egestas ante. Donec tellus nisl, vehicula sit amet elit sit amet, aliquet aliquet odio. Aenean pharetra dictum enim in hendrerit. Praesent blandit fringilla porta. Aliquam erat volutpat. Nullam eget arcu ex. Aenean laoreet consequat ex, posuere porttitor dolor ultricies at. Nullam id mattis tellus, viverra sodales lectus. Sed lacinia velit id maximus pharetra. Phasellus volutpat justo arcu, nec tempus metus euismod quis.",
 		shelter: "Happy Shelter",
 		images: [
 			"https://images.dog.ceo/breeds/terrier-russell/iguet1.jpeg",
@@ -14,11 +15,12 @@ const pets = [
 		],
 	},
 	{
+		id: 2,
 		name: "Toto",
 		type: "dog",
 		breed: "Cairn Terrier",
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget condimentum lorem. Etiam et scelerisque urna, id auctor dolor. Sed feugiat ex ut nibh maximus, eget dapibus libero pellentesque. In in sapien venenatis, vulputate libero in, egestas ante. Donec tellus nisl, vehicula sit amet elit sit amet, aliquet aliquet odio. Aenean pharetra dictum enim in hendrerit. Praesent blandit fringilla porta. Aliquam erat volutpat. Nullam eget arcu ex. Aenean laoreet consequat ex, posuere porttitor dolor ultricies at. Nullam id mattis tellus, viverra sodales lectus. Sed lacinia velit id maximus pharetra. Phasellus volutpat justo arcu, nec tempus metus euismod quis.",
+		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget condimentum lorem. Etiam et scelerisque urna, id auctor dolor. Sed feugiat ex ut nibh maximus, eget dapibus libero pellentesque. In in sapien venenatis, vulputate libero in, egestas ante. Donec tellus nisl, vehicula sit amet elit sit amet, aliquet aliquet odio. Aenean pharetra dictum enim in hendrerit. Praesent blandit fringilla porta. Aliquam erat volutpat. Nullam eget arcu ex. Aenean laoreet consequat ex, posuere porttitor dolor ultricies at. Nullam id mattis tellus, viverra sodales lectus. Sed lacinia velit id maximus pharetra. Phasellus volutpat justo arcu, nec tempus metus euismod quis.",
 		shelter: "Happy Shelter",
 		images: [
 			"https://images.dog.ceo/breeds/terrier-cairn/n02096177_1518.jpg",
@@ -28,11 +30,12 @@ const pets = [
 		],
 	},
 	{
+		id: 3,
 		name: "Wilson",
-		type: "Fox",
+		type: "fox",
 		breed: "Red Fox",
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget condimentum lorem. Etiam et scelerisque urna, id auctor dolor. Sed feugiat ex ut nibh maximus, eget dapibus libero pellentesque. In in sapien venenatis, vulputate libero in, egestas ante. Donec tellus nisl, vehicula sit amet elit sit amet, aliquet aliquet odio. Aenean pharetra dictum enim in hendrerit. Praesent blandit fringilla porta. Aliquam erat volutpat. Nullam eget arcu ex. Aenean laoreet consequat ex, posuere porttitor dolor ultricies at. Nullam id mattis tellus, viverra sodales lectus. Sed lacinia velit id maximus pharetra. Phasellus volutpat justo arcu, nec tempus metus euismod quis.",
+		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget condimentum lorem. Etiam et scelerisque urna, id auctor dolor. Sed feugiat ex ut nibh maximus, eget dapibus libero pellentesque. In in sapien venenatis, vulputate libero in, egestas ante. Donec tellus nisl, vehicula sit amet elit sit amet, aliquet aliquet odio. Aenean pharetra dictum enim in hendrerit. Praesent blandit fringilla porta. Aliquam erat volutpat. Nullam eget arcu ex. Aenean laoreet consequat ex, posuere porttitor dolor ultricies at. Nullam id mattis tellus, viverra sodales lectus. Sed lacinia velit id maximus pharetra. Phasellus volutpat justo arcu, nec tempus metus euismod quis.",
 		shelter: "Foxy Shelter",
 		images: [
 			"https://randomfox.ca/images/68.jpg",
@@ -42,6 +45,7 @@ const pets = [
 		],
 	},
 	{
+		id: 4,
 		name: "Bonnie Beans",
 		type: "dog",
 		breed: "Australian Cattle Dog",
