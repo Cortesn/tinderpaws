@@ -4,7 +4,7 @@ import { signup } from './routes/signup.js'
 import { login } from './routes/login.js'
 import { auth } from './routes/auth.js';
 import { forms } from './routes/forms.js';
-import { forgotPassword } from './routes/forgotPassword.js';
+import { password } from './routes/password.js';
 import { adminPage } from './routes/adminPage.js';
 import { matches } from './routes/matches.js';
 import { profileUserUpdate } from './routes/profileUserUpdate.js';
@@ -19,7 +19,7 @@ app.use(express.urlencoded({extended: true}))
 app.use('/auth', auth)
 app.use('/login', login)
 app.use('/signup', signup)
-app.use('/forgotPassword', forgotPassword)
+app.use('/password', password)
 app.use('/forms', forms)
 app.use('/adminHome', adminPage)
 app.use('/matches', matches)

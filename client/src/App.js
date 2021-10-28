@@ -9,6 +9,7 @@ import Navbar from "./Components/navbar/Navbar.js";
 import AdminEditPetPage from "./screens/AdminEditPetPage";
 import NewsFeed from "./screens/NewsFeed";
 import { AdminPage } from "./screens/AdminPage";
+import ResetPassword from './screens/ResetPassword';
 import Logout from "./Components/Logout";
 import AdminHome from "./screens/AdminHome";
 import UserHome from "./screens/UserHome";
@@ -50,7 +51,7 @@ const App = () => {
 				<Route path="/newsFeed">
 					<NewsFeed />
 				</Route>
-                <Route exact path="/resetPassword">
+                <Route path="/resetPassword/email/:email/reset_key/:reset_key">
                     <ResetPassword />
                 </Route>
 			</Switch>

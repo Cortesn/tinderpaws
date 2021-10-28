@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer'
 // https://nodemailer.com/about/
 
-
+// email transporter
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smpt.gmail.com',
