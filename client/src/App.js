@@ -7,13 +7,24 @@ import { LoginScreen } from "./screens/LoginScreen";
 import { UserPage } from "./screens/UserPage";
 import Navbar from "./Components/navbar/Navbar.js";
 import AdminEditPetPage from "./screens/AdminEditPetPage";
-// import NewsFeed from "./screens/NewsFeed";
+import NewsFeed from "./screens/NewsFeed";
 import { AdminPage } from "./screens/AdminPage";
+import Logout from "./Components/Logout";
+import AdminHome from "./screens/AdminHome";
+import UserHome from "./screens/UserHome";
+import useAuthState from "./hooks/useAuthState";
 
-function App() {
+const App = () => {
+	const [authValues] = useAuthState({
+		user_id: "",
+		shelter_id: "",
+		employee_id: "",
+		email: "",
+		auth: false,
+	});
 	return (
 		<Router>
-			<Navbar />
+			<Navbar account={authValues} />
 			<Switch>
 				<Route exact path="/" component={HomePage} />
 				<Route exact path="/mission" component={MissionPage} />
@@ -27,8 +38,20 @@ function App() {
 				/>
 				<Route exact path="/logout" component={Logout} />
 				<Route exact path="/admin" render={() => <AdminPage />} />
+				<Route path="/userHome/:id">
+					<UserHome />
+				</Route>
+				<Route path="/adminHome/:id">
+					<AdminHome />
+				</Route>
+				<Route exact path="/logout">
+					<Logout />
+				</Route>
+				<Route path="/newsFeed">
+					<NewsFeed />
+				</Route>
 			</Switch>
 		</Router>
 	);
-}
+};
 export default App;

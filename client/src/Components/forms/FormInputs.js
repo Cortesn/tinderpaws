@@ -3,22 +3,27 @@ import { Visibility, VisibilityOff } from '@mui/icons-material'
 import ShelterFormik from './ShelterSignup';
 import UserFormik from './UserSignup';
 import EmployeeFormik from './EmployeeSignup';
+import LoginFormik from './Login';
 import useFormPasswordState from '../../hooks/useFormPasswordState';
+import UpdateProfileRequest from '../../helperFunctions/UserHome/updateProfileRequest';
+import signUpRequest from '../../helperFunctions/signUp.js/signUpRequest';
 
 var formik;
 // all possible form inputs with validation
-const FormInputs = (type, options) =>{
-
+const FormInputs = (type, options, data, user_id) =>{
     // get the validation schema
-    if (type === 'user'){
-        formik = UserFormik();
+    if(type === "user"){
+        formik = UserFormik(data, signUpRequest)
     }else if (type === 'shelter'){
         formik = ShelterFormik()
-    }
-    else if (type === 'employee'){
+    }else if (type === 'employee'){
         formik = EmployeeFormik();
+    }else if(type === 'login'){
+        formik = LoginFormik()
     }
-  
+    else if (type === 'userUpdate'){
+        formik = UserFormik(data, UpdateProfileRequest, "UpdateProfileRequest", user_id)
+    }  
     // state for changing password visability
     const [ 
         pass1, 
@@ -48,8 +53,8 @@ const FormInputs = (type, options) =>{
             types: ['employee'],
             id: 'sname',
             label: 'Shelter Name',
-            value: ()=> this.types['employee'] ? formik.values.shelterOptions : '',
-            onChange: formik.handleChange,
+            value: formik.values.shelterOptions,
+            onChange: formik.handleChange('shelterOptions'),
             error: formik.touched.shelterOptions && Boolean(formik.errors.shelterOptions),
             helperText: formik.touched.shelterOptions && formik.errors.shelterOptions,
             options: options
@@ -73,7 +78,7 @@ const FormInputs = (type, options) =>{
             helperText: formik.touched.name && formik.errors.name
         },
         {
-            types: ['user'],
+            types: ['user', 'userUpdate'],
             id: 'fname',
             label: 'First Name',
             value: formik.values.fname,
@@ -82,7 +87,7 @@ const FormInputs = (type, options) =>{
             helperText: formik.touched.fname && formik.errors.fname
         },
         {
-            types: ['user'],
+            types: ['user', 'userUpdate'],
             id: 'lname',
             label: 'Last Name',
             value: formik.values.lname,
@@ -137,7 +142,7 @@ const FormInputs = (type, options) =>{
             helperText: formik.touched.zip && formik.errors.zip
         },
         {
-            types: ['user', 'shelter', 'employee'],
+            types: ['user', 'shelter', 'employee', 'userUpdate', 'login'],
             id: 'email',
             label: 'Email',
             value: formik.values.email,
@@ -146,7 +151,7 @@ const FormInputs = (type, options) =>{
             helperText: formik.touched.email && formik.errors.email
         },
         {
-            types: ['user', 'shelter', 'employee'],
+            types: ['user', 'shelter', 'employee', 'userUpdate', 'login'],
             id: 'password',
             label: 'Password',
             password: {
@@ -163,7 +168,7 @@ const FormInputs = (type, options) =>{
             }
         },
         {
-            types: ['user', 'shelter', 'employee'],
+            types: ['user', 'shelter', 'employee', 'userUpdate'],
             id: 'password2',
             label: 'Confirm Password',
             password: {
@@ -184,7 +189,7 @@ const FormInputs = (type, options) =>{
     // grab the types you need
     const filteredInputs = inputFields.filter(input => input.types.includes(type))
 
-    return {filteredInputs, formik}
+    return {filteredInputs}
 }
 
 export {FormInputs, formik}

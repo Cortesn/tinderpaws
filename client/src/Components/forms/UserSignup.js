@@ -1,6 +1,5 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import axios from 'axios'
 
 // Formik Schema (users)
 const userValidation = () => Yup.object({
@@ -28,29 +27,15 @@ const userValidation = () => Yup.object({
 });
 
 // formik state & create new user
-const UserFormik = () => useFormik({
-    initialValues: {
-        fname: '',
-        lname:'',
-        email: '',
-        password: '',
-        passwordConfirm: ''
-    },
+const UserFormik = (initialValues, onSubmitFunction,functionName, user_id) => useFormik({
+    initialValues: initialValues,
     validationSchema: userValidation(),
-    onSubmit: (values, {resetForm}) => {
-        console.log(values)
-        console.log('hello world')
-        axios.post('http://localhost:3001/signup/user', values)
-            .then(function(response){
-                if (response.status === 201){
-                    // window.location = '/'
-                }
-            })
-
-        // alert(JSON.stringify(values));
-
-        // reset form
-        resetForm();
+    onSubmit: (values, {resetForm, setFieldValue}) => {
+        if(functionName === "UpdateProfileRequest"){
+            onSubmitFunction(values, user_id)
+        }else{
+            onSubmitFunction(values, {resetForm, setFieldValue})
+        }
     },
 });
 

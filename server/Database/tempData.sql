@@ -12,10 +12,10 @@ INSERT INTO Statuses (description) VALUES
 -- INSERT INTO Images (url) VALUES
 -- ();
 
-INSERT INTO Shelters (name, street, city, state, zip, date_created, last_updated, info) VALUES
-('Test Shelter No. 1', '1234 Shelter St', 'Seattle', 'WA', '88888', '2021-10-10', '2021-10-13', 'Our goal is the match pets with their forever homes!'),
-('Test Shelter No. 2', '4567 Adopted St', 'Seattle', 'WA', '88888', '2021-10-12', '2021-10-14', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'),
-('Test Shelter No. 3', '888 Dog St', 'Seattle', 'WA', '88888', '2021-10-15', '2021-10-15', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+INSERT INTO Shelters (name, street, city, state, zip, email, password, date_created, last_updated, info) VALUES
+('Test Shelter No. 1', '1234 Shelter St', 'Seattle', 'WA', '88888', 'shelter1@test.com', '123456', '2021-10-10', '2021-10-13', 'Our goal is the match pets with their forever homes!'),
+('Test Shelter No. 2', '4567 Adopted St', 'Seattle', 'WA', '88888', 'shelter2@test.com', '123456', '2021-10-12', '2021-10-14', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'),
+('Test Shelter No. 3', '888 Dog St', 'Seattle', 'WA', '88888', 'shelter3@test.com', '123456', '2021-10-15', '2021-10-15', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
 
 INSERT INTO Pets (name, type, breed, status, date_created, last_updated, description, shelter_id) VALUES
 ('Spike', 1, 'Golden Retriever', 2, '2021-10-15', null, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 1),
@@ -36,10 +36,10 @@ INSERT INTO Pets_Dispositions (pet_id, disposition_id) VALUES
 (3, 2),
 (4, 2);
 
-INSERT INTO Employees (shelter_id, name, email, password, date_created) VALUES
-(1, 'John', 'john@test.com', '123456', '2021-10-15'),
-(1, 'Jane', 'jane@test.com', '123456', '2021-10-15'),
-(2, 'Test', 'test@test.com', '123456', '2021-10-15');
+INSERT INTO Employees (employee_id, shelter_id, name, email, password, date_created) VALUES
+(1, 1, 'John', 'john@test.com', '123456', '2021-10-15'),
+(2, 1, 'Jane', 'jane@test.com', '123456', '2021-10-15'),
+(3, 2, 'Test', 'test@test.com', '123456', '2021-10-15');
 
 INSERT INTO Users (f_name, l_name, email, zip, password, date_created, last_updated) VALUES
 ('Andrew', 'Jung', 'jungan@oregonstate.edu', '98145', '123456', '2021-10-15', '2021-10-15'),

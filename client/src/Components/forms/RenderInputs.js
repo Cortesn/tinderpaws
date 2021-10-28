@@ -20,7 +20,7 @@ export const RenderInputs = (props) => {
                 id={input.id}
                 label={input.label}
                 type={input.password.type}
-                value={input.password.value}
+                value={input.password.value || ''}
                 onChange={input.password.onChange}
                 error={input.password.error}
                 helperText={input.password.helperText}
@@ -40,16 +40,21 @@ export const RenderInputs = (props) => {
             /> 
         )
     } else if (input.options){
+        // console.log(input.options)
         // select/options
         return (
             <>
             <InputLabel htmlFor={input.id}>{input.label}</InputLabel>
             <Select
+                // onBlur={input.onBlur}
                 labelId={input.id}
                 id={input.id}
-                value=''>
+                value={input.value || ''}
+                // options={input.options}
+                onChange={input.onChange}
+                error={input.error}>
                 {input.options.map(option =>
-                    <MenuItem key={option} value={option}>{option}</MenuItem>
+                    <MenuItem key={option.id} id={option.id} value={option.id}>{option.name}</MenuItem>
                 )}
             </Select>
             </>
@@ -62,7 +67,7 @@ export const RenderInputs = (props) => {
                 id={input.id}
                 label={input.label}
                 name={input.id}
-                value={input.value}
+                value={input.value || ''}
                 onChange={input.onChange}
                 error={input.error}
                 helperText={input.helperText}/>
