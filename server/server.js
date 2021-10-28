@@ -5,6 +5,7 @@ import { signup } from './routes/signup.js'
 import { login } from './routes/login.js'
 import { auth } from './routes/auth.js';
 import { forms } from './routes/forms.js';
+import { userRouter } from './routes/userpage.js';
 
 const app = express();
 const db = pool;
@@ -17,6 +18,7 @@ app.use('/auth', auth)
 app.use('/login', login)
 app.use('/signup', signup)
 app.use('/forms', forms)
+app.use('/user', userRouter)
 
 
 // below works - need to figure out how to send back to client! 
