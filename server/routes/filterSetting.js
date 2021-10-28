@@ -69,6 +69,7 @@ router.get("/filteredAnimals", (req,res)=>{
         if(err){
             console.error(err.message);
         }else{
+            console.log(result)
             res.send(result);
         }
     })

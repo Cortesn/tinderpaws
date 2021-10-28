@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "devStart": "nodemon server.js",
+    "devStart": "nodemon -r dotenv/config server.js",
     "start": "node server.js"
   },
   "author": "",
@@ -15,12 +15,12 @@
     "bcryptjs": "^2.4.3",
     "config": "^3.3.6",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "nodemon": "^2.0.13"
   }
 }
