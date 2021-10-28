@@ -6,11 +6,7 @@ import TabPanel from '../Components/tabs/TabPanel';
 import useTabState from '../hooks/useTabState';
 
 
-const SignupPage = (props) => {
-    // const {options} = props;
-    // temp list of shelters
-    const options = ['Shelter No.1', 'Shelter No.2', 'Shelter No.3']
-
+const SignupPage = () => {
     const [value, handleChange] = useTabState(0);
 
     return (
@@ -43,7 +39,7 @@ const SignupPage = (props) => {
                     </TabPanel>
                     <TabPanel value={value} index={1} >
                         {/* form for new shelter/ employee signup */}
-                        <ShelterTab options={options}/>
+                        <ShelterTab />
                     </TabPanel>
                    
                 </Paper>

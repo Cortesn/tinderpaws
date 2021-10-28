@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import axios from 'axios'
+import {api, setToken} from '../../helperFunctions/axiosInstace'
 
 
 // Formik Schema (shelters)
@@ -45,6 +45,7 @@ const shelterValidation = () => Yup.object({
 
 // formik state
 const ShelterFormik =()=> useFormik({
+    enableReinitialize: true, // allows to reset the initial fields
     initialValues: {
         sname: '',
         street: '',
@@ -56,12 +57,36 @@ const ShelterFormik =()=> useFormik({
         passwordConfirm: ''
     },
     validationSchema: shelterValidation,
-    onSubmit: (values, {resetForm}) => {
-        console.log(values)
-        console.log('hello world')
-        // validator={() => ({})}
-        // alert(JSON.stringify(values));
-        resetForm();
+    onSubmit: (values, {resetForm, setFieldValue}) => {
+        // console.log(values)
+        // make a copy and clean data
+        var data = JSON.parse(JSON.stringify(values))
+        delete data.passwordConfirm
+
+        // make request
+        api.post('/signup/shelter', data )
+            .then( response => {
+                // console.log(response)
+                // console.log(response.data)
+                
+                const {token} = response.data
+                setToken(token)
+
+                // remove error if exists
+                setFieldValue('error', '')
+                setFieldValue('success', 'Success!')
+
+                // redirects page
+                window.location = '/'
+            })
+            .catch( error => {
+                // set error msg with formik
+                setFieldValue('error', error.response.data.msg)
+            })
+            // might not need this promise -> always executes
+            // .then(function(){
+            //     // resetForm()
+            // })
     },
 });
 

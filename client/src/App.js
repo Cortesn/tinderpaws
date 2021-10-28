@@ -10,46 +10,58 @@ import { UserPage } from "./screens/UserPage";
 import Navbar from "./Components/navbar/Navbar.js";
 import AdminEditPetPage from "./screens/AdminEditPetPage";
 import NewsFeed from "./screens/NewsFeed";
+import Logout from "./Components/Logout";
+import useAuthState from "./hooks/useAuthState";
 
-function App() {
-  return (
-    <Router>
-    <div className="App">
-      <Navbar />
-      <div className="content">
-        {/* can be a string, int, float, array, even math.random */}
-        <Switch>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Route exact path="/mission">
-            <MissionPage />
-          </Route>
-          <Route exact path="/login">
-            <LoginScreen />
-          </Route>
-          <Route exact path="/user">
-            <UserPage/>
-          </Route>
-          <Route exact path="/signup">
-            <SignupPage />
-          </Route>
-          <Route path="/userHome/:id">
-            <UserHome />
-          </Route>
-          <Route path="/adminHome/:id">
-            <AdminHome />
-          </Route>
-          <Route path="/admin/editpet">
-            <AdminEditPetPage />
-          </Route>
-          <Route path="/newsFeed">
-            <NewsFeed />
-          </Route>
-        </Switch>
-      </div>
-    </div>
-  </Router>
-  )
-  }
-export default App;
+
+const App = () => {
+
+    const [authValues] = useAuthState({
+        user_id: '', 
+        shelter_id: '',
+        employee_id: '',
+        email: '', 
+        auth: false
+    })
+
+    return (
+        <Router>
+            <Navbar account={authValues}/>
+
+            <Switch>
+                <Route exact path="/">
+                    <HomePage />
+                </Route>
+                <Route exact path="/mission">
+                    <MissionPage />
+                </Route>
+                <Route exact path="/login">
+                    <LoginScreen />
+                </Route>
+                <Route exact path="/user">
+                    <UserPage/>
+                </Route>
+                <Route exact path="/signup">
+                    <SignupPage />
+                </Route>
+                <Route path="/userHome/:id">
+                  <UserHome />
+                </Route>
+                <Route path="/adminHome/:id">
+                  <AdminHome />
+                </Route>
+                <Route path="/admin/editpet">
+                    <AdminEditPetPage />
+                </Route>
+                <Route exact path="/logout">
+                    <Logout />
+                </Route>
+                <Route path="/newsFeed">
+                  <NewsFeed />
+                </Route>
+            </Switch>
+        </Router>
+    )
+}
+
+export default App

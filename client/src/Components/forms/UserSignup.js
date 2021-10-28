@@ -30,11 +30,11 @@ const userValidation = () => Yup.object({
 const UserFormik = (initialValues, onSubmitFunction,functionName, user_id) => useFormik({
     initialValues: initialValues,
     validationSchema: userValidation(),
-    onSubmit: (values, {resetForm}) => {
+    onSubmit: (values, {resetForm, setFieldValue}) => {
         if(functionName === "UpdateProfileRequest"){
             onSubmitFunction(values, user_id)
         }else{
-            onSubmitFunction(values)
+            onSubmitFunction(values, {resetForm, setFieldValue})
         }
     },
 });

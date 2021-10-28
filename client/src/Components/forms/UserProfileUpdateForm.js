@@ -24,8 +24,7 @@ const UserProfileUpdateForm = (props) => {
     return ( 
         <Grid>
             {userData && 
-            <FormTemplate 
-            form={FormInputs} 
+            <FormTemplate  
             type={'userUpdate'} 
             button={'Update Profile'}
             data= {userData}
