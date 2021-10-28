@@ -2,7 +2,6 @@ import express from 'express'
 const router = express.Router()
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import config from 'config'
 import pool from '../Database/dbcon.js'
 const db = pool
 
@@ -32,25 +31,25 @@ router.post('/', (req,res) => {
                     return res.status(400).json({ msg : 'Invalid credentials' })
                 }
                 // console.log('user found-> login route:')
-                console.log(result)
+                // console.log(result[0])
                 // match password
-                const isMatch = await bcrypt.compare(password, result.password);
+                const isMatch = await bcrypt.compare(password, result[0].password);
 
                 if(!isMatch){
                     return res.status(400).json({ msg : 'Invalid credentials'})
                 } else {
                     // password patches generate token
-                    if(result.user_id){
-                        var payload = { user: { user_id : result.user_id }}
-                    } else if (result.shelter_id){
-                        payload = { user: { shelter_id : result.shelter_id }}
+                    if(result[0].user_id){
+                        var payload = { user: { user_id : result[0].user_id }}
+                    } else if (result[0].shelter_id){
+                        payload = { user: { shelter_id : result[0].shelter_id }}
                     } else {
-                        payload = { user: { employee_id : result.employee_id }}
+                        payload = { user: { employee_id : result[0].employee_id }}
                     }
                     // const payload = { user: { user_id : result.user_id ?? result.shelter_id ?? result.employee_id }}
 
                     // console.log(payload)
-                    jwt.sign( payload, config.get('jwtSecret'), {expiresIn: 360000}, (error, token) => {
+                    jwt.sign( payload, process.env.JWT_SECRET, {expiresIn: 360000}, (error, token) => {
                         if (error){
                             console.log(error)
                         } else {

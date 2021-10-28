@@ -1,4 +1,3 @@
-import config from 'config'
 import jwt from 'jsonwebtoken'
 
 // middileware function to verify token i.e. user is logged in
@@ -12,7 +11,7 @@ const auth = (req, res, next) => {
     // if there is a token check if valid
     try {
         // read to token and set the user prop in the request
-        const decode = jwt.verify(token, config.get('jwtSecret'));
+        const decode = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decode.user;
 
         next() // continue with the request

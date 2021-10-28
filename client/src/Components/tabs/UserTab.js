@@ -5,6 +5,13 @@ import FormTemplate from '../forms/FormTemplate';
 import { FormInputs } from '../forms/FormInputs';
 
 const UserTab = () => {
+    const initData = {
+        fname: '',
+        lname:'',
+        email: '',
+        password: '',
+        passwordConfirm: ''
+    }
     return (
         <>
             <Avatar sx={{margin:'auto'}}>
@@ -17,7 +24,8 @@ const UserTab = () => {
             <FormTemplate 
                 form={FormInputs} 
                 type={'user'} 
-                button={'Signup'}/>
+                button={'Signup'}
+                data= {initData}/>
         </>
     )
 }
