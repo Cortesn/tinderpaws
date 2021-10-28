@@ -2,22 +2,24 @@
   "name": "server",
   "version": "1.0.0",
   "description": "server for tinderpaws",
-  "main": "app.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "devStart": "nodemon app.js",
-    "start": "node --experimental-modules app.js"
+    "devStart": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.6",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mysql": "^2.18.1",
-    "nodemon": "^2.0.13"
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0"
+    "babel-cli": "^6.26.0",
+    "nodemon": "^2.0.13"
   }
 }

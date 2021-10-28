@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import axios from 'axios'
+import {api, setToken} from '../../helperFunctions/axiosInstace'
 
 // Formik Schema (users)
 const userValidation = () => Yup.object({
@@ -29,28 +29,44 @@ const userValidation = () => Yup.object({
 
 // formik state & create new user
 const UserFormik = () => useFormik({
+    enableReinitialize: true, // allows to reset the initial fields
     initialValues: {
         fname: '',
         lname:'',
         email: '',
         password: '',
-        passwordConfirm: ''
+        passwordConfirm: '',
     },
     validationSchema: userValidation(),
-    onSubmit: (values, {resetForm}) => {
-        console.log(values)
-        console.log('hello world')
-        axios.post('http://localhost:3001/signup/user', values)
-            .then(function(response){
-                if (response.status === 201){
-                    // window.location = '/'
-                }
+    onSubmit: (values, {resetForm, setFieldValue}) => {
+        // make a copy and clean data
+        var data = JSON.parse(JSON.stringify(values))
+        delete data.passwordConfirm
+
+        // make request
+        api.post('/signup/user', data )
+            .then( response => {
+                // console.log(response)
+                // console.log(response.data)
+                
+                const {token} = response.data
+                setToken(token)
+
+                // remove error if exists
+                setFieldValue('error', '')
+                setFieldValue('success', 'Success!')
+
+                // redirects page
+                window.location = '/'
             })
-
-        // alert(JSON.stringify(values));
-
-        // reset form
-        resetForm();
+            .catch( error => {
+                // set error msg with formik
+                setFieldValue('error', error.response.data.msg)
+            })
+            // might not need this promise -> always executes
+            // .then(function(){
+            //     // resetForm()
+            // })
     },
 });
 
