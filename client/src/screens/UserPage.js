@@ -1,9 +1,8 @@
 import React, { useState, useMemo } from "react";
-import { Container, Grid, IconButton } from "@mui/material";
+import { Container, IconButton } from "@mui/material";
 import { Clear, Favorite } from "@mui/icons-material";
 import { pets } from "../TempData/petsData";
 import { AnimalCard } from "../Components/userpage/AnimalCard";
-import { Box } from "@mui/system";
 
 const alreadyRemoved = [];
 let charactersState = pets;
@@ -59,12 +58,9 @@ export const UserPage = () => {
 					xl={6}
 					sx={{
 						display: "flex",
-						// margin: "auto",
 						justifyContent: "center",
 						marginTop: "2vh",
-						// position: "relative",
 						height: "730px",
-						// alignItems: "stretch"
 					}}
 					item container
 				>

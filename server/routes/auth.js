@@ -8,7 +8,6 @@ import auth from '../middleware/auth.js'
 // should be called on every "protected route"
 router.get('/', auth, (req, res) => {
     const user = req.user
-
     if (user.user_id){
         var id = user.user_id
         var findUser = 'SELECT user_id, email FROM Users WHERE user_id=?'
