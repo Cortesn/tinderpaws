@@ -28,4 +28,4 @@ dbcon.js
 # package-lock.json
 package-lock.json
 
-/config
+.env

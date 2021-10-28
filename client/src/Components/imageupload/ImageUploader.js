@@ -9,15 +9,17 @@ const ImageUploader = () => {
     const [image, 
             handleImageChange, 
             open, 
-            handleClose] = useImageUploadState({false:false, true:true})
-
+            handleClose] = useImageUploadState('')
+  
     return (
         <>
             <label htmlFor="icon-button-file">
+                {/* file input */}
                 <input 
                     id="icon-button-file" 
                     accept="image/*" 
                     type="file" 
+                    // value={image}
                     onChange={handleImageChange}
                     style={{display: 'none'}}/>
 
@@ -26,7 +28,6 @@ const ImageUploader = () => {
                     aria-label="upload picture" 
                     component="span"
                     >
-
                     <PhotoCamera />
                 </IconButton>
 
