@@ -5,7 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "devStart": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devStart": "nodemon -r dotenv/config server.js",
     "start": "node server.js"
   },
   "author": "",
@@ -15,6 +16,7 @@
     "bcryptjs": "^2.4.3",
     "config": "^3.3.6",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.3",
