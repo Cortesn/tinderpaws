@@ -1,8 +1,8 @@
 import express from 'express'
 const router = express.Router()
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
-import config from 'config'
+// import bcrypt from 'bcryptjs'
+// import jwt from 'jsonwebtoken'
+// import config from 'config'
 import pool from '../Database/dbcon.js'
 const db = pool
 import auth from '../middleware/auth.js'
