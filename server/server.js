@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import pool from './Database/dbcon.js'
 import { adminPage } from './routes/adminPage.js';
 import { matches } from './routes/matches.js';
 import { profileUserUpdate } from './routes/profileUserUpdate.js';
