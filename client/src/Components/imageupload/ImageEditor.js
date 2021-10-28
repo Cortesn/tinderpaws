@@ -33,7 +33,7 @@ class ImageEditor extends React.Component {
                 .then(res => res.blob())
                 .then(blob => file = new File([blob], 'image'))
                 .then(file => {
-                    console.log(file)
+                    // console.log(file)
                     // make a new form element
                     let fd = new FormData();
                     fd.append('image', file)
@@ -49,7 +49,7 @@ class ImageEditor extends React.Component {
         }
     }
     
-
+    // handles image adjustment
     onZoom = (event) => {
         const scale = parseFloat(event.target.value)
         this.setState({ scale })

@@ -1,10 +1,14 @@
 // https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html
-// ** Upload an existing object to an Amazon S3 bucket
-// https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascriptv3/example_code/s3/src/s3_upload_object.js
-
-import { PutObjectCommand } from "@aws-sdk/client-s3";
-import s3Client from "./s3Client.js"
+// use this instead... returns public URL
+// https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascript/example_code/s3/s3_upload.js
+import AWS from 'aws-sdk'
 import * as fs from 'fs';
+
+// Set the region 
+AWS.config.update({region: process.env.S3_REGION});
+// Create S3 service object
+// lock the version 2006-03-01 is current
+var s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
 
 const uploadImage = async (file) => {
@@ -12,27 +16,12 @@ const uploadImage = async (file) => {
     // console.log(fileStream)
     // Create an object and upload it to the Amazon S3 bucket.
     const params = {
-        Bucket:"tinder-paws-images",
+        Bucket: process.env.S3_BUCKET,
         Key: file.filename,
         Body: fileStream
     }
-    
-    try {
-        const data = await s3Client.send(new PutObjectCommand(params))
-        // console.log("Success Data: ", data);
-        if (data){
-            // remove the file from local storage
-            fs.unlink(file.path, (err) => {
-                if (err){
-                    console.log(err)
-                }
-            })
-            return data;
-        }
-        // return results; // For unit tests.
-    } catch (err) {
-        console.log("Error", err);
-    }
+    // upload object and get the public url string back (.Location)
+    return s3.upload(params).promise();   
 }
 
 export default uploadImage
