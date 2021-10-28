@@ -42,7 +42,8 @@ CREATE TABLE Shelters (
 	password varchar(255) NOT NULL,
 	date_created date NOT NULL,
 	last_updated date,
-	info text
+	info text,
+	reset_key varchar(25)
 );
 
 CREATE TABLE Pets (
@@ -80,6 +81,7 @@ CREATE TABLE Employees (
 	email varchar(225) NOT NULL,
 	password varchar(255) NOT NULL,
 	date_created date NOT NULL,
+	reset_key varchar(25),
 	FOREIGN KEY (shelter_id) REFERENCES Shelters (shelter_id)
 );
 
@@ -91,7 +93,8 @@ CREATE TABLE Users (
 	zip varchar(20),
 	password varchar(255) NOT NULL,
 	date_created date NOT NULL,
-	last_updated date
+	last_updated date,
+	reset_key varchar(25)
 );
 
 CREATE TABLE Matches (

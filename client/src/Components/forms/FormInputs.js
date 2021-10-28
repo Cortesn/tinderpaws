@@ -4,6 +4,7 @@ import ShelterFormik from './ShelterSignup';
 import UserFormik from './UserSignup';
 import EmployeeFormik from './EmployeeSignup';
 import LoginFormik from './Login';
+import PasswordFormik from './PasswordResetRequest';
 import useFormPasswordState from '../../hooks/useFormPasswordState';
 
 var formik;
@@ -17,8 +18,10 @@ const FormInputs = (type, options) =>{
         formik = ShelterFormik()
     }else if (type === 'employee'){
         formik = EmployeeFormik();
-    }else if(type === 'login'){
+    }else if (type === 'login'){
         formik = LoginFormik()
+    }else if (type === 'forgotPassword'){
+        formik = PasswordFormik()
     }
   
     // state for changing password visability
@@ -139,7 +142,7 @@ const FormInputs = (type, options) =>{
             helperText: formik.touched.zip && formik.errors.zip
         },
         {
-            types: ['user', 'shelter', 'employee', 'login'],
+            types: ['user', 'shelter', 'employee', 'login', 'forgotPassword'],
             id: 'email',
             label: 'Email',
             value: formik.values.email,

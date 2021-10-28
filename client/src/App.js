@@ -10,7 +10,7 @@ import AdminEditPetPage from "./screens/AdminEditPetPage";
 // import NewsFeed from "./screens/NewsFeed";
 import Logout from "./Components/Logout";
 import useAuthState from "./hooks/useAuthState";
-
+import ResetPassword from "./screens/ResetPassword";
 
 const App = () => {
 
@@ -47,6 +47,9 @@ const App = () => {
                 </Route>
                 <Route exact path="/logout">
                     <Logout />
+                </Route>
+                <Route exact path="/resetPassword">
+                    <ResetPassword />
                 </Route>
             </Switch>
         </Router>

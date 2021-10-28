@@ -5,6 +5,7 @@ import { signup } from './routes/signup.js'
 import { login } from './routes/login.js'
 import { auth } from './routes/auth.js';
 import { forms } from './routes/forms.js';
+import { forgotPassword } from './routes/forgotPassword.js';
 
 const app = express();
 const db = pool;
@@ -16,6 +17,7 @@ app.use(express.urlencoded({extended: true}))
 app.use('/auth', auth)
 app.use('/login', login)
 app.use('/signup', signup)
+app.use('/forgotPassword', forgotPassword)
 app.use('/forms', forms)
 
 
@@ -46,6 +48,4 @@ app.get("/employee/:id", (req,res)=>{
 })
 
 
-const port = process.env.PORT || 3001;
-const hostname = process.env.HOSTNAME || 'localhost';
-app.listen( port, () => console.log(`Server started on http://${hostname}:${port}`));
+app.listen(process.env.PORT, () => console.log(`Server started on http://${process.env.HOSTNAME}:${process.env.PORT}`));

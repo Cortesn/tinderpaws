@@ -2,7 +2,6 @@ import express from 'express'
 const router = express.Router()
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import config from 'config'
 import pool from '../Database/dbcon.js'
 const db = pool
 
@@ -19,6 +18,7 @@ router.post('/user', (req, res) => {
         if (error){
             // render error message on frontend user snackbar or alert from mui
             // server error
+            console.log(error)
             return res.status(400).json({ msg : 'Somthing went wrong. Please try agian later.'})
         } else {
             console.log(results)
@@ -52,7 +52,7 @@ router.post('/user', (req, res) => {
                         // set user prop in token
                         const payload = { user: { user_id : results.insertId }}
                         // generate token to send to client
-                        jwt.sign( payload, config.get('jwtSecret'), {expiresIn: 360000 }, (error, token) => {
+                        jwt.sign( payload, process.env.JWT_SECRET, {expiresIn: 360000 }, (error, token) => {
                             if (error){
                                 console.log(error)
                             } else {
@@ -115,7 +115,7 @@ router.post('/shelter', (req, res) => {
                         // set user prop in token
                         const payload = { user: { shelter_id : results.insertId }}
                         // generate token to send to client
-                        jwt.sign( payload, config.get('jwtSecret'), {expiresIn: 360000 }, (error, token) => {
+                        jwt.sign( payload, process.env.JWT_SECRET, {expiresIn: 360000 }, (error, token) => {
                             if (error){
                                 console.log(error)
                             } else {
@@ -175,7 +175,7 @@ router.post('/employee', (req, res) => {
                         // make payload for token after getting user id from db
                         const payload = { user: { employee_id : employeeId }}
                         // generate token to send to client
-                        jwt.sign( payload, config.get('jwtSecret'), {expiresIn: 360000 }, (error, token) => {
+                        jwt.sign( payload, process.env.JWT_SECRET, {expiresIn: 360000 }, (error, token) => {
                             if (error){
                                 console.log(error)
                             } else {
