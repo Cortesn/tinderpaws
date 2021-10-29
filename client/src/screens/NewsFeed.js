@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, ImageList, ImageListItem, useMediaQuery} from '@mui/material';
+import {Box, ImageList, ImageListItem, Typography, useMediaQuery} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import NewsCard from '../Components/NewsCard';
 
@@ -43,16 +43,22 @@ const NewsFeed = () => {
     const matches = useMediaQuery(theme.breakpoints.down('sm')); 
 
     return (
-        <Box sx={{margin: 'auto', maxWidth: 1280, overflowY: 'scroll' }}>
-            <ImageList variant="masonry" cols={3} gap={8}>
-            {tempData.map((item) => (
-                <ImageListItem key={item.imageId}>
-                    <NewsCard image={item.url} adopted={item.adopted}/>
-                
-                </ImageListItem>
-            ))}
-            </ImageList>
-      </Box>
+
+        <Box sx={{margin: 'auto', maxWidth: 1280}}>
+            <Typography variant='h2' align='center'>
+                News
+            </Typography>
+            <Box sx={{overflowY: 'scroll' }}>
+                <ImageList variant="masonry" cols={3} gap={8}>
+                {tempData.map((item) => (
+                    <ImageListItem key={item.imageId}>
+                        <NewsCard image={item.url} adopted={item.adopted}/>
+                    
+                    </ImageListItem>
+                ))}
+                </ImageList>
+            </Box>
+        </Box>
     )
 }
 
