@@ -1,13 +1,17 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
+import { 
+    Box, 
+    ListItemIcon, 
+    ListItemText, 
+    ListItem, 
+    Divider, 
+    List } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 
 // mobile slideout drawer menu
-export default function MenuDrawerItems(anchor, toggleDrawer){
+export default function MenuDrawerItems(anchor, toggleDrawer, account){
     return(
         <Box
             sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
@@ -24,9 +28,21 @@ export default function MenuDrawerItems(anchor, toggleDrawer){
             </List>
             <Divider />
             <List>
-                <ListItem button component='a' href='/signup' key='Signup'>
-                    <ListItemText primary='Signup' />
-                </ListItem>
+                {account.auth ? 
+                    <ListItem button component='a' href='/logout' key='Logout'>
+                        <ListItemText primary='Log Out' />
+                        <ListItemIcon>
+                            <LogoutIcon/>
+                        </ListItemIcon>
+                    </ListItem>
+                :
+                    <ListItem button component='a' href='/login' key='Login'>
+                        <ListItemText primary='Login' />
+                        <ListItemIcon>
+                            <AccountCircle/>
+                        </ListItemIcon>
+                    </ListItem>
+                }   
             </List>
         </Box>
     )

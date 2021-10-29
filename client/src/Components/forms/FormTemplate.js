@@ -1,12 +1,12 @@
 import React from 'react'
-import { Button, Stack, FormControl } from '@mui/material';
+import { Button, Stack, FormControl, Alert } from '@mui/material';
 import { RenderInputs } from './RenderInputs';
 import RenderTwoInputs from './RenderTwoInputs';
-
+import { FormInputs, formik } from './FormInputs';
 
 const FormTemplate = (props) => {
-    const {form, type, options, button, data, user_id} = props;
-    const {filteredInputs, formik} = form(type, options, data, user_id);
+    const {type, options, button, data, user_id} = props;
+    const {filteredInputs} = FormInputs(type, options, data, user_id);
    
     var tempInput = null;
     return (
@@ -16,6 +16,10 @@ const FormTemplate = (props) => {
             noValidate
             autoComplete="off"
             onSubmit={formik.handleSubmit}>
+            
+            {/* display alert messages */}
+            {formik.values.error ? <Alert severity="error">{formik.values.error}</Alert> : null}
+            {formik.values.success ? <Alert severity="success">{formik.values.success}</Alert> : null}
             
             {filteredInputs.map(input =>{
                 

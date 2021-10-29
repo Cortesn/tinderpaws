@@ -42,7 +42,7 @@ const PetInfoForm = () => {
                 </Grid>
                 <Grid item>
                     <FormControl fullWidth variant="filled" size="small">
-                        <InputLabel htmlFor="type">Breed</InputLabel>
+                        <InputLabel htmlFor="breed">Breed</InputLabel>
                         <Select
                             labelId="breed"
                             id="breed"
@@ -55,7 +55,7 @@ const PetInfoForm = () => {
                 </Grid>
                 <Grid item>
                     <FormControl fullWidth variant="filled" size="small">
-                        <InputLabel htmlFor="type">Status</InputLabel>
+                        <InputLabel htmlFor="status">Status</InputLabel>
                         <Select
                             labelId="status"
                             id="status"
@@ -95,7 +95,7 @@ const PetInfoForm = () => {
                         <TextareaAutosize
                             aria-label="textarea"
                             minRows={5}
-                            placeholder="Decription..."
+                            placeholder="Description..."
                             style={{resize: 'vertical', maxWidth: '100%' }}/>
                     </FormControl>
                 </Grid>
