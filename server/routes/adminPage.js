@@ -25,7 +25,7 @@ router.get("/shelters/shelter/employees/:id", (req,res)=>{
 // endpoint to get employee name given employee id
 router.get("/employees/:id", (req,res)=>{
     const employee_id = req.params.id;
-    const getShelterInfo = 'SELECT name FROM Employees WHERE employee_id = ?';
+    const getShelterInfo = 'SELECT name FROM Employees WHERE Employees.employee_id = ?';
     db.query(`${getShelterInfo}`, [employee_id], (err, result)=>{
         if(err){
             console.error(err.message)

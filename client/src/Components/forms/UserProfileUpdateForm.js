@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {Grid} from "@mui/material";
+import {Grid, Link} from "@mui/material";
 import FormTemplate from '../forms/FormTemplate';
-import { FormInputs } from '../forms/FormInputs';
 import axios from 'axios';
 const UserProfileUpdateForm = (props) => {
     const user_id = props.user_id
@@ -20,7 +19,6 @@ const UserProfileUpdateForm = (props) => {
                 }
             )});
         },[user_id]);
-
     return ( 
         <Grid>
             {userData && 
@@ -29,6 +27,11 @@ const UserProfileUpdateForm = (props) => {
             button={'Update Profile'}
             data= {userData}
             user_id={user_id}/>}
+            <Grid item align="center" sx={{padding: '4% 0% 2% 0%'}}>
+                <Link  href="/reset">
+                    Reset Password
+                </Link>
+            </Grid>
         </Grid>
     )
 }

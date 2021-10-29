@@ -103,7 +103,7 @@ const AdminHome = () => {
                         <Button variant="contained" href="/addAnimalProfile">
                             Add new animal profile
                         </Button>
-                        <Button variant="contained" href="/editAnimalProfile">
+                        <Button variant="contained" href="/admin/editpet">
                             Edit animal profile
                         </Button>
                         <Button variant="contained" onClick={toggleShelterForm}>
