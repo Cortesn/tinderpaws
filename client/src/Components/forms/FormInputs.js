@@ -5,6 +5,8 @@ import ShelterFormik from './ShelterSignup';
 import UserFormik from './UserSignup';
 import EmployeeFormik from './EmployeeSignup';
 import LoginFormik from './Login';
+import ForgotPasswordFormik from './ForgotPassword';
+import ResetPasswordFormik from './ResetPassword';
 import useFormPasswordState from '../../hooks/useFormPasswordState';
 import UpdateProfileRequest from '../../helperFunctions/UserHome/updateProfileRequest';
 import signUpRequest from '../../helperFunctions/signUp.js/signUpRequest';
@@ -20,7 +22,7 @@ const FormInputs = (type, options, data, user_id) =>{
         formik = ShelterFormik()
     }else if (type === 'employee'){
         formik = EmployeeFormik();
-    }else if(type === 'login'){
+    }else if (type === 'login'){
         formik = LoginFormik()
     }
     else if (type === 'userUpdate'){
@@ -28,6 +30,10 @@ const FormInputs = (type, options, data, user_id) =>{
     } 
     else if (type === 'shelterUpdate'){
         formik = ShelterUpdateFormik(data.data, data.data.shelter_id)
+    }else if (type === 'forgotPassword'){
+        formik = ForgotPasswordFormik()
+    }else if (type === 'resetPassword'){
+        formik = ResetPasswordFormik(data)
     }
     // state for changing password visability
     const [ 
@@ -147,7 +153,7 @@ const FormInputs = (type, options, data, user_id) =>{
             helperText: formik.touched.zip && formik.errors.zip
         },
         {
-            types: ['user', 'shelter', 'employee', 'userUpdate', 'login'],
+            types: ['user', 'shelter', 'employee', 'userUpdate', 'login', 'forgotPassword'],
             id: 'email',
             label: 'Email',
             value: formik.values.email,
@@ -156,7 +162,7 @@ const FormInputs = (type, options, data, user_id) =>{
             helperText: formik.touched.email && formik.errors.email
         },
         {
-            types: ['user', 'shelter', 'employee', 'login'],
+            types: ['user', 'shelter', 'employee', 'login', 'resetPassword'],
             id: 'password',
             label: 'Password',
             password: {
@@ -173,7 +179,7 @@ const FormInputs = (type, options, data, user_id) =>{
             }
         },
         {
-            types: ['user', 'shelter', 'employee'],
+            types: ['user', 'shelter', 'employee', 'resetPassword'],
             id: 'password2',
             label: 'Confirm Password',
             password: {
