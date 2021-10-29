@@ -2,7 +2,6 @@ import express from 'express'
 const router = express.Router()
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import config from 'config'
 import pool from '../Database/dbcon.js'
 const db = pool
 
@@ -20,7 +19,7 @@ router.post('/', (req,res) => {
         if (error){
             // server error
             console.log(error)
-            return res.status(400).json({ msg : 'Somthing went wrong. Please try agian.' })
+            return res.status(400).json({ msg: 'Server error. Please try again later.' })
             // redirect back to login
         } else {
             // user is found
@@ -50,7 +49,7 @@ router.post('/', (req,res) => {
                     // const payload = { user: { user_id : result.user_id ?? result.shelter_id ?? result.employee_id }}
 
                     // console.log(payload)
-                    jwt.sign( payload, config.get('jwtSecret'), {expiresIn: 360000}, (error, token) => {
+                    jwt.sign( payload, process.env.JWT_SECRET, {expiresIn: 360000}, (error, token) => {
                         if (error){
                             console.log(error)
                         } else {
