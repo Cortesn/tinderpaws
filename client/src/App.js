@@ -48,7 +48,7 @@ const App = () => {
 				<Route exact path="/logout">
 					<Logout />
 				</Route>
-				<Route path="/newsFeed">
+				<Route path="/news">
 					<NewsFeed />
 				</Route>
                 <Route path="/resetPassword/email/:email/reset_key/:reset_key">

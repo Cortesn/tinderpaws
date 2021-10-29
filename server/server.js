@@ -4,6 +4,7 @@ import { signup } from './routes/signup.js'
 import { login } from './routes/login.js'
 import { auth } from './routes/auth.js';
 import { forms } from './routes/forms.js';
+import { images } from './routes/images.js'
 import { password } from './routes/password.js';
 import { adminPage } from './routes/adminPage.js';
 import { matches } from './routes/matches.js';
@@ -16,9 +17,11 @@ app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
+// Routes
 app.use('/auth', auth)
 app.use('/login', login)
 app.use('/signup', signup)
+app.use('/images', images)
 app.use('/password', password)
 app.use('/forms', forms)
 app.use('/adminHome', adminPage)
