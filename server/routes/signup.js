@@ -38,7 +38,8 @@ router.post('/user', (req, res) => {
                 password = await bcrypt.hash(password, salt)
 
                 // get current date format to YYYY-MM-DD
-                const date = new Date(Date.now()).toLocaleDateString('en-CA')
+                // const date = new Date(Date.now()).toLocaleDateString('en-CA')
+                const date = new Date().toISOString().slice(0,10);
    
                 //  save data to database
                 const saveUser = 'INSERT INTO Users (f_name, l_name, email, password, date_created, last_updated) VALUES (?,?,?,?,?,?)'

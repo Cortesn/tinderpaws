@@ -17,22 +17,15 @@ const userValidation = () => Yup.object({
         .string()
         .email('Please Enter a valid email')
         .required('Required'),
-    password: Yup
-        .string('Enter password')
-        .min(8, 'Minimum 8 characters')
-        .required('Password is required'),
-    passwordConfirm: Yup
-        .string()
-        .oneOf([Yup.ref('password'), null], 'Passwords must match')
 });
 
 // formik state & create new user
-const UserFormik = (initialValues, onSubmitFunction) => useFormik({
+const UserUpdateFormik = (initialValues, onSubmitFunction, user_id) => useFormik({
     initialValues: initialValues,
     validationSchema: userValidation(),
-    onSubmit: (values, {resetForm, setFieldValue}) => {
-        onSubmitFunction(values, {resetForm, setFieldValue})
+    onSubmit: (values) => {
+        onSubmitFunction(values, user_id)
     },
 });
 
-export default UserFormik
+export default UserUpdateFormik

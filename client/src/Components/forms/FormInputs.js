@@ -1,5 +1,6 @@
 import React from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import ShelterUpdateFormik from './ShelterUpdate'
 import ShelterFormik from './ShelterSignup';
 import UserFormik from './UserSignup';
 import EmployeeFormik from './EmployeeSignup';
@@ -9,6 +10,7 @@ import ResetPasswordFormik from './ResetPassword';
 import useFormPasswordState from '../../hooks/useFormPasswordState';
 import UpdateProfileRequest from '../../helperFunctions/UserHome/updateProfileRequest';
 import signUpRequest from '../../helperFunctions/signUp.js/signUpRequest';
+import UserUpdateFormik from './UserUpdate';
 
 var formik;
 // all possible form inputs with validation
@@ -22,13 +24,17 @@ const FormInputs = (type, options, data, user_id) =>{
         formik = EmployeeFormik();
     }else if (type === 'login'){
         formik = LoginFormik()
+    }
+    else if (type === 'userUpdate'){
+        formik = UserUpdateFormik(data, UpdateProfileRequest, user_id)
+    } 
+    else if (type === 'shelterUpdate'){
+        formik = ShelterUpdateFormik(data.data, data.data.shelter_id)
     }else if (type === 'forgotPassword'){
         formik = ForgotPasswordFormik()
     }else if (type === 'resetPassword'){
         formik = ResetPasswordFormik(data)
-    }else if (type === 'userUpdate'){
-        formik = UserFormik(data, UpdateProfileRequest, "UpdateProfileRequest", user_id)
-    }  
+    }
     // state for changing password visability
     const [ 
         pass1, 
@@ -102,7 +108,7 @@ const FormInputs = (type, options, data, user_id) =>{
         },
         
         {
-            types: ['shelter'],
+            types: ['shelter', 'shelterUpdate'],
             id: 'sname',
             label: 'Shelter Name',
             value: formik.values.sname,
@@ -111,7 +117,7 @@ const FormInputs = (type, options, data, user_id) =>{
             helperText: formik.touched.sname && formik.errors.sname
         },
         {
-            types: ['shelter'],
+            types: ['shelter', 'shelterUpdate'],
             id: 'street',
             label: 'Street',
             value: formik.values.street,
@@ -120,7 +126,7 @@ const FormInputs = (type, options, data, user_id) =>{
             helperText: formik.touched.street && formik.errors.street
         },
         {
-            types: ['shelter'],
+            types: ['shelter', 'shelterUpdate'],
             id: 'city',
             label: 'City',
             value: formik.values.city,
@@ -129,7 +135,7 @@ const FormInputs = (type, options, data, user_id) =>{
             helperText: formik.touched.city && formik.errors.city
         },
         {
-            types: ['shelter'],
+            types: ['shelter', 'shelterUpdate'],
             id: 'state',
             label: 'State',
             value: formik.values.state,
@@ -138,7 +144,7 @@ const FormInputs = (type, options, data, user_id) =>{
             helperText: formik.touched.state && formik.errors.state
         },
         {
-            types: ['shelter'],
+            types: ['shelter', 'shelterUpdate'],
             id: 'zip',
             label: 'Zip',
             value: formik.values.zip,
@@ -156,7 +162,7 @@ const FormInputs = (type, options, data, user_id) =>{
             helperText: formik.touched.email && formik.errors.email
         },
         {
-            types: ['user', 'shelter', 'employee', 'userUpdate', 'login', 'resetPassword'],
+            types: ['user', 'shelter', 'employee', 'login', 'resetPassword'],
             id: 'password',
             label: 'Password',
             password: {
@@ -173,7 +179,7 @@ const FormInputs = (type, options, data, user_id) =>{
             }
         },
         {
-            types: ['user', 'shelter', 'employee', 'userUpdate', 'resetPassword'],
+            types: ['user', 'shelter', 'employee', 'resetPassword'],
             id: 'password2',
             label: 'Confirm Password',
             password: {

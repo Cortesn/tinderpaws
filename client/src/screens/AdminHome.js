@@ -1,92 +1,118 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import {useParams} from "react-router";
-import { Typography, Box, Button, Stack } from "@mui/material";
+import { Typography, Button, Stack, Grid, Card, CardContent} from "@mui/material";
 import {createTheme} from '@mui/material/styles';
 import { ThemeProvider } from "@mui/system";
-import { yellow } from '@mui/material/colors'
-import getShelterInfo from "../helperFunctions/AdminHomePage/getShelterInfo";
-
+import FormTemplate from '../Components/forms/FormTemplate';
+import { FormInputs } from '../Components/forms/FormInputs';
+import CancelIcon from '@mui/icons-material/Cancel';
+import axios from 'axios'
 const AdminHome = () => {
     const theme = createTheme({
             palette: {
               primary: {
-                  main: yellow[500],
+                  main: '#1976d2',
               }
             }
           })
     // useParams is to get the ID passed into the parent route
     const {id} = useParams()
-    // query the shelter info with the admin id
-    // not getting anything bc server is not sending data back yet
-    const {data} = getShelterInfo(id);
-    console.log("hello")
-    console.log(data)
-    
+
+    // get shelter info
+    const [shelterInfoState, setShelterInfoState] = useState(null);
+    useEffect(() => {
+        const url = `http://localhost:3001/adminHome/shelters/shelter/employees/${id}`;
+        axios.get(url).then((response)=>{
+            const data = {data: response.data[0]}
+            setShelterInfoState(data);
+            });
+        }, [id]);
+
+    // get employee name
+    const [employeeNameState, setEmployeeNameState] = useState(null);
+    useEffect(()=>{
+        const url = `http://localhost:3001/adminHome/employees/${id}`;
+        axios.get(url).then((response)=>{
+            setEmployeeNameState(response.data[0]["name"])
+        })
+    }, [id])
+
+    // toggle form for shelter update request
+    const [updateFormState, setUpdateFormState] = useState(false)
+    const toggleShelterForm = ()=>{
+        setUpdateFormState(!updateFormState)
+    }
     return ( 
-        <Box>
-            <Box sx={{
-                border:1,
-                borderColor: 'grey.500',
-                width: '60%',
-                margin: 'auto',
-                padding: '1rem',
-                borderRadius:"12px",
-                marginBottom: "2rem",
-                marginTop:"1rem"
-            }}>
-                <Typography 
-                variant="h6"
-                align="center"
-                gutterBottom>
-                    Welcome back, user. 
-                </Typography>
-            </Box>
+        <Grid container>
+            <Grid xs={12} sm={7} md={6} lg={7} xl={7} sx={{margin: 'auto', marginTop: '1%'}} item>
+                <Card variant="outlined" sx={{marginBottom: "2%"}}>
+                    <CardContent>
+                    {employeeNameState && <Typography 
+                        variant="h6"
+                        align="center"
+                        gutterBottom>
+                            Welcome back, {employeeNameState}. 
+                        </Typography>}
+                        {shelterInfoState && 
+                        <Typography
+                        variant="subtitle1"
+                        align="center">
+                            {shelterInfoState.data.name}
+                        </Typography>}
+                        { shelterInfoState && <Typography
+                        variant="subtitle2"
+                        align="center">
+                            {shelterInfoState.data.street}
+                        </Typography>}
+                        { shelterInfoState && <Typography
+                        variant="subtitle2"
+                        align="center">
+                            {shelterInfoState.data.city}, {shelterInfoState.data.state} {shelterInfoState.data.zip}
+                        </Typography>}
+                        { shelterInfoState && 
+                        <Typography
+                        variant="body2"
+                        align="center">
+                            {shelterInfoState.data.info}
+                        </Typography>
+                        }
+                    </CardContent>
+                    {updateFormState && 
+                        <CardContent>
+                        <Typography
+                        variant="subtitle2"
+                        align="right">
+                            <CancelIcon sx={{color: "#1976d2"}} onClick={toggleShelterForm}/>
+                        </Typography>
+                        { shelterInfoState &&  <FormTemplate 
+                                form={FormInputs} 
+                                type={'shelterUpdate'} 
+                                button={'Update Shelter Info'}
+                                data= {shelterInfoState}
+                                />}
+                        </CardContent>
+                    }
+                </Card>
 
-            <Box sx={{
-                border:1,
-                borderColor: 'grey.500',
-                width: '60%',
-                margin: 'auto',
-                padding: '1rem',
-                borderRadius:"12px",
-                marginBottom: "2rem"
-            }}>
-                <Typography
-                variant="h3"
-                align="left">
-                    shelter title
-                </Typography>
-                <Typography
-                variant="h6"
-                align="left">
-                    shelter address
-                </Typography>
-
-                <Typography
-                variant="body1"
-                align="center">
-                    shelter info
-                </Typography>
-            </Box>
-
-            <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="center"
-            spacing={6}>
-                <ThemeProvider theme={theme}>
-                    <Button variant="contained" color="success" href="/addAnimalProfile">
-                        Add new animal profile
-                    </Button>
-                    <Button variant="contained" color="error" href="/editAnimalProfile">
-                        Edit animal profile
-                    </Button>
-                    <Button variant="contained" color="primary" href="/editShelter">
-                        Edit shelter info
-                    </Button>
-                </ThemeProvider>
-            </Stack>
-        </Box>
+                <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="center"
+                spacing={6}>
+                    <ThemeProvider theme={theme}>
+                        <Button variant="contained" href="/addAnimalProfile">
+                            Add new animal profile
+                        </Button>
+                        <Button variant="contained" href="/admin/editpet">
+                            Edit animal profile
+                        </Button>
+                        <Button variant="contained" onClick={toggleShelterForm}>
+                            Edit shelter info
+                        </Button>
+                    </ThemeProvider>
+                </Stack>
+            </Grid>
+        </Grid>
      );
 }
  
