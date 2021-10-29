@@ -2,7 +2,6 @@ import express from 'express'
 const router = express.Router()
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-// import config from 'config'
 import pool from '../Database/dbcon.js'
 const db = pool
 
@@ -19,6 +18,7 @@ router.post('/user', (req, res) => {
         if (error){
             // render error message on frontend user snackbar or alert from mui
             // server error
+            console.log(error)
             return res.status(400).json({ msg : 'Somthing went wrong. Please try agian later.'})
         } else {
             console.log(results)
