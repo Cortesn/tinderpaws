@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Stack, FormControl, Alert } from '@mui/material';
+import { Button, Stack, FormControl, Alert, Link } from '@mui/material';
 import { RenderInputs } from './RenderInputs';
 import RenderTwoInputs from './RenderTwoInputs';
 import { FormInputs, formik } from './FormInputs';
@@ -7,7 +7,11 @@ import { FormInputs, formik } from './FormInputs';
 const FormTemplate = (props) => {
     const {type, options, button, data, user_id} = props;
     const {filteredInputs} = FormInputs(type, options, data, user_id);
-   
+    const link = ()=>{
+        if(type === "userUpdate"){
+            return true
+        }return false
+    }
     var tempInput = null;
     return (
         <Stack
@@ -48,6 +52,10 @@ const FormTemplate = (props) => {
                 >
                 {button}
             </Button>
+            {link && 
+            <Link align="center" sx={{padding: '2% 0% 2% 0%'}}href="/reset">
+                Reset Password
+            </Link>}
         </Stack>
     )
 }

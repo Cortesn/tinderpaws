@@ -8,6 +8,7 @@ import LoginFormik from './Login';
 import useFormPasswordState from '../../hooks/useFormPasswordState';
 import UpdateProfileRequest from '../../helperFunctions/UserHome/updateProfileRequest';
 import signUpRequest from '../../helperFunctions/signUp.js/signUpRequest';
+import UserUpdateFormik from './UserUpdate';
 
 var formik;
 // all possible form inputs with validation
@@ -23,7 +24,7 @@ const FormInputs = (type, options, data, user_id) =>{
         formik = LoginFormik()
     }
     else if (type === 'userUpdate'){
-        formik = UserFormik(data, UpdateProfileRequest, "UpdateProfileRequest", user_id)
+        formik = UserUpdateFormik(data, UpdateProfileRequest, user_id)
     } 
     else if (type === 'shelterUpdate'){
         formik = ShelterUpdateFormik(data.data, data.data.shelter_id)
@@ -155,7 +156,7 @@ const FormInputs = (type, options, data, user_id) =>{
             helperText: formik.touched.email && formik.errors.email
         },
         {
-            types: ['user', 'shelter', 'employee', 'userUpdate', 'login'],
+            types: ['user', 'shelter', 'employee', 'login'],
             id: 'password',
             label: 'Password',
             password: {
@@ -172,7 +173,7 @@ const FormInputs = (type, options, data, user_id) =>{
             }
         },
         {
-            types: ['user', 'shelter', 'employee', 'userUpdate'],
+            types: ['user', 'shelter', 'employee'],
             id: 'password2',
             label: 'Confirm Password',
             password: {
