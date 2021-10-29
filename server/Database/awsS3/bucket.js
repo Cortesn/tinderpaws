@@ -4,8 +4,6 @@
 import AWS from 'aws-sdk'
 import * as fs from 'fs';
 
-// Set the region 
-AWS.config.update({region: process.env.S3_REGION});
 // Create S3 service object
 // lock the version 2006-03-01 is current
 var s3 = new AWS.S3({apiVersion: '2006-03-01'});
