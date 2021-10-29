@@ -9,9 +9,6 @@ INSERT INTO Statuses (description) VALUES
 ('Pending'),
 ('Adopted');
 
--- INSERT INTO Images (url) VALUES
--- ();
-
 INSERT INTO Shelters (name, street, city, state, zip, email, password, date_created, last_updated, info) VALUES
 ('Test Shelter No. 1', '1234 Shelter St', 'Seattle', 'WA', '88888', 'shelter1@test.com', '123456', '2021-10-10', '2021-10-13', 'Our goal is the match pets with their forever homes!'),
 ('Test Shelter No. 2', '4567 Adopted St', 'Seattle', 'WA', '88888', 'shelter2@test.com', '123456', '2021-10-12', '2021-10-14', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'),
