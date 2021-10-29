@@ -25,7 +25,32 @@ export default function MenuDrawerItems(anchor, toggleDrawer, account){
                 <ListItem button component='a' href='/about' key='About'>
                     <ListItemText primary='About' />
                 </ListItem>
+
+                { account.shelter_id || account.employee_id || account.user_id ?
+                <ListItem button component='a' href='/news' key='News'>
+                    <ListItemText primary='News' />
+                </ListItem>
+                : null}
+
+                { account.employee_id || account.user_id ?
+                <ListItem button component='a' href='/user' key='Pets'>
+                    <ListItemText primary='Pets' />
+                </ListItem>
+                : null }
+
+                { account.employee_id || account.shelter_id ?
+                <ListItem button component='a' href='/' key='Manage'>
+                    <ListItemText primary='Manage' />
+                </ListItem>
+                : null }
+
+                { account.shelter_id ?
+                <ListItem button component='a' href='/' key='Admin'>
+                    <ListItemText primary='Admin' />
+                </ListItem>
+                : null }
             </List>
+
             <Divider />
             <List>
                 {account.auth ? 
