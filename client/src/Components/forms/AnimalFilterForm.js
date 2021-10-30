@@ -2,7 +2,8 @@ import React, {useState, useEffect} from "react";
 import {TextField, Button, Typography, Autocomplete, FormGroup, FormControlLabel, Checkbox, Grid} from "@mui/material";
 import UseDispositionState from "../../hooks/useDispositionState";
 import UseAnimalFilterState from "../../hooks/useAnimalFilterState";
-import axios from "axios";
+// import axios from "axios";
+import {api, setToken} from '../../helperFunctions/axiosInstace'
 import createAnimalTypeArray from "../../helperFunctions/UserHome/createAnimalTypeArray";
 import createObjectToArray from "../../helperFunctions/UserHome/createObjectToArray";
 import convertDispObjToArray from "../../helperFunctions/UserHome/convertDispObjToArray";
@@ -13,10 +14,10 @@ let animals = null; // not sure how nicolas will be using the queried data
 const AnimalFilterForm = (props) => {
 
     const submitAnimalFilter = ()=>{
-        const url = 'http://localhost:3001/filterSetting/filteredAnimals';
+        // const url = 'http://localhost:3001/filterSetting/filteredAnimals';
         const params = {params: {shelters: createObjectToArray(selectedShelters,[]), breeds: createObjectToArray(selectedBreeds,[]), dispositions: convertDispObjToArray(disposition,[])}}
         try{
-            axios.get(url, params).then((response)=>{
+            api.get('/filterSetting/filteredAnimals', params).then((response)=>{
                 animals = response.data;
                 console.log(response.data)
             })
@@ -42,8 +43,8 @@ const AnimalFilterForm = (props) => {
     const [breedState, setBreedState] = useState(null);
     useEffect(() => {
         const animalTypes = {params: {shelter: createObjectToArray(selectedShelters,[]), animalTypes: createAnimalTypeArray(state,[])}}
-        const url = 'http://localhost:3001/filterSetting/animals/breed';
-        axios.get(url, animalTypes).then((response)=>{
+        // const url = 'http://localhost:3001/filterSetting/animals/breed';
+        api.get('/filterSetting/animals/breed', animalTypes).then((response)=>{
             setBreedState(response.data);
             });
         }, [state, selectedShelters]);

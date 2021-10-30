@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {Grid} from "@mui/material";
 import FormTemplate from '../forms/FormTemplate';
-import axios from 'axios';
+import { FormInputs } from '../forms/FormInputs';
+// import axios from 'axios';
+import {api, setToken} from '../../helperFunctions/axiosInstace'
 const UserProfileUpdateForm = (props) => {
     const user_id = props.user_id
     const [userData, setUserData] = useState(null)
     // query for user data here
     useEffect(() => {
-        const url = `http://localhost:3001/userProfileUpdate/userData/${user_id}`;
-        axios.get(url).then((response)=>{
+        // const url = `http://localhost:3001/userProfileUpdate/userData/${user_id}`;
+        api.get(`/userProfileUpdate/userData/${user_id}`).then((response)=>{
             setUserData(
                 {
                     fname: response.data[0].f_name,

@@ -18,15 +18,17 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 // Routes
-app.use('/auth', auth)
-app.use('/login', login)
-app.use('/signup', signup)
-app.use('/images', images)
-app.use('/password', password)
-app.use('/forms', forms)
-app.use('/adminHome', adminPage)
-app.use('/matches', matches)
-app.use('/userProfileUpdate', profileUserUpdate)
-app.use('/filterSetting', filterSetting)
+app.use('/api/auth', auth)
+app.use('/api/login', login)
+app.use('/api/signup', signup)
+app.use('/api/images', images)
+app.use('/api/password', password)
+app.use('/api/forms', forms)
+app.use('/api/adminHome', adminPage)
+app.use('/api/matches', matches)
+app.use('/api/userProfileUpdate', profileUserUpdate)
+app.use('/api/filterSetting', filterSetting)
 
-app.listen(process.env.PORT, () => console.log(`Server started on http://${process.env.HOSTNAME}:${process.env.PORT}`));
+const PORT = process.env.PORT || 5000
+const HOSTNAME = process.env.HOSTNAME || 'localhost'
+app.listen(PORT, () => console.log(`Server started on http://${HOSTNAME}:${PORT}`));

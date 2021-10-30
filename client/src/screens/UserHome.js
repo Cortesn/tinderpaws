@@ -6,7 +6,8 @@ import AnimalFilterForm from "../Components/forms/AnimalFilterForm";
 import MatchesGrid from "../Components/grids/MatchesGrid";
 import UserAccordionState from "../hooks/useAccordionState";
 import {useState, useEffect} from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import {api, setToken} from '../helperFunctions/axiosInstace'
 import { useParams } from "react-router";
 
 
@@ -17,8 +18,8 @@ const UserHome = () => {
     // const [shelters, handleGetShelter] = UseSettingsShelterState();
     const [shelters, setShelters] = useState(null);
     useEffect(() => {
-        const url = 'http://localhost:3001/filterSetting/shelters';
-        axios.get(url).then((response)=>{
+        // const url = 'http://localhost:3001/filterSetting/shelters';
+        api.get('/filterSetting/shelters').then((response)=>{
             setShelters(response.data);
             });
         },[]);
