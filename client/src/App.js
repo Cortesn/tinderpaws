@@ -32,28 +32,14 @@ const App = () => {
 				<Route exact path="/login" component={LoginScreen} />
 				<Route exact path="/user" component={UserPage} />
 				<Route exact path="/signup" component={SignupPage} />
-				<Route
-					exact
-					path="/admin/editpet"
-					component={AdminEditPetPage}
-				/>
+				<Route exact path="/admin/edit/:pet_id" component={AdminEditPetPage} />
 				<Route exact path="/logout" component={Logout} />
 				<Route exact path="/admin" render={() => <AdminPage />} />
-				<Route path="/userHome/:id">
-					<UserHome />
-				</Route>
-				<Route path="/adminHome/:id">
-					<AdminHome />
-				</Route>
-				<Route exact path="/logout">
-					<Logout />
-				</Route>
-				<Route path="/newsFeed">
-					<NewsFeed />
-				</Route>
-                <Route path="/resetPassword/email/:email/reset_key/:reset_key">
-                    <ResetPassword />
-                </Route>
+				<Route path="/userHome/:id" component={UserHome}/>
+				<Route path="/adminHome/:id" component={AdminHome}/>
+				<Route exact path="/logout" component={Logout}/>
+				<Route path="/newsFeed" component={NewsFeed}/>
+        <Route path="/resetPassword/email/:email/reset_key/:reset_key" component={ResetPassword}/>
 			</Switch>
 		</Router>
 	);

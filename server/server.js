@@ -9,6 +9,7 @@ import { adminPage } from './routes/adminPage.js';
 import { matches } from './routes/matches.js';
 import { profileUserUpdate } from './routes/profileUserUpdate.js';
 import { filterSetting } from './routes/filterSetting.js';
+import { userRouter } from './routes/userpage.js';
 
 const app = express();
 

@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useParams } from "react-router";
 
 
+
 const UserHome = () => {
     const {id} = useParams();
     const [expanded, handleChangeAccordion] = UserAccordionState(false);
@@ -17,6 +18,7 @@ const UserHome = () => {
     // const [shelters, handleGetShelter] = UseSettingsShelterState();
     const [shelters, setShelters] = useState(null);
     useEffect(() => {
+        console.log("inside useEffect");
         const url = 'http://localhost:3001/filterSetting/shelters';
         axios.get(url).then((response)=>{
             setShelters(response.data);
