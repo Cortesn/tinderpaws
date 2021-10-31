@@ -17,7 +17,6 @@ import UserAccordionState from "../hooks/useAccordionState";
 import axios from "axios";
 import { useParams } from "react-router";
 import { Clear, Favorite } from "@mui/icons-material";
-import { pets } from "../TempData/petsData";
 import { AnimalCard } from "../Components/userpage/AnimalCard";
 
 const alreadyRemoved = [];
@@ -35,6 +34,8 @@ const UserHome = () => {
 		axios.get(url).then((response) => {
 			setShelters(response.data);
 		});
+        
+        //Initial Screen will show all pets in DB
 		const petUrl = "http://localhost:3001/user/pets";
 		axios.get(petUrl).then((response) => {
 			response.data.forEach((pet) => {
@@ -132,7 +133,7 @@ const UserHome = () => {
 						</Typography>
 					</AccordionSummary>
 					<AccordionDetails>
-						{shelters && <AnimalFilterForm shelters={shelters} />}
+						{shelters && <AnimalFilterForm shelters={shelters} setPetState={setPetState}/>}
 					</AccordionDetails>
 				</Accordion>
 				<Accordion

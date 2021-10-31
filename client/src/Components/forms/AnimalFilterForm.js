@@ -17,8 +17,14 @@ const AnimalFilterForm = (props) => {
         const params = {params: {shelters: createObjectToArray(selectedShelters,[]), breeds: createObjectToArray(selectedBreeds,[]), dispositions: convertDispObjToArray(disposition,[])}}
         try{
             axios.get(url, params).then((response)=>{
-                animals = response.data;
-                console.log(response.data)
+                response.data.forEach((pet) => {
+                    pet.images = pet.images.split(",");
+                    pet.type = pet.animalType;
+                    pet.id = pet.pet_id;
+                    return pet;
+                });
+                console.log("submitanimalFilter",response.data)
+                props.setPetState(response.data);
             })
         }catch(error){
             console.error(error)
