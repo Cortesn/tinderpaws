@@ -5,7 +5,8 @@ import ImageModal from './ImageModal';
 import useImageUploadState from '../../hooks/useImageUploadState';
 
 
-const ImageUploader = () => {
+const ImageUploader = (props) => {
+    const {addItem} = props;
     const [image, 
             handleImageChange, 
             open, 
@@ -35,6 +36,7 @@ const ImageUploader = () => {
 
             {/* modal for image resize/crop */}
             <ImageModal 
+                addItem={addItem}
                 image={image} 
                 open={open} 
                 handleClose={handleClose}/>

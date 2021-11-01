@@ -7,11 +7,17 @@ const useDeleteItemState = (initialValue) => {
         setItems(itemsList)
     }
 
+    const addItem = (item) => {
+        var temp = items;
+        temp.push(item)
+        setItems(temp)
+    }
+
     const deleteItem = (id) => {
         setItems(items.filter((item) => item.id !== id));
     }
 
-    return [items, handleChange, deleteItem];
+    return [items, handleChange, addItem, deleteItem];
 };
 
 export default useDeleteItemState;

@@ -7,7 +7,7 @@ const useImageUploadState = (initialValues) => {
     const handleOpen = () => setOpen(true);
 
     const handleClose = (event) => {
-      event.target.files = null
+      // event.target.files = null
       setImage(null)
       setOpen(false);
       // handle clearing our memory so that you can click on the image upload again

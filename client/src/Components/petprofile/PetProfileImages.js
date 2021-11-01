@@ -25,10 +25,10 @@ const tempPetId = 4
 /* Returns a complied list of a single Pet's images */
 const PetProfileImages = () => {
     const [deleteClicked, handleDeleteChange] = useButtonState(false);
-    const [items, handleChange, deleteItem] = useDeleteItemState([]);
+    const [items, handleChange, addItem, deleteItem] = useDeleteItemState([]);
     
     useEffect(() => {
-        if (items.length === 0){
+        
             api.get('/images/' + tempPetId)
                 .then( response => {
                     // console.log("response data:", response.data.results)
@@ -40,8 +40,8 @@ const PetProfileImages = () => {
                 .catch( error => {
                     console.log("error: ", error)
                 })
-        }
-    }, [items.length])
+        
+    }, [items])
     
     return(
         <Grid sx={{paddingTop: '1rem'}} item>
@@ -53,7 +53,7 @@ const PetProfileImages = () => {
                     }}>
 
                 {/* heading  */}
-                <ImageUploader/>
+                <ImageUploader addItem={addItem}/>
 
                 <Typography 
                     sx={{
