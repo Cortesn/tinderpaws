@@ -1,12 +1,12 @@
 import React from "react";
-import { Typography, Accordion, AccordionDetails, AccordionSummary, Grid, Button} from "@mui/material";
+import { Typography, Accordion, AccordionDetails, AccordionSummary, Grid} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import UserProfileUpdateForm from "../Components/forms/UserProfileUpdateForm";
 import AnimalFilterForm from "../Components/forms/AnimalFilterForm";
 import MatchesGrid from "../Components/grids/MatchesGrid";
 import UserAccordionState from "../hooks/useAccordionState";
 import {useState, useEffect} from 'react';
-import axios from 'axios';
+import {api} from '../helperFunctions/axiosInstace'
 import { useParams } from "react-router";
 
 
@@ -17,8 +17,7 @@ const UserHome = () => {
     // const [shelters, handleGetShelter] = UseSettingsShelterState();
     const [shelters, setShelters] = useState(null);
     useEffect(() => {
-        const url = 'http://localhost:3001/filterSetting/shelters';
-        axios.get(url).then((response)=>{
+        api.get('/filterSetting/shelters').then((response)=>{
             setShelters(response.data);
             });
         },[]);

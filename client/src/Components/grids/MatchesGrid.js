@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Grid} from "@mui/material";
-// import PetsIcon from '@mui/icons-material/Pets';
-import axios from'axios';
+import {api} from '../../helperFunctions/axiosInstace'
 import createDynamicMatches from "../../helperFunctions/UserHome/createDynamicMatches";
 
 const MatchesGrid = (props) => {
@@ -9,8 +8,7 @@ const MatchesGrid = (props) => {
     const user_id = props.user_id
     const [matchesState, setMatchesState] = useState([]);
     useEffect(() => {
-        const url = `http://localhost:3001/matches/users/${user_id}`;
-        axios.get(url).then((response)=>{
+        api.get(`/matches/users/${user_id}`).then((response)=>{
             setMatchesState(response.data);
             });
         },[user_id]);

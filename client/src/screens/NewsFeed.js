@@ -1,6 +1,6 @@
 import React from 'react'
-import {Box, ImageList, ImageListItem, useMediaQuery} from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import {Box, ImageList, ImageListItem} from '@mui/material';
+// import { useTheme } from '@mui/material/styles';
 import NewsCard from '../Components/NewsCard';
 
 const tempData = [
@@ -39,8 +39,8 @@ const tempData = [
 
 const NewsFeed = () => {
     
-    const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.down('sm')); 
+    // const theme = useTheme();
+    // const matches = useMediaQuery(theme.breakpoints.down('sm')); 
 
     return (
         <Box sx={{margin: 'auto', maxWidth: 1280, overflowY: 'scroll' }}>

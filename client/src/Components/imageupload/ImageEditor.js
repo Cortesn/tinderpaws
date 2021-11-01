@@ -3,7 +3,7 @@ import { Button, Slider, Stack } from '@mui/material'
 import AvatarEditor from 'react-avatar-editor'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import {api, setToken} from '../../helperFunctions/axiosInstace'
+import {api} from '../../helperFunctions/axiosInstace'
 
 /* Reference: https://www.npmjs.com/package/react-avatar-editor */
 class ImageEditor extends React.Component {

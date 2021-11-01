@@ -6,7 +6,8 @@ import { ThemeProvider } from "@mui/system";
 import FormTemplate from '../Components/forms/FormTemplate';
 import { FormInputs } from '../Components/forms/FormInputs';
 import CancelIcon from '@mui/icons-material/Cancel';
-import axios from 'axios'
+import {api} from '../helperFunctions/axiosInstace'
+
 const AdminHome = () => {
     const theme = createTheme({
             palette: {
@@ -21,8 +22,7 @@ const AdminHome = () => {
     // get shelter info
     const [shelterInfoState, setShelterInfoState] = useState(null);
     useEffect(() => {
-        const url = `http://localhost:3001/adminHome/shelters/shelter/employees/${id}`;
-        axios.get(url).then((response)=>{
+        api.get(`/adminHome/shelters/shelter/employees/${id}`).then((response)=>{
             const data = {data: response.data[0]}
             setShelterInfoState(data);
             });
@@ -31,8 +31,7 @@ const AdminHome = () => {
     // get employee name
     const [employeeNameState, setEmployeeNameState] = useState(null);
     useEffect(()=>{
-        const url = `http://localhost:3001/adminHome/employees/${id}`;
-        axios.get(url).then((response)=>{
+        api.get(`/adminHome/employees/${id}`).then((response)=>{
             setEmployeeNameState(response.data[0]["name"])
         })
     }, [id])

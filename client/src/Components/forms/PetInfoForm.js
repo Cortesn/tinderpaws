@@ -74,17 +74,17 @@ const PetInfoForm = () => {
                     <FormGroup>
                         <FormControlLabel
                             control={
-                            <Checkbox checked='1'  name="Good with other animals" />
+                            <Checkbox name="Good with other animals" />
                             }
                             label="Good with other animals"/>
                         <FormControlLabel
                             control={
-                            <Checkbox checked='2'  name="Good with children" />
+                            <Checkbox name="Good with children" />
                             }
                             label="Good with children"/>
                         <FormControlLabel
                             control={
-                            <Checkbox checked='3'  name="Animal must be leashed at all times" />
+                            <Checkbox name="Animal must be leashed at all times" />
                             }
                             label="Animal must be leashed at all times"/>
                     </FormGroup>
