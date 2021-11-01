@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Accordion, AccordionDetails, AccordionSummary, Grid, Button} from "@mui/material";
+import { Typography, Accordion, AccordionDetails, AccordionSummary, Grid} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import UserProfileUpdateForm from "../Components/forms/UserProfileUpdateForm";
 import AnimalFilterForm from "../Components/forms/AnimalFilterForm";
@@ -15,8 +15,7 @@ const UserHome = () => {
     // const [shelters, handleGetShelter] = UseSettingsShelterState();
     const [shelters, setShelters] = useState(null);
     useEffect(() => {
-        const url = '/filterSetting/shelters';
-        api.get(url).then((response)=>{
+        api.get('/filterSetting/shelters').then((response)=>{
             setShelters(response.data);
             });
         },[]);

@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import {api, setToken} from '../../helperFunctions/axiosInstace'
+import {api} from '../../helperFunctions/axiosInstace'
 
 // Formik Schema (users)
 const passwordValidation = () => Yup.object({
@@ -17,7 +17,7 @@ const passwordValidation = () => Yup.object({
 const ResetPasswordFormik = (props) => useFormik({
     initialValues: {
         password: '',
-        password: ''
+        passwordConfirm: ''
     },
     validationSchema: passwordValidation(),
     onSubmit: (values, {resetForm, setFieldValue}) => {
@@ -35,14 +35,14 @@ const ResetPasswordFormik = (props) => useFormik({
                 setFieldValue('success', response.data.msg)
                 
                 // redirects page
-                window.location = '/'
+                window.location = '/login'
             })
             .catch(function(error){
                 console.log(error)
                 // set error msg with formik
                 setFieldValue('error', error.response.data.msg)
                 // redirects page
-                window.location = '/'
+                window.location = '/login'
             })
             // might not need this promise -> always executes
             .then(function(){

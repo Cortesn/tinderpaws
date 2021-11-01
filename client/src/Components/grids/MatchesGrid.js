@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import {Grid} from "@mui/material";
-// import PetsIcon from '@mui/icons-material/Pets';
 import createDynamicMatches from "../../helperFunctions/UserHome/createDynamicMatches";
 import { api, setToken } from "../../helperFunctions/axiosInstace";
 
