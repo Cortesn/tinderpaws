@@ -24,11 +24,9 @@ const FormInputs = (type, options, data, user_id) =>{
         formik = EmployeeFormik();
     }else if (type === 'login'){
         formik = LoginFormik()
-    }
-    else if (type === 'userUpdate'){
+    }else if (type === 'userUpdate'){
         formik = UserUpdateFormik(data, UpdateProfileRequest, user_id)
-    } 
-    else if (type === 'shelterUpdate'){
+    } else if (type === 'shelterUpdate'){
         formik = ShelterUpdateFormik(data.data, data.data.shelter_id)
     }else if (type === 'forgotPassword'){
         formik = ForgotPasswordFormik()

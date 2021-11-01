@@ -10,7 +10,7 @@ import ImageUploader from '../imageupload/ImageUploader';
 import ImageItem from './ImageItem';
 import useButtonState from '../../hooks/useButtonState';
 import useDeleteItemState from '../../hooks/useDeleteItemState';
-import {api, setToken} from '../../helperFunctions/axiosInstace'
+import {api} from '../../helperFunctions/axiosInstace'
 
 
 // transitions columns from 2 to 1
@@ -41,7 +41,7 @@ const PetProfileImages = () => {
                     console.log("error: ", error)
                 })
         }
-    }, [])
+    }, [items.length])
     
     return(
         <Grid sx={{paddingTop: '1rem'}} item>
