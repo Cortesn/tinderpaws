@@ -46,7 +46,8 @@ router.get("/animals/breed", (req,res)=>{
     })
 })
 
-router.get("/filteredAnimals", (req,res)=>{
+router.get("/filteredAnimals/:user_id", (req,res)=>{
+    const user_id = req.params.user_id;
     const shelters = req.query.shelters;
     // do not need types again since we have breeds
     const breeds = req.query.breeds;
@@ -71,8 +72,13 @@ router.get("/filteredAnimals", (req,res)=>{
     WHERE p.shelter_id IN (${shelterSubQuery}) 
     AND p.breed IN (${sqlBreedsArray}) 
     AND p.pet_id IN (${dispositionsSubQuery})
+    AND p.pet_id NOT IN (
+        SELECT m.pet_id
+        FROM Matches as m
+        WHERE m.user_id=?
+      )
     GROUP BY p.pet_id;`;
-    db.query(getFilteredAnimals, (err, result)=>{
+    db.query(getFilteredAnimals,[user_id], (err, result)=>{
         if(err){
             console.error(err.message);
         }else{

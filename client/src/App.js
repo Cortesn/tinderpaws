@@ -12,6 +12,7 @@ import { AdminPage } from "./screens/AdminPage";
 import ResetPassword from './screens/ResetPassword';
 import Logout from "./Components/Logout";
 import AdminHome from "./screens/AdminHome";
+import AddPet from "./screens/AddPet";
 import UserHome from "./screens/UserHome";
 import useAuthState from "./hooks/useAuthState";
 
@@ -36,6 +37,7 @@ const App = () => {
 				<Route exact path="/logout" component={Logout} />
 				<Route exact path="/admin" render={() => <AdminPage />} />
 				<Route path="/userHome/:id" component={UserHome}/>
+				<Route exact path="/addpet" component={AddPet}/>
 				<Route path="/adminHome/:id" component={AdminHome}/>
 				<Route exact path="/logout" component={Logout}/>
 				<Route path="/newsFeed" component={NewsFeed}/>

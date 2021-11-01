@@ -13,7 +13,8 @@ let animals = null; // not sure how nicolas will be using the queried data
 const AnimalFilterForm = (props) => {
 
     const submitAnimalFilter = ()=>{
-        const url = 'http://localhost:3001/filterSetting/filteredAnimals';
+        const url = `http://localhost:3001/filterSetting/filteredAnimals/${props.user_id}`;
+        console.log(url)
         const params = {params: {shelters: createObjectToArray(selectedShelters,[]), breeds: createObjectToArray(selectedBreeds,[]), dispositions: convertDispObjToArray(disposition,[])}}
         try{
             axios.get(url, params).then((response)=>{

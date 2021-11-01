@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-	Box,
 	Container,
 	Typography,
 	Card,
@@ -35,8 +34,8 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, childRefs }) => {
 			<TinderCard
 				key={pet.name}
 				ref={childRefs[index]}
-				onSwipe={(dir) => swiped(dir, pet.id)}
-				onCardLeftScreen={() => outOfFrame(pet.id)}
+				onSwipe={(dir) => swiped(dir, pet.pet_id)}
+				onCardLeftScreen={() => outOfFrame(pet.pet_id)}
 			>
 				<Paper
 					elevation={10}
