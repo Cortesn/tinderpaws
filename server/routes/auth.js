@@ -30,7 +30,6 @@ router.get('/', auth, (req, res) => {
             return res.status(401).json({ msg : 'Invalid credentials' })    
         } else {
             // console.log('auth')
-            // console.log(results)
             return res.json(results[0])
         }
     }) 

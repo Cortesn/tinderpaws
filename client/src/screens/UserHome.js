@@ -6,19 +6,17 @@ import AnimalFilterForm from "../Components/forms/AnimalFilterForm";
 import MatchesGrid from "../Components/grids/MatchesGrid";
 import UserAccordionState from "../hooks/useAccordionState";
 import {useState, useEffect} from 'react';
-import axios from 'axios';
-import { useParams } from "react-router";
+import { api } from "../helperFunctions/axiosInstace";
 
 
 const UserHome = () => {
-    const {id} = useParams();
     const [expanded, handleChangeAccordion] = UserAccordionState(false);
     // create hook for shelters 
     // const [shelters, handleGetShelter] = UseSettingsShelterState();
     const [shelters, setShelters] = useState(null);
     useEffect(() => {
-        const url = 'http://localhost:3001/filterSetting/shelters';
-        axios.get(url).then((response)=>{
+        const url = '/filterSetting/shelters';
+        api.get(url).then((response)=>{
             setShelters(response.data);
             });
         },[]);
@@ -38,7 +36,7 @@ const UserHome = () => {
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <UserProfileUpdateForm user_id={id}/>
+                        <UserProfileUpdateForm/>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={expanded === 'filterSettings'} onChange={handleChangeAccordion('filterSettings')}>
@@ -66,7 +64,7 @@ const UserHome = () => {
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <MatchesGrid user_id={id}/>
+                            <MatchesGrid/>
                         </AccordionDetails>
                     </Accordion>
             </Grid>

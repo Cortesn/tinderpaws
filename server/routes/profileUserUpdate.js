@@ -1,14 +1,15 @@
 import express from 'express'
 const router = express.Router()
 import pool from '../Database/dbcon.js'
+import auth from '../middleware/auth.js'
 const db = pool
 /*
     Profile settings endpoint
     - get profile data
     - update profile
 */
-router.get("/userData/:user_id",(req,res)=>{
-    const user_id = parseInt(req.params.user_id);
+router.get("/userData/", auth, (req,res)=>{
+    const user_id = req.user.user_id
     const getProfileData = 'SELECT Users.f_name, Users.l_name, Users.email, Users.password FROM Users WHERE Users.user_id = ?';
     db.query(`${getProfileData}`, [user_id], (err,result)=>{
         if(err){
@@ -18,8 +19,8 @@ router.get("/userData/:user_id",(req,res)=>{
         }
     })
 })
-router.patch("/:user_id", (req, res)=>{
-    const user_id = req.params.user_id;
+router.patch("/update", auth, (req, res)=>{
+    const user_id = req.user.user_id
     let {fname, lname, email, password} = req.body
     // sql format
     let last_updated = new Date().toISOString().slice(0,10);

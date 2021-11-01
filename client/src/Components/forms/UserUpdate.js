@@ -20,11 +20,11 @@ const userValidation = () => Yup.object({
 });
 
 // formik state & create new user
-const UserUpdateFormik = (initialValues, onSubmitFunction, user_id) => useFormik({
+const UserUpdateFormik = (initialValues, onSubmitFunction) => useFormik({
     initialValues: initialValues,
     validationSchema: userValidation(),
     onSubmit: (values) => {
-        onSubmitFunction(values, user_id)
+        onSubmitFunction(values)
     },
 });
 

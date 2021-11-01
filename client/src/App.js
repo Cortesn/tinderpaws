@@ -39,10 +39,10 @@ const App = () => {
 				/>
 				<Route exact path="/logout" component={Logout} />
 				<Route exact path="/admin" render={() => <AdminPage />} />
-				<Route path="/userHome/:id">
+				<Route path="/userHome">
 					<UserHome />
 				</Route>
-				<Route path="/adminHome/:id">
+				<Route path="/adminHome">
 					<AdminHome />
 				</Route>
 				<Route exact path="/logout">

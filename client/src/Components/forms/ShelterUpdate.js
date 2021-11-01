@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import axios from 'axios'
+import { api } from "../../helperFunctions/axiosInstace";
 
 
 // Formik Schema (shelters)
@@ -43,8 +43,8 @@ const ShelterUpdateFormik =(data, shelter_id)=> useFormik({
     },
     validationSchema: shelterValidation,
     onSubmit: (values) => {
-        let url = `http://localhost:3001/adminHome/shelters/${shelter_id}`;
-        axios.patch(url, values).then((response)=>{
+        let url = `/adminHome/shelters/${shelter_id}`;
+        api.patch(url, values).then((response)=>{
             if(response.status === 200){
                 alert("Successfully updated profile! :) ")
             }else{
