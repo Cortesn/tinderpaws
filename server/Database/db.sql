@@ -69,9 +69,9 @@ CREATE TABLE Dispositions (
 CREATE TABLE Pets_Dispositions (
 	pet_id int NOT NULL,
 	disposition_id int NOT NULL,
-	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id),
-  	FOREIGN KEY (disposition_id) REFERENCES Dispositions (disposition_id),
-  	PRIMARY KEY (pet_id, disposition_id)
+	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id) ON DELETE CASCADE,
+  FOREIGN KEY (disposition_id) REFERENCES Dispositions (disposition_id),
+  PRIMARY KEY (pet_id, disposition_id)
 );
 
 CREATE TABLE Employees (
@@ -102,7 +102,7 @@ CREATE TABLE Matches (
 	pet_id int NOT NULL,
 	user_id int NOT NULL,
 	date_matched date NOT NULL,
-	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id),
+	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id) ON DELETE CASCADE,
   	FOREIGN KEY (user_id) REFERENCES Users (user_id)
 );
 

@@ -3,7 +3,7 @@ const userRouter = Router();
 import db from '../Database/dbcon.js'
 
 
-// endpoint to get all available pets not matched from db
+// endpoint to get all available pets not matched for user from db
 userRouter.get('/:user_id/pets', (req, res) => {
     const user_id = req.params.user_id;
     const getPets = `SELECT p.*, a.type as animalType, GROUP_CONCAT(i.url) as images 
