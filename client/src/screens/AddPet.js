@@ -34,7 +34,6 @@ const AddPet = () => {
         <Typography variant="h3" align="center">
           Add A Pet
         </Typography>
-				{/* view matches in mobile */}
 
 				<PetProfile />
 			</Grid>

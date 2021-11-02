@@ -24,7 +24,7 @@ const AnimalCardSection = ({petState, setPetState, id }) => {
 		// setLastDirection(direction);
 		// Add pet-user pair to db matches table
 		const data = { user_id: parseInt(id), pet_id: idToDelete };
-		if (direction == "right") {
+		if (direction === "right") {
 			api.post("/user/match", data).then((response) => {
 				console.log(response.data);
 			});
