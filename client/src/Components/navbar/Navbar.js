@@ -38,7 +38,6 @@ export default function Navbar(props) {
                     </IconButton>
                     
                     <NavLink name={'Mission'} link={'/mission'} />
-                    <NavLink name={'About'} link={'/about'} />
                     
                     {/* displays the "News feed" */}
                     { account.shelter_id || account.employee_id || account.user_id ?
@@ -52,7 +51,7 @@ export default function Navbar(props) {
 
                     {/* displays the "page to manage shelter pets */}
                     { account.employee_id || account.shelter_id ?
-                        <NavLink name={'Manage'} link={'/'} />
+                        <NavLink name={'Manage'} link={'/adminHome'} />
                     : null }
 
                     {/* displays the "page to manage shelter employees" */}
