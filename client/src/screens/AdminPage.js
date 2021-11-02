@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
 import {
 	Container,
 	Grid,
@@ -8,29 +9,57 @@ import {
 	MenuItem,
 	Select,
 } from "@mui/material";
-import { pets } from "../TempData/petsData";
 import { PetCard } from "../Components/adminpage/PetCard";
 import useInputState from "../hooks/useInputState";
+import { api } from "../helperFunctions/axiosInstace";
 
 export const AdminPage = () => {
-	const [petState, setPetState] = useState(pets);
+	const { id } = useParams(); // User Id from URL
+	const [petState, setPetState] = useState([]);
 	const [filter, handleFilterChange] = useInputState("");
+
+	useEffect(() => {
+		// Get all shelter pets from DB to show as initial page
+		const petUrl = `/adminHome/${id}/pets`;
+		api.get(petUrl).then((response) => {
+			response.data.forEach((pet) => {
+				pet.images = pet.images.split(",");
+				pet.type = pet.animalType;
+				pet.id = pet.pet_id;
+				pet.display = true;
+				return pet;
+			});
+			console.log(response.data);
+			setPetState(response.data);
+		});
+	}, []);
 
 	const deletePet = (id) => {
 		setPetState(petState.filter((pet) => pet.id !== id));
+
+		// Delete from DB
+		// const deleteUrl = `/adminHome/pet/${id}`;
+		// api.delete(deleteUrl).then((response) => {
+		// 	console.log(response.data);
+		// });
 	};
 
-  const filterPets = (e) => {
-    handleFilterChange(e);
-    const type = e.target.value;
-    if (type === "all") {
-      setPetState(pets)
-    } else {
-      setPetState(pets.filter((pet)=> pet.type ===type));
-    }
-  }
+	const filterPets = (e) => {
+		handleFilterChange(e);
+		const type = e.target.value;
+		const filtered = petState.map((pet) => {
+			if (type === "all") {
+				pet.display = true;
+			} else {
+				pet.display = pet.type.toLowerCase() === type.toLowerCase();
+			}
+			return pet;
+		});
 
-  const animalTypes = ['all', 'dog', 'cat', 'fox']
+		setPetState(filtered);
+	};
+
+	const animalTypes = ["all", "dog", "cat", "other"];
 
 	return (
 		<Container>
@@ -48,9 +77,15 @@ export const AdminPage = () => {
 							value={filter}
 							onChange={filterPets}
 						>
-              {animalTypes.map((animal) => {
-                return <MenuItem key={animal} value={animal}>{animal[0].toUpperCase() + animal.slice(1)}</MenuItem>
-              })}
+							{animalTypes.map((animal) => {
+								const formattedAnimal =
+									animal[0].toUpperCase() + animal.slice(1);
+								return (
+									<MenuItem key={animal} value={animal}>
+										{formattedAnimal}
+									</MenuItem>
+								);
+							})}
 						</Select>
 					</FormControl>
 				</Grid>

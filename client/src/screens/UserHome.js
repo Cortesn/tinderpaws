@@ -1,76 +1,45 @@
-import React from "react";
-import { Typography, Accordion, AccordionDetails, AccordionSummary, Grid} from "@mui/material";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import UserProfileUpdateForm from "../Components/forms/UserProfileUpdateForm";
-import AnimalFilterForm from "../Components/forms/AnimalFilterForm";
-import MatchesGrid from "../Components/grids/MatchesGrid";
-import UserAccordionState from "../hooks/useAccordionState";
-import {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import {api} from '../helperFunctions/axiosInstace'
+import {
+	Grid,
+} from "@mui/material";
 import { useParams } from "react-router";
+import AnimalFilterSection from "../Components/userpage/AnimalFilterSection";
+import AnimalCardSection from "../Components/userpage/AnimalCardSection";
 
+// const alreadyRemoved = [];
 
 const UserHome = () => {
-    const {id} = useParams();
-    const [expanded, handleChangeAccordion] = UserAccordionState(false);
-    // create hook for shelters 
-    // const [shelters, handleGetShelter] = UseSettingsShelterState();
-    const [shelters, setShelters] = useState(null);
-    useEffect(() => {
-        api.get('/filterSetting/shelters').then((response)=>{
-            setShelters(response.data);
-            });
-        },[]);
+	const { id } = useParams(); // User Id from URL
+	const [petState, setPetState] = useState([]);  // Array of pets displayed on cards
+	const [shelters, setShelters] = useState(null);  // Shelters for the filter
 
-    
-    return ( 
-        <Grid container>
-            <Grid xs={12} sm={7} md={5} lg={4} xl={3} sx={{margin: 'auto'}} item>
-                <Accordion sx={{width: "100%"}} expanded={expanded === 'profileSettings'} onChange={handleChangeAccordion('profileSettings')}>
-                    <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="profile-settings-content"
-                    id="profile-settings-header"
-                    >
-                        <Typography sx={{ flexShrink: 0 }}>
-                            Profile
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <UserProfileUpdateForm user_id={id}/>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion expanded={expanded === 'filterSettings'} onChange={handleChangeAccordion('filterSettings')}>
-                    <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="filter-settings-content"
-                    id="filter-settings-header"
-                    >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                            Filter
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        {shelters && <AnimalFilterForm shelters={shelters}/>}
-                    </AccordionDetails>
-                </Accordion>
-                    <Accordion expanded={expanded === 'matches'} onChange={handleChangeAccordion('matches')}>
-                        <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="matches-content"
-                        id="matches-header"
-                        >
-                            <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                                Matches
-                            </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <MatchesGrid user_id={id}/>
-                        </AccordionDetails>
-                    </Accordion>
-            </Grid>
-       </Grid>
-     );
-}
- 
+	useEffect(() => {
+		// Get all shelters from DB for Filter
+		const url = "/filterSetting/shelters";
+		api.get(url).then((response) => {
+			setShelters(response.data);
+		});
+		// Get all pets from DB to show as initial page
+		const petUrl = `/user/${id}/pets`;
+		api.get(petUrl).then((response) => {
+			response.data.forEach((pet) => {
+				pet.images = pet.images.split(",");
+				pet.type = pet.animalType;
+				pet.id = pet.pet_id;
+				return pet;
+			});
+			setPetState(response.data);
+		});
+	}, [id]);
+
+
+	return (
+		<Grid container sx={{ width: "80%", mx: "auto" }}>
+			<AnimalFilterSection shelters={shelters} id={id} setPetState={setPetState}/>
+			<AnimalCardSection petState={petState} setPetState={setPetState} id={id}/>
+		</Grid>
+	);
+};
+
 export default UserHome;
