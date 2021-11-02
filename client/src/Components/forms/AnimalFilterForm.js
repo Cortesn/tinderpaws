@@ -9,14 +9,19 @@ import convertDispObjToArray from "../../helperFunctions/UserHome/convertDispObj
 import UseShelterState from "../../hooks/useShelterState";
 import UseBreedState from "../../hooks/useBreedState";
 
-let animals = null; // not sure how nicolas will be using the queried data
 const AnimalFilterForm = (props) => {
     const submitAnimalFilter = ()=>{
         const params = {params: {shelters: createObjectToArray(selectedShelters,[]), breeds: createObjectToArray(selectedBreeds,[]), dispositions: convertDispObjToArray(disposition,[])}}
         try{
             api.get('/filterSetting/filteredAnimals', params).then((response)=>{
-                animals = response.data;
-                console.log(response.data)
+                response.data.forEach((pet) => {
+                    pet.images = pet.images.split(",");
+                    pet.type = pet.animalType;
+                    pet.id = pet.pet_id;
+                    return pet;
+                });
+                console.log("submitanimalFilter",response.data)
+                props.setPetState(response.data);
             })
         }catch(error){
             console.error(error)

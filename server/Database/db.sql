@@ -64,9 +64,10 @@ CREATE TABLE Dispositions (
 CREATE TABLE Pets_Dispositions (
 	pet_id int NOT NULL,
 	disposition_id int NOT NULL,
-	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id),
-  	FOREIGN KEY (disposition_id) REFERENCES Dispositions (disposition_id),
-  	PRIMARY KEY (pet_id, disposition_id)
+	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id) ON DELETE CASCADE,
+  FOREIGN KEY (disposition_id) REFERENCES Dispositions (disposition_id),
+  PRIMARY KEY (pet_id, disposition_id),
+	CONSTRAINT UNIQUE (disposition_id, pet_id)
 );
 
 CREATE TABLE Employees (
@@ -97,15 +98,16 @@ CREATE TABLE Matches (
 	pet_id int NOT NULL,
 	user_id int NOT NULL,
 	date_matched date NOT NULL,
-	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id),
-  	FOREIGN KEY (user_id) REFERENCES Users (user_id)
+	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES Users (user_id),
+	CONSTRAINT UNIQUE (match_id, pet_id)
 );
 
 CREATE TABLE Images (
-	image_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	image_id int NOT NULL PRIMARY KEY,
 	pet_id int NOT NULL,
 	url varchar(225) NOT NULL,
-	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id)
+	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id) ON DELETE CASCADE
 );
 
 -- Chats table (optional)
