@@ -14,8 +14,8 @@ router.get("/shelters/shelter/employees/:id", (req,res)=>{
     const getShelterInfo = `SELECT Shelters.name, Shelters.street, Shelters.city, Shelters.state, Shelters.zip, Shelters.info 
     FROM Shelters 
     INNER JOIN Employees on Shelters.shelter_id = Employees.shelter_id 
-    WHERE Employees.employee_id = ${employee_id}`;
-    db.query(getShelterInfo, (err, result)=>{
+    WHERE Employees.employee_id = ?;`;
+    db.query(getShelterInfo, [employee_id], (err, result)=>{
         if(err){
             console.error(err.message)
         }else{
@@ -28,8 +28,8 @@ router.get("/shelters/shelter/employees/:id", (req,res)=>{
 // endpoint to get employee name given employee id
 router.get("/employees/:id", (req,res)=>{
     const employee_id = req.params.id;
-    const getShelterInfo = `SELECT name FROM Employees WHERE employee_id = ${employee_id}`;
-    db.query(getShelterInfo, (err, result)=>{
+    const getShelterInfo = 'SELECT name FROM Employees WHERE Employees.employee_id = ?;';
+    db.query(getShelterInfo, [employee_id], (err, result)=>{
         if(err){
             console.error(err.message)
         }else{
@@ -77,6 +77,22 @@ router.delete("/pet/:pet_id", (req, res)=> {
             res.send(result)
         }
     });
+});
+
+// endpoint to update shelter information 
+router.patch("/shelters/:shelter_id", (req, res)=>{
+    const shelter_id = req.params.shelter_id;
+    const {sname, street, city, state, zip} = req.body;
+    // sql format
+    const last_updated = new Date().toISOString().slice(0,10);
+    const updateShelter = `UPDATE Shelters SET name = "?", street="?", city="?", state="?", zip="?", last_updated="?" WHERE shelter_id=?`;
+    db.query(`${updateShelter}`, [sname, street, city, state, zip, last_updated, shelter_id ],(err,result)=>{
+        if(err){
+            console.error(err.message);
+        }else{
+            res.send("Successfully updated user profile!")
+        }
+    })
 })
 
 export {router as adminPage}

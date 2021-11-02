@@ -2,22 +2,19 @@ import React, {useState, useEffect} from "react";
 import {TextField, Button, Typography, Autocomplete, FormGroup, FormControlLabel, Checkbox, Grid} from "@mui/material";
 import UseDispositionState from "../../hooks/useDispositionState";
 import UseAnimalFilterState from "../../hooks/useAnimalFilterState";
-import axios from "axios";
+import {api} from '../../helperFunctions/axiosInstace'
 import createAnimalTypeArray from "../../helperFunctions/UserHome/createAnimalTypeArray";
 import createObjectToArray from "../../helperFunctions/UserHome/createObjectToArray";
 import convertDispObjToArray from "../../helperFunctions/UserHome/convertDispObjToArray";
 import UseShelterState from "../../hooks/useShelterState";
 import UseBreedState from "../../hooks/useBreedState";
 
-let animals = null; // not sure how nicolas will be using the queried data
 const AnimalFilterForm = (props) => {
-
     const submitAnimalFilter = ()=>{
-        const url = `http://localhost:3001/filterSetting/filteredAnimals/${props.user_id}`;
-        console.log(url)
+        const url = `/filterSetting/filteredAnimals/${props.user_id}`;
         const params = {params: {shelters: createObjectToArray(selectedShelters,[]), breeds: createObjectToArray(selectedBreeds,[]), dispositions: convertDispObjToArray(disposition,[])}}
         try{
-            axios.get(url, params).then((response)=>{
+            api.get(url, params).then((response)=>{
                 response.data.forEach((pet) => {
                     pet.images = pet.images.split(",");
                     pet.type = pet.animalType;
@@ -49,8 +46,7 @@ const AnimalFilterForm = (props) => {
     const [breedState, setBreedState] = useState(null);
     useEffect(() => {
         const animalTypes = {params: {shelter: createObjectToArray(selectedShelters,[]), animalTypes: createAnimalTypeArray(state,[])}}
-        const url = 'http://localhost:3001/filterSetting/animals/breed';
-        axios.get(url, animalTypes).then((response)=>{
+        api.get('/filterSetting/animals/breed', animalTypes).then((response)=>{
             setBreedState(response.data);
             });
         }, [state, selectedShelters]);

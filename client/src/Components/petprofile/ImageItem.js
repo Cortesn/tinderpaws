@@ -15,7 +15,8 @@ const ImageItem = (props) => {
         <ImageListItem key={image.id} >
             <img
                 src={`${image.url}`}
-                alt={image.id}/>
+                alt={image.id}
+                style={{borderRadius: '20px'}}/>
 
             {/* delete button visible when delete is clicked */}
             <Collapse 

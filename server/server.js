@@ -4,28 +4,38 @@ import { signup } from './routes/signup.js'
 import { login } from './routes/login.js'
 import { auth } from './routes/auth.js';
 import { forms } from './routes/forms.js';
+import { images } from './routes/images.js'
 import { password } from './routes/password.js';
 import { adminPage } from './routes/adminPage.js';
 import { matches } from './routes/matches.js';
 import { profileUserUpdate } from './routes/profileUserUpdate.js';
 import { filterSetting } from './routes/filterSetting.js';
 import { userRouter } from './routes/userpage.js';
+import path from 'path'
+// resolve path to current directory
+const __dirname = path.resolve();
 
 const app = express();
-
 app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+app.use(express.static(path.join(__dirname, '../client/build')))
 
-app.use('/auth', auth)
-app.use('/login', login)
-app.use('/signup', signup)
-app.use('/password', password)
-app.use('/forms', forms)
-app.use('/user', userRouter)
-app.use('/adminHome', adminPage)
-app.use('/matches', matches)
-app.use('/userProfileUpdate', profileUserUpdate)
-app.use('/filterSetting', filterSetting)
+// Routes
+app.use('/api/auth', auth)
+app.use('/api/login', login)
+app.use('/api/signup', signup)
+app.use('/api/images', images)
+app.use('/api/password', password)
+app.use('/api/forms', forms)
+app.use('/api/user', userRouter)
+app.use('/api/adminHome', adminPage)
+app.use('/api/matches', matches)
+app.use('/api/userProfileUpdate', profileUserUpdate)
+app.use('/api/filterSetting', filterSetting)
+// serve static react build
+app.get('/*', (req,res) => res.sendFile(path.join(__dirname, '../client/build', 'index.html')))
 
-app.listen(process.env.PORT, () => console.log(`Server started on http://${process.env.HOSTNAME}:${process.env.PORT}`));
+
+const PORT = 5000
+app.listen(PORT, () => console.log(`Server started on ${PORT}`));

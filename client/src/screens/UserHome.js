@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
+import {api} from '../helperFunctions/axiosInstace'
 import {
 	Grid,
 } from "@mui/material";
-import axios from "axios";
 import { useParams } from "react-router";
 import AnimalFilterSection from "../Components/userpage/AnimalFilterSection";
 import AnimalCardSection from "../Components/userpage/AnimalCardSection";
@@ -12,18 +12,17 @@ import AnimalCardSection from "../Components/userpage/AnimalCardSection";
 const UserHome = () => {
 	const { id } = useParams(); // User Id from URL
 	const [petState, setPetState] = useState([]);  // Array of pets displayed on cards
-	const [lastDirection, setLastDirection] = useState();
 	const [shelters, setShelters] = useState(null);  // Shelters for the filter
 
 	useEffect(() => {
 		// Get all shelters from DB for Filter
-		const url = "http://localhost:3001/filterSetting/shelters";
-		axios.get(url).then((response) => {
+		const url = "/filterSetting/shelters";
+		api.get(url).then((response) => {
 			setShelters(response.data);
 		});
 		// Get all pets from DB to show as initial page
-		const petUrl = `http://localhost:3001/user/${id}/pets`;
-		axios.get(petUrl).then((response) => {
+		const petUrl = `/user/${id}/pets`;
+		api.get(petUrl).then((response) => {
 			response.data.forEach((pet) => {
 				pet.images = pet.images.split(",");
 				pet.type = pet.animalType;

@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router";
-import { Avatar, Grid, Link, Paper, Stack, Typography } from '@mui/material';
+import { Avatar, Grid, Paper, Stack, Typography } from '@mui/material';
 import FormTemplate from '../Components/forms/FormTemplate';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 
