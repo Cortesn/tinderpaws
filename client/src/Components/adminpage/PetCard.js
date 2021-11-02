@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
 	Button,
 	Card,
@@ -12,7 +12,7 @@ import {
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 
 export const PetCard = ({ pet, deletePet }) => {
-  const [imgIdx, setImgIdx] = useState(0);
+	const [imgIdx, setImgIdx] = useState(0);
 
 	const prevImg = () => {
 		if (imgIdx > 0) {
@@ -34,18 +34,19 @@ export const PetCard = ({ pet, deletePet }) => {
 			lg={4}
 			container
 			justifyContent="center"
-			sx={{ px: 0 }}
+			sx={{ px: 0, display: pet.display ? "block" : "none" }}
 		>
 			<Card sx={{ width: 345 }}>
-				<Grid container sx={{position:"relative"}}>
-					<IconButton onClick={prevImg}
+				<Grid container sx={{ position: "relative" }}>
+					<IconButton
+						onClick={prevImg}
 						sx={{
 							position: "absolute",
 							color: "white",
 							top: "40%",
-              display: imgIdx===0 ? "none" : "block"
+							display: imgIdx === 0 ? "none" : "block",
 						}}
-            >
+					>
 						<NavigateBefore fontSize="large" />
 					</IconButton>
 					<CardMedia
@@ -54,14 +55,18 @@ export const PetCard = ({ pet, deletePet }) => {
 						image={pet.images[imgIdx]}
 						height="300"
 						sx={{ objectFit: "cover" }}
-            />
-					<IconButton onClick={nextImg}
+					/>
+					<IconButton
+						onClick={nextImg}
 						sx={{
 							position: "absolute",
 							color: "white",
 							top: "40%",
-              right: "0",
-              display: imgIdx===pet.images.length - 1 ? "none" : "block"
+							right: "0",
+							display:
+								imgIdx === pet.images.length - 1
+									? "none"
+									: "block",
 						}}
 					>
 						<NavigateNext fontSize="large" />

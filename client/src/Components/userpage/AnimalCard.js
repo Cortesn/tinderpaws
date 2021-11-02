@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-	Box,
 	Container,
 	Typography,
 	Card,
@@ -8,6 +7,7 @@ import {
 	CardMedia,
 	IconButton,
 	Paper,
+	Grid,
 } from "@mui/material";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import TinderCard from "react-tinder-card";
@@ -28,28 +28,30 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, childRefs }) => {
 	};
 
 	return (
-		<Container sx={{ position: "absolute", alignContent:"stretch" }}>
+		<Container
+			sx={{ position: "absolute", alignContent: "stretch", width: 500 }}
+		>
 			<TinderCard
 				key={pet.name}
 				ref={childRefs[index]}
-				onSwipe={(dir) => swiped(dir, pet.name)}
-				onCardLeftScreen={() => outOfFrame(pet.name)}
+				onSwipe={(dir) => swiped(dir, pet.pet_id)}
+				onCardLeftScreen={() => outOfFrame(pet.pet_id)}
 			>
 				<Paper
 					elevation={10}
 					sx={{ position: "relative", border: 1, borderRadius: 10 }}
 				>
 					<Card sx={{ borderRadius: 10 }}>
-						<Box
-							sx={{
-								display: "flex",
-								flexDirection: "row",
-								justifyContent: "space-between",
-								alignItems: "center",
-								mx: 2,
-							}}
-						>
-							<IconButton onClick={prevImg}>
+						<Grid container sx={{ position: "relative" }}>
+							<IconButton
+								onClick={prevImg}
+								sx={{
+									position: "absolute",
+									color: "white",
+									top: "40%",
+									display: imgIdx === 0 ? "none" : "block",
+								}}
+							>
 								<NavigateBefore fontSize="large" />
 							</IconButton>
 							<CardMedia
@@ -57,16 +59,28 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, childRefs }) => {
 								image={pet.images[imgIdx]}
 								alt={pet.name}
 								sx={{
-									maxWidth: "60%",
+									// maxWidth: "90%",
 									height: 400,
-									width: "auto",
-									objectFit: "contain",
+									width: "100%",
+									objectFit: "cover",
 								}}
 							/>
-							<IconButton onClick={nextImg}>
+							<IconButton
+								onClick={nextImg}
+								sx={{
+									position: "absolute",
+									color: "white",
+									top: "40%",
+									right: "0",
+									display:
+										imgIdx === pet.images.length - 1
+											? "none"
+											: "block",
+								}}
+							>
 								<NavigateNext fontSize="large" />
 							</IconButton>
-						</Box>
+						</Grid>
 						<Typography align="center" variant="h6">
 							{`${imgIdx + 1}/${pet.images.length}`}
 						</Typography>
