@@ -10,6 +10,7 @@ import { adminPage } from './routes/adminPage.js';
 import { matches } from './routes/matches.js';
 import { profileUserUpdate } from './routes/profileUserUpdate.js';
 import { filterSetting } from './routes/filterSetting.js';
+import { userRouter } from './routes/userpage.js';
 import path from 'path'
 // resolve path to current directory
 const __dirname = path.resolve();
@@ -27,6 +28,7 @@ app.use('/api/signup', signup)
 app.use('/api/images', images)
 app.use('/api/password', password)
 app.use('/api/forms', forms)
+app.use('/api/user', userRouter)
 app.use('/api/adminHome', adminPage)
 app.use('/api/matches', matches)
 app.use('/api/userProfileUpdate', profileUserUpdate)

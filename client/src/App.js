@@ -12,6 +12,7 @@ import { AdminPage } from "./screens/AdminPage";
 import ResetPassword from './screens/ResetPassword';
 import Logout from "./Components/Logout";
 import AdminHome from "./screens/AdminHome";
+import AddPet from "./screens/AddPet";
 import UserHome from "./screens/UserHome";
 import useAuthState from "./hooks/useAuthState";
 
@@ -30,26 +31,17 @@ const App = () => {
 				<Route exact path="/" component={HomePage} />
 				<Route exact path="/mission" component={MissionPage} />
 				<Route exact path="/login" component={LoginScreen} />
-				<Route exact path="/user" component={UserPage} />
+				<Route exact path="/user" component={UserPage} />  {/* To be removed, combined into userHome/:id */}
 				<Route exact path="/signup" component={SignupPage} />
+				<Route exact path="/admin/edit/:pet_id" component={AdminEditPetPage} />
 				<Route exact path="/logout" component={Logout} />
-				<Route exact path="/admin" render={() => <AdminPage />} />
-				<Route path="/admin/edit/:id" component={AdminEditPetPage}/>
-				<Route path="/userHome/:id">
-					<UserHome />
-				</Route>
-				<Route path="/adminHome/:id">
-					<AdminHome />
-				</Route>
-				<Route exact path="/logout">
-					<Logout />
-				</Route>
-				<Route path="/news">
-					<NewsFeed />
-				</Route>
-                <Route path="/resetPassword/email/:email/reset_key/:reset_key">
-                    <ResetPassword />
-                </Route>
+				<Route exact path="/adminHome/:id/pets" render={() => <AdminPage />} />
+				<Route exact path="/userHome/:id" component={UserHome}/>
+				<Route exact path="/addpet" component={AddPet}/>
+				<Route exact path="/adminHome/:id" component={AdminHome}/>
+				<Route exact path="/logout" component={Logout}/>
+				<Route exact path="/newsFeed" component={NewsFeed}/>
+        <Route exact path="/resetPassword/email/:email/reset_key/:reset_key" component={ResetPassword}/>
 			</Switch>
 		</Router>
 	);
