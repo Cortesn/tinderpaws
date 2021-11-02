@@ -32,7 +32,7 @@ const MatchItem = (props) => {
                         color='error' 
                         aria-label="delete"
                         sx={{marginRight: '1rem'}}
-                        onClick={() => deleteItem(user.id)}>
+                        onClick={() => deleteItem(user.id, 'match')}>
                         <RemoveCircleOutlineIcon />
                     </IconButton>
                 </Collapse>  

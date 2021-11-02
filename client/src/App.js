@@ -32,13 +32,9 @@ const App = () => {
 				<Route exact path="/login" component={LoginScreen} />
 				<Route exact path="/user" component={UserPage} />
 				<Route exact path="/signup" component={SignupPage} />
-				<Route
-					exact
-					path="/admin/editpet"
-					component={AdminEditPetPage}
-				/>
 				<Route exact path="/logout" component={Logout} />
 				<Route exact path="/admin" render={() => <AdminPage />} />
+				<Route path="/admin/edit/:id" component={AdminEditPetPage}/>
 				<Route path="/userHome/:id">
 					<UserHome />
 				</Route>

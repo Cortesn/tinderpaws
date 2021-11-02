@@ -9,7 +9,7 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 /* Returns a single Pet Image */
 const ImageItem = (props) => {
-    const {image, deleteClicked, deleteItem} = props;
+    const {image, deleteClicked, deleteItem, snackBar} = props;
 
     return (
         <ImageListItem key={image.id} >
@@ -35,7 +35,7 @@ const ImageItem = (props) => {
                         <IconButton
                             color='error' 
                             aria-label={`delete ${image.name}`}
-                            onClick={()=>{deleteItem(image.id);}}>
+                            onClick={()=>{deleteItem(image.id, 'image', snackBar);}}>
                             <RemoveCircleOutlineIcon />
                         </IconButton>
                     }

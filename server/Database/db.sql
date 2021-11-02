@@ -102,10 +102,10 @@ CREATE TABLE Matches (
 );
 
 CREATE TABLE Images (
-	image_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	image_id int NOT NULL PRIMARY KEY,
 	pet_id int NOT NULL,
 	url varchar(225) NOT NULL,
-	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id)
+	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id) ON DELETE CASCADE
 );
 
 -- Chats table (optional)

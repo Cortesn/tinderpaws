@@ -40,17 +40,21 @@ class ImageEditor extends React.Component {
                     // make request to upload a photo
                     api.post('/images', fd )
                         .then( response => {
-                            console.log("response data:", response.data)
+                            // console.log("response data:", response.data)
                             const {payload} = response.data
-                            // {id: image.image_id, url: image.url}
-                            console.log(payload.msg)
                             // update the list of images
                             this.props.addItem({id: payload.image_id, url: payload.url})
+                            // display snackbar alert
+                            this.props.snackBar({success: payload.msg})
                             // close the modal
                             this.props.handleClose()
                         })
                         .catch( error => {
-                            console.log("error:", error)
+                            // console.log("error:", error)
+                            // display snackbar alert
+                            this.props.snackBar({error: error.response.data.msg})
+                            // close the modal
+                            this.props.handleClose()
                         })
                     })
         }

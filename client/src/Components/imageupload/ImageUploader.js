@@ -6,12 +6,13 @@ import useImageUploadState from '../../hooks/useImageUploadState';
 
 
 const ImageUploader = (props) => {
-    const {addItem} = props;
+    const {addItem, snackBar} = props;
+
     const [image, 
             handleImageChange, 
             open, 
             handleClose] = useImageUploadState('')
-  
+
     return (
         <>
             <label htmlFor="icon-button-file">
@@ -36,6 +37,7 @@ const ImageUploader = (props) => {
 
             {/* modal for image resize/crop */}
             <ImageModal 
+                snackBar={snackBar}
                 addItem={addItem}
                 image={image} 
                 open={open} 
