@@ -9,38 +9,16 @@ import {
     Card, 
 } from '@mui/material';
 import useButtonState from '../../hooks/useButtonState';
-import useDeleteItemState from '../../hooks/useDeleteItemState';
 import MatchItem from './MatchItem';
 
-// temp list of matched users
-const tempMatchList = [
-    {
-        userId: 1,
-        name:'John Smith'
-    }, 
-    {
-        userId: 2,
-        name: 'Jane Doe'
-    }, 
-    {
-        userId: 3,
-        name:'Test User 1'
-    }, 
-    {
-        userId: 4,
-        name: 'Test User 2'
-    }
-];
-
-// transform keys to work with generic hook
-const rename = tempMatchList.map(user => ({id: user.userId, name: user.name}) )
 
 /* Returns a compiled list of user matches for a specific pet */
-const MatchList = () => {
-
+const MatchList = (props) => {
+    const {matches, addMatch, deleteMatch, snackBar} = props;
     const [buttonClicked, handleButtonChange] = useButtonState(false);
-    const [items, deleteItem] = useDeleteItemState(rename);
-    
+    // add a listener to check for new matches + addMatch
+    // or check for chats with match.user_id
+
     return (
         <Card sx={{height:'100%'}}>
             <Paper elevation={10} sx={{height: '100%', paddingTop: '1rem'}} >
@@ -67,12 +45,13 @@ const MatchList = () => {
                 {/* List of matched users */}
                 <List> 
                     {/* iterate through list of users */}
-                    {items.map((user) => (
+                    {matches.map((match) => (
                             <MatchItem 
-                                key={user.id} 
-                                user={user} 
+                                key={match.match_id} 
+                                match={match} 
+                                deleteMatch={deleteMatch}
                                 buttonClicked={buttonClicked} 
-                                deleteItem={deleteItem}/>   
+                                snackBar={snackBar}/>   
                             )
                         )
                     }

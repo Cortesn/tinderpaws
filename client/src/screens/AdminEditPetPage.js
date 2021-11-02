@@ -9,6 +9,7 @@ import MatchList from '../Components/petprofile/MatchList.js'
 import PetProfile from '../Components/petprofile/PetProfile.js'
 import useButtonState from '../hooks/useButtonState';
 import {api} from '../helperFunctions/axiosInstace'
+import useDeleteItemState from '../hooks/useDeleteItemState.js';
 
 
 // from mui custom styling
@@ -18,16 +19,15 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   
 /* Page to edit a Pet information, images, and matches */
 const AdminEditPetPage = () => {
-    const {id} = useParams()
-    const theme = useTheme();
-
+    const {pet_id} = useParams()
     // reference to remove column spacing between cards
+    const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.up('sm')); 
-
+    // FAB in mobile
     const [buttonClicked, handleButtonChange] = useButtonState(false);
+    // snackbar alerts
     const [open, setOpen] = useState(false);
     const [snackMsg, setSnackMsg] = useState({})
-
     // displaying snackbar
     const handleOpen = (msg) => {
         setSnackMsg(msg)
@@ -37,46 +37,29 @@ const AdminEditPetPage = () => {
     const handleClose = (event) => {
         setOpen(false)
     };
-
-    const [pet, setPet] = useState({
-        breed: null,
-        date_created: null,
-        description: null,
-        disposition_id: null,
-        dispositions: [],
-        last_updated: null,
-        name: null,
-        pet_id: null,
-        shelter_id: null,
-        status: null,
-        type: null
-    })
-    const [matches, setMatches] = useState([])
-    // console.log(pet)
-    
+    // pet state
+    const [pet, setPet] = useState({})
+    // image state
+    const [images, handleImageChange, addImage, deleteImage] = useDeleteItemState([]);
+    // matches state
+    const [matches, handleMatchChange, addMatch, deleteMatch] = useDeleteItemState([]);
+    // get the pet data
     useEffect(() => {
+        // only make the request if there is not pet data
         if (!pet.pet_id){
-            api.get('/pet/' + id)
+            api.get('/pet/' + pet_id)
             .then( response => {
-                console.log("response data:", response.data)
-                const petData = response.data.pet
-                for (const prop in petData){
-                    setPet(pet => ({ ...pet, [prop]:petData[prop] }))
-                }
-                
-
-                
-                
-                // setMatches(response.data.matches)
-                // clean data 
-                // const images = response.data.results.map(image => ({id: image.image_id, url: image.url}))
-                // console.log(images)
+                // console.log("response data:", response.data)
+                setPet(JSON.parse(JSON.stringify(response.data.pet)))
+                if (response.data.images) handleImageChange(response.data.images)
+                if (response.data.matches) handleMatchChange(response.data.matches)
             })
             .catch( error => {
                 console.log("error: ", error)
+                // redirect to a 404 page
             })
         } 
-    }, [])
+    })
 
     return (
         <Grid 
@@ -108,7 +91,8 @@ const AdminEditPetPage = () => {
 
                 <MatchList 
                     matches={matches} 
-                    setMatches={setMatches} 
+                    addMatch={addMatch} 
+                    deleteMatch={deleteMatch}
                     snackBar={handleOpen}/>              
             </Grid>
             
@@ -136,7 +120,10 @@ const AdminEditPetPage = () => {
 
                 <PetProfile 
                     pet={pet} 
-                    setPet={setPet} 
+                    setPet={setPet}
+                    images={images}
+                    addImage={addImage}
+                    deleteImage={deleteImage}
                     snackBar={handleOpen}/>
             </Grid>
 

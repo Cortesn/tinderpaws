@@ -13,7 +13,7 @@ import {
 
 /* Returns a single matched user for a pet */
 const MatchItem = (props) => {
-    const {buttonClicked, deleteItem, user} = props;
+    const {match, deleteMatch, buttonClicked, snackBar} = props;
     return (
         <>
             <ListItem >
@@ -24,7 +24,7 @@ const MatchItem = (props) => {
                 </ListItemIcon>
 
                 {/* user name */}
-                <ListItemText primary={user.name} />
+                <ListItemText primary={match.f_name +' '+ match.l_name} />
 
                 {/* delete button */}
                 <Collapse orientation="horizontal" in={buttonClicked}>
@@ -32,7 +32,7 @@ const MatchItem = (props) => {
                         color='error' 
                         aria-label="delete"
                         sx={{marginRight: '1rem'}}
-                        onClick={() => deleteItem(user.id, 'match')}>
+                        onClick={() => deleteMatch(match.match_id, 'match', snackBar)}>
                         <RemoveCircleOutlineIcon />
                     </IconButton>
                 </Collapse>  

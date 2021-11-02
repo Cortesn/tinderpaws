@@ -8,9 +8,12 @@ router.get('/:pet_id', (req,res) => {
     const id = req.params.pet_id;
     const pet =`SELECT *, GROUP_CONCAT(disposition_id) AS dispositions FROM Pets
                 JOIN Pets_Dispositions ON Pets.pet_id=Pets_Dispositions.pet_id
-                AND Pets.pet_id=?`;
-    const matches = 'SELECT user_id, l_name, f_name FROM Users WHERE user_id IN (SELECT user_id FROM Matches WHERE pet_id=?)';
-    db.query(`${pet}; ${matches};`, [id, id], (error, results)=>{
+                AND Pets.pet_id=?;`;
+    const images = 'SELECT image_id, url FROM Images WHERE pet_id=?;'
+    const matches =`SELECT Matches.match_id, Users.user_id, l_name, f_name FROM Users 
+                    LEFT JOIN Matches ON Matches.user_id=Users.user_id
+                    WHERE pet_id=?;`;
+    db.query(`${pet} ${images} ${matches}`, [id, id, id], (error, results)=>{
         if (error){
             console.log(error)
             return
@@ -18,8 +21,9 @@ router.get('/:pet_id', (req,res) => {
             // console.log(results)
             var payload = {}
                 payload.pet = results[0][0]
-                payload.matches = results[1]
-                payload.pet.dispositions = payload.pet.dispositions.split(',').map(Number)
+                payload.pet.dispositions = payload.pet.dispositions.split(',').map(Number) // conver to int
+            if (results[1].length > 0) payload.images = results[1]
+            if (results[2].length > 0) payload.matches = results[2]
             // console.log(payload)
             return res.status(200).json(payload)
         }

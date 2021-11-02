@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { 
     ImageList,
     Typography,
@@ -9,9 +9,6 @@ import {
 import ImageUploader from '../imageupload/ImageUploader';
 import ImageItem from './ImageItem';
 import useButtonState from '../../hooks/useButtonState';
-import useDeleteItemState from '../../hooks/useDeleteItemState';
-import {api} from '../../helperFunctions/axiosInstace'
-
 
 // transitions columns from 2 to 1
 const updateDisplayCol = (items) => {
@@ -20,29 +17,11 @@ const updateDisplayCol = (items) => {
     }
 }
 
-
 /* Returns a complied list of a single Pet's images */
 const PetProfileImages = (props) => {
-    const {pet, snackBar} = props;
+    const {pet, images, addImage, deleteImage, snackBar} = props;
     const [deleteClicked, handleDeleteChange] = useButtonState(false);
-    const [items, handleChange, addItem, deleteItem] = useDeleteItemState([]);
-    
-    useEffect(() => {
-        if(pet.pet_id){
-            api.get(`/images/${pet.pet_id}`)
-                .then( response => {
-                    // console.log("response data:", response.data.results)
-                    // clean data 
-                    const images = response.data.results.map(image => ({id: image.image_id, url: image.url}))
-                    // console.log(images)
-                    handleChange(images)
-                })
-                .catch( error => {
-                    console.log("error: ", error)
-                })
-        }   
-    }, [items])
-    
+
     return(
         <Grid sx={{paddingTop: '1rem'}} item>
             {/* heading */}
@@ -53,7 +32,9 @@ const PetProfileImages = (props) => {
                     }}>
 
                 {/* heading  */}
-                <ImageUploader addItem={addItem} snackBar={snackBar}/>
+                <ImageUploader 
+                    addImage={addImage} 
+                    snackBar={snackBar}/>
 
                 <Typography 
                     sx={{
@@ -80,15 +61,15 @@ const PetProfileImages = (props) => {
                             maxWidth: '100%', 
                             maxHeight: 500 
                         }} 
-                        cols={updateDisplayCol(items)} >
+                        cols={updateDisplayCol(images)} >
 
-                {items ? items.map((item) => (
+                {images ? images.map((image) => (
                     <ImageItem 
-                        key={item.id}
-                        image={item}
-                        snackBar={snackBar}
-                        deleteClicked={deleteClicked} 
-                        deleteItem={deleteItem}/>
+                        key={image.image_id}
+                        image={image}
+                        deleteImage={deleteImage}
+                        deleteClicked={deleteClicked}
+                        snackBar={snackBar}/>
                         )
                     ) : null
                 }
