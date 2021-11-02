@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useParams } from "react-router";
 import { Box, Fab, Grid, Snackbar, useMediaQuery  } from '@mui/material'
 import MuiAlert from '@mui/material/Alert';
@@ -8,6 +8,8 @@ import { useTheme } from '@mui/material/styles';
 import MatchList from '../Components/petprofile/MatchList.js'
 import PetProfile from '../Components/petprofile/PetProfile.js'
 import useButtonState from '../hooks/useButtonState';
+import {api} from '../helperFunctions/axiosInstace'
+
 
 // from mui custom styling
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -20,7 +22,7 @@ const AdminEditPetPage = () => {
     const theme = useTheme();
 
     // reference to remove column spacing between cards
-    const matches = useMediaQuery(theme.breakpoints.up('sm')); 
+    const mobile = useMediaQuery(theme.breakpoints.up('sm')); 
 
     const [buttonClicked, handleButtonChange] = useButtonState(false);
     const [open, setOpen] = useState(false);
@@ -36,13 +38,53 @@ const AdminEditPetPage = () => {
         setOpen(false)
     };
 
+    const [pet, setPet] = useState({
+        breed: null,
+        date_created: null,
+        description: null,
+        disposition_id: null,
+        dispositions: [],
+        last_updated: null,
+        name: null,
+        pet_id: null,
+        shelter_id: null,
+        status: null,
+        type: null
+    })
+    const [matches, setMatches] = useState([])
+    // console.log(pet)
+    
+    useEffect(() => {
+        if (!pet.pet_id){
+            api.get('/pet/' + id)
+            .then( response => {
+                console.log("response data:", response.data)
+                const petData = response.data.pet
+                for (const prop in petData){
+                    setPet(pet => ({ ...pet, [prop]:petData[prop] }))
+                }
+                
+
+                
+                
+                // setMatches(response.data.matches)
+                // clean data 
+                // const images = response.data.results.map(image => ({id: image.image_id, url: image.url}))
+                // console.log(images)
+            })
+            .catch( error => {
+                console.log("error: ", error)
+            })
+        } 
+    }, [])
+
     return (
         <Grid 
             container
             justifyContent="center"
             alignItems="stretch"
             sx={{margin:'auto'}} 
-            columnSpacing={{ sm: matches ? 1 : 0 }}>
+            columnSpacing={{ sm: mobile ? 1 : 0 }}>
             
             {/* Left side Matches card */}
             <Grid 
@@ -64,7 +106,10 @@ const AdminEditPetPage = () => {
                     </Fab>
                 </Box>
 
-                <MatchList/>              
+                <MatchList 
+                    matches={matches} 
+                    setMatches={setMatches} 
+                    snackBar={handleOpen}/>              
             </Grid>
             
             {/* Right side edit profile card */}
@@ -89,7 +134,10 @@ const AdminEditPetPage = () => {
                     </Fab>
                 </Box>
 
-                <PetProfile id={id} snackBar={handleOpen}/>
+                <PetProfile 
+                    pet={pet} 
+                    setPet={setPet} 
+                    snackBar={handleOpen}/>
             </Grid>
 
             {/* snackbar alerts */}

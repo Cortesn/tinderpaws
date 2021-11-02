@@ -23,13 +23,13 @@ const updateDisplayCol = (items) => {
 
 /* Returns a complied list of a single Pet's images */
 const PetProfileImages = (props) => {
-    const {id, snackBar} = props;
+    const {pet, snackBar} = props;
     const [deleteClicked, handleDeleteChange] = useButtonState(false);
     const [items, handleChange, addItem, deleteItem] = useDeleteItemState([]);
     
     useEffect(() => {
-        
-            api.get('/images/' + id)
+        if(pet.pet_id){
+            api.get(`/images/${pet.pet_id}`)
                 .then( response => {
                     // console.log("response data:", response.data.results)
                     // clean data 
@@ -40,7 +40,7 @@ const PetProfileImages = (props) => {
                 .catch( error => {
                     console.log("error: ", error)
                 })
-        
+        }   
     }, [items])
     
     return(
@@ -60,7 +60,7 @@ const PetProfileImages = (props) => {
                         textAlign:'center',
                         display: 'inline', 
                     }}>
-                    NameOfPet
+                    {pet.name}
                 </Typography>
                 
                 <Button
