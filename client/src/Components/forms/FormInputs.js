@@ -14,7 +14,7 @@ import UserUpdateFormik from './UserUpdate';
 
 var formik;
 // all possible form inputs with validation
-const FormInputs = (type, options, data, user_id) =>{
+const FormInputs = (type, options, data) =>{
     // get the validation schema
     if(type === "user"){
         formik = UserFormik(data, signUpRequest)
@@ -24,9 +24,11 @@ const FormInputs = (type, options, data, user_id) =>{
         formik = EmployeeFormik();
     }else if (type === 'login'){
         formik = LoginFormik()
-    }else if (type === 'userUpdate'){
-        formik = UserUpdateFormik(data, UpdateProfileRequest, user_id)
-    } else if (type === 'shelterUpdate'){
+    }
+    else if (type === 'userUpdate'){
+        formik = UserUpdateFormik(data, UpdateProfileRequest)
+    } 
+    else if (type === 'shelterUpdate'){
         formik = ShelterUpdateFormik(data.data, data.data.shelter_id)
     }else if (type === 'forgotPassword'){
         formik = ForgotPasswordFormik()

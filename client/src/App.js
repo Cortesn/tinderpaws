@@ -38,7 +38,7 @@ const App = () => {
 				<Route exact path="/adminHome/:id/pets" render={() => <AdminPage />} />
 				<Route exact path="/userHome/:id" component={UserHome}/>
 				<Route exact path="/addpet" component={AddPet}/>
-				<Route exact path="/adminHome/:id" component={AdminHome}/>
+				<Route exact path="/adminHome" component={AdminHome}/>
 				<Route exact path="/logout" component={Logout}/>
 				<Route exact path="/newsFeed" component={NewsFeed}/>
         <Route exact path="/resetPassword/email/:email/reset_key/:reset_key" component={ResetPassword}/>

@@ -5,8 +5,8 @@ import RenderTwoInputs from './RenderTwoInputs';
 import { FormInputs, formik } from './FormInputs';
 
 const FormTemplate = (props) => {
-    const {type, options, button, data, user_id} = props;
-    const {filteredInputs} = FormInputs(type, options, data, user_id);
+    const {type, options, button, data} = props;
+    const {filteredInputs} = FormInputs(type, options, data);
     var tempInput = null;
     return (
         <Stack
