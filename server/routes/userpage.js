@@ -1,11 +1,12 @@
 import {Router} from 'express'
 const userRouter = Router();
 import db from '../Database/dbcon.js'
+import auth from '../middleware/auth.js';
 
 
 // endpoint to get all available pets not matched for user from db
-userRouter.get('/:user_id/pets', (req, res) => {
-    const user_id = req.params.user_id;
+userRouter.get('/pets', auth, (req, res) => {
+    const user_id = req.user.user_id;
     const getPets = `SELECT p.*, a.type as animalType, GROUP_CONCAT(i.url) as images 
     FROM Pets as p
     INNER JOIN Images as i ON p.pet_id=i.pet_id

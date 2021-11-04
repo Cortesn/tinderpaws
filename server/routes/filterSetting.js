@@ -1,7 +1,9 @@
 import express from 'express'
 const router = express.Router()
 import pool from '../Database/dbcon.js'
+import auth from '../middleware/auth.js'
 const db = pool
+
 /* 
     filter settings endpoints
 
@@ -46,8 +48,8 @@ router.get("/animals/breed", (req,res)=>{
     })
 })
 
-router.get("/filteredAnimals/:user_id", (req,res)=>{
-    const user_id = req.params.user_id;
+router.get("/filteredAnimals", auth, (req,res)=>{
+    const user_id = req.user.user_id;
     const shelters = req.query.shelters;
     // do not need types again since we have breeds
     const breeds = req.query.breeds;

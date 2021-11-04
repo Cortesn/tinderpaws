@@ -15,7 +15,7 @@ import PetInfoFormik from './PetInfoForm';
 
 var formik;
 // all possible form inputs with validation
-const FormInputs = (type, data, user_id) =>{
+const FormInputs = (type, data) =>{
     
     // get the validation schema
     if(type === "user"){
@@ -27,17 +27,15 @@ const FormInputs = (type, data, user_id) =>{
     }else if (type === 'login'){
         formik = LoginFormik()
     }else if (type === 'userUpdate'){
-        formik = UserUpdateFormik(data, UpdateProfileRequest, user_id)
-    } else if (type === 'shelterUpdate'){
+        formik = UserUpdateFormik(data, UpdateProfileRequest)
+    }else if (type === 'shelterUpdate'){
         formik = ShelterUpdateFormik(data.data, data.data.shelter_id)
     }else if (type === 'forgotPassword'){
         formik = ForgotPasswordFormik()
     }else if (type === 'resetPassword'){
         formik = ResetPasswordFormik(data)
     }else if (type === 'pet'){
-        // console.log(data)
         formik = PetInfoFormik(data)
-        // console.log(formik.values)
     }
 
     
