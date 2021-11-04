@@ -8,7 +8,7 @@ import FormTemplate from '../forms/FormTemplate'
 const PetProfile = (props) => {
     const {pet, images, addImage, deleteImage} = props;
     return (
-        <Card sx={{maxWidth: '600px'}}>
+        <Card sx={{maxWidth: '600px', margin: 'auto !important'}}>
             <Paper elevation={10}  >
                 <Stack
                     direction="column"
@@ -28,8 +28,8 @@ const PetProfile = (props) => {
                     justifyContent="space-between"
                     alignItems="center"
                     sx={{width: '90%'}}>
-                    <Typography >created: {pet.date_created}</Typography>
-                    <Typography >updated: {pet.last_updated}</Typography>
+                    <Typography varriant='subtitle1'>created: {pet.date_created}</Typography>
+                    <Typography varriant='subtitle1'>updated: {pet.last_updated}</Typography>
                 </Stack>
                 
                 {/* details about a pet */}

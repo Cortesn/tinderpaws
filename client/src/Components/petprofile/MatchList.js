@@ -21,7 +21,7 @@ const MatchList = (props) => {
     // or check for chats with match.user_id
 
     return (
-        <Card sx={{height:'100%', maxWidth: '600px'}}>
+        <Card sx={{height:'100%', maxWidth: '600px', margin: 'auto !important'}}>
             <Paper elevation={10} sx={{height: '100%', paddingTop: '1rem'}} >
 
                 {/* Heading */}

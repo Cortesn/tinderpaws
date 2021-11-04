@@ -22,7 +22,7 @@ const AdminEditPetPage = () => {
     const {pet_id} = useParams()
     // reference to remove column spacing between cards
     const theme = useTheme();
-    const mobile = useMediaQuery(theme.breakpoints.up('sm')); 
+    const mobile = useMediaQuery(theme.breakpoints.up('md')); 
     // FAB in mobile
     const [buttonClicked, handleButtonChange] = useButtonState(false);
     // snackbar alerts
@@ -73,19 +73,19 @@ const AdminEditPetPage = () => {
             justifyContent="center"
             alignItems="stretch"
             sx={{margin:'auto !important', maxWidth: 1400}} 
-            columnSpacing={{ sm: mobile ? 0.5 : 0 }}>
+            columnSpacing={{ md: mobile ? 1 : 0 }}>
             
             {/* Left side Matches card */}
             <Grid 
                 item 
-                xs={12} sm={6} md={5} lg={4}
+                xs={12} sm={12} md={6} lg={4}
                 sx={{ 
-                    display: { xs: buttonClicked ? 'block':'none', sm: 'block' },
+                    display: { xs: buttonClicked ? 'block':'none', md: 'block' },
                     maxWidth: '650px'
                     }}>
                 <Box sx={{ 
                         '& > :not(style)': { m: 1 } , 
-                        display: {xs: 'block' , sm: 'none'} 
+                        display: {xs: 'block' , md: 'none'} 
                         }}>
                     <Fab 
                         sx={{right: 20, position: 'fixed'}}
@@ -106,9 +106,9 @@ const AdminEditPetPage = () => {
             {/* Right side edit profile card */}
             <Grid 
                 item 
-                xs={12} sm={6} md={5} lg={4} 
+                xs={12} sm={12} md={6} lg={4} 
                 sx={{ 
-                    display: { xs: buttonClicked ? 'none':'block', sm: 'block' },
+                    display: { xs: buttonClicked ? 'none':'block', md: 'block' },
                     maxWidth: '650px'
                     }}>
 
@@ -116,7 +116,7 @@ const AdminEditPetPage = () => {
                 {/* maybe put this in the nav bar and have it be fixed */}
                 <Box sx={{ 
                         '& > :not(style)': { m: 1 } , 
-                        display: {xs: 'block' , sm: 'none'} 
+                        display: {xs: 'block' , md: 'none'} 
                         }}>
                     <Fab 
                         sx={{left: 10, top: 50, position: 'fixed', zIndex: 1}}
