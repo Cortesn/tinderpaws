@@ -39,7 +39,6 @@ const AdminEditPetPage = () => {
     };
     // pet state
     const [pet, setPet] = useState({})
-    // console.log(pet)
     // image state
     const [images, handleImageChange, addImage, deleteImage] = useDeleteItemState([]);
     // matches state
@@ -55,7 +54,6 @@ const AdminEditPetPage = () => {
                 petData.setPet = setPet
                 petData.snackBar = handleOpen
                 setPet(petData)
-                // setPet(JSON.parse(JSON.stringify(response.data.pet)))
                 if (response.data.images) handleImageChange(response.data.images)
                 if (response.data.matches) handleMatchChange(response.data.matches)
             })

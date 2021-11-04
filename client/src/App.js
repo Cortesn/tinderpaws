@@ -33,8 +33,6 @@ const App = () => {
 				<Route exact path="/login" component={LoginScreen} />
 				<Route exact path="/user" component={UserPage} />  {/* To be removed, combined into userHome/:id */}
 				<Route exact path="/signup" component={SignupPage} />
-				<Route exact path="/logout" component={Logout} />
-				<Route exact path="/admin" render={() => <AdminPage />} />
 				<Route exact path="/admin/edit/:pet_id" component={AdminEditPetPage} />
 				<Route exact path="/logout" component={Logout} />
 				<Route exact path="/adminHome/:id/pets" render={() => <AdminPage />} />
