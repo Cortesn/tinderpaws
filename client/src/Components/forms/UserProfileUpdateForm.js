@@ -13,9 +13,7 @@ const UserProfileUpdateForm = () => {
                 {
                     fname: response.data[0].f_name,
                     lname:response.data[0].l_name,
-                    email: response.data[0].email,
-                    password: response.data[0].password,
-                    passwordConfirm: response.data[0].password
+                    email: response.data[0].email
                 }
             )});
         },[]);
