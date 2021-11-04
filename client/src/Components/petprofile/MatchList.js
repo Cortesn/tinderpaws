@@ -6,7 +6,8 @@ import {
     Paper,
     Typography,
     List,
-    Card, 
+    Card,
+    Stack, 
 } from '@mui/material';
 import useButtonState from '../../hooks/useButtonState';
 import MatchItem from './MatchItem';
@@ -20,23 +21,31 @@ const MatchList = (props) => {
     // or check for chats with match.user_id
 
     return (
-        <Card sx={{height:'100%'}}>
+        <Card sx={{height:'100%', maxWidth: '600px'}}>
             <Paper elevation={10} sx={{height: '100%', paddingTop: '1rem'}} >
 
                 {/* Heading */}
                 {/* onClick event to hide/show delete buttons */}
-                <Button 
-                    onClick={handleButtonChange}
-                    sx={{textTransform: 'none', display:'inline'}}>
-                    {buttonClicked ? 'done': 'edit'}
-                </Button>
+                <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    spacing={2}>
 
-                <Typography 
-                    sx={{textAlign:'center', 
-                        display:'inline', 
-                        paddingLeft:'4rem'}}>
-                    Matches
-                </Typography>
+                    <Button 
+                        onClick={handleButtonChange}
+                        sx={{textTransform: 'none'}}>
+                        {buttonClicked ? 'done': 'edit'}
+                    </Button>
+
+                    <Typography sx={{display:'inline'}}>
+                        Matches
+                    </Typography>
+
+                    {/* placeholder div to even out the header */}
+                    <div style={{width: '80px'}}></div>
+
+                </Stack>
 
                 <Grid xs={11} item>
                     <Divider variant='middle' sx={{paddingBottom: '.5rem'}}/>

@@ -16,7 +16,7 @@ const ImageItem = (props) => {
             <img
                 src={image.url}
                 alt='pet'
-                style={{borderRadius: '20px'}}/>
+                style={{borderRadius: '20px', maxWidth: '300px'}}/>
 
             {/* delete button visible when delete is clicked */}
             <Collapse 

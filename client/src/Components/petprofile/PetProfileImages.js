@@ -31,7 +31,6 @@ const PetProfileImages = (props) => {
                     justifyContent: 'space-between'
                     }}>
 
-                {/* heading  */}
                 <ImageUploader 
                     addImage={addImage} 
                     snackBar={snackBar}/>

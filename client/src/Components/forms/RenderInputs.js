@@ -5,7 +5,12 @@ import {
     TextField, 
     InputLabel,
     Select,
-    MenuItem
+    MenuItem,
+    FormLabel,
+    FormGroup,
+    FormControlLabel,
+    Checkbox,
+    TextareaAutosize
 } from '@mui/material';
 
 export const RenderInputs = (props) => {
@@ -57,6 +62,32 @@ export const RenderInputs = (props) => {
                     <MenuItem key={option.id} id={option.id} value={option.id}>{option.name}</MenuItem>
                 )}
             </Select>
+            </>
+        )
+    } else if (input.checkboxes){
+        return (
+            <>
+            <FormLabel component="legend">{input.label}</FormLabel>
+            <FormGroup>
+                {input.checkboxes.map(box => 
+                    <FormControlLabel
+                        key={box.id}
+                        label={box.name}
+                        control={<Checkbox name={box.name} />}
+                        checked={input.value.includes(box.id)}/>
+                )}
+            </FormGroup>
+            </>
+        )
+    }else if (input.textArea) {
+        return (
+            <>
+            <TextareaAutosize
+                aria-label="textarea"
+                minRows={input.textArea.rows}
+                placeholder={input.label + '...'}
+                defaultValue={input.value}
+                style={{resize: 'vertical', maxWidth: '100%' }}/>
             </>
         )
     } else {

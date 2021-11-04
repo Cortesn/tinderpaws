@@ -39,6 +39,7 @@ const AdminEditPetPage = () => {
     };
     // pet state
     const [pet, setPet] = useState({})
+    // console.log(pet)
     // image state
     const [images, handleImageChange, addImage, deleteImage] = useDeleteItemState([]);
     // matches state
@@ -62,26 +63,29 @@ const AdminEditPetPage = () => {
     })
 
     return (
+        <div style={{width: '100%'}}>
         <Grid 
             container
+            direction="row"
             justifyContent="center"
             alignItems="stretch"
-            sx={{margin:'auto'}} 
-            columnSpacing={{ sm: mobile ? 1 : 0 }}>
+            sx={{margin:'auto', maxWidth: 1400}} 
+            columnSpacing={{ sm: mobile ? 0.5 : 0 }}>
             
             {/* Left side Matches card */}
             <Grid 
                 item 
-                xs={12} sm={6} md={5} lg={4} xl={3} 
+                xs={12} sm={6} md={5} lg={4}
                 sx={{ 
-                    display: 
-                        { xs: buttonClicked ? 'block':'none', sm: 'block' } 
+                    display: { xs: buttonClicked ? 'block':'none', sm: 'block' },
+                    maxWidth: '650px'
                     }}>
                 <Box sx={{ 
                         '& > :not(style)': { m: 1 } , 
                         display: {xs: 'block' , sm: 'none'} 
                         }}>
                     <Fab 
+                        sx={{right: 20, position: 'fixed'}}
                         size="small" 
                         color="secondary" 
                         aria-label="match">
@@ -90,6 +94,7 @@ const AdminEditPetPage = () => {
                 </Box>
 
                 <MatchList 
+                    // style={{}}
                     matches={matches} 
                     addMatch={addMatch} 
                     deleteMatch={deleteMatch}
@@ -99,18 +104,20 @@ const AdminEditPetPage = () => {
             {/* Right side edit profile card */}
             <Grid 
                 item 
-                xs={12} sm={6} md={5} lg={4} xl={3} 
+                xs={12} sm={6} md={5} lg={4} 
                 sx={{ 
-                    display: 
-                        { xs: buttonClicked ? 'none':'block', sm: 'block' }
+                    display: { xs: buttonClicked ? 'none':'block', sm: 'block' },
+                    maxWidth: '650px'
                     }}>
 
                 {/* view matches in mobile */}
+                {/* maybe put this in the nav bar and have it be fixed */}
                 <Box sx={{ 
                         '& > :not(style)': { m: 1 } , 
                         display: {xs: 'block' , sm: 'none'} 
                         }}>
                     <Fab 
+                        sx={{left: 10, top: 50, position: 'fixed', zIndex: 1}}
                         size="small" 
                         color="secondary" 
                         aria-label="match">
@@ -140,8 +147,8 @@ const AdminEditPetPage = () => {
                 }
             </Snackbar>
            
-            
         </Grid>
+        </div>
     )
 }
 

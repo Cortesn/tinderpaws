@@ -1,119 +1,62 @@
-import React from 'react'
-import Grid from '@mui/material/Grid';
-import { 
-    FilledInput, 
-    InputLabel, 
-    FormControl, 
-    Button, 
-    MenuItem, 
-    Select, 
-    TextareaAutosize,
-    FormLabel,
-    FormGroup,
-    FormControlLabel,
-    Checkbox,
-} from '@mui/material';
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import {api} from '../../helperFunctions/axiosInstace'
 
 
-const PetInfoForm = () => {
-    return (
-        <form style={{padding: '20px'}}>
-            <Grid container direction={"column"} spacing={1}>
-                <Grid item>
-                    <FormControl fullWidth variant="filled" size="small">
-                        <InputLabel htmlFor="petName">Pet Name</InputLabel>
-                        <FilledInput
-                            id='petName'
-                            fullWidth />
-                    </FormControl>
-                </Grid>
-                <Grid item>
-                    <FormControl fullWidth variant="filled" size="small">
-                        <InputLabel htmlFor="type">Type</InputLabel>
-                        <Select
-                            labelId="type"
-                            id="type"
-                            value='' >
-                            <MenuItem value={1}>Dog</MenuItem>
-                            <MenuItem value={2}>Cat</MenuItem>
-                            <MenuItem value={3}>Other</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item>
-                    <FormControl fullWidth variant="filled" size="small">
-                        <InputLabel htmlFor="breed">Breed</InputLabel>
-                        <Select
-                            labelId="breed"
-                            id="breed"
-                            value=''>
-                            <MenuItem value={1}>Breed 1</MenuItem>
-                            <MenuItem value={2}>Breed 2</MenuItem>
-                            <MenuItem value={3}>Breed 3</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item>
-                    <FormControl fullWidth variant="filled" size="small">
-                        <InputLabel htmlFor="status">Status</InputLabel>
-                        <Select
-                            labelId="status"
-                            id="status"
-                            value=''>
-                            <MenuItem value={1}>Not Available</MenuItem>
-                            <MenuItem value={2}>Available</MenuItem>
-                            <MenuItem value={3}>Pending</MenuItem>
-                            <MenuItem value={3}>Adopted</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
+// Formik Schema (shelters)
+const petValidation = () => Yup.object({
+    name: Yup
+        .string()
+        .min(1, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required'),
+    type: Yup
+        .number()
+        .required('Required'),
+    breed: Yup
+        .string()
+        .required('Required'),
+    status: Yup
+        .number()
+        .required('Required'),
+    dispositions: Yup // mot sure about this checkbox
+        .string()
+        .required('Required'),
+    description: Yup
+        .string()
+        .required('Required')
+});
 
-                {/* Add dispostionsion */}
-                <Grid item>
-                    <FormLabel component="legend">Dispositions</FormLabel>
-                    <FormGroup>
-                        <FormControlLabel
-                            control={
-                            <Checkbox name="Good with other animals" />
-                            }
-                            label="Good with other animals"/>
-                        <FormControlLabel
-                            control={
-                            <Checkbox name="Good with children" />
-                            }
-                            label="Good with children"/>
-                        <FormControlLabel
-                            control={
-                            <Checkbox name="Animal must be leashed at all times" />
-                            }
-                            label="Animal must be leashed at all times"/>
-                    </FormGroup>
-                </Grid>
-                
-                <Grid item>
-                    <FormControl fullWidth variant="filled" size="small">
-                        <TextareaAutosize
-                            aria-label="textarea"
-                            minRows={5}
-                            placeholder="Description..."
-                            style={{resize: 'vertical', maxWidth: '100%' }}/>
-                    </FormControl>
-                </Grid>
-                
-                <Grid item>
-                    <Button 
-                        fullWidth
-                        type='submit' 
-                        variant='contained' 
-                        color='primary'>
-                        Save Changes
-                    </Button>
-                </Grid>
-               
-                
-            </Grid> 
-        </form>
-    )
-}
+// formik state
+const PetInfoFormik =(data)=> useFormik({
+    enableReinitialize: true, // allows to reset the initial fields (setting values from state)
+    initialValues: {
+        name: data.name,
+        type: data.type,
+        breed: data.breed,
+        status: data.status,
+        dispositions: data.dispositions,
+        description: data.description
+    },
+    validationSchema: petValidation(),
+    onSubmit: (values, {resetForm, setFieldValue}) => {
+        // make request
+        // api.post('/', values )
+        //     .then(function(response){
+        //         // console.log(response)
+            
+        //         // redirects page
+        //         window.location = '/'
+        //     })
+        //     .catch(function(error){
+        //         console.log(error)
+        //         // set error msg with formik
+        //     })
+        //     // might not need this promise -> always executes
+        //     .then(function(){
+        //         // resetForm()
+        //     })
+    },
+});
 
-export default PetInfoForm
+export default PetInfoFormik

@@ -6,9 +6,10 @@ const db = pool
 // route to get all pet data for the /admin/edit/:pet_id path
 router.get('/:pet_id', (req,res) => {
     const id = req.params.pet_id;
-    const pet =`SELECT *, GROUP_CONCAT(disposition_id) AS dispositions FROM Pets
-                JOIN Pets_Dispositions ON Pets.pet_id=Pets_Dispositions.pet_id
-                AND Pets.pet_id=?;`;
+    const pet =`SELECT Pets.pet_id, name, type, breed, status, date_created, last_updated, 
+                description, shelter_id, GROUP_CONCAT(disposition_id) AS dispositions FROM 
+                Pets LEFT JOIN Pets_Dispositions ON Pets.pet_id=Pets_Dispositions.pet_id 
+                WHERE Pets.pet_id=?;`;
     const images = 'SELECT image_id, url FROM Images WHERE pet_id=?;'
     const matches =`SELECT Matches.match_id, Users.user_id, l_name, f_name FROM Users 
                     LEFT JOIN Matches ON Matches.user_id=Users.user_id
