@@ -5,19 +5,23 @@ import ImageModal from './ImageModal';
 import useImageUploadState from '../../hooks/useImageUploadState';
 
 
-const ImageUploader = () => {
+const ImageUploader = (props) => {
+    const {addImage, snackBar} = props;
+
     const [image, 
             handleImageChange, 
             open, 
-            handleClose] = useImageUploadState({false:false, true:true})
+            handleClose] = useImageUploadState('')
 
     return (
         <>
             <label htmlFor="icon-button-file">
+                {/* file input */}
                 <input 
                     id="icon-button-file" 
                     accept="image/*" 
                     type="file" 
+                    // value={image}
                     onChange={handleImageChange}
                     style={{display: 'none'}}/>
 
@@ -26,7 +30,6 @@ const ImageUploader = () => {
                     aria-label="upload picture" 
                     component="span"
                     >
-
                     <PhotoCamera />
                 </IconButton>
 
@@ -34,6 +37,8 @@ const ImageUploader = () => {
 
             {/* modal for image resize/crop */}
             <ImageModal 
+                snackBar={snackBar}
+                addImage={addImage}
                 image={image} 
                 open={open} 
                 handleClose={handleClose}/>

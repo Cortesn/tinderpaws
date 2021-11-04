@@ -3,7 +3,7 @@ import { Button, Slider, Stack } from '@mui/material'
 import AvatarEditor from 'react-avatar-editor'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-
+import {api} from '../../helperFunctions/axiosInstace'
 
 /* Reference: https://www.npmjs.com/package/react-avatar-editor */
 class ImageEditor extends React.Component {
@@ -25,29 +25,44 @@ class ImageEditor extends React.Component {
 
     onClickSave = () => {
         if (this.editor) {
-            // This returns a HTMLCanvasElement, it can be made into a data URL or a blob,
-            // drawn on another canvas, or added to the DOM.
-    
-            // Image resized to the canvas size (also a HTMLCanvasElement)
             const canvasScaled = this.editor.getImageScaledToCanvas().toDataURL()
             // The edited image
-            let imageURL =
-                fetch(canvasScaled)
-                    .then(res => res.blob())
-                    .then(blob => (imageURL = window.URL.createObjectURL(blob)))
-    
-            console.log(imageURL)
-    
-            // This needs to be called after saving the image to fix memory leaks??
-            return URL.revokeObjectURL(imageURL)
+            fetch(canvasScaled)
+                .then(res => res.blob())
+                .then(blob => new File([blob], 'image'))
+                .then(file => {
+                    // console.log(file)
+                    // make a new form element
+                    let fd = new FormData();
+                    fd.append('image', file)
+                    // make request to upload a photo
+                    api.post('/images', fd )
+                        .then( response => {
+                            // console.log("response data:", response.data)
+                            const {payload} = response.data
+                            // update the list of images
+                            this.props.addImage({id: payload.image_id, url: payload.url})
+                            // display snackbar alert
+                            this.props.snackBar({success: payload.msg})
+                            // close the modal
+                            this.props.handleClose()
+                        })
+                        .catch( error => {
+                            console.log("error:", error)
+                            // display snackbar alert
+                            this.props.snackBar({error: error.response.data.msg})
+                            // close the modal
+                            this.props.handleClose()
+                        })
+                    })
         }
     }
-
+    
+    // handles image adjustment
     onZoom = (event) => {
         const scale = parseFloat(event.target.value)
         this.setState({ scale })
     }
-
 
     setEditorRef = (editor) => (this.editor = editor)
 

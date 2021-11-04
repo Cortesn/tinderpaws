@@ -22,7 +22,7 @@ const style = {
 
   
 const ImageModal = (props) => {
-    const {image, open, handleClose} = props
+    const {image, open, handleClose, addImage, snackBar} = props
 
     return (
         <Modal
@@ -59,7 +59,11 @@ const ImageModal = (props) => {
                     <CloseIcon />
                 </IconButton>
 
-                <ImageEditor image={image} />
+                <ImageEditor 
+                    image={image} 
+                    handleClose={handleClose} 
+                    addImage={addImage} 
+                    snackBar={snackBar}/>
                 
             </Box>
         </Modal>

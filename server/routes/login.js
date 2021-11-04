@@ -19,7 +19,7 @@ router.post('/', (req,res) => {
         if (error){
             // server error
             console.log(error)
-            return res.status(400).json({ msg : 'Somthing went wrong. Please try agian.' })
+            return res.status(400).json({ msg: 'Server error. Please try again later.' })
             // redirect back to login
         } else {
             // user is found

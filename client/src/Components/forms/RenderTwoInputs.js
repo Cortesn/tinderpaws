@@ -18,7 +18,7 @@ const RenderTwoInputs = (props) => {
                         id={input1.id}
                         label={input1.label}
                         name={input1.id}
-                        value={input1.value}
+                        value={input1.value || ''}
                         onChange={input1.onChange}
                         error={input1.error}
                         helperText={input1.helperText}/>
@@ -30,7 +30,7 @@ const RenderTwoInputs = (props) => {
                         id={input2.id}
                         label={input2.label}
                         name={input2.id}
-                        value={input2.value}
+                        value={input2.value || ''}
                         onChange={input2.onChange}
                         error={input2.error}
                         helperText={input2.helperText}/>

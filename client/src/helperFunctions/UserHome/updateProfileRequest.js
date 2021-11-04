@@ -1,7 +1,9 @@
-import axios from "axios";
-const UpdateProfileRequest = (values, user_id) => {
-    let url = `http://localhost:3001/userProfileUpdate/${user_id}`;
-    axios.patch(url, values).then((response)=>{
+
+import { api, setToken } from "../axiosInstace";
+const UpdateProfileRequest = (values) => {
+    let url = `/userProfileUpdate/update`;
+    setToken(localStorage.token)
+    api.patch(url, values).then((response)=>{
         if(response.status === 200){
             alert("Successfully updated profile! :) ")
         }else{

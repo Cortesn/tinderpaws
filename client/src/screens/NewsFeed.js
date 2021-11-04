@@ -39,8 +39,8 @@ const tempData = [
 
 const NewsFeed = () => {
     
-    const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.down('sm')); 
+    // const theme = useTheme();
+    // const matches = useMediaQuery(theme.breakpoints.down('sm')); 
 
     return (
 
