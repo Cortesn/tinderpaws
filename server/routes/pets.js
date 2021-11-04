@@ -14,7 +14,7 @@ router.get('/:pet_id', (req,res) => {
     const matches =`SELECT Matches.match_id, Users.user_id, l_name, f_name FROM Users 
                     LEFT JOIN Matches ON Matches.user_id=Users.user_id
                     WHERE pet_id=?;`;
-    db.query(`${pet} ${images} ${matches}`, [id, id, id], (error, results)=>{
+    db.query(`${pet} ${images} ${matches}`, [id, id, id], (error, results) => {
         if (error){
             console.log(error)
             return
@@ -22,7 +22,9 @@ router.get('/:pet_id', (req,res) => {
             // console.log(results)
             var payload = {}
                 payload.pet = results[0][0]
-                payload.pet.dispositions = payload.pet.dispositions.split(',').map(Number) // conver to int
+                payload.pet.date_created = payload.pet.date_created.toISOString().slice(0,10)
+                payload.pet.last_updated = payload.pet.last_updated.toISOString().slice(0,10)
+            if (payload.pet.dispositions) payload.pet.dispositions = payload.pet.dispositions.split(',').map(Number) // conver to int
             if (results[1].length > 0) payload.images = results[1]
             if (results[2].length > 0) payload.matches = results[2]
             // console.log(payload)
@@ -34,5 +36,31 @@ router.get('/:pet_id', (req,res) => {
 
 })
 
+// update a pet
+router.patch('/:pet_id', (req,res) => {
+    const pet_id = parseInt(req.params.pet_id)
+    const {name, type, status, breed, dispositions, description} = req.body
+    const date = new Date().toISOString().slice(0,10);
+    // update intersection
+    var newDisp = '' 
+    dispositions.map((disp, index) => {
+        if (index === dispositions.length -1){
+            newDisp += `(${pet_id}, ${disp});`
+        } else {
+            newDisp += `(${pet_id}, ${disp}),`
+        }
+    })
+    const update = 'UPDATE Pets SET name=?, type=?, breed=?, status=?, last_updated=?, description=? WHERE pet_id=?;'
+    const deleteDisp = 'DELETE FROM Pets_Dispositions WHERE pet_id=?;'
+    const insertDisp = 'INSERT INTO Pets_Dispositions (pet_id, disposition_id) VALUES' + newDisp;
+    db.query(`${update} ${deleteDisp} ${insertDisp}`, [name, type, breed, status, date, description, pet_id, pet_id], (error, results) => {
+        if (error){
+            console.log(error)
+            return res.status(400).json({ msg : 'Somthing went wrong. Please try agian later.'})
+        }
+        // console.log("results: ", results)
+        return res.status(200).json({ msg: 'Update Successful!' })
+    })
+})
 
 export {router as pets}

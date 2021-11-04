@@ -19,7 +19,7 @@ const petValidation = () => Yup.object({
     status: Yup
         .number()
         .required('Required'),
-    dispositions: Yup // mot sure about this checkbox
+    dispositions: Yup 
         .array()
         .min(1, 'At least one disposition is required'),
     description: Yup
@@ -40,25 +40,22 @@ const PetInfoFormik =(data)=> useFormik({
     },
     validationSchema: petValidation(),
     onSubmit: (values, {resetForm, setFieldValue}) => {
-        console.log(values)
+        // console.log("data: ", data)
         // make request
-        api.post('/', values )
+        api.patch('/pets/' + data.pet_id, values )
             .then(function(response){
+                // set the new pet data
                 // console.log(response)
-            
-                // redirects page
-                window.location = '/'
+                data.setPet(values)
+                data.snackBar({success: response.data.msg})
             })
             .catch(function(error){
-                console.log(error)
                 // set error msg with formik
-            })
-            // might not need this promise -> always executes
-            .then(function(){
-                // resetForm()
+                console.log(error)
+                data.snackBar({error: error.response.data.msg})
             })
     },
-    validator: () => ({})
+    // validator: () => ({}) // used to chatch error while testing
 });
 
 export default PetInfoFormik

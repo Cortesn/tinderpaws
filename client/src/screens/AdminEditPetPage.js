@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useParams } from "react-router";
-import { Box, Fab, Grid, Snackbar, useMediaQuery  } from '@mui/material'
+import { Box, Fab, Grid, Snackbar, Stack, useMediaQuery  } from '@mui/material'
 import MuiAlert from '@mui/material/Alert';
 import ChatIcon from '@mui/icons-material/Chat';
 import CloseIcon from '@mui/icons-material/Close';
@@ -48,10 +48,14 @@ const AdminEditPetPage = () => {
     useEffect(() => {
         // only make the request if there is not pet data
         if (!pet.pet_id){
-            api.get('/pet/' + pet_id)
+            api.get('/pets/' + pet_id)
             .then( response => {
                 // console.log("response data:", response.data)
-                setPet(JSON.parse(JSON.stringify(response.data.pet)))
+                var petData = response.data.pet
+                petData.setPet = setPet
+                petData.snackBar = handleOpen
+                setPet(petData)
+                // setPet(JSON.parse(JSON.stringify(response.data.pet)))
                 if (response.data.images) handleImageChange(response.data.images)
                 if (response.data.matches) handleMatchChange(response.data.matches)
             })
@@ -63,13 +67,12 @@ const AdminEditPetPage = () => {
     })
 
     return (
-        <div style={{width: '100%'}}>
         <Grid 
             container
             direction="row"
             justifyContent="center"
             alignItems="stretch"
-            sx={{margin:'auto', maxWidth: 1400}} 
+            sx={{margin:'auto !important', maxWidth: 1400}} 
             columnSpacing={{ sm: mobile ? 0.5 : 0 }}>
             
             {/* Left side Matches card */}
@@ -94,7 +97,6 @@ const AdminEditPetPage = () => {
                 </Box>
 
                 <MatchList 
-                    // style={{}}
                     matches={matches} 
                     addMatch={addMatch} 
                     deleteMatch={deleteMatch}
@@ -127,11 +129,9 @@ const AdminEditPetPage = () => {
 
                 <PetProfile 
                     pet={pet} 
-                    setPet={setPet}
                     images={images}
                     addImage={addImage}
-                    deleteImage={deleteImage}
-                    snackBar={handleOpen}/>
+                    deleteImage={deleteImage}/>
             </Grid>
 
             {/* snackbar alerts */}
@@ -146,9 +146,7 @@ const AdminEditPetPage = () => {
                 </Alert>
                 }
             </Snackbar>
-           
         </Grid>
-        </div>
     )
 }
 

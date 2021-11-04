@@ -99,6 +99,7 @@ export const RenderInputs = (props) => {
                 minRows={input.textArea.rows}
                 placeholder={input.label + '...'}
                 defaultValue={input.value}
+                onChange={input.onChange}
                 style={{resize: 'vertical', maxWidth: '100%' }}/>
             </>
         )

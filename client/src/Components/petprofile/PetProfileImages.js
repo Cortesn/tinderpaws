@@ -19,7 +19,7 @@ const updateDisplayCol = (items) => {
 
 /* Returns a complied list of a single Pet's images */
 const PetProfileImages = (props) => {
-    const {pet, images, addImage, deleteImage, snackBar} = props;
+    const {pet, images, addImage, deleteImage} = props;
     const [deleteClicked, handleDeleteChange] = useButtonState(false);
 
     return(
@@ -33,7 +33,7 @@ const PetProfileImages = (props) => {
 
                 <ImageUploader 
                     addImage={addImage} 
-                    snackBar={snackBar}/>
+                    snackBar={pet.snackBar}/>
 
                 <Typography 
                     sx={{
@@ -68,7 +68,7 @@ const PetProfileImages = (props) => {
                         image={image}
                         deleteImage={deleteImage}
                         deleteClicked={deleteClicked}
-                        snackBar={snackBar}/>
+                        snackBar={pet.snackBar}/>
                         )
                     ) : null
                 }
