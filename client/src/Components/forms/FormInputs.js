@@ -216,7 +216,7 @@ const FormInputs = (type, data, user_id) =>{
             id: 'breed',
             label: 'Breed',
             value: formik.values.breed,
-            onChange: formik.handleChange('breed'),
+            onChange: formik.handleChange,
             error: formik.touched.breed && Boolean(formik.errors.breed),
             helperText: formik.touched.breed && formik.errors.breed,
             // options: [{id: 1, name: 'Breed 1'}, {id: 2, name: 'Breed 2'}, {id: 3, name: 'Breed 3'}] // need to get breeds
@@ -236,6 +236,7 @@ const FormInputs = (type, data, user_id) =>{
             id: 'dispositions',
             label: 'Dispositions',
             value: formik.values.dispositions || [],
+            formik: formik,
             onChange: formik.handleChange('dispositions'),
             error: formik.touched.dispositions && Boolean(formik.errors.dispositions),
             helperText: formik.touched.dispositions && formik.errors.dispositions,

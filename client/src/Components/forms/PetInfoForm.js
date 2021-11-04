@@ -20,15 +20,15 @@ const petValidation = () => Yup.object({
         .number()
         .required('Required'),
     dispositions: Yup // mot sure about this checkbox
-        .string()
-        .required('Required'),
+        .array()
+        .min(1, 'At least one disposition is required'),
     description: Yup
         .string()
-        .required('Required')
 });
 
 // formik state
 const PetInfoFormik =(data)=> useFormik({
+    // validateOnChange: false,
     enableReinitialize: true, // allows to reset the initial fields (setting values from state)
     initialValues: {
         name: data.name,
@@ -40,23 +40,25 @@ const PetInfoFormik =(data)=> useFormik({
     },
     validationSchema: petValidation(),
     onSubmit: (values, {resetForm, setFieldValue}) => {
+        console.log(values)
         // make request
-        // api.post('/', values )
-        //     .then(function(response){
-        //         // console.log(response)
+        api.post('/', values )
+            .then(function(response){
+                // console.log(response)
             
-        //         // redirects page
-        //         window.location = '/'
-        //     })
-        //     .catch(function(error){
-        //         console.log(error)
-        //         // set error msg with formik
-        //     })
-        //     // might not need this promise -> always executes
-        //     .then(function(){
-        //         // resetForm()
-        //     })
+                // redirects page
+                window.location = '/'
+            })
+            .catch(function(error){
+                console.log(error)
+                // set error msg with formik
+            })
+            // might not need this promise -> always executes
+            .then(function(){
+                // resetForm()
+            })
     },
+    validator: () => ({})
 });
 
 export default PetInfoFormik
