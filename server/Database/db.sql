@@ -26,11 +26,6 @@ CREATE TABLE Statuses (
 	description varchar(225) NOT NULL
 );
 
-CREATE TABLE Images (
-	image_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	url varchar(225) NOT NULL
-);
-
 CREATE TABLE Shelters (
 	shelter_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	name varchar(225) NOT NULL,
@@ -42,7 +37,8 @@ CREATE TABLE Shelters (
 	password varchar(255) NOT NULL,
 	date_created date NOT NULL,
 	last_updated date,
-	info text
+	info text,
+	reset_key varchar(25)
 );
 
 CREATE TABLE Pets (
@@ -68,9 +64,10 @@ CREATE TABLE Dispositions (
 CREATE TABLE Pets_Dispositions (
 	pet_id int NOT NULL,
 	disposition_id int NOT NULL,
-	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id),
-  	FOREIGN KEY (disposition_id) REFERENCES Dispositions (disposition_id),
-  	PRIMARY KEY (pet_id, disposition_id)
+	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id) ON DELETE CASCADE,
+  FOREIGN KEY (disposition_id) REFERENCES Dispositions (disposition_id),
+  PRIMARY KEY (pet_id, disposition_id),
+	CONSTRAINT UNIQUE (disposition_id, pet_id)
 );
 
 CREATE TABLE Employees (
@@ -80,6 +77,7 @@ CREATE TABLE Employees (
 	email varchar(225) NOT NULL,
 	password varchar(255) NOT NULL,
 	date_created date NOT NULL,
+	reset_key varchar(25),
 	FOREIGN KEY (shelter_id) REFERENCES Shelters (shelter_id)
 );
 
@@ -91,7 +89,8 @@ CREATE TABLE Users (
 	zip varchar(20),
 	password varchar(255) NOT NULL,
 	date_created date NOT NULL,
-	last_updated date
+	last_updated date,
+	reset_key varchar(25)
 );
 
 CREATE TABLE Matches (
@@ -99,8 +98,16 @@ CREATE TABLE Matches (
 	pet_id int NOT NULL,
 	user_id int NOT NULL,
 	date_matched date NOT NULL,
-	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id),
-  	FOREIGN KEY (user_id) REFERENCES Users (user_id)
+	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES Users (user_id),
+	CONSTRAINT UNIQUE (match_id, pet_id)
+);
+
+CREATE TABLE Images (
+	image_id int NOT NULL PRIMARY KEY,
+	pet_id int NOT NULL,
+	url varchar(225) NOT NULL,
+	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id) ON DELETE CASCADE
 );
 
 -- Chats table (optional)

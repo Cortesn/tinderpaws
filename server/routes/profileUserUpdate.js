@@ -1,17 +1,17 @@
 import express from 'express'
 const router = express.Router()
 import pool from '../Database/dbcon.js'
+import auth from '../middleware/auth.js'
 const db = pool
 /*
     Profile settings endpoint
     - get profile data
     - update profile
 */
-router.get("/userData/:user_id",(req,res)=>{
-    const user_id = parseInt(req.params.user_id);
-    const getProfileData = `SELECT Users.f_name, Users.l_name, Users.email, Users.password FROM Users WHERE Users.user_id = ${user_id}`;
-    console.log(getProfileData)
-    db.query(getProfileData, (err,result)=>{
+router.get("/userData/", auth, (req,res)=>{
+    const user_id = req.user.user_id
+    const getProfileData = 'SELECT Users.f_name, Users.l_name, Users.email, Users.password FROM Users WHERE Users.user_id = ?';
+    db.query(`${getProfileData}`, [user_id], (err,result)=>{
         if(err){
             console.error(err.message);
         }else{
@@ -19,16 +19,13 @@ router.get("/userData/:user_id",(req,res)=>{
         }
     })
 })
-router.patch("/:user_id", (req, res)=>{
-    const user_id = req.params.user_id;
-    const first_name = req.body.fname;
-    const last_name = req.body.lname;
-    const email = req.body.email;
-    const password = req.body.password;
+router.patch("/update", auth, (req, res)=>{
+    const user_id = req.user.user_id
+    let {fname, lname, email, password} = req.body
     // sql format
-    const last_updated = new Date().toISOString().slice(0,10);
-    const updateProfile = `UPDATE Users SET f_name = "${first_name}", l_name="${last_name}", email="${email}", password="${password}", last_updated="${last_updated}" WHERE user_id=${user_id}`;
-    db.query(updateProfile, (err,result)=>{
+    let last_updated = new Date().toISOString().slice(0,10);
+    const updateProfile = 'UPDATE Users SET f_name = ?, l_name=?, email=?, password=?, last_updated=? WHERE user_id=?';
+    db.query(`${updateProfile}`, [fname, lname, email, password, last_updated, user_id], (err,result)=>{
         if(err){
             console.error(err.message);
         }else{

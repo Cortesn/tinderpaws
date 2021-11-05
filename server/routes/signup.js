@@ -2,7 +2,6 @@ import express from 'express'
 const router = express.Router()
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-// import config from 'config'
 import pool from '../Database/dbcon.js'
 const db = pool
 
@@ -19,6 +18,7 @@ router.post('/user', (req, res) => {
         if (error){
             // render error message on frontend user snackbar or alert from mui
             // server error
+            console.log(error)
             return res.status(400).json({ msg : 'Somthing went wrong. Please try agian later.'})
         } else {
             console.log(results)
@@ -38,7 +38,8 @@ router.post('/user', (req, res) => {
                 password = await bcrypt.hash(password, salt)
 
                 // get current date format to YYYY-MM-DD
-                const date = new Date(Date.now()).toLocaleDateString('en-CA')
+                // const date = new Date(Date.now()).toLocaleDateString('en-CA')
+                const date = new Date().toISOString().slice(0,10);
    
                 //  save data to database
                 const saveUser = 'INSERT INTO Users (f_name, l_name, email, password, date_created, last_updated) VALUES (?,?,?,?,?,?)'

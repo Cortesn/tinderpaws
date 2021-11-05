@@ -1,44 +1,40 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import {api, setToken} from '../../helperFunctions/axiosInstace'
+import {api} from '../../helperFunctions/axiosInstace'
 
 // Formik Schema (users)
-const loginValidation = () => Yup.object({
+const passwordValidation = () => Yup.object({
     email: Yup
         .string()
         .email('Please Enter a valid email')
-        .required('Required'),
-    password: Yup
-        .string('Enter password')
-        .required('Password is required'),
+        .required('Required')
 });
 
 // formik state & login
-const LoginFormik = () => useFormik({
+const ForgotPasswordFormik = () => useFormik({
     initialValues: {
-        email: '',
-        password: '',
+        email: ''
     },
-    validationSchema: loginValidation(),
+    validationSchema: passwordValidation(),
     onSubmit: (values, {resetForm, setFieldValue}) => {
+   
         // make request
-        api.post('/login', values )
+        api.post('/password/forgot', values )
             .then(function(response){
-                // console.log(response)
-                const {token} = response.data
-                setToken(token)
-
+                // only alert that request was sent
                 // remove error if exists
                 setFieldValue('error', '')
-                setFieldValue('success', 'Success!')
-                
-                // redirects page
-                window.location = '/'
+                setFieldValue('success', response.data.msg)
+                // redirects back to login page
+                window.location = '/login'
             })
             .catch(function(error){
                 console.log(error)
                 // set error msg with formik
+                // only send error if there was a server error not for invalid emails
                 setFieldValue('error', error.response.data.msg)
+                // redirects back to login page
+                window.location = '/login'
             })
             // might not need this promise -> always executes
             .then(function(){
@@ -47,4 +43,4 @@ const LoginFormik = () => useFormik({
     },
 });
 
-export default LoginFormik
+export default ForgotPasswordFormik

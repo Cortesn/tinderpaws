@@ -1,24 +1,25 @@
 import {useState} from 'react'
 
-const useImageUploadState = (initialValue) => {
-    const [image, setImage] = useState();
-    const [open, setOpen] = useState(initialValue.false);
-    const handleOpen = () => setOpen(initialValue.true);
-    const handleClose = () => setOpen(initialValue.false);
+
+const useImageUploadState = (initialValues) => {
+    const [image, setImage] = useState(initialValues);
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+
+    const handleClose = (event) => {
+      event.target.files = null
+      setImage(null)
+      setOpen(false);
+      // handle clearing our memory so that you can click on the image upload again
+    }
 
     const handleImageChange = event => {
-        // creates a local blob
-        const imgBlob = URL.createObjectURL(event.target.files[0])
-        console.log(imgBlob);
-        // update image state
-        setImage(imgBlob)
-        // open the modal
-        handleOpen();
-       
-        // free memory when ever this component is unmounted
-        // return () => URL.revokeObjectURL(imgURL)
+        setImage(event.target.files[0])
+        if(!open){
+          handleOpen();
+        }
       };
-    
+
     return [image, handleImageChange, open, handleClose]
 }
 

@@ -9,9 +9,6 @@ INSERT INTO Statuses (description) VALUES
 ('Pending'),
 ('Adopted');
 
--- INSERT INTO Images (url) VALUES
--- ();
-
 INSERT INTO Shelters (name, street, city, state, zip, email, password, date_created, last_updated, info) VALUES
 ('Test Shelter No. 1', '1234 Shelter St', 'Seattle', 'WA', '88888', 'shelter1@test.com', '123456', '2021-10-10', '2021-10-13', 'Our goal is the match pets with their forever homes!'),
 ('Test Shelter No. 2', '4567 Adopted St', 'Seattle', 'WA', '88888', 'shelter2@test.com', '123456', '2021-10-12', '2021-10-14', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'),
@@ -42,7 +39,7 @@ INSERT INTO Employees (employee_id, shelter_id, name, email, password, date_crea
 (3, 2, 'Test', 'test@test.com', '123456', '2021-10-15');
 
 INSERT INTO Users (f_name, l_name, email, zip, password, date_created, last_updated) VALUES
-('Andrew', 'Jung', 'jungan@oregonstate.edu', '98145', '123456', '2021-10-15', '2021-10-15'),
+('test1', 'test1', 'test483@test.com', '98145', '123456', '2021-10-15', '2021-10-15'),
 ('TestUser', 'TestUser', 'testuser@test.com', '88888', '123456', '2021-10-15', '2021-10-15'),
 ('TestUser2', 'TestUser2', 'testuser2@test.com', '88888', '123456', '2021-10-15', '2021-10-15');
 

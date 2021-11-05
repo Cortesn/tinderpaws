@@ -1,7 +1,9 @@
 import express from 'express'
 const router = express.Router()
 import pool from '../Database/dbcon.js'
+import auth from '../middleware/auth.js'
 const db = pool
+
 /* 
     filter settings endpoints
 
@@ -46,7 +48,8 @@ router.get("/animals/breed", (req,res)=>{
     })
 })
 
-router.get("/filteredAnimals", (req,res)=>{
+router.get("/filteredAnimals", auth, (req,res)=>{
+    const user_id = req.user.user_id;
     const shelters = req.query.shelters;
     // do not need types again since we have breeds
     const breeds = req.query.breeds;
@@ -64,8 +67,20 @@ router.get("/filteredAnimals", (req,res)=>{
     WHERE d.disposition_id IN (${getDispositionIds})`;
 
     // final query
-    const getFilteredAnimals = `SELECT * FROM Pets INNER JOIN Shelters on Pets.shelter_id = Shelters.shelter_id WHERE Pets.shelter_id IN (${shelterSubQuery}) AND Pets.breed IN (${sqlBreedsArray}) AND Pets.pet_id IN (${dispositionsSubQuery})`;
-    db.query(getFilteredAnimals, (err, result)=>{
+    const getFilteredAnimals = `SELECT p.*, a.type as animalType, GROUP_CONCAT(i.url) as images 
+    FROM Pets as p 
+    INNER JOIN Images as i ON p.pet_id=i.pet_id
+    INNER JOIN Animals as a ON p.type=a.animal_id
+    WHERE p.shelter_id IN (${shelterSubQuery}) 
+    AND p.breed IN (${sqlBreedsArray}) 
+    AND p.pet_id IN (${dispositionsSubQuery})
+    AND p.pet_id NOT IN (
+        SELECT m.pet_id
+        FROM Matches as m
+        WHERE m.user_id=?
+      )
+    GROUP BY p.pet_id;`;
+    db.query(getFilteredAnimals,[user_id], (err, result)=>{
         if(err){
             console.error(err.message);
         }else{

@@ -1,8 +1,5 @@
 import express from 'express'
 const router = express.Router()
-// import bcrypt from 'bcryptjs'
-// import jwt from 'jsonwebtoken'
-// import config from 'config'
 import pool from '../Database/dbcon.js'
 const db = pool
 import auth from '../middleware/auth.js'
@@ -11,7 +8,6 @@ import auth from '../middleware/auth.js'
 // should be called on every "protected route"
 router.get('/', auth, (req, res) => {
     const user = req.user
-
     if (user.user_id){
         var id = user.user_id
         var findUser = 'SELECT user_id, email FROM Users WHERE user_id=?'
@@ -34,7 +30,6 @@ router.get('/', auth, (req, res) => {
             return res.status(401).json({ msg : 'Invalid credentials' })    
         } else {
             // console.log('auth')
-            // console.log(results)
             return res.json(results[0])
         }
     }) 
