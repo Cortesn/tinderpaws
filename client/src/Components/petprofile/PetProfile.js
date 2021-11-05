@@ -1,8 +1,8 @@
 import React from 'react'
+import { Box, Card, Paper, Stack, Typography, Toolbar, Grid } from '@mui/material';
+import ChatIcon from '@mui/icons-material/Chat';
 import PetProfileImages from './PetProfileImages'
-import { Card, Paper, Stack, Typography } from '@mui/material';
 import FormTemplate from '../forms/FormTemplate'
-
 
 /* Returns the 'right side' card for the Pet Images and update form */
 const PetProfile = (props) => {
@@ -15,24 +15,24 @@ const PetProfile = (props) => {
                     justifyContent="flex-start"
                     alignItems="center"
                     spacing={2}>
-                {/* all images of a pet */}
+                    {/* all images of a pet */}
                     <PetProfileImages 
                         pet={pet} 
                         images={images}
                         addImage={addImage}
                         deleteImage={deleteImage}/>
                 
-                {/* dates */}
-                <Stack
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    sx={{width: '90%'}}>
-                    <Typography varriant='subtitle1'>created: {pet.date_created}</Typography>
-                    <Typography varriant='subtitle1'>updated: {pet.last_updated}</Typography>
-                </Stack>
+                    {/* dates */}
+                    <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        sx={{width: '90%'}}>
+                        <Typography varriant='subtitle1'>created: {pet.date_created}</Typography>
+                        <Typography varriant='subtitle1'>updated: {pet.last_updated}</Typography>
+                    </Stack>
                 
-                {/* details about a pet */}
+                    {/* details about a pet */}
                     <div style={{width: '90%', marginBottom: 20}}>
                         <FormTemplate 
                             type={'pet'} 

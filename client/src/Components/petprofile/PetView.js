@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Fab, Grid } from '@mui/material'
+import { Box, Fab, Grid, AppBar, Toolbar } from '@mui/material'
 import ChatIcon from '@mui/icons-material/Chat';
 import PetProfile from './PetProfile.js'
 
@@ -17,7 +17,8 @@ const PetView = (props) => {
 
             {/* view matches in mobile */}
             {/* maybe put this in the nav bar and have it be fixed */}
-            <Box sx={{ 
+
+             {/* <Box sx={{ 
                     '& > :not(style)': { m: 1 } , 
                     display: {xs: 'block' , md: 'none'} 
                     }}>
@@ -28,7 +29,17 @@ const PetView = (props) => {
                     aria-label="match">
                     <ChatIcon onClick={handleButtonChange}/>
                 </Fab>
-            </Box>
+                    '& > :not(style)': { m: 1 } , 
+                    maxWidth: '600px',
+                    margin: 'auto',
+                    display: {xs: 'block' , md: 'none'} 
+                    }}>
+                    <AppBar position="relative" color="secondary">
+                        <Toolbar >
+                            <ChatIcon onClick={handleButtonChange}/>
+                        </Toolbar>
+                    </AppBar>
+            </Box> */}
 
             <PetProfile 
                 pet={pet} 

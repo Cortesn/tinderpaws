@@ -4,11 +4,13 @@ import {
     Typography,
     Button,
     Grid,
-    Box
+    Box,
+    IconButton
 } from '@mui/material';
 import ImageUploader from '../imageupload/ImageUploader';
 import ImageItem from './ImageItem';
 import useButtonState from '../../hooks/useButtonState';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 // transitions columns from 2 to 1
 const updateDisplayCol = (items) => {
@@ -31,6 +33,12 @@ const PetProfileImages = (props) => {
                     justifyContent: 'space-between'
                     }}>
 
+                {/* matches toggler */}
+                <IconButton
+                    sx={{ display: {xs: 'block' , md: 'none'}}}>
+                    <GroupsIcon/>
+                </IconButton>
+
                 <ImageUploader 
                     addImage={addImage} 
                     snackBar={pet.snackBar}/>
@@ -42,6 +50,9 @@ const PetProfileImages = (props) => {
                     }}>
                     {pet.name}
                 </Typography>
+
+                {/* placeholder object for sizing */}
+                <Box sx={{width: 24, display: {xs: 'block' , md: 'none'}}}></Box>
                 
                 <Button
                     onClick={handleDeleteChange}
