@@ -2,7 +2,7 @@ import React from 'react'
 import { Avatar, Link, Grid, Typography} from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import FormTemplate from '../forms/FormTemplate';
-import { FormInputs } from '../forms/FormInputs';
+
 
 const UserTab = () => {
     const initData = {
@@ -22,7 +22,6 @@ const UserTab = () => {
                 <Link href='/login' underline='none' color='primary'>Already have an account?</Link>
             </Grid>
             <FormTemplate 
-                form={FormInputs} 
                 type={'user'} 
                 button={'Signup'}
                 data= {initData}/>

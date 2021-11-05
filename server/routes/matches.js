@@ -20,3 +20,24 @@ router.get("/users/user", auth, (req, res)=>{
     })
 })
 export {router as matches}
+
+
+// delete a single match from a pet
+router.delete('/:match_id', (req,res) => {
+    const match_id = req.params.match_id
+    // delete match from sql db
+    const deleteMatch = 'DELETE FROM Matches WHERE match_id=?'
+    db.query(deleteMatch, [match_id], (error, results) => {
+        if (error){
+            console.log(error)
+            return res.status(400).json({msg: 'Something went wrong. Please try again later.'})
+            // server msg
+        } else if (results.affectedRows === 1){
+            // successful delete
+            return res.status(200).json({msg: 'Unmatch successful!'})
+        } else {
+            // invalid match_id. should probably never happen...
+            return res.status(400).json({msg: 'Something went wrong. Please try again later.'})
+        }
+    }) 
+})

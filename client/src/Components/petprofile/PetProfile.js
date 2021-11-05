@@ -1,24 +1,45 @@
 import React from 'react'
 import PetProfileImages from './PetProfileImages'
-import PetInfoForm from '../forms/PetInfoForm';
-import { Card, Grid, Paper } from '@mui/material';
+import { Card, Paper, Stack, Typography } from '@mui/material';
+import FormTemplate from '../forms/FormTemplate'
+
 
 /* Returns the 'right side' card for the Pet Images and update form */
-const PetProfile = () => {
+const PetProfile = (props) => {
+    const {pet, images, addImage, deleteImage} = props;
     return (
-        <Card>
-            <Paper elevation={10} sx={{}} >
-
+        <Card sx={{maxWidth: '600px', margin: 'auto !important'}}>
+            <Paper elevation={10}  >
+                <Stack
+                    direction="column"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    spacing={2}>
                 {/* all images of a pet */}
-                <Grid xs={12} item>
-                    <PetProfileImages />
-                </Grid>
+                    <PetProfileImages 
+                        pet={pet} 
+                        images={images}
+                        addImage={addImage}
+                        deleteImage={deleteImage}/>
+                
+                {/* dates */}
+                <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    sx={{width: '90%'}}>
+                    <Typography varriant='subtitle1'>created: {pet.date_created}</Typography>
+                    <Typography varriant='subtitle1'>updated: {pet.last_updated}</Typography>
+                </Stack>
                 
                 {/* details about a pet */}
-                <Grid xs={12} item>
-                    <PetInfoForm />
-                </Grid>
-
+                    <div style={{width: '90%', marginBottom: 20}}>
+                        <FormTemplate 
+                            type={'pet'} 
+                            button={'Save Changes'}
+                            data={pet}/>
+                    </div>
+                </Stack>
             </Paper>
         </Card>
     )

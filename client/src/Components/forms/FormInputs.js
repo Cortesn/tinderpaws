@@ -11,10 +11,12 @@ import useFormPasswordState from '../../hooks/useFormPasswordState';
 import UpdateProfileRequest from '../../helperFunctions/UserHome/updateProfileRequest';
 import signUpRequest from '../../helperFunctions/signUp.js/signUpRequest';
 import UserUpdateFormik from './UserUpdate';
+import PetInfoFormik from './PetInfoForm';
 
 var formik;
 // all possible form inputs with validation
-const FormInputs = (type, options, data) =>{
+const FormInputs = (type, data) =>{
+    
     // get the validation schema
     if(type === "user"){
         formik = UserFormik(data, signUpRequest)
@@ -24,17 +26,19 @@ const FormInputs = (type, options, data) =>{
         formik = EmployeeFormik();
     }else if (type === 'login'){
         formik = LoginFormik()
-    }
-    else if (type === 'userUpdate'){
+    }else if (type === 'userUpdate'){
         formik = UserUpdateFormik(data, UpdateProfileRequest)
-    } 
-    else if (type === 'shelterUpdate'){
+    }else if (type === 'shelterUpdate'){
         formik = ShelterUpdateFormik(data.data, data.data.shelter_id)
     }else if (type === 'forgotPassword'){
         formik = ForgotPasswordFormik()
     }else if (type === 'resetPassword'){
         formik = ResetPasswordFormik(data)
+    }else if (type === 'pet'){
+        formik = PetInfoFormik(data)
     }
+
+    
     // state for changing password visability
     const [ 
         pass1, 
@@ -68,7 +72,7 @@ const FormInputs = (type, options, data) =>{
             onChange: formik.handleChange('shelterOptions'),
             error: formik.touched.shelterOptions && Boolean(formik.errors.shelterOptions),
             helperText: formik.touched.shelterOptions && formik.errors.shelterOptions,
-            options: options
+            options: data ? data.options : ''
         },
         {
             types: ['employee'],
@@ -80,7 +84,7 @@ const FormInputs = (type, options, data) =>{
             helperText: formik.touched.employeeId && formik.errors.employeeId
         },
         {
-            types: ['employee'],
+            types: ['employee', 'pet'],
             id: 'name',
             label: 'Name',
             value: formik.values.name,
@@ -194,7 +198,58 @@ const FormInputs = (type, options, data) =>{
                     visibility: pass2.showPassword ? <VisibilityOff /> : <Visibility />
                 }
             }
-        }
+        },
+        {
+            types: ['pet'],
+            id: 'type',
+            label: 'Type',
+            value: formik.values.type,
+            onChange: formik.handleChange('type'),
+            error: formik.touched.type && Boolean(formik.errors.type),
+            helperText: formik.touched.type && formik.errors.type,
+            options: [{id: 1, name: 'Dog'}, {id: 2, name: 'Cat'}, {id: 3, name: 'Other'}]
+        },
+        {
+            types: ['pet'],
+            id: 'breed',
+            label: 'Breed',
+            value: formik.values.breed,
+            onChange: formik.handleChange,
+            error: formik.touched.breed && Boolean(formik.errors.breed),
+            helperText: formik.touched.breed && formik.errors.breed,
+            // options: [{id: 1, name: 'Breed 1'}, {id: 2, name: 'Breed 2'}, {id: 3, name: 'Breed 3'}] // need to get breeds
+        },
+        {
+            types: ['pet'],
+            id: 'status',
+            label: 'Status',
+            value: formik.values.status,
+            onChange: formik.handleChange('status'),
+            error: formik.touched.status && Boolean(formik.errors.status),
+            helperText: formik.touched.status && formik.errors.status,
+            options: [{id: 1, name: 'Not Available'}, {id: 2, name: 'Available'}, {id: 3, name: 'Pending'}, {id: 4 , name: 'Adopted'}]
+        },
+        {
+            types: ['pet'],
+            id: 'dispositions',
+            label: 'Dispositions',
+            value: formik.values.dispositions || [],
+            formik: formik,
+            onChange: formik.handleChange('dispositions'),
+            error: formik.touched.dispositions && Boolean(formik.errors.dispositions),
+            helperText: formik.touched.dispositions && formik.errors.dispositions,
+            checkboxes: [{id: 1, name: 'Good with other animals'}, {id: 2, name: 'Good with children'}, {id: 3, name: 'Animal must be leashed at all times'}]
+        },
+        {
+            types: ['pet'],
+            id: 'description',
+            label: 'Description',
+            value: formik.values.description,
+            onChange: formik.handleChange('description'),
+            error: formik.touched.description && Boolean(formik.errors.description),
+            helperText: formik.touched.description && formik.errors.description,
+            textArea: {rows: 5}
+        },
     ]
 
     // grab the types you need

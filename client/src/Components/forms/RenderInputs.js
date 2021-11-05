@@ -5,8 +5,15 @@ import {
     TextField, 
     InputLabel,
     Select,
-    MenuItem
+    MenuItem,
+    FormLabel,
+    FormGroup,
+    FormControlLabel,
+    Checkbox,
+    TextareaAutosize,
+    FormHelperText
 } from '@mui/material';
+
 
 export const RenderInputs = (props) => {
     const {input} = props;
@@ -40,23 +47,60 @@ export const RenderInputs = (props) => {
             /> 
         )
     } else if (input.options){
-        // console.log(input.options)
         // select/options
         return (
             <>
             <InputLabel htmlFor={input.id}>{input.label}</InputLabel>
             <Select
-                // onBlur={input.onBlur}
                 labelId={input.id}
                 id={input.id}
                 value={input.value || ''}
-                // options={input.options}
                 onChange={input.onChange}
                 error={input.error}>
                 {input.options.map(option =>
                     <MenuItem key={option.id} id={option.id} value={option.id}>{option.name}</MenuItem>
                 )}
             </Select>
+            <FormHelperText sx={{color: '#d32f2f'}}>{input.helperText}</FormHelperText>
+            </>
+        )
+    } else if (input.checkboxes){
+        // checkboxes
+        return (
+            <>
+            <FormLabel component="legend" sx={{color: input.error?'#d32f2f':'#000000'}}>{input.label}</FormLabel>
+            <FormGroup >
+                {input.checkboxes.map(box => 
+                    <FormControlLabel
+                        key={box.id}
+                        label={box.name}
+                        onChange={() => {
+                            if (input.value.length > 0 && input.value.includes(box.id)){
+                                input.value = input.value.filter(disp => disp !== box.id)
+                                input.formik.setFieldValue('dispositions', input.value)
+                            } else {
+                                input.value.push(box.id)
+                                input.formik.setFieldValue('dispositions', input.value)
+                            }
+                        }}
+                        control={<Checkbox name={box.name} />}
+                        checked={input.value.length > 0 ? input.value.includes(box.id) : false}/>
+                )}
+            </FormGroup>
+            <FormHelperText sx={{color: '#d32f2f'}}>{input.helperText}</FormHelperText>
+            </>
+        )
+    }else if (input.textArea) {
+        // textarea (no validation)
+        return (
+            <>
+            <TextareaAutosize
+                aria-label="textarea"
+                minRows={input.textArea.rows}
+                placeholder={input.label + '...'}
+                defaultValue={input.value}
+                onChange={input.onChange}
+                style={{resize: 'vertical', maxWidth: '100%' }}/>
             </>
         )
     } else {
