@@ -5,25 +5,48 @@ import {
     ListItemText, 
     ListItem, 
     Divider, 
-    List } from '@mui/material';
+    List,
+    IconButton } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-
+import CloseIcon from '@mui/icons-material/Close';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 
 // mobile slideout drawer menu
 export default function MenuDrawerItems(anchor, toggleDrawer, account){
+
     return(
         <Box
-            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+            sx={{ width: '100%' }}
             role="presentation"
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}>
-            <List>
+            <List >
+                <ListItem  
+                    component='h5' 
+                    key='Close' 
+                    sx={{'.MuiListItemText-primary':{
+                            fontWeight: '900 ! important',
+                            fontSize: '1.5rem'
+                        }
+                    }}>
+                    <ListItemText primary='Menu' />
+                    <IconButton 
+                        component='span' 
+                        onClick={toggleDrawer(anchor, false)}
+                        color='inherit'>
+                        <CloseIcon />
+                    </IconButton>
+                </ListItem>
+
+                <Divider />
+
+                <ListItem button component='a' href='/' key='Home'>
+                    <ListItemText primary='Home' />
+                </ListItem>
+
                 <ListItem button component='a' href='/mission' key='Mission'>
                     <ListItemText primary='Mission' />
-                </ListItem>
-                <ListItem button component='a' href='/about' key='About'>
-                    <ListItemText primary='About' />
                 </ListItem>
 
                 { account.shelter_id || account.employee_id || account.user_id ?
@@ -39,34 +62,43 @@ export default function MenuDrawerItems(anchor, toggleDrawer, account){
                 : null }
 
                 { account.employee_id || account.shelter_id ?
-                <ListItem button component='a' href='/' key='Manage'>
-                    <ListItemText primary='Manage' />
-                </ListItem>
-                : null }
-
-                { account.shelter_id ?
-                <ListItem button component='a' href='/' key='Admin'>
+                <ListItem button component='a' href='/adminHome' key='Admin'>
                     <ListItemText primary='Admin' />
                 </ListItem>
                 : null }
+
+                {/* { account.shelter_id ?
+                <ListItem button component='a' href='/' key='Admin'>
+                    <ListItemText primary='Admin' />
+                </ListItem>
+                : null } */}
             </List>
 
             <Divider />
+
             <List>
                 {account.auth ? 
                     <ListItem button component='a' href='/logout' key='Logout'>
                         <ListItemText primary='Log Out' />
-                        <ListItemIcon>
-                            <LogoutIcon/>
-                        </ListItemIcon>
+                        <LogoutIcon sx={{paddingRight: '8px'}}/>
                     </ListItem>
                 :
-                    <ListItem button component='a' href='/login' key='Login'>
-                        <ListItemText primary='Login' />
-                        <ListItemIcon>
-                            <AccountCircle/>
-                        </ListItemIcon>
-                    </ListItem>
+                    <>
+                        <ListItem button component='a' href='/signup' key='Signup'>
+                            <ListItemIcon>
+                                <AccountCircle/>
+                            </ListItemIcon>
+                            <ListItemText primary='Create an Account' />
+                        </ListItem>
+
+                        <ListItem button component='a' href='/login' key='Login'>
+                            
+                            <ListItemIcon>
+                                <VpnKeyIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary='Log in' />
+                        </ListItem>
+                    </>
                 }   
             </List>
         </Box>
