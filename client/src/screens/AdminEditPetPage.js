@@ -1,16 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import { useParams } from "react-router";
-import { Box, Fab, Grid, Snackbar, Stack, useMediaQuery  } from '@mui/material'
+import { Grid, Snackbar, useMediaQuery  } from '@mui/material'
 import MuiAlert from '@mui/material/Alert';
-import ChatIcon from '@mui/icons-material/Chat';
-import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material/styles';
-import MatchList from '../Components/petprofile/MatchList.js'
-import PetProfile from '../Components/petprofile/PetProfile.js'
 import useButtonState from '../hooks/useButtonState';
 import {api} from '../helperFunctions/axiosInstace'
 import useDeleteItemState from '../hooks/useDeleteItemState.js';
 import MatchView from '../Components/petprofile/MatchView.js';
+import PetView from '../Components/petprofile/PetView.js';
 
 
 // from mui custom styling
@@ -84,35 +81,13 @@ const AdminEditPetPage = () => {
                 snackBar={handleOpen}/>
           
             {/* Right side edit profile card */}
-            <Grid 
-                item 
-                xs={12} sm={12} md={6} lg={4} 
-                sx={{ 
-                    display: { xs: buttonClicked ? 'none':'block', md: 'block' },
-                    maxWidth: '650px'
-                    }}>
-
-                {/* view matches in mobile */}
-                {/* maybe put this in the nav bar and have it be fixed */}
-                <Box sx={{ 
-                        '& > :not(style)': { m: 1 } , 
-                        display: {xs: 'block' , md: 'none'} 
-                        }}>
-                    <Fab 
-                        sx={{left: 10, top: 50, position: 'fixed', zIndex: 1}}
-                        size="small" 
-                        color="secondary" 
-                        aria-label="match">
-                        <ChatIcon onClick={handleButtonChange}/>
-                    </Fab>
-                </Box>
-
-                <PetProfile 
-                    pet={pet} 
-                    images={images}
-                    addImage={addImage}
-                    deleteImage={deleteImage}/>
-            </Grid>
+            <PetView 
+                buttonClicked={buttonClicked}
+                handleButtonChange={handleButtonChange}
+                pet={pet} 
+                images={images}
+                addImage={addImage}
+                deleteImage={deleteImage}/>
 
             {/* snackbar alerts */}
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
