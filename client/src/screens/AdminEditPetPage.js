@@ -6,8 +6,8 @@ import { useTheme } from '@mui/material/styles';
 import useButtonState from '../hooks/useButtonState';
 import {api} from '../helperFunctions/axiosInstace'
 import useDeleteItemState from '../hooks/useDeleteItemState.js';
-import MatchView from '../Components/petprofile/MatchView.js';
-import PetView from '../Components/petprofile/PetView.js';
+import PetProfile from '../Components/petprofile/PetProfile';
+import MatchList from '../Components/petprofile/MatchList';
 
 
 // from mui custom styling
@@ -72,7 +72,7 @@ const AdminEditPetPage = () => {
             columnSpacing={{ md: mobile ? 1 : 0 }}>
             
             {/* Left side Matches card */}
-            <MatchView
+            <MatchList
                 buttonClicked={buttonClicked}
                 handleButtonChange={handleButtonChange}
                 matches={matches} 
@@ -81,7 +81,7 @@ const AdminEditPetPage = () => {
                 snackBar={handleOpen}/>
           
             {/* Right side edit profile card */}
-            <PetView 
+            <PetProfile
                 buttonClicked={buttonClicked}
                 handleButtonChange={handleButtonChange}
                 pet={pet} 
