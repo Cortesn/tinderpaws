@@ -32,9 +32,10 @@ const MatchList = (props) => {
             sx={{ 
                 display: { xs: buttonClicked ? 'block':'none', md: 'block' },
                 maxWidth: '650px'
-                }}>
+            }}>
+
             <Card sx={{height:'100%', maxWidth: '600px', margin: 'auto !important'}}>
-                <Paper elevation={10} sx={{height: '100%', paddingTop: '1rem'}} >
+                <Paper elevation={10} sx={{height: '100%', minHeight: 400, paddingTop: '1rem'}} >
 
                     {/* Heading */}
                     {/* onClick event to hide/show delete buttons */}

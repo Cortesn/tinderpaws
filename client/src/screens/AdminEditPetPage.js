@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useParams } from "react-router";
-import { Grid, Snackbar, useMediaQuery  } from '@mui/material'
+import { Box, Grid, Snackbar, useMediaQuery, Slide } from '@mui/material'
 import MuiAlert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 import useButtonState from '../hooks/useButtonState';
@@ -20,8 +20,8 @@ const AdminEditPetPage = () => {
     const {pet_id} = useParams()
     // reference to remove column spacing between cards
     const theme = useTheme();
-    const mobile = useMediaQuery(theme.breakpoints.up('md')); 
-    // FAB in mobile
+    const desktop = useMediaQuery(theme.breakpoints.up('md')); 
+    // toggle views in mobile
     const [buttonClicked, handleButtonChange] = useButtonState(false);
     // snackbar alerts
     const [open, setOpen] = useState(false);
@@ -62,6 +62,28 @@ const AdminEditPetPage = () => {
         } 
     })
 
+    const containerRef = React.useRef(null);
+
+    const matchList = (
+        <MatchList
+            buttonClicked={buttonClicked}
+            handleButtonChange={handleButtonChange}
+            matches={matches} 
+            addMatch={addMatch} 
+            deleteMatch={deleteMatch}
+            snackBar={handleOpen}/>
+    )
+
+    const petProfile = (
+        <PetProfile
+            buttonClicked={buttonClicked}
+            handleButtonChange={handleButtonChange}
+            pet={pet} 
+            images={images}
+            addImage={addImage}
+            deleteImage={deleteImage}/>
+    )
+
     return (
         <Grid 
             container
@@ -69,25 +91,39 @@ const AdminEditPetPage = () => {
             justifyContent="center"
             alignItems="stretch"
             sx={{margin:'auto !important', maxWidth: 1400}} 
-            columnSpacing={{ md: mobile ? 1 : 0 }}>
+            columnSpacing={{ md: desktop ? 1 : 0 }}
+            ref={containerRef}>
+            
+            {/* large screen rendering */}
+            {desktop ?
+                <>
+                    {matchList}
+                    {petProfile}
+                </>
+                : null
+            }
+
+            {/* transitions */}
             
             {/* Left side Matches card */}
-            <MatchList
-                buttonClicked={buttonClicked}
-                handleButtonChange={handleButtonChange}
-                matches={matches} 
-                addMatch={addMatch} 
-                deleteMatch={deleteMatch}
-                snackBar={handleOpen}/>
-          
+            <Slide direction='right' in={buttonClicked} container={containerRef.current}>
+                <Box sx={{ 
+                    width: '100%',
+                    display: { xs: 'block', md: 'none'}
+                }}>
+                    {matchList}
+                </Box>
+            </Slide>
+            
             {/* Right side edit profile card */}
-            <PetProfile
-                buttonClicked={buttonClicked}
-                handleButtonChange={handleButtonChange}
-                pet={pet} 
-                images={images}
-                addImage={addImage}
-                deleteImage={deleteImage}/>
+            <Slide direction='left' in={!buttonClicked} container={containerRef.current}>
+                <Box sx={{ 
+                    width: '100%',
+                    display: { xs: 'block', md: 'none'}
+                }}> 
+                    {petProfile}
+                </Box>
+            </Slide>
 
             {/* snackbar alerts */}
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
