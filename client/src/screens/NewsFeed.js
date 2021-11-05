@@ -1,7 +1,9 @@
-import React from 'react'
-import {Box, ImageList, ImageListItem, Typography, useMediaQuery} from '@mui/material';
+import React, { useState, useEffect } from 'react'
+import { Box, ImageList, ImageListItem, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import NewsCard from '../Components/NewsCard';
+import { api } from '../helperFunctions/axiosInstace'
+
 
 const tempData = [
     {
@@ -33,29 +35,51 @@ const tempData = [
 
 
 // transitions columns from 2 to 1
-// const updateDisplayCol = (breakpoint) => {
-//     return 
-// }
+const updateDisplayCol = (breakpoint) => {
+    if (breakpoint === 'md'){
+        return 2
+    } else if (breakpoint === 'sm'){
+        return 1
+    }
+}
 
 const NewsFeed = () => {
     
-    // const theme = useTheme();
-    // const matches = useMediaQuery(theme.breakpoints.down('sm')); 
+    const theme = useTheme();
+    const md = useMediaQuery(theme.breakpoints.down('md')); 
+    const sm = useMediaQuery(theme.breakpoints.down('sm')); 
+    const [newsItems, setNewsItems] = useState([]);
+
+    // get news items
+    useEffect(() => {
+        if (newsItems.length === 0){
+            api.get('/pets')
+            .then(response => {
+                // console.log("response data:", response.data)
+                setNewsItems(response.data)
+            })
+            .catch(error => {
+                console.log("error: ", error)
+                // redirect to a 404 page
+            })
+        } 
+    })
 
     return (
 
-        <Box sx={{margin: 'auto', maxWidth: 1280}}>
+        <Box sx={{margin: 'auto', maxWidth: 1200}}>
             <Typography variant='h2' align='center'>
                 News
             </Typography>
             <Box sx={{overflowY: 'scroll' }}>
-                <ImageList variant="masonry" cols={3} gap={8}>
-                {tempData.map((item) => (
-                    <ImageListItem key={item.imageId}>
-                        <NewsCard image={item.url} adopted={item.adopted}/>
-                    
+                <ImageList variant="masonry" cols={ sm ? updateDisplayCol('sm') : md ? updateDisplayCol('md') : 3 } gap={8}>
+
+                {newsItems.map((item) => (
+                    <ImageListItem key={item.pet_id}>
+                        <NewsCard data={item}/>
                     </ImageListItem>
                 ))}
+
                 </ImageList>
             </Box>
         </Box>

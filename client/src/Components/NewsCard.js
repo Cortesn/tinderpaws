@@ -9,54 +9,60 @@ import {
     CardActionArea} from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
+import { purple } from '@mui/material/colors';
 
 
 const NewsCard = (props) => {
-    const {image, adopted} = props
+    const {data} = props
     
     return (
         <Card >
             {/* image */}
-            {adopted ?
+            {data.status === 4 ?
                 <CardMedia
                     component="img"
-                    image={image}
+                    image={data.images[0]}
                     alt=""/>
             :
                 <CardMedia
                     component="img"
-                    image={image}
+                    image={data.images[0]}
                     alt=""
                     sx={{height: 300}}/>
             }
             {/* visibile content */}
-            <CardActionArea sx={{
-                '.MuiCardActionArea-focusHighlight': {
-                    backgroundColor: 'blue'
-                }}}>
-                <CardContent>
-                    <Typography variant="body2" >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
-                    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+                <CardContent sx={{'&:hover': 
+                                    {   background : '#7133FF', 
+                                        color: 'white',
+                                        '& .buttons': { color: 'white'}
+                                    }, 
+                                    paddingBottom : '0 !important' 
+                                }}>
+                    <Typography variant="h5" >
+                        {data.name}
                     </Typography>
+                    <Typography variant="body2" >
+                        {data.description}
+                    </Typography>
+
+                    {/* bottom buttons */}
+                    <CardActions disableSpacing>
+                        {/* add to matched pets */}
+                        <IconButton aria-label="add to favorites">
+                            <FavoriteIcon className='buttons'/>
+                        </IconButton>
+                        {/* future use: email/social */}
+                        <IconButton aria-label="share">
+                            <ShareIcon className='buttons'/>
+                        </IconButton>
+                    </CardActions>
+
                 </CardContent>
 
-            </CardActionArea>
-            {/* bottom buttons */}
-            <CardActions disableSpacing>
-                {/* add to matched pets */}
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                </IconButton>
-                
-                {/* future use: email/social */}
-                <IconButton aria-label="share">
-                    <ShareIcon />
-                </IconButton>
-            </CardActions>
+
+            
+
         </Card>
     );
 }
