@@ -4,11 +4,13 @@ import {
     Typography,
     Button,
     Grid,
-    Box
+    Box,
+    IconButton
 } from '@mui/material';
 import ImageUploader from '../imageupload/ImageUploader';
 import ImageItem from './ImageItem';
 import useButtonState from '../../hooks/useButtonState';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 // transitions columns from 2 to 1
 const updateDisplayCol = (items) => {
@@ -19,7 +21,7 @@ const updateDisplayCol = (items) => {
 
 /* Returns a complied list of a single Pet's images */
 const PetProfileImages = (props) => {
-    const {pet, images, addImage, deleteImage} = props;
+    const {handleButtonChange, pet, images, addImage, deleteImage} = props;
     const [deleteClicked, handleDeleteChange] = useButtonState(false);
 
     return(
@@ -31,9 +33,21 @@ const PetProfileImages = (props) => {
                     justifyContent: 'space-between'
                     }}>
 
-                <ImageUploader 
-                    addImage={addImage} 
-                    snackBar={pet.snackBar}/>
+                <Box >
+                    {/* matches toggler */}
+                    <IconButton
+                        onClick={handleButtonChange}
+                        color='secondary'
+                        sx={{ display: {xs: 'inline' , md: 'none'}}}>
+                        <GroupsIcon/>
+                    </IconButton>
+                    
+                    {/* camera button */}
+                    <ImageUploader 
+                        style={{left: 20}}
+                        addImage={addImage} 
+                        snackBar={pet.snackBar}/>
+                </Box>
 
                 <Typography 
                     sx={{
@@ -42,15 +56,22 @@ const PetProfileImages = (props) => {
                     }}>
                     {pet.name}
                 </Typography>
+
                 
-                <Button
-                    onClick={handleDeleteChange}
-                    sx={{
-                        textTransform: 'none', 
-                        display:'inline'
-                        }}>
-                    {deleteClicked ? 'done': 'delete'}
-                </Button>
+                <Box>
+                    {/* placeholder object for sizing */}
+                    <Box sx={{ width: 24, display: {xs: 'inline-block' , md: 'none'}}}></Box>
+                
+                    <Button
+                        onClick={handleDeleteChange}
+                        sx={{
+                            textTransform: 'none', 
+                            display:'inline'
+                            }}>
+                        {deleteClicked ? 'done': 'delete'}
+                    </Button>
+                </Box>
+
             </Box>
 
             {/* images */}
