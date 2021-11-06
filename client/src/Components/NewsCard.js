@@ -29,10 +29,11 @@ const NewsCard = (props) => {
                     <CardMedia
                         component="img"
                         image={data.images[0]}
-                        alt=""/>
+                        alt="pet"/>
                     {/* image overlay */}
                     <img 
                         src={celebration} 
+                        alt='celebration overlay'
                         style={{
                             position: 'absolute',
                             top: 88,

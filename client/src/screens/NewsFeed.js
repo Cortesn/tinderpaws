@@ -29,16 +29,15 @@ const NewsFeed = () => {
     const [newsItems, setNewsItems] = useState([]);
     const [offset, setOffset] = useState(0);
     const [loading, setLoading] = useState(false)
-
+ 
     // check scroll position
     const loadMorePets = (event) => {
         // console.log(offset)
         // console.log(event.target.scrollTop, event.target.offsetHeight, event.target.scrollHeight)
-        if ((event.target.scrollTop + event.target.offsetHeight === event.target.scrollHeight) 
-            && (newsItems.length - offset === 0)){
-            
+        if (event.target.scrollTop + event.target.offsetHeight === event.target.scrollHeight 
+            && newsItems.length !== 0 && newsItems.length - offset === 0){
+            // progress indicator
             setLoading(true)
-
             api.get('/pets/offset/' + offset)
                 .then(response => {
                     setLoading(false)
@@ -54,7 +53,7 @@ const NewsFeed = () => {
             api.get('/pets/offset')
             .then(response => {
                 // console.log("response :", response.data)
-                setNewsItems(response.data.pets)
+                setNewsItems(prevArr => prevArr.concat(response.data.pets))
                 setOffset(response.data.offset)
             })
             .catch(error => {
@@ -62,7 +61,7 @@ const NewsFeed = () => {
                 // redirect to a 404 page
             })
         } 
-    })
+    }, [newsItems.length])
 
     return (
 

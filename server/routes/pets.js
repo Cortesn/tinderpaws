@@ -31,7 +31,7 @@ router.get('/offset/:offset?' , (req,res)=> {
             pets : results,
             offset : offset + limit
         }
-        // console.log(payload)
+        // console.log('payload : ', payload)
         return res.status(200).send(payload)
     })
 })
