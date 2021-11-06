@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { 
     ImageList,
     Typography,
@@ -9,9 +9,6 @@ import {
 import ImageUploader from '../imageupload/ImageUploader';
 import ImageItem from './ImageItem';
 import useButtonState from '../../hooks/useButtonState';
-import useDeleteItemState from '../../hooks/useDeleteItemState';
-import {api} from '../../helperFunctions/axiosInstace'
-
 
 // transitions columns from 2 to 1
 const updateDisplayCol = (items) => {
@@ -19,30 +16,12 @@ const updateDisplayCol = (items) => {
         return items.length > 1 ? 2 : 1;
     }
 }
-// temp pet_id ******
-const tempPetId = 4
 
 /* Returns a complied list of a single Pet's images */
-const PetProfileImages = () => {
+const PetProfileImages = (props) => {
+    const {pet, images, addImage, deleteImage} = props;
     const [deleteClicked, handleDeleteChange] = useButtonState(false);
-    const [items, handleChange, deleteItem] = useDeleteItemState([]);
-    
-    useEffect(() => {
-        if (items.length === 0){
-            api.get('/images/' + tempPetId)
-                .then( response => {
-                    // console.log("response data:", response.data.results)
-                    // clean data 
-                    const images = response.data.results.map(image => ({id: image.image_id, url: image.url}))
-                    // console.log(images)
-                    handleChange(images)
-                })
-                .catch( error => {
-                    console.log("error: ", error)
-                })
-        }
-    }, [items.length])
-    
+
     return(
         <Grid sx={{paddingTop: '1rem'}} item>
             {/* heading */}
@@ -52,15 +31,16 @@ const PetProfileImages = () => {
                     justifyContent: 'space-between'
                     }}>
 
-                {/* heading  */}
-                <ImageUploader/>
+                <ImageUploader 
+                    addImage={addImage} 
+                    snackBar={pet.snackBar}/>
 
                 <Typography 
                     sx={{
                         textAlign:'center',
                         display: 'inline', 
                     }}>
-                    NameOfPet
+                    {pet.name}
                 </Typography>
                 
                 <Button
@@ -80,14 +60,15 @@ const PetProfileImages = () => {
                             maxWidth: '100%', 
                             maxHeight: 500 
                         }} 
-                        cols={updateDisplayCol(items)} >
+                        cols={updateDisplayCol(images)} >
 
-                {items ? items.map((item) => (
+                {images ? images.map((image) => (
                     <ImageItem 
-                        key={item.id}
-                        image={item}
-                        deleteClicked={deleteClicked} 
-                        deleteItem={deleteItem}/>
+                        key={image.image_id}
+                        image={image}
+                        deleteImage={deleteImage}
+                        deleteClicked={deleteClicked}
+                        snackBar={pet.snackBar}/>
                         )
                     ) : null
                 }

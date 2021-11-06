@@ -8,8 +8,8 @@ import * as fs from 'fs';
 // lock the version 2006-03-01 is current
 var s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
-
-const uploadImage = async (file) => {
+// add object to S3 bucket
+const uploadImage = (file) => {
     const fileStream = fs.createReadStream(file.path);
     // console.log(fileStream)
     // Create an object and upload it to the Amazon S3 bucket.
@@ -22,5 +22,14 @@ const uploadImage = async (file) => {
     return s3.upload(params).promise();   
 }
 
-export default uploadImage
+// remove object from S3 bucket
+const deleteImage = (key) => {
+    const params = {
+        Bucket: process.env.S3_BUCKET,
+        Key: key
+    }
+    return s3.deleteObject(params).promise();
+}
+
+export { uploadImage, deleteImage }
 

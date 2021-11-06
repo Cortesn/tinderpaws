@@ -9,14 +9,14 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 /* Returns a single Pet Image */
 const ImageItem = (props) => {
-    const {image, deleteClicked, deleteItem} = props;
+    const {image, deleteImage, deleteClicked, snackBar} = props;
 
     return (
-        <ImageListItem key={image.id} >
+        <ImageListItem key={image.image_id} >
             <img
-                src={`${image.url}`}
-                alt={image.id}
-                style={{borderRadius: '20px'}}/>
+                src={image.url}
+                alt='pet'
+                style={{borderRadius: '20px', maxWidth: '300px'}}/>
 
             {/* delete button visible when delete is clicked */}
             <Collapse 
@@ -29,13 +29,14 @@ const ImageItem = (props) => {
                         background:
                         'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
                         'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+                        borderRadius: '20px 20px 0px 0px'
                     }}
                     position="top"
                     actionIcon={
                         <IconButton
                             color='error' 
-                            aria-label={`delete ${image.name}`}
-                            onClick={()=>{deleteItem(image.id);}}>
+                            aria-label={`delete ${image.image_id}`}
+                            onClick={()=>{deleteImage(image.image_id, 'image', snackBar);}}>
                             <RemoveCircleOutlineIcon />
                         </IconButton>
                     }
