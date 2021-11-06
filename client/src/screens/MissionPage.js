@@ -33,7 +33,7 @@ const MissionPage = () => {
             <Stack
             alignItems="center"
             justifyContent="space-evenly">
-                <Button variant="contained" color="success" href="/signUp">
+                <Button id="signupLink" variant="contained" color="success" href="/signUp">
                     Start your journey
                 </Button>
             </Stack>

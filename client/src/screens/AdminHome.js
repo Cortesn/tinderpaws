@@ -103,9 +103,6 @@ const AdminHome = () => {
                 justifyContent="center"
                 spacing={6}>
                     <ThemeProvider theme={theme}>
-                        <Button variant="contained" href="/addAnimalProfile">
-                            Add new animal profile
-                        </Button>
                         <Button variant="contained" href="/admin/editpet">
                             Edit animal profile
                         </Button>
