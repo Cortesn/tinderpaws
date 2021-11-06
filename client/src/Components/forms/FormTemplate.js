@@ -5,8 +5,8 @@ import RenderTwoInputs from './RenderTwoInputs';
 import { FormInputs, formik } from './FormInputs';
 
 const FormTemplate = (props) => {
-    const {type, options, button, data} = props;
-    const {filteredInputs} = FormInputs(type, options, data);
+    const {type, button, data} = props;
+    const {filteredInputs} = FormInputs(type, data);
     var tempInput = null;
     return (
         <Stack
@@ -14,6 +14,7 @@ const FormTemplate = (props) => {
             spacing={1}
             noValidate
             autoComplete="off"
+            sx={{width:'100%'}}
             onSubmit={formik.handleSubmit}>
             
             {/* display alert messages */}

@@ -27,11 +27,9 @@ class ImageEditor extends React.Component {
         if (this.editor) {
             const canvasScaled = this.editor.getImageScaledToCanvas().toDataURL()
             // The edited image
-            // console.log(canvasScaled)
-            let file;
             fetch(canvasScaled)
                 .then(res => res.blob())
-                .then(blob => file = new File([blob], 'image'))
+                .then(blob => new File([blob], 'image'))
                 .then(file => {
                     // console.log(file)
                     // make a new form element
@@ -40,10 +38,21 @@ class ImageEditor extends React.Component {
                     // make request to upload a photo
                     api.post('/images', fd )
                         .then( response => {
-                            console.log("response data:", response.data)
+                            // console.log("response data:", response.data)
+                            const {payload} = response.data
+                            // update the list of images
+                            this.props.addImage({id: payload.image_id, url: payload.url})
+                            // display snackbar alert
+                            this.props.snackBar({success: payload.msg})
+                            // close the modal
+                            this.props.handleClose()
                         })
                         .catch( error => {
                             console.log("error:", error)
+                            // display snackbar alert
+                            this.props.snackBar({error: error.response.data.msg})
+                            // close the modal
+                            this.props.handleClose()
                         })
                     })
         }
