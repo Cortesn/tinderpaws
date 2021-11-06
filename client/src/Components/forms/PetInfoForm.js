@@ -40,7 +40,6 @@ const PetInfoFormik =(data)=> useFormik({
     },
     validationSchema: petValidation(),
     onSubmit: (values, {resetForm, setFieldValue}) => {
-        // console.log("data: ", data)
         // make request
         api.patch('/pets/' + data.pet_id, values )
             .then(function(response){
