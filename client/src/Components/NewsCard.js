@@ -45,7 +45,7 @@ const NewsCard = (props) => {
                 <CardHeader 
                     title='Recently Updated'
                     subheader={data.last_updated}
-                    sx={{ backgroundColor: '#7133FF', color: 'white' }}
+                    sx={{ backgroundColor: '#7c4dff', color: 'white' }}
                     />
                 <CardMedia
                     component="img"
@@ -57,7 +57,7 @@ const NewsCard = (props) => {
 
             {/* visibile content */}
             <CardContent sx={{'&:hover': 
-                                {   background : '#7133FF', 
+                                {   background : '#7c4dff', 
                                     color: 'white',
                                     '& .buttons': { color: 'white'}
                                 }, 
