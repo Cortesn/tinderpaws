@@ -20,7 +20,8 @@ const {
     evaluate,
     reload,
     currentURL,
-    dropDown
+    dropDown,
+    goBack
 } = require('taiko');
 const assert = require("assert");
 const headless = process.env.headless_chrome.toLowerCase() === 'true';
@@ -149,36 +150,125 @@ step("user log out", async function () {
 //                         Employee
 // **********************************************************
 //     - sign up
-//     - log in
+//     - log in 
+//         - forgot password not included
+//         - click here for sign up not included
 //     - edit shelter
 //     - management page
 //     - edit animal
+//          - check matches/delete matches
+//          - add/delete image
+//          - update 1 attribute and save changes
 //     - delete animal
+//          - click on button and refresh page
+//     - add animal
+//          - add image, fill out form, save changes
 //     - log out
 // */
+step("employee sign up", async function () {
+    // redirect to sign up
+    await goto('http://ec2-54-186-169-222.us-west-2.compute.amazonaws.com/signup')
+    // click on shelter sign up
+    await click(button('Shelter Sign Up'))
+    // click on Employee switch
+    await click(checkBox({id: 'shelter_emp_switch'}))
+    // get shelter name
+    await dropDown('Shelters Name').select({index: '0'})
 
-// step("employee sign up", async function (table) {
-//     // click on matches 
-//     for (var row of table.rows) {
-//         assert.ok(await text(row.cells[0]).exists());
-//     }
-// });
-// step("employee log in", async function (table) {
-//     // click on matches 
-//     for (var row of table.rows) {
-//         assert.ok(await text(row.cells[0]).exists());
-//     }
-// });
-// step("employee edit shelter", async function (table) {
-//     // click on matches 
-//     for (var row of table.rows) {
-//         assert.ok(await text(row.cells[0]).exists());
-//     }
-// });
-// step("employee edit pet", async function (table) {
-//     // click on matches 
-//     for (var row of table.rows) {
-//         assert.ok(await text(row.cells[0]).exists());
-//     }
-// });
+    // employee id 
+    await click($('#employeeId'))
+
+    // click on text First Name
+    await click($('#name'))
+    await write('etest100')
+
+    // click on text First Name
+    await click(text('#email'))
+    await write('etest100@test_employee.com')
+
+    // click on text First Name
+    await click(text('#password'))
+    await write('12345678')
+
+    // click on text First Name
+    await click(text('#password2'))
+    await write('12345678')
+
+    await click(button('signup'))
+
+    await click(link({id: 'logout'}))
+
+
+});
+
+step("employee log in", async function () {
+    await click($('#email'));
+    await write('etest100@test_employee.com')
+
+    await click(text('password'))
+    await write('12345678')
+});
+
+// user home
+
+step("admin home page", async function () {
+    // hard code url but need to change this. login should redirect to userHome/:user_id of current user
+    await goto('http://ec2-54-186-169-222.us-west-2.compute.amazonaws.com/admin')
+});
+
+step("edit shelter", async function () {
+    // toggle form
+    await click(button({id: 'editshelter'}))
+    // change zip code
+    await click(text({id: 'zip'}))
+    await write('88899')
+    // click on update
+    await click(button('Update Shelter Info'))
+
+    // hide form again
+    await click($('#hide_shelter_update'))
+
+});
+
+step("admin home redirect add pet", async function () {
+    // click on add new animal profile
+    await click($('#addpet'))
+    // go back to admin home 
+    await goBack()
+});
+
+step("admin home redirect edit pet", async function () {
+    // click on edit animal profile 
+    await click($('#editpet'))
+    // go back to admin home
+    await goBack()
+});
+
+step("add pet", async function () {
+    // click on matches 
+    await click($('#addpet'))
+    // not sure what goes in here - need to look @ page
+
+});
+
+step("edit pet", async function () {
+    // go to admin home and click on edit pet
+    await goto('http://ec2-54-186-169-222.us-west-2.compute.amazonaws.com/admin')
+    await click($('#editpet'))
+
+    // click on delete button
+    // click on animal profile for edit
+
+});
+step("edit pet page", async function () {
+    // all functionality for edit page
+    // check matches
+    // delete match
+    // delete image
+    // add image
+    // edit name
+    // save changes
+
+});
+
 

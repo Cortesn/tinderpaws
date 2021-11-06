@@ -33,10 +33,9 @@ const ShelterTab = () => {
                 setOptions(data)
             })
             .catch( error => {
-                console.log(error)
             })
         }
-    }, [])
+    })
 
     return (
         <>
@@ -45,13 +44,13 @@ const ShelterTab = () => {
             </Avatar>
             <Typography variant='subtitle1' sx={{textAlign: 'center'}}>Please complete this form to create a new shelter or employee account!</Typography>
             <Grid item sx={{textAlign:'center'}}>
-                <Link href='/login' underline='none' color='primary' sx={{textAlign:'center'}}>Already have an account?</Link>
+                <Link href='/login' id="signup-acct-exists" underline='none' color='primary' sx={{textAlign:'center'}}>Already have an account?</Link>
             </Grid>
 
             <FormGroup>
                 <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
                     <Typography>Shelter</Typography>
-                        <Switch onChange={toggleForms} />
+                        <Switch id="shelter_emp_switch" onChange={toggleForms} />
                     <Typography>Employee</Typography>
                 </Stack>
             </FormGroup>
