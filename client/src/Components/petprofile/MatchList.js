@@ -35,7 +35,7 @@ const MatchList = (props) => {
             }}>
 
             <Card sx={{height:'100%', maxWidth: '600px', margin: 'auto !important'}}>
-                <Paper elevation={10} sx={{height: '100%', minHeight: 400, paddingTop: '1rem'}} >
+                <Paper elevation={10} sx={{height: '100%', minHeight: '70vh', paddingTop: '1rem'}} >
 
                     {/* Heading */}
                     {/* onClick event to hide/show delete buttons */}
@@ -57,8 +57,10 @@ const MatchList = (props) => {
 
                         {/* placeholder div to even out the header */}
                         <Box sx={{ minWidth: 64 }}>
-                            <IconButton sx={{ display: {xs: 'block' , md: 'none'} }}>
-                                <PetsIcon color="secondary" onClick={handleButtonChange}/>
+                            <IconButton 
+                                onClick={handleButtonChange}
+                                sx={{ display: {xs: 'block' , md: 'none'} }}>
+                                <PetsIcon color="secondary" />
                             </IconButton>
                         </Box>
 

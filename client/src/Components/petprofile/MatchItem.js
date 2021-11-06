@@ -54,7 +54,9 @@ const MatchItem = (props) => {
                 </ListItemIcon>
 
                 {/* user name */}
-                <ListItemText primary={match.f_name +' '+ match.l_name} />
+                <ListItemText 
+                    primary={match.f_name +' '+ match.l_name}
+                    sx={{marginLeft: '2rem'}} />
 
                 {/* delete button */}
                 <Collapse orientation="horizontal" in={buttonClicked}>
