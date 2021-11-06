@@ -20,21 +20,22 @@ const ShelterTab = () => {
         // need to also reset password data because its also store in a separate state
     };
     // set options for list of shelters
-    const [options, setOptions] = useState();
+    const [options, setOptions] = useState([]);
 
     // get the list of shelters from the database
     useEffect( () => {
-    if (shelter){
-        api.get('/forms/shelters')
-            .then( response => {
-                // set state here
-                const data = response.data.map(shelter => ({ id: shelter.shelter_id , name: shelter.name }))
-                // console.log(data)
-                setOptions(data)
-            })
-            .catch( error => {
-            })
-        }
+        if (shelter && options.length === 0){
+            api.get('/forms/shelters')
+                .then( response => {
+                    // set state here
+                    const data = response.data.map(shelter => ({ id: shelter.shelter_id , name: shelter.name }))
+                    // console.log(data)
+                    setOptions(data)
+                })
+                .catch( error => {
+                    console.log(error)
+                })
+            }
     })
 
     return (
@@ -56,14 +57,12 @@ const ShelterTab = () => {
             </FormGroup>
 
             { shelter ? <FormTemplate 
-                            // form={FormInputs} 
                             type={'shelter'} 
                             button={'Signup'}/> 
                         : <FormTemplate 
-                            // form={FormInputs} 
                             type={'employee'} 
                             button={'Signup'}
-                            options={options}/> }
+                            data={{options:options}}/> }
         </>
     )
 }

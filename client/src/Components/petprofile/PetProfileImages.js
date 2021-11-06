@@ -1,17 +1,16 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { 
     ImageList,
     Typography,
     Button,
     Grid,
-    Box
+    Box,
+    IconButton
 } from '@mui/material';
 import ImageUploader from '../imageupload/ImageUploader';
 import ImageItem from './ImageItem';
 import useButtonState from '../../hooks/useButtonState';
-import useDeleteItemState from '../../hooks/useDeleteItemState';
-import {api} from '../../helperFunctions/axiosInstace'
-
+import GroupsIcon from '@mui/icons-material/Groups';
 
 // transitions columns from 2 to 1
 const updateDisplayCol = (items) => {
@@ -19,30 +18,12 @@ const updateDisplayCol = (items) => {
         return items.length > 1 ? 2 : 1;
     }
 }
-// temp pet_id ******
-const tempPetId = 4
 
 /* Returns a complied list of a single Pet's images */
-const PetProfileImages = () => {
+const PetProfileImages = (props) => {
+    const {handleButtonChange, pet, images, addImage, deleteImage} = props;
     const [deleteClicked, handleDeleteChange] = useButtonState(false);
-    const [items, handleChange, deleteItem] = useDeleteItemState([]);
-    
-    useEffect(() => {
-        if (items.length === 0){
-            api.get('/images/' + tempPetId)
-                .then( response => {
-                    // console.log("response data:", response.data.results)
-                    // clean data 
-                    const images = response.data.results.map(image => ({id: image.image_id, url: image.url}))
-                    // console.log(images)
-                    handleChange(images)
-                })
-                .catch( error => {
-                    console.log("error: ", error)
-                })
-        }
-    }, [items.length])
-    
+
     return(
         <Grid sx={{paddingTop: '1rem'}} item>
             {/* heading */}
@@ -52,25 +33,45 @@ const PetProfileImages = () => {
                     justifyContent: 'space-between'
                     }}>
 
-                {/* heading  */}
-                <ImageUploader/>
+                <Box >
+                    {/* matches toggler */}
+                    <IconButton
+                        onClick={handleButtonChange}
+                        color='secondary'
+                        sx={{ display: {xs: 'inline' , md: 'none'}}}>
+                        <GroupsIcon/>
+                    </IconButton>
+                    
+                    {/* camera button */}
+                    <ImageUploader 
+                        style={{left: 20}}
+                        addImage={addImage} 
+                        snackBar={pet.snackBar}/>
+                </Box>
 
                 <Typography 
                     sx={{
                         textAlign:'center',
                         display: 'inline', 
                     }}>
-                    NameOfPet
+                    {pet.name}
                 </Typography>
+
                 
-                <Button
-                    onClick={handleDeleteChange}
-                    sx={{
-                        textTransform: 'none', 
-                        display:'inline'
-                        }}>
-                    {deleteClicked ? 'done': 'delete'}
-                </Button>
+                <Box>
+                    {/* placeholder object for sizing */}
+                    <Box sx={{ width: 24, display: {xs: 'inline-block' , md: 'none'}}}></Box>
+                
+                    <Button
+                        onClick={handleDeleteChange}
+                        sx={{
+                            textTransform: 'none', 
+                            display:'inline'
+                            }}>
+                        {deleteClicked ? 'done': 'delete'}
+                    </Button>
+                </Box>
+
             </Box>
 
             {/* images */}
@@ -80,14 +81,15 @@ const PetProfileImages = () => {
                             maxWidth: '100%', 
                             maxHeight: 500 
                         }} 
-                        cols={updateDisplayCol(items)} >
+                        cols={updateDisplayCol(images)} >
 
-                {items ? items.map((item) => (
+                {images ? images.map((image) => (
                     <ImageItem 
-                        key={item.id}
-                        image={item}
-                        deleteClicked={deleteClicked} 
-                        deleteItem={deleteItem}/>
+                        key={image.image_id}
+                        image={image}
+                        deleteImage={deleteImage}
+                        deleteClicked={deleteClicked}
+                        snackBar={pet.snackBar}/>
                         )
                     ) : null
                 }

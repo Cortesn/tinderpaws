@@ -1,80 +1,142 @@
-import React from 'react'
-import MatchList from '../Components/petprofile/MatchList.js'
-import PetProfile from '../Components/petprofile/PetProfile.js'
-import { Fab, Grid } from '@mui/material'
+import React, {useState, useEffect} from 'react'
+import { useParams } from "react-router";
+import { Box, Grid, Snackbar, useMediaQuery, Slide } from '@mui/material'
+import MuiAlert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { Box } from '@mui/system';
-import ChatIcon from '@mui/icons-material/Chat';
-import CloseIcon from '@mui/icons-material/Close';
 import useButtonState from '../hooks/useButtonState';
+import {api} from '../helperFunctions/axiosInstace'
+import useDeleteItemState from '../hooks/useDeleteItemState.js';
+import PetProfile from '../Components/petprofile/PetProfile';
+import MatchList from '../Components/petprofile/MatchList';
 
 
+// from mui custom styling
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+  
 /* Page to edit a Pet information, images, and matches */
 const AdminEditPetPage = () => {
-    const theme = useTheme();
-
+    const {pet_id} = useParams()
     // reference to remove column spacing between cards
-    const matches = useMediaQuery(theme.breakpoints.up('sm')); 
-
+    const theme = useTheme();
+    const desktop = useMediaQuery(theme.breakpoints.up('md')); 
+    // toggle views in mobile
     const [buttonClicked, handleButtonChange] = useButtonState(false);
+    // snackbar alerts
+    const [open, setOpen] = useState(false);
+    const [snackMsg, setSnackMsg] = useState({})
+    // displaying snackbar
+    const handleOpen = (msg) => {
+        setSnackMsg(msg)
+        setOpen(true)
+    }
+    // closing snackbar
+    const handleClose = (event) => {
+        setOpen(false)
+    };
+    // pet state
+    const [pet, setPet] = useState({})
+    // image state
+    const [images, handleImageChange, addImage, deleteImage] = useDeleteItemState([]);
+    // matches state
+    const [matches, handleMatchChange, addMatch, deleteMatch] = useDeleteItemState([]);
+    // get the pet data
+    useEffect(() => {
+        // only make the request if there is not pet data
+        if (!pet.pet_id){
+            api.get('/pets/' + pet_id)
+            .then( response => {
+                // console.log("response data:", response.data)
+                var petData = response.data.pet
+                petData.setPet = setPet
+                petData.snackBar = handleOpen
+                setPet(petData)
+                if (response.data.images) handleImageChange(response.data.images)
+                if (response.data.matches) handleMatchChange(response.data.matches)
+            })
+            .catch( error => {
+                console.log("error: ", error)
+                // redirect to a 404 page
+            })
+        } 
+    })
+
+    const containerRef = React.useRef(null);
+
+    const matchList = (
+        <MatchList
+            buttonClicked={buttonClicked}
+            handleButtonChange={handleButtonChange}
+            matches={matches} 
+            addMatch={addMatch} 
+            deleteMatch={deleteMatch}
+            snackBar={handleOpen}/>
+    )
+
+    const petProfile = (
+        <PetProfile
+            buttonClicked={buttonClicked}
+            handleButtonChange={handleButtonChange}
+            pet={pet} 
+            images={images}
+            addImage={addImage}
+            deleteImage={deleteImage}/>
+    )
 
     return (
         <Grid 
             container
+            direction="row"
             justifyContent="center"
             alignItems="stretch"
-            sx={{margin:'auto'}} 
-            columnSpacing={{ sm: matches ? 1 : 0 }}>
+            sx={{margin:'auto !important', maxWidth: 1400}} 
+            columnSpacing={{ md: desktop ? 1 : 0 }}
+            ref={containerRef}>
+            
+            {/* large screen rendering */}
+            {desktop ?
+                <>
+                    {matchList}
+                    {petProfile}
+                </>
+                : null
+            }
+
+            {/* transitions */}
             
             {/* Left side Matches card */}
-            <Grid 
-                item 
-                xs={12} sm={6} md={5} lg={4} xl={3} 
-                sx={{ 
-                    display: 
-                        { xs: buttonClicked ? 'block':'none', sm: 'block' } 
-                    }}>
+            <Slide direction='right' in={buttonClicked} container={containerRef.current}>
                 <Box sx={{ 
-                        '& > :not(style)': { m: 1 } , 
-                        display: {xs: 'block' , sm: 'none'} 
-                        }}>
-                    <Fab 
-                        size="small" 
-                        color="secondary" 
-                        aria-label="match">
-                        <CloseIcon onClick={handleButtonChange}/>
-                    </Fab>
+                    width: '100%',
+                    display: { xs: 'block', md: 'none'}
+                }}>
+                    {matchList}
                 </Box>
-
-                <MatchList/>              
-            </Grid>
+            </Slide>
             
             {/* Right side edit profile card */}
-            <Grid 
-                item 
-                xs={12} sm={6} md={5} lg={4} xl={3} 
-                sx={{ 
-                    display: 
-                        { xs: buttonClicked ? 'none':'block', sm: 'block' }
-                    }}>
-
-                {/* view matches in mobile */}
+            <Slide direction='left' in={!buttonClicked} container={containerRef.current}>
                 <Box sx={{ 
-                        '& > :not(style)': { m: 1 } , 
-                        display: {xs: 'block' , sm: 'none'} 
-                        }}>
-                    <Fab 
-                        size="small" 
-                        color="secondary" 
-                        aria-label="match">
-                        <ChatIcon onClick={handleButtonChange}/>
-                    </Fab>
+                    width: '100%',
+                    display: { xs: 'block', md: 'none'}
+                }}> 
+                    {petProfile}
                 </Box>
+            </Slide>
 
-                <PetProfile/>
-            </Grid>
-            
+            {/* snackbar alerts */}
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                {snackMsg.success ? 
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    {snackMsg.success}
+                </Alert>
+                :
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    {snackMsg.error}
+                </Alert>
+                }
+            </Snackbar>
         </Grid>
     )
 }

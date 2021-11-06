@@ -41,7 +41,7 @@ const App = () => {
 				<Route exact path="/adminHome" component={AdminHome}/>
 				<Route exact path="/logout" component={Logout}/>
 				<Route exact path="/newsFeed" component={NewsFeed}/>
-        <Route exact path="/resetPassword/email/:email/reset_key/:reset_key" component={ResetPassword}/>
+        		<Route exact path="/resetPassword/email/:email/reset_key/:reset_key" component={ResetPassword}/>
 			</Switch>
 		</Router>
 	);
