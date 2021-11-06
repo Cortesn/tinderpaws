@@ -19,8 +19,6 @@ router.get("/users/user", auth, (req, res)=>{
         }
     })
 })
-export {router as matches}
-
 
 // delete a single match from a pet
 router.delete('/:match_id', (req,res) => {
@@ -41,3 +39,5 @@ router.delete('/:match_id', (req,res) => {
         }
     }) 
 })
+
+export {router as matches}
