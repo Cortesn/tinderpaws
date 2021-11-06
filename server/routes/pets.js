@@ -3,6 +3,40 @@ const router = express.Router()
 import pool from '../Database/dbcon.js'
 const db = pool
 
+
+// get all pets with optional pagination for news feed
+router.get('/offset/:offset?' , (req,res)=> {
+    const offset = req.params.offset ? parseInt(req.params.offset) : 0
+    const limit = 12
+    const startDate = new Date()
+    startDate.setDate(startDate.getDate() - 6)
+    const endDate = new Date()
+    endDate.setDate(endDate.getDate() + 1)
+    // console.log(startDate, endDate)
+    const getAllPets = `SELECT Pets.pet_id, name, status, description, last_updated, GROUP_CONCAT(url) AS images FROM Pets 
+                        JOIN Images ON Images.pet_id=Pets.pet_id WHERE last_updated BETWEEN ? AND ?
+                        GROUP BY Pets.pet_id ORDER BY last_updated ASC LIMIT ? OFFSET ?;`
+    // const getImages = 
+    db.query(getAllPets, [startDate, endDate, limit, offset], (error, results) => {
+        if (error){
+            console.log(error)
+            return
+        }
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
+        results.forEach(pet => {
+            pet.images = pet.images.split(',')
+            pet.last_updated = Intl.DateTimeFormat('en-GB', { dateStyle: 'full' }).format(pet.last_updated)
+        })
+        const payload = {
+            pets : results,
+            offset : offset + limit
+        }
+        // console.log(payload)
+        return res.status(200).send(payload)
+    })
+})
+
+
 // route to get all pet data for the /admin/edit/:pet_id path ( single pet )
 router.get('/:pet_id', (req,res) => {
     const id = req.params.pet_id;
@@ -33,30 +67,8 @@ router.get('/:pet_id', (req,res) => {
         // redirect to a 404 page
         return res.status(404).json({msg: 'This pet does not exist.'})
     })
-
 })
 
-// get all pets with option pagination
-router.get('/:offset?' , (req,res)=> {
-    const offset = req.params.offset ? req.params.offset : 0
-    const startDate = new Date()
-    startDate.setDate(startDate.getDate() - 6)
-    const endDate = new Date()
-    endDate.setDate(endDate.getDate() + 1)
-    // console.log(startDate, endDate)
-    const getAllPets = `SELECT Pets.pet_id, name, status, description, GROUP_CONCAT(url) AS images FROM Pets 
-                        JOIN Images ON Images.pet_id=Pets.pet_id WHERE last_updated BETWEEN ? AND ?
-                        GROUP BY Pets.pet_id LIMIT ? OFFSET ?;`
-    // const getImages = 
-    db.query(getAllPets, [startDate, endDate, 12, offset], (error, results) => {
-        if (error){
-            console.log(error)
-            return
-        }
-        results.forEach(pet => pet.images = pet.images.split(','))
-        return res.status(200).send(results)
-    })
-})
 
 // update a pet
 router.patch('/:pet_id', (req,res) => {
