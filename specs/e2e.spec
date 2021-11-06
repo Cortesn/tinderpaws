@@ -20,5 +20,17 @@ To execute this specification, use
 * animal filter
 * matches
 * user log out
+
+## employee story
+* employee sign up
+* employee log in
+* admin home page
+* edit shelter
+* admin home redirect add pet
+* admin home redirect edit pet
+* add pet
+* edit pet
+* edit pet page
 ___
 * Clear all tasks
+
