@@ -36,7 +36,7 @@ const FormTemplate = (props) => {
                 } else {
                     return (
                         <FormControl key={input.id} variant="filled">   
-                            <RenderInputs input={input}/> 
+                            <RenderInputs input={input} type={type}/> 
                         </FormControl>
                     )
                 }  
