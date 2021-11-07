@@ -9,6 +9,10 @@
       name="description"
       content="Web site created using create-react-app"
     />
+    <!-- https://developers.google.com/identity/sign-in/web/build-button -->
+    <meta name="google-signin-client_id" content="111156550551-rglahe5pmnp3ds8692gjsgavdtn9ti6s.apps.googleusercontent.com">
+    <link rel="stylesheet" href="%PUBLIC_URL%/styles.css">
+
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -24,6 +28,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+   
     <title>React App</title>
   </head>
   <body style="margin:0;">
@@ -39,5 +44,27 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+      function onSuccess(googleUser) {
+        console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+      }
+      function onFailure(error) {
+        console.log(error);
+      }
+      function renderButton() {
+        gapi.signin2.render('my-signin2', {
+          'scope': 'profile email',
+          'width': 378,
+          'height': 36,
+          'longtitle': true,
+          'theme': 'dark',
+          'onsuccess': onSuccess,
+          'onfailure': onFailure
+        });
+      }
+    </script>
+  
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    
   </body>
 </html>

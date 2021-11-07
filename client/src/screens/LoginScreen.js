@@ -1,7 +1,8 @@
 import React, {useState} from "react";
-import { Avatar, Grid, Link, Paper, Stack, Typography } from '@mui/material';
+import { Avatar, Button, Grid, Link, Paper, Stack, Typography } from '@mui/material';
 import FormTemplate from '../Components/forms/FormTemplate';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import GoogleButton from "../Components/GoogleButton";
 
 
 export const LoginScreen = (props) => {
@@ -11,9 +12,9 @@ export const LoginScreen = (props) => {
 	}
 
 	return (
-		// main container for the signup forms set to max width of screen
-        <Grid container>
-            <Grid xs={12} sm={7} md={5} lg={4} xl={3} sx={{margin: 'auto'}} item>
+		//  main container for the signup forms set to max width of screen
+        <Grid container >
+            <Grid xs={12} sm={7} md={5} lg={4} xl={3} sx={{margin: 'auto', maxWidth: '420px ! important'}} item>
                 <Paper elevation={10} >
 					<Stack spacing={2}>
 
@@ -33,11 +34,10 @@ export const LoginScreen = (props) => {
 								</Link>
 							</Typography>
 
-
 							<div style={{width: '90%', margin: 'auto'}}>
 								<FormTemplate 
 									type={'login'} 
-									button={'Login'}/>
+									button={'Sign in'}/>
 							</div>
 
 							{/* forgot password -> reset password page */}
@@ -51,6 +51,10 @@ export const LoginScreen = (props) => {
 										Forgot password?
 									</Link>
 							</Typography>
+						
+							{/* google button */}
+							<div id="my-signin2" ></div>
+
 						</div>
 						
 						{/* forgot password screen -> reset */}
@@ -82,10 +86,7 @@ export const LoginScreen = (props) => {
 								</Link>
 							</Typography>
 						</div>
-					
-						
-						
-						
+
 					</Stack>
                 </Paper>
             </Grid>
