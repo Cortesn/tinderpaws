@@ -42,7 +42,6 @@ const PetProfileImages = (props) => {
                 })
         
     }, [items])
-    
     return(
         <Grid sx={{paddingTop: '1rem'}} item>
             {/* heading */}
@@ -53,7 +52,7 @@ const PetProfileImages = (props) => {
                     }}>
 
                 {/* heading  */}
-                <ImageUploader addItem={addItem} snackBar={snackBar}/>
+                <ImageUploader addItem={addItem} snackBar={snackBar} pet_id={id}/>
 
                 <Typography 
                     sx={{

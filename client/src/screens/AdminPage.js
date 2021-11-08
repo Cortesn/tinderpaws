@@ -69,10 +69,10 @@ export const AdminPage = () => {
 				</Grid>
 				<Grid item xs={6}>
 					<FormControl fullWidth size="small">
-						<InputLabel id="search-label">Choose</InputLabel>
+						<InputLabel id="search-label">Choose Animal</InputLabel>
 						<Select
 							labelId="search-label"
-							label="Choose"
+							label="Choose Animal"
 							id="search"
 							value={filter}
 							onChange={filterPets}

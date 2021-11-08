@@ -1,15 +1,24 @@
 import React, { useState } from "react";
 import {
-	Button,
 	Card,
 	CardActions,
+	CardActionArea,
 	CardContent,
 	CardMedia,
 	Grid,
 	Typography,
 	IconButton,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
+import { createTheme, ThemeProvider } from "@mui/material";
+import { DeletePetButton } from "./DeletePetButton";
+
+const theme = createTheme({
+	typography: {
+		fontFamily: 'Kavoon'
+	}
+})
 
 export const PetCard = ({ pet, deletePet }) => {
 	const [imgIdx, setImgIdx] = useState(0);
@@ -25,6 +34,13 @@ export const PetCard = ({ pet, deletePet }) => {
 			setImgIdx(imgIdx + 1);
 		}
 	};
+
+	const status = ['🕙 Not Available', '🤩 Available', '🔔 Pending', '💖 Adopted'];
+	const types = {
+		'Dog': '🐶',
+		'Cat': '😻',
+		'Other': '🐾'
+	}
 
 	return (
 		<Grid
@@ -72,9 +88,17 @@ export const PetCard = ({ pet, deletePet }) => {
 						<NavigateNext fontSize="large" />
 					</IconButton>
 				</Grid>
-				<CardContent sx={{ textAlign: "center" }}>
-					<Typography variant="h5">{pet.name}</Typography>
-				</CardContent>
+				<Link to={`/admin/edit/${pet.pet_id}`} style={{textDecoration:"none", color:"black"}}>
+					<CardActionArea>
+						<CardContent sx={{ textAlign: "center" }}>
+							<ThemeProvider theme={theme}>
+								<Typography variant="h3">{pet.name}</Typography>
+							</ThemeProvider>
+							<Typography variant="h6">{types[pet.type]} {pet.breed}</Typography>
+							<Typography variant="h6">{status[pet.status]}</Typography>
+						</CardContent>
+					</CardActionArea>
+				</Link>
 				<CardActions
 					sx={{
 						display: "flex",
@@ -82,14 +106,7 @@ export const PetCard = ({ pet, deletePet }) => {
 						pt: 0,
 					}}
 				>
-					<Button
-						size="large"
-						variant="contained"
-						color="error"
-						onClick={() => deletePet(pet.id)}
-					>
-						Delete Profile
-					</Button>
+					<DeletePetButton deletePet={deletePet} pet={pet}/>
 				</CardActions>
 			</Card>
 		</Grid>

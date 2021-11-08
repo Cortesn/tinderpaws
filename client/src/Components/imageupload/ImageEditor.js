@@ -38,9 +38,9 @@ class ImageEditor extends React.Component {
                     let fd = new FormData();
                     fd.append('image', file)
                     // make request to upload a photo
-                    api.post('/images', fd )
+                    api.post(`/images/${this.props.pet_id}`, fd )
                         .then( response => {
-                            // console.log("response data:", response.data)
+                            console.log("response data:", response.data)
                             const {payload} = response.data
                             // update the list of images
                             this.props.addItem({id: payload.image_id, url: payload.url})

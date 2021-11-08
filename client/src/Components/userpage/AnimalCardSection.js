@@ -12,12 +12,7 @@ const alreadyRemoved = [];
 
 const AnimalCardSection = ({petState, setPetState, id }) => {
 
-	const childRefs = useMemo(() => {
-		console.log("from cR", petState);
-		return Array(petState.length)
-			.fill(0)
-			.map((i) => React.createRef());
-	}, [petState]);
+	const childRefs = useMemo(() => Array(petState.length).fill(0).map((i) => React.createRef()), [petState]);
 
 	const swiped = (direction, idToDelete) => {
 		console.log("removing: " + idToDelete + " on the " + direction);

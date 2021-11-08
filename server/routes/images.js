@@ -24,7 +24,7 @@ router.get('/:pet_id', (req, res) => {
 
 
 // add an image for a pet
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/:pet_id', upload.single('image'), async (req, res) => {
     // console.log(req.file)
     const file = req.file
     // upload image to s3 bucket
@@ -33,7 +33,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     // remove the image from local storage
     fs.unlinkSync(file.path)
     // ***** Temp id... once user auth route is linked id will be in the req.
-    const tempId = 4
+    const tempId = req.params.pet_id
     // upload url to sql db
     if(s3Object.Location){
         const saveImgUrl = 'INSERT INTO Images (image_id, pet_id, url) VALUES (?,?,?)';
