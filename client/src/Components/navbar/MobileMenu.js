@@ -1,22 +1,27 @@
 import React from 'react';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
+import { Button, Drawer, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuDrawerItems from './MenuDrawerItems.js'
-import useNavbarState from '../../hooks/useNavbarState.js'
 
 
-export default function MobileMenu(props){
-    const {account} = props
-    // drawer state and toggle
-    const [state, toggleDrawer] = useNavbarState({'right':false});
-    const anchor = 'right';
+const MobileMenu = (props) => {
+    const {account, anchor, state, toggleDrawer} = props
+    
+    const theme = useTheme();
+    const sm = useMediaQuery(theme.breakpoints.up('sm')); 
+
     return(
         <React.Fragment key={anchor}>
             <Button onClick={toggleDrawer(anchor, true)}>
                 <MenuIcon sx={{color:'white'}}/>
             </Button>
             <Drawer
+                sx={{'.MuiDrawer-paper': {
+                        width: sm ? 250: '100% ! important'
+                    },
+                    display: { sm: 'flex', md: 'none' }
+                }}
                 anchor={anchor}
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}>
@@ -25,3 +30,5 @@ export default function MobileMenu(props){
         </React.Fragment>
     )
 }
+
+export default MobileMenu;

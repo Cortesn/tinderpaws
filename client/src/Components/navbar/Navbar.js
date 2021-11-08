@@ -5,15 +5,19 @@ referenced MUI Drawer: https://mui.com/components/drawers/#temporary-drawer
 */
 
 import React from 'react';
-import {AppBar, Box, Toolbar, IconButton, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton, Typography } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import PetsIcon from '@mui/icons-material/Pets';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MobileMenu from './MobileMenu.js'
 import NavLink from './NavLink.js';
-
+import useNavbarState from '../../hooks/useNavbarState.js'
 export default function Navbar(props) {
     const {account} = props
+
+    // drawer state and toggle
+    const anchor = 'right';
+    const [state, toggleDrawer] = useNavbarState({[anchor]:false});
 
     return (
         // Main navbar items
@@ -32,38 +36,39 @@ export default function Navbar(props) {
                             variant="h6"
                             noWrap
                             component="div"
-                            sx={{ display: { xs: 'block' } }}>
+                            sx={{ display: { md: 'block' } }}>
                             Tinder Paws
                         </Typography>
                     </IconButton>
-                    
-                    <NavLink name={'Mission'} link={'/mission'} />
-                    <NavLink name={'About'} link={'/about'} />
-                    
-                    {/* displays the "News feed" */}
-                    { account.shelter_id || account.employee_id || account.user_id ?
-                        <NavLink name={'News'} link={'/news'} />
-                    : null }
 
-                    {/* displays the "Pets button to view available pets" */}
-                    { account.employee_id || account.user_id ?
-                        <NavLink name={'Pets'} link={'/user'} />
-                    : null }
+                    <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>
+                        <NavLink name={'Mission'} link={'/mission'} />
+                        
+                        {/* displays the "News feed" */}
+                        { account.shelter_id || account.employee_id || account.user_id ?
+                            <NavLink name={'News'} link={'/news'} />
+                        : null }
 
-                    {/* displays the "page to manage shelter pets */}
-                    { account.employee_id || account.shelter_id ?
-                        <NavLink name={'Manage'} link={'/'} />
-                    : null }
+                        {/* displays the "Pets button to view available pets" */}
+                        { account.employee_id || account.user_id ?
+                            <NavLink name={'Pets'} link={'/user'} />
+                        : null }
 
-                    {/* displays the "page to manage shelter employees" */}
-                    { account.shelter_id ?
-                        <NavLink name={'Admin'} link={'/'} />
-                    : null }
-                    
+                        {/* displays the "page to manage shelter pets */}
+                        { account.employee_id || account.shelter_id ?
+                            <NavLink name={'Admin'} link={'/adminHome'} />
+                        : null }
+
+                        {/* displays the "page to manage shelter employees" */}
+                        {/* { account.shelter_id ?
+                            <NavLink name={'Admin'} link={'/'} />
+                        : null } */}
+                    </Box>
+
                     {/* divider */}
                     <Box sx={{ flexGrow: 1 }} />
                     {/* login/signup */}
-                    <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+                    <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>
                         {account.auth ?
                             <div style={{height: '100%'}}>
                                 <Typography component="div" sx={{display: 'inline-block'}}>
@@ -92,8 +97,12 @@ export default function Navbar(props) {
                         }        
                     </Box>
                     {/* render mobile menu */}
-                    <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
-                        <MobileMenu account={account}/>
+                    <Box sx={{ display: { sm: 'flex', md: 'none' } }}>
+                        <MobileMenu 
+                            account={account}
+                            anchor={anchor}
+                            state={state}
+                            toggleDrawer={toggleDrawer}/>
                     </Box>
                 </Toolbar>
             </AppBar>

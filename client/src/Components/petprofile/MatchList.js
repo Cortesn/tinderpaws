@@ -1,85 +1,93 @@
 import React from 'react'
 import { 
+    Box,
+    Fab,
     Button, 
     Divider, 
     Grid, 
     Paper,
     Typography,
     List,
-    Card, 
+    Card,
+    Stack, 
+    IconButton
 } from '@mui/material';
+import PetsIcon from '@mui/icons-material/Pets';
+import CloseIcon from '@mui/icons-material/Close';
 import useButtonState from '../../hooks/useButtonState';
-import useDeleteItemState from '../../hooks/useDeleteItemState';
 import MatchItem from './MatchItem';
 
-// temp list of matched users
-const tempMatchList = [
-    {
-        userId: 1,
-        name:'John Smith'
-    }, 
-    {
-        userId: 2,
-        name: 'Jane Doe'
-    }, 
-    {
-        userId: 3,
-        name:'Test User 1'
-    }, 
-    {
-        userId: 4,
-        name: 'Test User 2'
-    }
-];
-
-// transform keys to work with generic hook
-const rename = tempMatchList.map(user => ({id: user.userId, name: user.name}) )
 
 /* Returns a compiled list of user matches for a specific pet */
-const MatchList = () => {
+const MatchList = (props) => {
+    const {buttonClicked, handleButtonChange, matches, addMatch, deleteMatch, snackBar} = props;
+    const [editClicked, handleEditChange] = useButtonState(false);
+    // add a listener to check for new matches + addMatch
+    // or check for chats with match.user_id
 
-    const [buttonClicked, handleButtonChange] = useButtonState(false);
-    const [items, deleteItem] = useDeleteItemState(rename);
-    
     return (
-        <Card sx={{height:'100%'}}>
-            <Paper elevation={10} sx={{height: '100%', paddingTop: '1rem'}} >
+        <Grid 
+            item 
+            xs={12} sm={12} md={6} lg={4}
+            sx={{ 
+                display: { xs: buttonClicked ? 'block':'none', md: 'block' },
+                maxWidth: '650px'
+            }}>
 
-                {/* Heading */}
-                {/* onClick event to hide/show delete buttons */}
-                <Button 
-                    onClick={handleButtonChange}
-                    sx={{textTransform: 'none', display:'inline'}}>
-                    {buttonClicked ? 'done': 'edit'}
-                </Button>
+            <Card sx={{height:'100%', maxWidth: '600px', margin: 'auto !important'}}>
+                <Paper elevation={10} sx={{height: '100%', minHeight: '70vh', paddingTop: '1rem'}} >
 
-                <Typography 
-                    sx={{textAlign:'center', 
-                        display:'inline', 
-                        paddingLeft:'4rem'}}>
-                    Matches
-                </Typography>
+                    {/* Heading */}
+                    {/* onClick event to hide/show delete buttons */}
+                    <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        spacing={2}>
 
-                <Grid xs={11} item>
-                    <Divider variant='middle' sx={{paddingBottom: '.5rem'}}/>
-                </Grid>
+                        <Button 
+                            onClick={handleEditChange}
+                            sx={{textTransform: 'none'}}>
+                            {editClicked ? 'done': 'edit'}
+                        </Button>
 
-                {/* List of matched users */}
-                <List> 
-                    {/* iterate through list of users */}
-                    {items.map((user) => (
-                            <MatchItem 
-                                key={user.id} 
-                                user={user} 
-                                buttonClicked={buttonClicked} 
-                                deleteItem={deleteItem}/>   
+                        <Typography sx={{display:'inline'}}>
+                            Matches
+                        </Typography>
+
+                        {/* placeholder div to even out the header */}
+                        <Box sx={{ minWidth: 64 }}>
+                            <IconButton 
+                                onClick={handleButtonChange}
+                                sx={{ display: {xs: 'block' , md: 'none'} }}>
+                                <PetsIcon color="secondary" />
+                            </IconButton>
+                        </Box>
+
+                    </Stack>
+
+                    <Grid xs={11} item>
+                        <Divider variant='middle' sx={{paddingBottom: '.5rem'}}/>
+                    </Grid>
+
+                    {/* List of matched users */}
+                    <List> 
+                        {/* iterate through list of users */}
+                        {matches.map((match) => (
+                                <MatchItem 
+                                    key={match.match_id} 
+                                    match={match} 
+                                    deleteMatch={deleteMatch}
+                                    buttonClicked={editClicked} 
+                                    snackBar={snackBar}/>   
+                                )
                             )
-                        )
-                    }
-                </List>
-                
-            </Paper>
-        </Card>
+                        }
+                    </List>
+                    
+                </Paper>
+            </Card>
+        </Grid>
     )
 }
 

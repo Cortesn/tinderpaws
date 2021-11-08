@@ -1,12 +1,12 @@
 import React, {useState,useEffect} from "react";
-import {useParams} from "react-router";
+// import {useParams} from "react-router";
 import { Typography, Button, Stack, Grid, Card, CardContent} from "@mui/material";
 import {createTheme} from '@mui/material/styles';
 import { ThemeProvider } from "@mui/system";
 import FormTemplate from '../Components/forms/FormTemplate';
 import { FormInputs } from '../Components/forms/FormInputs';
 import CancelIcon from '@mui/icons-material/Cancel';
-import {api} from '../helperFunctions/axiosInstace'
+import { api, setToken } from "../helperFunctions/axiosInstace";
 
 const AdminHome = () => {
     const theme = createTheme({
@@ -16,25 +16,29 @@ const AdminHome = () => {
               }
             }
           })
-    // useParams is to get the ID passed into the parent route
-    const {id} = useParams()
+    // // useParams is to get the ID passed into the parent route
+    // const {id} = useParams()
 
     // get shelter info
     const [shelterInfoState, setShelterInfoState] = useState(null);
     useEffect(() => {
-        api.get(`/adminHome/shelters/shelter/employees/${id}`).then((response)=>{
+        const url = `/adminHome/shelters/shelter/employees`;
+        setToken(localStorage.token)
+        api.get(url).then((response)=>{
             const data = {data: response.data[0]}
             setShelterInfoState(data);
             });
-        }, [id]);
+        },[]);
 
     // get employee name
     const [employeeNameState, setEmployeeNameState] = useState(null);
     useEffect(()=>{
-        api.get(`/adminHome/employees/${id}`).then((response)=>{
+        const url = `/adminHome/employees`;
+        setToken(localStorage.token)
+        api.get(url).then((response)=>{
             setEmployeeNameState(response.data[0]["name"])
         })
-    }, [id])
+    }, [])
 
     // toggle form for shelter update request
     const [updateFormState, setUpdateFormState] = useState(false)

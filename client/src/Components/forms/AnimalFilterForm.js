@@ -11,10 +11,9 @@ import UseBreedState from "../../hooks/useBreedState";
 
 const AnimalFilterForm = (props) => {
     const submitAnimalFilter = ()=>{
-        const url = `/filterSetting/filteredAnimals/${props.user_id}`;
         const params = {params: {shelters: createObjectToArray(selectedShelters,[]), breeds: createObjectToArray(selectedBreeds,[]), dispositions: convertDispObjToArray(disposition,[])}}
         try{
-            api.get(url, params).then((response)=>{
+            api.get('/filterSetting/filteredAnimals', params).then((response)=>{
                 response.data.forEach((pet) => {
                     pet.images = pet.images.split(",");
                     pet.type = pet.animalType;

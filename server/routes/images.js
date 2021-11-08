@@ -1,4 +1,3 @@
-
 import express from 'express'
 const router = express.Router()
 import multer from 'multer'
@@ -65,11 +64,13 @@ router.delete('/:image_id', (req,res) => {
             console.log(error)
             return res.status(400).json({msg: 'Something went wrong. Please try again later.'})
             // server msg
-        }
-        if (results.affectedRows === 1){
+        } else if (results.affectedRows === 1){
             // delete image from bucket
             deleteImage(image_id)
             return res.status(200).json({msg: 'Success! Image deleted.'})
+        } else {
+            // invalid image_id. should probably never happen...
+            return res.status(400).json({msg: 'Something went wrong. Please try again later.'})
         }
     }) 
 })

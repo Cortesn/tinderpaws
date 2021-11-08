@@ -38,7 +38,7 @@ const AnimalFilterSection = ({shelters, id, setPetState}) => {
 						<Typography sx={{ flexShrink: 0 }}>Profile</Typography>
 					</AccordionSummary>
 					<AccordionDetails>
-						<UserProfileUpdateForm user_id={id} />
+						<UserProfileUpdateForm/>
 					</AccordionDetails>
 				</Accordion>
 				<Accordion
@@ -59,7 +59,6 @@ const AnimalFilterSection = ({shelters, id, setPetState}) => {
 							<AnimalFilterForm
 								shelters={shelters}
 								setPetState={setPetState}
-								user_id={id}
 							/>
 						)}
 					</AccordionDetails>
@@ -78,7 +77,7 @@ const AnimalFilterSection = ({shelters, id, setPetState}) => {
 						</Typography>
 					</AccordionSummary>
 					<AccordionDetails>
-						<MatchesGrid user_id={id} />
+						<MatchesGrid/>
 					</AccordionDetails>
 				</Accordion>
 			</Grid>
