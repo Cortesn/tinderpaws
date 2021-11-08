@@ -43,6 +43,7 @@ export const LoginScreen = (props) => {
 							{/* forgot password -> reset password page */}
 							<Typography variant='subtitle1' sx={{paddingBottom: '2rem', textAlign: 'center'}}>
 								<Link 
+									id='btn-forgot-password'
 									component='button'
 									onClick={handleChange}
 									underline='none' 
@@ -74,11 +75,12 @@ export const LoginScreen = (props) => {
 							{/* forgot password -> reset password page */}
 							<Typography variant='subtitle1' sx={{paddingBottom: '2rem', textAlign: 'center'}}>
 								<Link 
+									id='btn-back-signin'
 									component='button'
 									onClick={handleChange}
 									underline='none' 
 									color='primary'
-									sx={{marginTop: '1rem', fontSize: '1rem'}}> Back to login
+									sx={{marginTop: '1rem', fontSize: '1rem'}}> Back to sign in
 								</Link>
 							</Typography>
 						</div>
