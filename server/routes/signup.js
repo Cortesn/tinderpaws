@@ -193,4 +193,73 @@ router.post('/employee', (req, res) => {
     })
 })
 
+
+// User signup route through google OAuth2.0
+router.post('/google', (req, res) => {
+    const idToken = req.header('x-auth-token')
+    const client = new OAuth2Client(process.env.GAPI_CLIENT_ID)
+    // authenticate user
+    async function verify() {
+        const ticket = await client.verifyIdToken({
+            idToken: idToken,
+            audience: process.env.GAPI_CLIENT_ID
+        })
+        const payload = ticket.getPayload()
+        // console.log(payload)
+        const findUser = 'SELECT user_id, email, password FROM Users WHERE email=?;'
+        const findShelter = 'SELECT shelter_id, email, password FROM Shelters WHERE email=?;'
+        const findEmployees = 'SELECT employee_id, email, password FROM Employees WHERE email=?;'
+        db.query(`${findUser}${findShelter}${findEmployees}`, [payload.email, payload.email, payload.email], async (error, results)  => {
+            if (error){
+                // server error 
+                console.log(error)
+                return res.status(400).json({ msg: 'Server error. Please try again later.' })
+            } else {
+                try{
+                    const result = await results.filter(arr => arr.length > 0)[0]
+                    // console.log('result: ', result)
+                    if (result){
+                        // user already has an account log them in
+                        var user = { user: { user_id : result[0].user_id }}
+                        jwt.sign(user, process.env.JWT_SECRET, {expiresIn: 360000 }, (error, token) => {
+                            if (error)
+                                console.log(error)
+                            return res.status(200).json({token}) // send token back to frontend
+                        })
+                    } else {
+                        // user doesn't exist create an account
+                        // use the [sub] as the user password -> 
+                        const salt = await bcrypt.genSalt(10);
+                        const password = await bcrypt.hash(payload.sub, salt)
+                        const date = new Date().toISOString().slice(0,10);
+                        const saveUser = 'INSERT INTO Users (f_name, l_name, email, password, date_created, last_updated) VALUES (?,?,?,?,?,?)'
+                        db.query(saveUser, [payload.given_name, payload.family_name, payload.email, password, date, date], (error, results) => {
+                            if (error){
+                                console.log(error)
+                                return res.status(400).json({ msg : 'Somthing went wrong. Please try agian later.'})
+                            } else if (results) {
+                                // user was saved
+                                user = { user: { user_id : results.insertId }}
+                                // generate token to send to client
+                                jwt.sign(user, process.env.JWT_SECRET, {expiresIn: 360000 }, (error, token) => {
+                                    if (error)
+                                        console.log(error)
+                                    return res.status(201).json({token}) // send token back to frontend
+                                })
+                            }
+                        })
+                    }
+                } catch (error){
+                    // console.log(error)
+                    return res.status(500).json({ msg: 'Server error. Please try again later.' })
+                }
+            }
+        })
+    }
+    verify().catch( error => {
+        console.log(error)
+        return res.status(500).json({ msg: 'Server error. Please try again later.' })
+    })    
+})
+
 export {router as signup}
