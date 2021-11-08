@@ -19,11 +19,9 @@ router.post('/user', (req, res) => {
             console.log(error)
             return res.status(400).json({ msg : 'Somthing went wrong. Please try agian later.'})
         } else {
-            console.log(results)
             // try/catch incase async/await fails
             try {
                 const result = await results.filter(arr => arr.length > 0)
-                console.log(result)
                 if (result.length > 0){
                     // user with email already exists
                     return res.status(400).json({ msg : 'Account already exists with this email' })
@@ -75,7 +73,6 @@ router.post('/shelter', (req, res) => {
             // server error
             return res.status(400).json({ msg : 'Somthing went wrong. Please try agian later.'})
         } else {
-            console.log(results)
             // try/catch incase async/await fails
             try {
                 const result = await results.filter(arr => arr.length > 0)
@@ -130,7 +127,6 @@ router.post('/employee', (req, res) => {
             // server error
             return res.status(400).json({ msg : 'Somthing went wrong. Please try agian later.'})
         } else {
-            console.log(results)
             // try/catch incase async/await fails
             try {
                 const result = await results.filter(arr => arr.length > 0)
@@ -154,8 +150,6 @@ router.post('/employee', (req, res) => {
                         return res.status(400).json({ msg : 'Somthing went wrong. Please try agian later.'})
                     } else if (results) {
                         // user was saved
-                        console.log(results.insertId)
-                        // make payload for token after getting user id from db
                         const payload = { user: { employee_id : employeeId }}
                         // generate token to send to client
                         jwt.sign( payload, process.env.JWT_SECRET, {expiresIn: 360000 }, (error, token) => {

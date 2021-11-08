@@ -44,6 +44,7 @@ const MatchList = (props) => {
                         spacing={2}>
 
                         <Button 
+                            id='btn-matches-delete-toggle'
                             onClick={handleEditChange}
                             sx={{textTransform: 'none'}}>
                             {editClicked ? 'done': 'edit'}
@@ -56,6 +57,7 @@ const MatchList = (props) => {
                         {/* placeholder div to even out the header */}
                         <Box sx={{ minWidth: 64 }}>
                             <IconButton 
+                                id='btn-pet-toggle'
                                 onClick={handleButtonChange}
                                 sx={{ display: {xs: 'block' , md: 'none'} }}>
                                 <PetsIcon color="secondary" />

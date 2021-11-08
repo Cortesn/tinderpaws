@@ -36,6 +36,7 @@ const PetProfileImages = (props) => {
                 <Box >
                     {/* matches toggler */}
                     <IconButton
+                        id='btn-matches-toggle'
                         onClick={handleButtonChange}
                         color='secondary'
                         sx={{ display: {xs: 'inline' , md: 'none'}}}>
@@ -63,6 +64,7 @@ const PetProfileImages = (props) => {
                     <Box sx={{ width: 24, display: {xs: 'inline-block' , md: 'none'}}}></Box>
                 
                     <Button
+                        id='btn-img-delete-toggle'
                         onClick={handleDeleteChange}
                         sx={{
                             textTransform: 'none', 

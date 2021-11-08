@@ -32,8 +32,8 @@ const SignupPage = () => {
                             indicatorColor="primary"
                             textColor="inherit" 
                             variant="fullWidth">
-                            <Tab label="User Sign Up" />
-                            <Tab label="Shelter Sign Up"/>
+                            <Tab id='tab-user' label="User Sign Up" />
+                            <Tab id='tab-shelter' label="Shelter Sign Up"/>
                         </Tabs>
                     
                     <TabPanel value={value} index={0} >

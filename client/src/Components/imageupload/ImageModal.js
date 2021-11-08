@@ -3,7 +3,7 @@ import {
     IconButton,
     Modal, 
     Typography, 
-    Box  } from '@mui/material';
+    Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ImageEditor from './ImageEditor';
 
@@ -47,6 +47,7 @@ const ImageModal = (props) => {
                 </Typography>
 
                 <IconButton
+                    id='btn-modal-close'
                     open={open}
                     aria-label="close"
                     onClick={handleClose}

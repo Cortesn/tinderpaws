@@ -85,6 +85,7 @@ class ImageEditor extends React.Component {
                 <Stack spacing={2} direction="row" sx={{ mt: 2, mb: 2 }} alignItems="center">
                 <RemoveIcon sx={{color: (theme) => theme.palette.grey[500]}} />
                 <Slider 
+                    id="img-slider"
                     onChange={this.onZoom}
                     defaultValue={1.5} 
                     aria-label="Image-Zoom-Slider" 
@@ -96,6 +97,7 @@ class ImageEditor extends React.Component {
                
                 <div style={this.state.style}>
                 <Button 
+                    id='btn-img-submit'
                     sx={{maxWidth: '80%'}}
                     fullWidth
                     type='submit' 

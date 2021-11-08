@@ -34,6 +34,7 @@ export const LoginScreen = () => {
 							{/* link to signup page  */}
 							<Typography variant='subtitle1' sx={{textAlign: 'center', marginBottom: '1rem'}}>Don't have an account? Click  
 								<Typography 
+									id='btn-to-signup'
 									component='a' 
 									align='center'
 									href='/signup' 
@@ -65,7 +66,7 @@ export const LoginScreen = () => {
 							<Divider variant="middle" style={{ marginTop:20, marginBottom:20}}/>
 						
 							{/* google button */}
-							<GoogleAuth setGAlert={setGAlert} type={'login'}/>
+							<GoogleAuth id='btn-signin-g-oauth' setGAlert={setGAlert} type={'login'}/>
 						</div>
 						
 						{/* forgot password screen -> reset */}

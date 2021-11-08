@@ -21,11 +21,11 @@ const ImageUploader = (props) => {
                     id="icon-button-file" 
                     accept="image/*" 
                     type="file" 
-                    // value={image}
                     onChange={handleImageChange}
                     style={{display: 'none'}}/>
 
                 <IconButton 
+                    id="btn-img-uploader"
                     color="primary" 
                     aria-label="upload picture" 
                     component="span"

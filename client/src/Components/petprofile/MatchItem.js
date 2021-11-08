@@ -61,6 +61,7 @@ const MatchItem = (props) => {
                 {/* delete button */}
                 <Collapse orientation="horizontal" in={buttonClicked}>
                     <IconButton 
+                        id='btn-match-delete'
                         color='error' 
                         aria-label="delete"
                         sx={{marginRight: '1rem'}}

@@ -34,6 +34,7 @@ const ImageItem = (props) => {
                     position="top"
                     actionIcon={
                         <IconButton
+                            id='btn-img-delete'
                             color='error' 
                             aria-label={`delete ${image.image_id}`}
                             onClick={()=>{deleteImage(image.image_id, 'image', snackBar);}}>
