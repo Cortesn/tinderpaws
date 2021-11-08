@@ -30,17 +30,16 @@ const App = () => {
 			<Switch>
 				<Route exact path="/" component={HomePage} />
 				<Route exact path="/mission" component={MissionPage} />
-				<Route exact path="/login" component={LoginScreen} />
+				<Route exact path="/signin" component={authValues.auth ? HomePage : LoginScreen} />
 				<Route exact path="/user" component={UserPage} />  {/* To be removed, combined into userHome/:id */}
 				<Route exact path="/signup" component={SignupPage} />
 				<Route exact path="/admin/edit/:pet_id" component={AdminEditPetPage} />
-				<Route exact path="/logout" component={Logout} />
+				<Route exact path="/signout" component={Logout} />
 				<Route exact path="/adminHome/:id/pets" render={() => <AdminPage />} />
 				<Route exact path="/userHome/:id" component={UserHome}/>
 				<Route exact path="/addpet" component={AddPet}/>
 				<Route exact path="/adminHome" component={AdminHome}/>
-				<Route exact path="/logout" component={Logout}/>
-				<Route exact path="/newsFeed" component={NewsFeed}/>
+				<Route exact path="/news" component={NewsFeed}/>
         		<Route exact path="/resetPassword/email/:email/reset_key/:reset_key" component={ResetPassword}/>
 			</Switch>
 		</Router>

@@ -7,12 +7,9 @@ import { removeTokenLogout } from "../helperFunctions/axiosInstace"
 // used withRouter wrapper 
 // https://stackoverflow.com/questions/42701129/how-to-push-to-history-in-react-router-v4#:~:text=Use%20the%20withRouter%20high-order%20component
 const Logout = (props) => {
-    // const { logout } = props
     removeTokenLogout()
-    // update state
-    // handleLogout()
     // send back to login page
-    return <Redirect to="/login" push={true}/>
+    return <Redirect to="/signin" push={true}/>
 }
 
 export default withRouter(Logout)

@@ -9,8 +9,7 @@
       name="description"
       content="Web site created using create-react-app"
     />
-    <!-- https://developers.google.com/identity/sign-in/web/build-button -->
-    <meta name="google-signin-client_id" content="111156550551-rglahe5pmnp3ds8692gjsgavdtn9ti6s.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="%REACT_APP_CLIENT_ID%">
     <link rel="stylesheet" href="%PUBLIC_URL%/styles.css">
 
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
@@ -44,27 +43,7 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script>
-      function onSuccess(googleUser) {
-        console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-      }
-      function onFailure(error) {
-        console.log(error);
-      }
-      function renderButton() {
-        gapi.signin2.render('my-signin2', {
-          'scope': 'profile email',
-          'width': 378,
-          'height': 36,
-          'longtitle': true,
-          'theme': 'dark',
-          'onsuccess': onSuccess,
-          'onfailure': onFailure
-        });
-      }
-    </script>
-  
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script> 
   </body>
 </html>

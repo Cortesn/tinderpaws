@@ -12,7 +12,10 @@ const SignupPage = () => {
     return (
         // main container for the signup forms set to max width of screen
         <Grid container>
-            <Grid xs={12} sm={7} md={5} lg={4} xl={3} sx={{margin: 'auto'}} item>
+            <Grid 
+                xs={12} 
+                sx={{margin: 'auto', maxWidth: '420px ! important', padding: 0}} 
+                item>
                 <Paper elevation={10} >
                         <Tabs 
                             sx={{

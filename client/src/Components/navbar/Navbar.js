@@ -5,25 +5,42 @@ referenced MUI Drawer: https://mui.com/components/drawers/#temporary-drawer
 */
 
 import React from 'react';
-import { AppBar, Box, Toolbar, IconButton, Typography } from '@mui/material';
+import { 
+    AppBar, 
+    Box, 
+    Toolbar, 
+    IconButton, 
+    Typography, 
+    MenuItem, 
+    Menu} from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import PetsIcon from '@mui/icons-material/Pets';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MobileMenu from './MobileMenu.js'
 import NavLink from './NavLink.js';
 import useNavbarState from '../../hooks/useNavbarState.js'
+
 export default function Navbar(props) {
     const {account} = props
-
     // drawer state and toggle
     const anchor = 'right';
     const [state, toggleDrawer] = useNavbarState({[anchor]:false});
 
+    // ==== for the account menu popper ====
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     return (
         // Main navbar items
-        <Box sx={{ flexGrow: 1 , paddingBottom:'20px'}}>
-            <AppBar position="static">
-                <Toolbar>
+        <Box sx={{ flexGrow: 2 , paddingBottom:'20px'}}>
+            <AppBar position="static" >
+                <Toolbar >
                     <IconButton
                         size="large"
                         edge="start"
@@ -68,34 +85,56 @@ export default function Navbar(props) {
                     {/* divider */}
                     <Box sx={{ flexGrow: 1 }} />
                     {/* login/signup */}
-                    <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>
-                        {account.auth ?
-                            <div style={{height: '100%'}}>
-                                <Typography component="div" sx={{display: 'inline-block'}}>
-                                {account.email}
-                                </Typography>
-                                
-                                <IconButton
-                                    size="large"
-                                    edge="end"
-                                    aria-label="logout current user"
-                                    color="inherit"
-                                    href='/logout'>
-                                        
-                                    <LogoutIcon />
-                                </IconButton>
-                            </div>
-                        :
+                    {account.auth ?
+                        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                            <Typography component="div" sx={{display: 'inline-block'}}>
+                            {account.email}
+                            </Typography>
+                            
                             <IconButton
                                 size="large"
                                 edge="end"
-                                aria-label="account of current user"
+                                aria-label="logout current user"
                                 color="inherit"
-                                href='/login'>
+                                href='/signout'>  
+                                <LogoutIcon />
+                            </IconButton>
+                        </Box>
+                    :
+                        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                            <IconButton
+                                size="large"
+                                edge="end"
+                                color="inherit"
+                                id="navbar-menu-popper"
+                                aria-expanded={open ? 'true' : undefined}
+                                aria-haspopup="true"
+                                onClick={handleClick}>
                                 <AccountCircle />
                             </IconButton>
-                        }        
-                    </Box>
+
+                            <Menu
+                                id="account-menu"
+                                aria-labelledby="account-menu-options"
+                                anchorEl={anchorEl}
+                                open={open}
+                                onClose={handleClose} >
+                                <MenuItem 
+                                    component='a'
+                                    href='/signup'
+                                    onClick={handleClose}>
+                                    Create an Account
+                                </MenuItem>
+                                <MenuItem 
+                                    component='a'
+                                    href='/signin'
+                                    onClick={handleClose}>
+                                    Sign in
+                                </MenuItem>
+                            </Menu>
+                        </Box>
+                    }        
+                    
                     {/* render mobile menu */}
                     <Box sx={{ display: { sm: 'flex', md: 'none' } }}>
                         <MobileMenu 
