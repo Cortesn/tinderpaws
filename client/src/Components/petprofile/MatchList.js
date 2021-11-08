@@ -1,7 +1,6 @@
 import React from 'react'
 import { 
     Box,
-    Fab,
     Button, 
     Divider, 
     Grid, 
@@ -13,14 +12,13 @@ import {
     IconButton
 } from '@mui/material';
 import PetsIcon from '@mui/icons-material/Pets';
-import CloseIcon from '@mui/icons-material/Close';
 import useButtonState from '../../hooks/useButtonState';
 import MatchItem from './MatchItem';
 
 
 /* Returns a compiled list of user matches for a specific pet */
 const MatchList = (props) => {
-    const {buttonClicked, handleButtonChange, matches, addMatch, deleteMatch, snackBar} = props;
+    const {buttonClicked, handleButtonChange, matches, deleteMatch, snackBar} = props;
     const [editClicked, handleEditChange] = useButtonState(false);
     // add a listener to check for new matches + addMatch
     // or check for chats with match.user_id

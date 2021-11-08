@@ -1,21 +1,29 @@
 import React, {useState} from "react";
-import { Avatar, Grid, Link, Paper, Stack, Typography } from '@mui/material';
+import { Avatar, Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
 import FormTemplate from '../Components/forms/FormTemplate';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import GoogleAuth from "../Components/GoogleAuth";
 
-
-export const LoginScreen = (props) => {
+export const LoginScreen = () => {
 	const [passwordReset, setPasswordReset] = useState(false)
 	const handleChange = () => {
 		setPasswordReset(!passwordReset);
 	}
+	const [gAlert, setGAlert] = useState({ error: null , success: null })
 
 	return (
-		// main container for the signup forms set to max width of screen
-        <Grid container>
-            <Grid xs={12} sm={7} md={5} lg={4} xl={3} sx={{margin: 'auto'}} item>
+		//  main container for the signup forms set to max width of screen
+        <Grid container >
+            <Grid 
+				xs={12} 
+				sx={{margin: 'auto', maxWidth: '420px ! important'}} 
+				item>
                 <Paper elevation={10} >
-					<Stack spacing={2}>
+					<Stack 
+						direction="column"
+						justifyContent="center"
+						alignItems="center"
+						spacing={2}>
 
 						<Avatar sx={{margin:'auto', marginTop: '2rem'}}>
 							<VpnKeyIcon />
@@ -25,23 +33,24 @@ export const LoginScreen = (props) => {
 							<Typography variant='h6' sx={{textAlign: 'center'}}>Sign in</Typography>
 							{/* link to signup page  */}
 							<Typography variant='subtitle1' sx={{textAlign: 'center', marginBottom: '1rem'}}>Don't have an account? Click  
-								<Link 
+								<Typography 
+									component='a' 
+									align='center'
 									href='/signup' 
-									underline='none' 
-									color='primary'
-									sx={{fontSize: '1rem'}}> here
-								</Link>
+									sx={{
+										'&:link': { textDecoration: 'none' },
+										'&:visited': { color: '#1976d2' }
+									}}> here
+								</Typography>
 							</Typography>
-
-
-							<div style={{width: '90%', margin: 'auto'}}>
-								<FormTemplate 
-									type={'login'} 
-									button={'Login'}/>
-							</div>
+							
+							<FormTemplate 
+								gAlert={gAlert}
+								type={'login'} 
+								button={'Sign in'}/>
 
 							{/* forgot password -> reset password page */}
-							<Typography variant='subtitle1' sx={{paddingBottom: '2rem', textAlign: 'center'}}>
+							<Typography variant='subtitle1' sx={{textAlign: 'center'}}>
 								<Link 
 									id='btn-forgot-password'
 									component='button'
@@ -52,10 +61,15 @@ export const LoginScreen = (props) => {
 										Forgot password?
 									</Link>
 							</Typography>
+
+							<Divider variant="middle" style={{ marginTop:20, marginBottom:20}}/>
+						
+							{/* google button */}
+							<GoogleAuth setGAlert={setGAlert} type={'login'}/>
 						</div>
 						
 						{/* forgot password screen -> reset */}
-						<div style={{display: passwordReset ? 'block' : 'none' }}>
+						<div style={{ width: '100%', display: passwordReset ? 'block' : 'none' }}>
 							<Typography variant='h6' sx={{textAlign: 'center'}}>Forgot password?</Typography>
 							{/* link to signup page  */}
 							<Typography variant='subtitle1' sx={{textAlign: 'center'}}>
@@ -67,7 +81,6 @@ export const LoginScreen = (props) => {
 
 							<div style={{width: '90%', margin: 'auto'}}>
 								<FormTemplate 
-									// handleAuthChange={handleAuthChange}
 									type={'forgotPassword'} 
 									button={'Submit'}/>
 							</div>
@@ -84,10 +97,7 @@ export const LoginScreen = (props) => {
 								</Link>
 							</Typography>
 						</div>
-					
-						
-						
-						
+
 					</Stack>
                 </Paper>
             </Grid>
