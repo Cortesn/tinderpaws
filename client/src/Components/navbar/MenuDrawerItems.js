@@ -32,6 +32,7 @@ export default function MenuDrawerItems(anchor, toggleDrawer, account){
                     }}>
                     <ListItemText primary='Menu' />
                     <IconButton 
+                        id='btn-nav-drawer-close'
                         component='span' 
                         onClick={toggleDrawer(anchor, false)}
                         color='inherit'>
@@ -41,28 +42,28 @@ export default function MenuDrawerItems(anchor, toggleDrawer, account){
 
                 <Divider />
 
-                <ListItem button component='a' href='/' key='Home'>
+                <ListItem button id='btn-nav-drawer-home' component='a' href='/' key='Home'>
                     <ListItemText primary='Home' />
                 </ListItem>
 
-                <ListItem button component='a' href='/mission' key='Mission'>
+                <ListItem button id='btn-nav-drawer-mission' component='a' href='/mission' key='Mission'>
                     <ListItemText primary='Mission' />
                 </ListItem>
 
                 { account.shelter_id || account.employee_id || account.user_id ?
-                <ListItem button component='a' href='/news' key='News'>
+                <ListItem button id='btn-nav-drawer-news' component='a' href='/news' key='News'>
                     <ListItemText primary='News' />
                 </ListItem>
                 : null}
 
                 { account.employee_id || account.user_id ?
-                <ListItem button component='a' href='/user' key='Pets'>
+                <ListItem button id='btn-nav-drawer-pets' component='a' href='/user' key='Pets'>
                     <ListItemText primary='Pets' />
                 </ListItem>
                 : null }
 
                 { account.employee_id || account.shelter_id ?
-                <ListItem button component='a' href='/adminHome' key='Admin'>
+                <ListItem button id='btn-nav-drawer-admin' component='a' href='/adminHome' key='Admin'>
                     <ListItemText primary='Admin' />
                 </ListItem>
                 : null }
@@ -78,20 +79,20 @@ export default function MenuDrawerItems(anchor, toggleDrawer, account){
 
             <List>
                 {account.auth ? 
-                    <ListItem button component='a' href='/signout' key='Signout'>
+                    <ListItem button id='btn-nav-drawer-signout' component='a' href='/signout' key='Signout'>
                         <ListItemText primary='Sign out' />
                         <LogoutIcon sx={{paddingRight: '8px'}}/>
                     </ListItem>
                 :
                     <>
-                        <ListItem button component='a' href='/signup' key='Signup'>
+                        <ListItem button id='btn-nav-drawer-signup' component='a' href='/signup' key='Signup'>
                             <ListItemIcon>
                                 <AccountCircle/>
                             </ListItemIcon>
                             <ListItemText primary='Create an Account' />
                         </ListItem>
 
-                        <ListItem button component='a' href='/signin' key='Signin'>
+                        <ListItem button id='btn-nav-drawer-signin' component='a' href='/signin' key='Signin'>
                             
                             <ListItemIcon>
                                 <VpnKeyIcon/>

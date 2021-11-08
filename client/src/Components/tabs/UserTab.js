@@ -36,6 +36,7 @@ const UserTab = () => {
                     Complete this form to create a new user account!
                 </Typography>
                 <Typography 
+                    id='btn-user-to-signin'
                     component='a' 
                     align='center'
                     href='/signin' 
@@ -56,7 +57,7 @@ const UserTab = () => {
             <Divider variant="middle" style={{width:'100%', marginTop:20, marginBottom:20}}/>
             {/* google button */}
             <div style={{ marginTop: 0}}>
-                <GoogleAuth setGAlert={setGAlert} type={'signup'}/>
+                <GoogleAuth id='btn-signup-g-oauth' setGAlert={setGAlert} type={'signup'}/>
             </div>
         </Stack>
     )

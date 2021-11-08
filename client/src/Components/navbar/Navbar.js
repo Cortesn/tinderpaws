@@ -97,7 +97,7 @@ export default function Navbar(props) {
                                 edge="end"
                                 aria-label="logout current user"
                                 color="inherit"
-                                id="logout"
+                                id="nav_logout"
                                 href='/signout'>  
                                 <LogoutIcon />
                             </IconButton>
@@ -122,12 +122,14 @@ export default function Navbar(props) {
                                 open={open}
                                 onClose={handleClose} >
                                 <MenuItem 
+                                    id='btn-popper-signup'
                                     component='a'
                                     href='/signup'
                                     onClick={handleClose}>
                                     Create an Account
                                 </MenuItem>
                                 <MenuItem 
+                                    id='btn-popper-signin'
                                     component='a'
                                     href='/signin'
                                     onClick={handleClose}>

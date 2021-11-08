@@ -13,7 +13,7 @@ const MobileMenu = (props) => {
 
     return(
         <React.Fragment key={anchor}>
-            <IconButton onClick={toggleDrawer(anchor, true)}>
+            <IconButton id='btn-mobile-nav-toggle' onClick={toggleDrawer(anchor, true)}>
                 <MenuIcon sx={{color:'white'}}/>
             </IconButton>
             <Drawer

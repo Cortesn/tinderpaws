@@ -55,6 +55,7 @@ const ShelterTab = () => {
             </Typography>
             
             <Typography 
+                id="signup-acct-exists"
                 component='a' 
                 align='center'
                 href='/signin' 
