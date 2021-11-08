@@ -68,7 +68,7 @@ const ShelterTab = () => {
             <FormGroup>
                 <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
                     <Typography>Shelter</Typography>
-                        <Switch onChange={toggleForms} />
+                        <Switch id="shelter_emp_switch" onChange={toggleForms} />
                     <Typography>Employee</Typography>
                 </Stack>
             </FormGroup>

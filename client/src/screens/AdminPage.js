@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
+// import { useParams } from "react-router";
 import {
 	Container,
 	Grid,
@@ -11,16 +11,17 @@ import {
 } from "@mui/material";
 import { PetCard } from "../Components/adminpage/PetCard";
 import useInputState from "../hooks/useInputState";
-import { api } from "../helperFunctions/axiosInstace";
+import { api, setToken } from "../helperFunctions/axiosInstace";
 
 export const AdminPage = () => {
-	const { id } = useParams(); // User Id from URL
+	// const { id } = useParams(); // User Id from URL
 	const [petState, setPetState] = useState([]);
 	const [filter, handleFilterChange] = useInputState("");
 
 	useEffect(() => {
 		// Get all shelter pets from DB to show as initial page
-		const petUrl = `/adminHome/${id}/pets`;
+		const petUrl = `/adminHome/pets`;
+		setToken(localStorage.token)
 		api.get(petUrl).then((response) => {
 			response.data.forEach((pet) => {
 				pet.images = pet.images.split(",");

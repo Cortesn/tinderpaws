@@ -100,6 +100,7 @@ const AnimalCardSection = ({petState, setPetState, id }) => {
 				</Container>
 				<Container sx={{ textAlign: "center" }}>
 					<IconButton
+						id="leftSwipe"
 						onClick={() => swipe("left")}
 						color="secondary"
 						sx={{ mr: "5vw" }}
@@ -107,6 +108,7 @@ const AnimalCardSection = ({petState, setPetState, id }) => {
 						<Clear fontSize="large" />
 					</IconButton>
 					<IconButton
+						id="rightSwipe"
 						onClick={() => swipe("right")}
 						color="error"
 						sx={{ ml: "5vw" }}

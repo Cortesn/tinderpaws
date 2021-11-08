@@ -47,6 +47,7 @@ export default function Navbar(props) {
                         color="inherit"
                         aria-label="open drawer"
                         sx={{ mr: 2 }}
+                        id="nav_home"
                         href="/">
                         <PetsIcon sx={{ fontSize: "2rem" }}/>
                         <Typography
@@ -63,17 +64,17 @@ export default function Navbar(props) {
                         
                         {/* displays the "News feed" */}
                         { account.shelter_id || account.employee_id || account.user_id ?
-                            <NavLink name={'News'} link={'/news'} />
+                            <NavLink name={'News'} id="nav_news" link={'/news'} />
                         : null }
 
                         {/* displays the "Pets button to view available pets" */}
                         { account.employee_id || account.user_id ?
-                            <NavLink name={'Pets'} link={'/user'} />
+                            <NavLink name={'Pets'} id="nav_pet" link={'/user'} />
                         : null }
 
                         {/* displays the "page to manage shelter pets */}
                         { account.employee_id || account.shelter_id ?
-                            <NavLink name={'Admin'} link={'/adminHome'} />
+                            <NavLink name={'Manage'} id="nav_admin" link={'/adminHome'} />
                         : null }
 
                         {/* displays the "page to manage shelter employees" */}
@@ -96,6 +97,7 @@ export default function Navbar(props) {
                                 edge="end"
                                 aria-label="logout current user"
                                 color="inherit"
+                                id="logout"
                                 href='/signout'>  
                                 <LogoutIcon />
                             </IconButton>

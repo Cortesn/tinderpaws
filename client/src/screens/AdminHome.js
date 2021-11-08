@@ -85,7 +85,7 @@ const AdminHome = () => {
                         <Typography
                         variant="subtitle2"
                         align="right">
-                            <CancelIcon sx={{color: "#1976d2"}} onClick={toggleShelterForm}/>
+                            <CancelIcon id="hide_shelter_update" sx={{color: "#1976d2"}} onClick={toggleShelterForm}/>
                         </Typography>
                         { shelterInfoState &&  <FormTemplate 
                                 form={FormInputs} 
@@ -103,13 +103,13 @@ const AdminHome = () => {
                 justifyContent="center"
                 spacing={6}>
                     <ThemeProvider theme={theme}>
-                        <Button variant="contained" href="/addAnimalProfile">
+                        <Button id="addpet" variant="contained" href="/addpet">
                             Add new animal profile
                         </Button>
-                        <Button variant="contained" href="/admin/editpet">
+                        <Button id="editpet" variant="contained" href="/admin/pets">
                             Edit animal profile
                         </Button>
-                        <Button variant="contained" onClick={toggleShelterForm}>
+                        <Button id="editshelter" variant="contained" onClick={toggleShelterForm}>
                             Edit shelter info
                         </Button>
                     </ThemeProvider>
