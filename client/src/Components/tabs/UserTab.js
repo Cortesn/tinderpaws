@@ -56,7 +56,7 @@ const UserTab = () => {
             <Divider variant="middle" style={{width:'100%', marginTop:20, marginBottom:20}}/>
             {/* google button */}
             <div style={{ marginTop: 0}}>
-                <GoogleAuth setGAlert={setGAlert}/>
+                <GoogleAuth setGAlert={setGAlert} type={'signup'}/>
             </div>
         </Stack>
     )

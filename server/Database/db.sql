@@ -53,7 +53,7 @@ CREATE TABLE Pets (
 	shelter_id int NOT NULL,
 	FOREIGN KEY (type) REFERENCES Animals (animal_id),
 	FOREIGN KEY (status) REFERENCES Statuses (status_id),
-	FOREIGN KEY (shelter_id) REFERENCES Shelters (shelter_id)
+	FOREIGN KEY (shelter_id) REFERENCES Shelters (shelter_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Dispositions (
@@ -78,7 +78,7 @@ CREATE TABLE Employees (
 	password varchar(255) NOT NULL,
 	date_created date NOT NULL,
 	reset_key varchar(25),
-	FOREIGN KEY (shelter_id) REFERENCES Shelters (shelter_id)
+	FOREIGN KEY (shelter_id) REFERENCES Shelters (shelter_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Users (
@@ -99,7 +99,7 @@ CREATE TABLE Matches (
 	user_id int NOT NULL,
 	date_matched date NOT NULL,
 	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id) ON DELETE CASCADE,
-  	FOREIGN KEY (user_id) REFERENCES Users (user_id),
+  	FOREIGN KEY (user_id) REFERENCES Users (user_id) ON DELETE CASCADE,
 	CONSTRAINT UNIQUE (match_id, pet_id)
 );
 

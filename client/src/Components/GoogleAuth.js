@@ -1,9 +1,10 @@
+
 import React, {useEffect} from 'react'
 import { api, setToken } from '../helperFunctions/axiosInstace'
 
 
 const GoogleAuth = (props) => {
-    const {setGAlert} = props
+    const { setGAlert, type } = props
 
     // https://developers.google.com/identity/sign-in/web/build-button 
     function onSuccess(googleUser) {
@@ -11,12 +12,13 @@ const GoogleAuth = (props) => {
         const id_token = googleUser.getAuthResponse().id_token
         googleUser.disconnect()
         api.defaults.headers.common['x-auth-token'] = id_token
-        api.post('/login/google')
+        api.post(`/${type}/google`)
             .then(response => {
                 setToken(response.data.token)
                 // *********
                 // need to fix this. infinite page render/request due to state
                 setGAlert({error: null, success: 'Success!'})
+                // could check auth state and direct to pagebased on id type
                 window.location = '/'
             })
             .catch(error => {
@@ -40,15 +42,22 @@ const GoogleAuth = (props) => {
     }
 
     useEffect(()=> {
-        window.gapi.signin2.render('my-signin2', {
-            'scope': 'profile email',
-            'width': 378,
-            'height': 36,
-            'longtitle': true,
-            'theme': 'dark',
-            'onsuccess': onSuccess,
-            'onfailure': onFailure
-            });
+        window.gapi.load('auth2', () => {
+            window.gapi.auth2.init({
+                client_id : process.env.REACT_APP_CLIENT_ID,
+                scope : 'profile email'
+            }).then(
+                window.gapi.signin2.render('my-signin2', {
+                    'scope': 'profile email',
+                    'width': 378,
+                    'height': 36,
+                    'longtitle': true,
+                    'theme': 'dark',
+                    'onsuccess': onSuccess,
+                    'onfailure': onFailure
+                })
+            )
+        })
     })
 
     return ( <div id="my-signin2" ></div> )

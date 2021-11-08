@@ -64,7 +64,7 @@ export const LoginScreen = () => {
 							<Divider variant="middle" style={{ marginTop:20, marginBottom:20}}/>
 						
 							{/* google button */}
-							<GoogleAuth setGAlert={setGAlert}/>
+							<GoogleAuth setGAlert={setGAlert} type={'login'}/>
 						</div>
 						
 						{/* forgot password screen -> reset */}
