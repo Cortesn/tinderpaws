@@ -1,7 +1,8 @@
-import React from 'react'
-import { Avatar, Link, Grid, Typography} from '@mui/material';
+import React, {useState} from 'react'
+import { Avatar, Typography, Stack, Divider} from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import FormTemplate from '../forms/FormTemplate';
+import GoogleAuth from '../GoogleAuth';
 
 
 const UserTab = () => {
@@ -12,10 +13,7 @@ const UserTab = () => {
         password: '',
         passwordConfirm: ''
     }
-<<<<<<< Updated upstream
-    return (
-        <>
-=======
+
     const [gAlert, setGAlert] = useState({ error: null , success: null })
 
     return (     
@@ -25,19 +23,45 @@ const UserTab = () => {
             alignItems="center"
             spacing={1}
             sx={{maxWidth: '370px', margin: '0 auto'}}>
->>>>>>> Stashed changes
+
             <Avatar sx={{margin:'auto'}}>
                 <PersonIcon/>
             </Avatar>
-            <Typography variant='subtitle1' sx={{textAlign: 'center'}}>Please complete this form to create a new user account!</Typography>
-            <Grid item sx={{textAlign:'center'}}>
-                <Link href='/login' underline='none' color='primary'>Already have an account?</Link>
-            </Grid>
+
+            <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                spacing={0}>
+
+                <Typography variant='h6'>Sign up</Typography>
+                <Typography align='center' variant='subtitle1'>
+                    Complete this form to create a new user account!
+                </Typography>
+                <Typography 
+                    component='a' 
+                    align='center'
+                    href='/signin' 
+                    sx={{
+                        '&:link': { textDecoration: 'none' },
+                        '&:visited': { color: '#1976d2' }
+                    }}>
+                    Already have an account?
+                </Typography>
+            </Stack>
+            
             <FormTemplate 
+                gAlert={gAlert}
                 type={'user'} 
-                button={'Signup'}
+                button={'Sign up'}
                 data= {initData}/>
-        </>
+
+            <Divider variant="middle" style={{width:'100%', marginTop:20, marginBottom:20}}/>
+            {/* google button */}
+            <div style={{ marginTop: 0}}>
+                <GoogleAuth setGAlert={setGAlert} type={'signup'}/>
+            </div>
+        </Stack>
     )
 }
 

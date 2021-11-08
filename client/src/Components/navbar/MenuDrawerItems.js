@@ -78,8 +78,8 @@ export default function MenuDrawerItems(anchor, toggleDrawer, account){
 
             <List>
                 {account.auth ? 
-                    <ListItem button component='a' href='/logout' key='Logout'>
-                        <ListItemText primary='Log Out' />
+                    <ListItem button component='a' href='/signout' key='Signout'>
+                        <ListItemText primary='Sign out' />
                         <LogoutIcon sx={{paddingRight: '8px'}}/>
                     </ListItem>
                 :
@@ -91,12 +91,12 @@ export default function MenuDrawerItems(anchor, toggleDrawer, account){
                             <ListItemText primary='Create an Account' />
                         </ListItem>
 
-                        <ListItem button component='a' href='/login' key='Login'>
+                        <ListItem button component='a' href='/signin' key='Signin'>
                             
                             <ListItemIcon>
                                 <VpnKeyIcon/>
                             </ListItemIcon>
-                            <ListItemText primary='Log in' />
+                            <ListItemText primary='Sign in' />
                         </ListItem>
                     </>
                 }   

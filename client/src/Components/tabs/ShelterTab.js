@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { 
-    Grid, 
     Typography, 
     Avatar, 
-    Link, 
     FormGroup, 
     Stack, 
     Switch } from '@mui/material';
@@ -39,9 +37,7 @@ const ShelterTab = () => {
     })
 
     return (
-<<<<<<< Updated upstream
-        <>
-=======
+
         <Stack
             direction="column"
             justifyContent="center"
@@ -49,15 +45,28 @@ const ShelterTab = () => {
             spacing={1}
             sx={{maxWidth: '370px', margin: '0 auto'}}>
 
->>>>>>> Stashed changes
             <Avatar sx={{margin:'auto'}}>
                 <PersonIcon/>
             </Avatar>
-            <Typography variant='subtitle1' sx={{textAlign: 'center'}}>Please complete this form to create a new shelter or employee account!</Typography>
-            <Grid item sx={{textAlign:'center'}}>
-                <Link href='/login' underline='none' color='primary' sx={{textAlign:'center'}}>Already have an account?</Link>
-            </Grid>
 
+            <Typography variant='h6'>Sign up</Typography>
+            <Typography 
+                variant='subtitle1' 
+                sx={{textAlign: 'center'}}>
+                Complete this form to create a new shelter or employee account!
+            </Typography>
+            
+            <Typography 
+                component='a' 
+                align='center'
+                href='/signin' 
+                sx={{
+                    '&:link': { textDecoration: 'none' },
+                    '&:visited': { color: '#1976d2' }
+                }}>
+                Already have an account?
+            </Typography>
+            
             <FormGroup>
                 <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
                     <Typography>Shelter</Typography>
@@ -66,14 +75,18 @@ const ShelterTab = () => {
                 </Stack>
             </FormGroup>
 
-            { shelter ? <FormTemplate 
-                            type={'shelter'} 
-                            button={'Signup'}/> 
-                        : <FormTemplate 
-                            type={'employee'} 
-                            button={'Signup'}
-                            data={{options:options}}/> }
-        </>
+            <div style={{width: '100%', paddingBottom: '24px'}}>
+                { shelter ? 
+                    <FormTemplate 
+                        type={'shelter'} 
+                        button={'Sign up'}/> 
+                :   <FormTemplate 
+                        type={'employee'} 
+                        button={'Sign up'}
+                        data={{options:options}}/> 
+                }
+            </div>
+        </Stack>
     )
 }
 
