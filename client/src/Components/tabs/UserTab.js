@@ -12,8 +12,20 @@ const UserTab = () => {
         password: '',
         passwordConfirm: ''
     }
+<<<<<<< Updated upstream
     return (
         <>
+=======
+    const [gAlert, setGAlert] = useState({ error: null , success: null })
+
+    return (     
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={1}
+            sx={{maxWidth: '370px', margin: '0 auto'}}>
+>>>>>>> Stashed changes
             <Avatar sx={{margin:'auto'}}>
                 <PersonIcon/>
             </Avatar>

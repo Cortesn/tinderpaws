@@ -39,7 +39,17 @@ const ShelterTab = () => {
     })
 
     return (
+<<<<<<< Updated upstream
         <>
+=======
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={1}
+            sx={{maxWidth: '370px', margin: '0 auto'}}>
+
+>>>>>>> Stashed changes
             <Avatar sx={{margin:'auto'}}>
                 <PersonIcon/>
             </Avatar>
