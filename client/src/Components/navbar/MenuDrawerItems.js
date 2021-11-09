@@ -77,7 +77,7 @@ export default function MenuDrawerItems(anchor, toggleDrawer, account){
             <Divider />
 
             <List>
-                {account.auth ? 
+                {account.isAuth ? 
                     <ListItem button component='a' href='/signout' key='Signout'>
                         <ListItemText primary='Sign out' />
                         <LogoutIcon sx={{paddingRight: '8px'}}/>

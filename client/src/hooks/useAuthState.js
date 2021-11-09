@@ -7,7 +7,7 @@ const useAuthState = (initialValue) => {
 
     // toggle to auth state
     const handleAuthChange = () => {
-        setAuthValues({ ...authValues, [authValues.auth]: !authValues.auth })
+        setAuthValues({ ...authValues, [authValues.isAuth]: !authValues.isAuth })
     }
 
     // check if valid token and load user or admin information
@@ -21,8 +21,10 @@ const useAuthState = (initialValue) => {
                 .then( response => {
                     // set state here
                     var data = response.data
-                    data.auth = true
+                    data.isAuth = true
                     // console.log(data)
+                    // call auth.js and set state
+                    // auth.setAuth(data)
                     setAuthValues(data)
                 })
                 .catch( error => {
@@ -36,11 +38,11 @@ const useAuthState = (initialValue) => {
                 shelter_id: '',
                 employee_id: '',
                 email: '', 
-                auth: false
+                isAuth: false
             })
         }
 
-    }, [authValues.auth]) // monitor if auth changes to false then remove other data
+    }, [authValues.isAuth]) // monitor if auth changes to false then remove other data
 
     return [authValues, handleAuthChange]
 }

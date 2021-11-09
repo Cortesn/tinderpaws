@@ -5,6 +5,7 @@ referenced MUI Drawer: https://mui.com/components/drawers/#temporary-drawer
 */
 
 import React from 'react';
+import { Link } from 'react-router-dom'
 import { 
     AppBar, 
     Box, 
@@ -47,7 +48,8 @@ export default function Navbar(props) {
                         color="inherit"
                         aria-label="open drawer"
                         sx={{ mr: 2 }}
-                        href="/">
+                        component={Link}
+                        to="/">
                         <PetsIcon sx={{ fontSize: "2rem" }}/>
                         <Typography
                             variant="h6"
@@ -68,7 +70,7 @@ export default function Navbar(props) {
 
                         {/* displays the "Pets button to view available pets" */}
                         { account.employee_id || account.user_id ?
-                            <NavLink name={'Pets'} link={'/user'} />
+                            <NavLink name={'Pets'} link={'/userHome'}/>
                         : null }
 
                         {/* displays the "page to manage shelter pets */}
@@ -85,7 +87,7 @@ export default function Navbar(props) {
                     {/* divider */}
                     <Box sx={{ flexGrow: 1 }} />
                     {/* login/signup */}
-                    {account.auth ?
+                    {account.isAuth ?
                         <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                             <Typography component="div" sx={{display: 'inline-block'}}>
                             {account.email}

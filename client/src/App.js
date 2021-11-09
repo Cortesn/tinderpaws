@@ -16,6 +16,7 @@ import AddPet from "./screens/AddPet";
 import UserHome from "./screens/UserHome";
 import useAuthState from "./hooks/useAuthState";
 import NotFound404 from "./screens/NotFound404";
+import AuthRoute from "./Components/AuthRoute";
 
 const App = () => {
 	const [authValues] = useAuthState({
@@ -23,8 +24,9 @@ const App = () => {
 		shelter_id: "",
 		employee_id: "",
 		email: "",
-		auth: false,
+		isAuth: false,
 	});
+
 	return (
 		<Router>
 			<Navbar account={authValues} />
@@ -40,7 +42,7 @@ const App = () => {
 				<Route exact path="/userHome/:id" component={UserHome}/>
 				<Route exact path="/addpet" component={AddPet}/>
 				<Route exact path="/adminHome" component={AdminHome}/>
-				<Route exact path="/news" component={NewsFeed}/>
+				<AuthRoute exact path="/news" component={NewsFeed} auth={authValues} />
         		<Route exact path="/resetPassword/email/:email/reset_key/:reset_key" component={ResetPassword}/>
 				<Route path="*" component={NotFound404} />
 			</Switch>
@@ -48,3 +50,6 @@ const App = () => {
 	);
 };
 export default App;
+
+
+
