@@ -15,6 +15,7 @@ import AdminHome from "./screens/AdminHome";
 import AddPet from "./screens/AddPet";
 import UserHome from "./screens/UserHome";
 import useAuthState from "./hooks/useAuthState";
+import NotFound404 from "./screens/NotFound404";
 
 const App = () => {
 	const [authValues] = useAuthState({
@@ -41,6 +42,7 @@ const App = () => {
 				<Route exact path="/adminHome" component={AdminHome}/>
 				<Route exact path="/news" component={NewsFeed}/>
         		<Route exact path="/resetPassword/email/:email/reset_key/:reset_key" component={ResetPassword}/>
+				<Route path="*" component={NotFound404} />
 			</Switch>
 		</Router>
 	);
