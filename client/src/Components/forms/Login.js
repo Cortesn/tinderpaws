@@ -14,7 +14,7 @@ const loginValidation = () => Yup.object({
 });
 
 // formik state & login
-const LoginFormik = () => useFormik({
+const LoginFormik = ({...props}) => useFormik({
     initialValues: {
         email: '',
         password: '',
@@ -31,9 +31,10 @@ const LoginFormik = () => useFormik({
                 // remove error if exists
                 setFieldValue('error', '')
                 setFieldValue('success', 'Success!')
-                
+            
+                props.handleAuthChange()
                 // redirects page
-                window.location = '/'
+                props.history.push('/')
             })
             .catch(function(error){
                 console.log(error)

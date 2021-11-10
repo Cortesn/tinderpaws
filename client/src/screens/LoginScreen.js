@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import { Avatar, Divider, Grid, Link, Paper, Stack, Typography } from '@mui/material';
+import { Link } from 'react-router-dom'
+import { Avatar, Divider, Grid, Paper, Link as MuiLink, Stack, Typography } from '@mui/material';
 import FormTemplate from '../Components/forms/FormTemplate';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import GoogleAuth from "../Components/GoogleAuth";
 
-export const LoginScreen = () => {
+export const LoginScreen = (props) => {
 	const [passwordReset, setPasswordReset] = useState(false)
 	const handleChange = () => {
 		setPasswordReset(!passwordReset);
@@ -33,10 +34,20 @@ export const LoginScreen = () => {
 							<Typography variant='h6' sx={{textAlign: 'center'}}>Sign in</Typography>
 							{/* link to signup page  */}
 							<Typography variant='subtitle1' sx={{textAlign: 'center', marginBottom: '1rem'}}>Don't have an account? Click  
-								<Typography 
+								{/* <Typography 
 									component='a' 
 									align='center'
 									href='/signup' 
+									sx={{
+										'&:link': { textDecoration: 'none' },
+										'&:visited': { color: '#1976d2' }
+									}}> here
+								</Typography> */}
+
+								<Typography 
+									component={Link} 
+									align='center'
+									to='/signup' 
 									sx={{
 										'&:link': { textDecoration: 'none' },
 										'&:visited': { color: '#1976d2' }
@@ -45,26 +56,28 @@ export const LoginScreen = () => {
 							</Typography>
 							
 							<FormTemplate 
+								{...props}
 								gAlert={gAlert}
 								type={'login'} 
 								button={'Sign in'}/>
 
 							{/* forgot password -> reset password page */}
 							<Typography variant='subtitle1' sx={{textAlign: 'center'}}>
-								<Link 
+								<MuiLink 
 									component='button'
 									onClick={handleChange}
 									underline='none' 
 									color='primary'
 									sx={{marginTop: '1rem', fontSize: '1rem'}}>
 										Forgot password?
-									</Link>
+								</MuiLink>
 							</Typography>
+							
 
 							<Divider variant="middle" style={{ marginTop:20, marginBottom:20}}/>
 						
 							{/* google button */}
-							<GoogleAuth setGAlert={setGAlert} type={'login'}/>
+							<GoogleAuth setGAlert={setGAlert} type={'login'} {...props}/>
 						</div>
 						
 						{/* forgot password screen -> reset */}
@@ -86,13 +99,13 @@ export const LoginScreen = () => {
 
 							{/* forgot password -> reset password page */}
 							<Typography variant='subtitle1' sx={{paddingBottom: '2rem', textAlign: 'center'}}>
-								<Link 
+								<MuiLink 
 									component='button'
 									onClick={handleChange}
 									underline='none' 
 									color='primary'
 									sx={{marginTop: '1rem', fontSize: '1rem'}}> Back to sign in
-								</Link>
+								</MuiLink>
 							</Typography>
 						</div>
 

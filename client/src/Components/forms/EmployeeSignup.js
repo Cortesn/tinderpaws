@@ -32,7 +32,7 @@ const employeeValidation = () => Yup.object({
 
 
 // formik state
-const EmployeeFormik = () => useFormik({
+const EmployeeFormik = ({...props}) => useFormik({
     enableReinitialize: true, // allows to reset the initial fields
     initialValues: {
         shelterOptions: '',
@@ -58,18 +58,15 @@ const EmployeeFormik = () => useFormik({
                 // remove error if exists
                 setFieldValue('error', '')
                 setFieldValue('success', 'Success!')
-
+                
+                props.handleAuthChange()
                 // redirects page
-                window.location = '/'
+                props.history.push('/')
             })
             .catch( error => {
                 // set error msg with formik
                 setFieldValue('error', error.response.data.msg)
             })
-            // might not need this promise -> always executes
-            // .then(function(){
-            //     // resetForm()
-            // })
     },
 });
 

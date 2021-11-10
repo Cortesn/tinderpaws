@@ -6,7 +6,7 @@ import { FormInputs, formik } from './FormInputs';
 
 const FormTemplate = (props) => {
     const {type, button, data, gAlert} = props;
-    const {filteredInputs} = FormInputs(type, data);
+    const {filteredInputs} = FormInputs(type, data, {...props});
     var tempInput = null;
     return (
         <Stack
