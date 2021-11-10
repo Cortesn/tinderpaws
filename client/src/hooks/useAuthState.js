@@ -14,7 +14,6 @@ const useAuthState = (initialValue) => {
     useEffect( () => {
         // if token exists in local storage
         if (localStorage.getItem('token')){
-            console.log('load')
             // set headers
             setToken(localStorage.token)
             // check if user is authenticated

@@ -2,17 +2,24 @@ import React from 'react'
 import { Route, Redirect } from "react-router-dom";
 import { Box, CircularProgress } from '@mui/material';
 
-// style this
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    maxWidth: '85%',
+    bgcolor: 'background.paper',
+};
+
 const Progress =() => (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={style}>
         <CircularProgress />
     </Box>
 )
 
-
 // check if user is authorized to content
 const allowedScreens = (auth, path) => {
-    console.log(auth)
     if (!auth.isAuth) {
         return false
     } else if (path.includes('news')) {
