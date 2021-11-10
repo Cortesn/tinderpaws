@@ -22,7 +22,7 @@ userRouter.get('/pets', auth, (req, res) => {
             console.log(error)
             return
         } 
-        console.log(results)
+        // console.log(results)
         return res.status(200).json(results)
     })
 });
@@ -43,7 +43,7 @@ userRouter.post('/match', (req,res)=>{
             console.log(error)
             return
         } 
-        console.log("from /user/matches", results)
+        // console.log("from /user/matches", results)
         return res.status(201).json(results)
     })
 });
