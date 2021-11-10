@@ -94,11 +94,12 @@ export default function Navbar(props) {
                             </Typography>
                             
                             <IconButton
+                                component={Link}
                                 size="large"
                                 edge="end"
                                 aria-label="logout current user"
                                 color="inherit"
-                                href='/signout'>  
+                                to='/signout'>  
                                 <LogoutIcon />
                             </IconButton>
                         </Box>
@@ -122,14 +123,14 @@ export default function Navbar(props) {
                                 open={open}
                                 onClose={handleClose} >
                                 <MenuItem 
-                                    component='a'
-                                    href='/signup'
+                                    component={Link}
+                                    to='/signup'
                                     onClick={handleClose}>
                                     Create an Account
                                 </MenuItem>
                                 <MenuItem 
-                                    component='a'
-                                    href='/signin'
+                                    component={Link}
+                                    to='/signin'
                                     onClick={handleClose}>
                                     Sign in
                                 </MenuItem>
