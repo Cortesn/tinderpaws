@@ -43,7 +43,7 @@ export default function Navbar(props) {
                     </IconButton>
 
                     <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>
-                        <NavLink name={'Mission'} link={'/mission'} />
+                        <NavLink name={'Mission'} id="nav_mission" link={'/mission'} />
                         
                         {/* displays the "News feed" */}
                         { account.shelter_id || account.employee_id || account.user_id ?
@@ -93,6 +93,7 @@ export default function Navbar(props) {
                                 edge="end"
                                 aria-label="account of current user"
                                 color="inherit"
+                                id="loginicon"
                                 href='/login'>
                                 <AccountCircle />
                             </IconButton>

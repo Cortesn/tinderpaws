@@ -21,7 +21,8 @@ const {
     reload,
     currentURL,
     dropDown,
-    goBack
+    goBack,
+    clear
 } = require('taiko');
 const assert = require("assert");
 const headless = process.env.headless_chrome.toLowerCase() === 'true';
@@ -35,13 +36,14 @@ afterSuite(async () => {
 });
 // static pages 
 step("Home page", async () => {
-    const url = "http://ec2-54-186-169-222.us-west-2.compute.amazonaws.com/"
+    const url = "http://ec2-54-177-253-69.us-west-1.compute.amazonaws.com/"
     await goto(url);
     await click($('.MuiButton-root')); // change this to id of button
 });
 
 step("Mission Page", async function () {
-    await click($('#signUp')); // should work once client dir updated in aws
+    await click($('#nav_mission'));
+    await click($('#signupLink')); // should work once client dir updated in aws
 });
 /*
 **********************************************************
@@ -56,7 +58,6 @@ step("Mission Page", async function () {
     - log out
 */
 step("user sign up", async function () {
-    await click(button('Start your journey')) // should work. 
     // click on text First Name
     await click($('#fname'))
     await write('test100')
@@ -66,20 +67,20 @@ step("user sign up", async function () {
     await write('user100')
 
     // click on text First Name
-    await click(text('#email'))
+    await click($('#email'))
     await write('testuser100@test_user.com')
 
     // click on text First Name
-    await click(text('#password'))
+    await click($('#password'))
     await write('12345678')
 
     // click on text First Name
-    await click(text('#password2'))
+    await click($('#password2'))
     await write('12345678')
 
     await click(button('signup'))
 
-    await click(link({id: 'logout'}))
+    await click($('#logout'))
 
 
 });
@@ -88,8 +89,10 @@ step("user log in", async function () {
     await click($('#email'));
     await write('testuser100@test_user.com')
 
-    await click(text('password'))
+    await click($('#password'))
     await write('12345678')
+
+    await click($('#formButton'))
 });
 
 // user home
@@ -98,41 +101,43 @@ step("left swipe", async function () {
     // hard code url but need to change this. login should redirect to userHome/:user_id of current user
     await goto('http://ec2-54-186-169-222.us-west-2.compute.amazonaws.com/user')
     
-    await click(button({id: 'leftSwipe'}))
+    await click($('#leftSwipe'))
 });
 
 step("right swipe", async function () {
-    await click(button({id: 'rightSwipe'}))
+    await click($('#rightSwipe'))
 });
 
 step("profile update", async function () {
     // click on accordion
     await click($('#profile-settings-header'))
     // click on name field, change name
-    await click(text('First Name'))
+    await clear(click($('#fname')))
     await write('test101')
     // click on update
-    await click(button('Update Profile'))
+    await click($('#formButton'))
     // refresh page
     await reload(currentURL)
     // click on accordion
     await click($('#profile-settings-header'))
 });
 
+// leaving off here for now
 step("animal filter", async function () {
     // click on accordion
     await click($('#filter-settings-header'))
     // click on drop down and select first entry
-    await dropDown('Shelters').select({index: '0'})
+    await click(textBox('Shelters'))
+    await click(text('Test Shelter No.1'))
     // click on cats
-    await checkBox('Cat').check()
+    await click($('#Cat'))
     // click on 1st and 2nd breeds
-    await dropDown('Breeds').select({index: '0'})
-    await dropDown('Breeds').select({index: '1'})
+    await click(textBox('Breeds'))
+    await click(text('Golden Retriever'))
     // click click on 1st disposition
-    await checkBox('Good with other animals').check()
+    await click($('#animals'))
     // click on update
-    await click(button('Apply Filter'))
+    await click($('#applyAnimalFilter'))
 });
 
 step("matches", async function () {
@@ -142,7 +147,7 @@ step("matches", async function () {
 
 step("user log out", async function () {
     // click on log out icon
-    await click(link({id: 'logout'}))
+    await click($('#logout'))
 });
 
 // /*
@@ -167,7 +172,7 @@ step("user log out", async function () {
 // */
 step("employee sign up", async function () {
     // redirect to sign up
-    await goto('http://ec2-54-186-169-222.us-west-2.compute.amazonaws.com/signup')
+    await goto('http://ec2-54-177-253-69.us-west-1.compute.amazonaws.com/signup')
     // click on shelter sign up
     await click(button('Shelter Sign Up'))
     // click on Employee switch
