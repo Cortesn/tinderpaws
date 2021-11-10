@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { api, setToken } from "../helperFunctions/axiosInstace";
+import { api, setToken, removeTokenLogout } from "../helperFunctions/axiosInstace";
 
 // hook to manage login/signup authenication state
 const useAuthState = (initialValue) => {
@@ -27,6 +27,7 @@ const useAuthState = (initialValue) => {
                 })
                 .catch( error => {
                     console.log(error)
+                    removeTokenLogout()
                 })
         } else {
             // remove values from state
