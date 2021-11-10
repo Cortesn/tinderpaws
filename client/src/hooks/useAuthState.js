@@ -5,15 +5,16 @@ import { api, setToken } from "../helperFunctions/axiosInstace";
 const useAuthState = (initialValue) => {
     const [authValues, setAuthValues] = useState(initialValue)
 
-    // toggle to auth state
+    // toggle to auth state to trigger the re render and api call
     const handleAuthChange = () => {
-        setAuthValues({ ...authValues, [authValues.isAuth]: !authValues.isAuth })
+        setAuthValues({ ...authValues, isAuth : !authValues.isAuth })
     }
 
     // check if valid token and load user or admin information
     useEffect( () => {
         // if token exists in local storage
         if (localStorage.getItem('token')){
+            console.log('load')
             // set headers
             setToken(localStorage.token)
             // check if user is authenticated
@@ -22,14 +23,11 @@ const useAuthState = (initialValue) => {
                     // set state here
                     var data = response.data
                     data.isAuth = true
-                    // console.log(data)
-                    // call auth.js and set state
-                    // auth.setAuth(data)
+                    data.loading = false
                     setAuthValues(data)
                 })
                 .catch( error => {
-                    // console.log(error)
-                    // set axios interceptors to handle browser errors
+                    console.log(error)
                 })
         } else {
             // remove values from state
@@ -38,7 +36,8 @@ const useAuthState = (initialValue) => {
                 shelter_id: '',
                 employee_id: '',
                 email: '', 
-                isAuth: false
+                isAuth: false,
+                loading: true
             })
         }
 

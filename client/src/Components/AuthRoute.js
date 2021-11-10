@@ -1,9 +1,18 @@
 import React from 'react'
 import { Route, Redirect } from "react-router-dom";
+import { Box, CircularProgress } from '@mui/material';
+
+// style this
+const Progress =() => (
+    <Box sx={{ display: 'flex' }}>
+        <CircularProgress />
+    </Box>
+)
 
 
 // check if user is authorized to content
 const allowedScreens = (auth, path) => {
+    console.log(auth)
     if (!auth.isAuth) {
         return false
     } else if (path.includes('news')) {
@@ -17,23 +26,21 @@ const allowedScreens = (auth, path) => {
     }
 }
 
-
 // route to verify auth state
 const AuthRoute = ({ component: Component, auth, ...rest }) => {
-
-    return(
+    return (
         <Route
             {...rest}
             render={props =>
-                allowedScreens(auth, props.location.pathname) ? (
-                <Component {...props}/>
-                ) : (
-                <Redirect
+                auth.loading ? 
+                ( <Progress /> ) :
+                allowedScreens(auth, props.location.pathname) ? 
+                ( <Component {...props}/>) : 
+                ( <Redirect
                     to={{
                         pathname: "/unauthorized",
                         state: { from: props.location }
-                    }}
-                />
+                    }}/>
                 )
             }
         />
