@@ -39,7 +39,7 @@ const App = () => {
 				<Route exact path="/user" component={UserPage} />  {/* To be removed, combined into userHome/:id */}
 				<Route exact path="/signup" render={props => <SignupPage {...props} handleAuthChange={handleAuthChange}/>} />
 				<Route exact path="/admin/edit/:pet_id" component={AdminEditPetPage} />
-				<Route exact path="/signout" component={Logout} />
+				<Route exact path="/signout" render={props => <Logout {...props} handleAuthChange={handleAuthChange} />} />
 				<Route exact path="/adminHome/:id/pets" render={() => <AdminPage />} />
 				<AuthRoute exact path="/userHome" component={UserHome} auth={authValues}/>
 				<Route exact path="/addpet" component={AddPet}/>
