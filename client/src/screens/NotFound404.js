@@ -22,7 +22,7 @@ const NotFound404 = () => {
                     Back to home page
                 </Link>
             </Typography>
-            <img src='assets/images/blackcat.png' alt='black cat'/>
+            <img src='/assets/images/blackcat.png' alt='black cat'/>
 
         </Stack>
     )

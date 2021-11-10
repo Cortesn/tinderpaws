@@ -22,7 +22,7 @@ const NotAuth401 = () => {
                     Back to home page
                 </Link>
             </Typography>
-            <img src='assets/images/beagle.png' alt='beagle'/>
+            <img src='/assets/images/beagle.png' alt='beagle'/>
             
         </Stack>
     )
