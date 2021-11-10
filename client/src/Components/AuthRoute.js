@@ -39,7 +39,7 @@ const AuthRoute = ({ component: Component, auth, ...rest }) => {
         <Route
             {...rest}
             render={props =>
-                auth.loading ? 
+                auth.isAuth && auth.loading ? 
                 ( <Progress /> ) :
                 allowedScreens(auth, props.location.pathname) ? 
                 ( <Component {...props}/>) : 
