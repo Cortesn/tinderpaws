@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom'
 import { Avatar, Typography, Stack, Divider} from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import FormTemplate from '../forms/FormTemplate';
 import GoogleAuth from '../GoogleAuth';
 
 
-const UserTab = () => {
+const UserTab = (props) => {
     const initData = {
         fname: '',
         lname:'',
@@ -38,7 +39,7 @@ const UserTab = () => {
                 <Typography align='center' variant='subtitle1'>
                     Complete this form to create a new user account!
                 </Typography>
-                <Typography 
+                {/* <Typography 
                     component='a' 
                     align='center'
                     href='/signin' 
@@ -47,10 +48,21 @@ const UserTab = () => {
                         '&:visited': { color: '#1976d2' }
                     }}>
                     Already have an account?
+                </Typography> */}
+                <Typography 
+                    component={Link} 
+                    align='center'
+                    to='/signin' 
+                    sx={{
+                        '&:link': { textDecoration: 'none' },
+                        '&:visited': { color: '#1976d2' }
+                    }}>Already have an account?
                 </Typography>
+                
             </Stack>
             
             <FormTemplate 
+                {...props}
                 gAlert={gAlert}
                 type={'user'} 
                 button={'Sign up'}

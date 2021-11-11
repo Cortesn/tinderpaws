@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Redirect, withRouter } from 'react-router-dom';
 import { removeTokenLogout } from "../helperFunctions/axiosInstace"
 
@@ -8,6 +8,11 @@ import { removeTokenLogout } from "../helperFunctions/axiosInstace"
 // https://stackoverflow.com/questions/42701129/how-to-push-to-history-in-react-router-v4#:~:text=Use%20the%20withRouter%20high-order%20component
 const Logout = (props) => {
     removeTokenLogout()
+    
+    useEffect(() => {
+        props.handleAuthChange()
+    },[props])
+    
     // send back to login page
     return <Redirect to="/signin" push={true}/>
 }

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { Link } from 'react-router-dom'
 import { 
     Typography, 
     Avatar, 
@@ -10,7 +11,7 @@ import FormTemplate from '../forms/FormTemplate';
 import { formik } from '../forms/FormInputs';
 import { api } from "../../helperFunctions/axiosInstace";
 
-const ShelterTab = () => {
+const ShelterTab = (props) => {
     const [shelter, setShelter] = React.useState(true);
     const toggleForms = (event, value) => {
         setShelter(value ? false : true);
@@ -56,7 +57,7 @@ const ShelterTab = () => {
                 Complete this form to create a new shelter or employee account!
             </Typography>
             
-            <Typography 
+            {/* <Typography 
                 component='a' 
                 align='center'
                 href='/signin' 
@@ -65,6 +66,15 @@ const ShelterTab = () => {
                     '&:visited': { color: '#1976d2' }
                 }}>
                 Already have an account?
+            </Typography> */}
+            <Typography 
+                component={Link} 
+                align='center'
+                to='/signin' 
+                sx={{
+                    '&:link': { textDecoration: 'none' },
+                    '&:visited': { color: '#1976d2' }
+                }}>Already have an account?
             </Typography>
             
             <FormGroup>
@@ -78,9 +88,11 @@ const ShelterTab = () => {
             <div style={{width: '100%', paddingBottom: '24px'}}>
                 { shelter ? 
                     <FormTemplate 
+                        {...props}
                         type={'shelter'} 
                         button={'Sign up'}/> 
                 :   <FormTemplate 
+                        {...props}
                         type={'employee'} 
                         button={'Sign up'}
                         data={{options:options}}/> 

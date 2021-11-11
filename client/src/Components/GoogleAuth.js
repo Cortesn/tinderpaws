@@ -5,7 +5,7 @@ import { api, setToken } from '../helperFunctions/axiosInstace'
 
 
 const GoogleAuth = (props) => {
-    const { setGAlert, type } = props
+    const { setGAlert, type, handleAuthChange } = props
     const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.down('md')); 
 
@@ -18,14 +18,13 @@ const GoogleAuth = (props) => {
         api.post(`/${type}/google`)
             .then(response => {
                 setToken(response.data.token)
-                // *********
-                // need to fix this. infinite page render/request due to state
                 setGAlert({error: null, success: 'Success!'})
-                // could check auth state and direct to pagebased on id type
-                window.location = '/'
+                // trigger rerender
+                handleAuthChange()
+                props.history.push('/') // need to add a delay! => renders too fast!
             })
             .catch(error => {
-                console.log(error.response)
+                console.log(error)
                 if (error.response.status === 400){
                     setGAlert({error: error.response.data.msg, success: null})
                 } else if (error.response.status === 401){
