@@ -1,10 +1,13 @@
-
 import React, {useEffect} from 'react'
+import { useTheme } from '@mui/material/styles';
+import { useMediaQuery } from '@mui/material'
 import { api, setToken } from '../helperFunctions/axiosInstace'
 
 
 const GoogleAuth = (props) => {
     const { setGAlert, type, handleAuthChange } = props
+    const theme = useTheme();
+    const mobile = useMediaQuery(theme.breakpoints.down('md')); 
 
     // https://developers.google.com/identity/sign-in/web/build-button 
     function onSuccess(googleUser) {
@@ -48,7 +51,7 @@ const GoogleAuth = (props) => {
             }).then(
                 window.gapi.signin2.render('my-signin2', {
                     'scope': 'profile email',
-                    'width': 378,
+                    'width': mobile ? 310 : 370,
                     'height': 36,
                     'longtitle': true,
                     'theme': 'dark',

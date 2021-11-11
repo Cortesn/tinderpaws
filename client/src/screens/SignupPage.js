@@ -4,7 +4,7 @@ import UserTab from '../Components/tabs/UserTab';
 import ShelterTab from '../Components/tabs/ShelterTab';
 import TabPanel from '../Components/tabs/TabPanel';
 import useTabState from '../hooks/useTabState';
-
+import { SignInUpStyle } from "../Components/Themes";
 
 const SignupPage = (props) => {
     const [value, handleChange] = useTabState(0);
@@ -14,8 +14,9 @@ const SignupPage = (props) => {
         <Grid container>
             <Grid 
                 xs={12} 
-                sx={{margin: 'auto', maxWidth: '420px ! important', padding: 0}} 
+                sx={{margin: 'auto', padding: 0}} 
                 item>
+                <SignInUpStyle >
                 <Paper elevation={10} >
                         <Tabs 
                             sx={{
@@ -46,6 +47,7 @@ const SignupPage = (props) => {
                     </TabPanel>
                    
                 </Paper>
+                </SignInUpStyle>
             </Grid>
         </Grid>
     )

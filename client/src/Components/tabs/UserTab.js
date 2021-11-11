@@ -14,14 +14,17 @@ const UserTab = (props) => {
         password: '',
         passwordConfirm: ''
     }
+
     const [gAlert, setGAlert] = useState({ error: null , success: null })
 
-    return (
+    return (     
         <Stack
             direction="column"
             justifyContent="center"
             alignItems="center"
-            spacing={1}>
+            spacing={1}
+            sx={{maxWidth: '370px', margin: '0 auto'}}>
+
             <Avatar sx={{margin:'auto'}}>
                 <PersonIcon/>
             </Avatar>

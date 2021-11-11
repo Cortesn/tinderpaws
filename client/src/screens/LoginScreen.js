@@ -4,6 +4,8 @@ import { Avatar, Divider, Grid, Paper, Link as MuiLink, Stack, Typography } from
 import FormTemplate from '../Components/forms/FormTemplate';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import GoogleAuth from "../Components/GoogleAuth";
+import { SignInUpStyle } from "../Components/Themes";
+
 
 export const LoginScreen = (props) => {
 	const [passwordReset, setPasswordReset] = useState(false)
@@ -17,14 +19,15 @@ export const LoginScreen = (props) => {
         <Grid container >
             <Grid 
 				xs={12} 
-				sx={{margin: 'auto', maxWidth: '420px ! important'}} 
+				sx={{margin: 'auto'}} 
 				item>
-                <Paper elevation={10} >
-					<Stack 
-						direction="column"
-						justifyContent="center"
-						alignItems="center"
-						spacing={2}>
+				<SignInUpStyle >
+					<Paper elevation={10} >
+						<Stack 
+							direction="column"
+							justifyContent="center"
+							alignItems="center"
+							spacing={2}>
 
 						<Avatar sx={{margin:'auto', marginTop: '2rem'}}>
 							<VpnKeyIcon />
@@ -96,7 +99,11 @@ export const LoginScreen = (props) => {
 									type={'forgotPassword'} 
 									button={'Submit'}/>
 							</div>
-
+							
+							{/* google button */}
+							<GoogleAuth setGAlert={setGAlert} type={'login'}/>
+							
+							
 							{/* forgot password -> reset password page */}
 							<Typography variant='subtitle1' sx={{paddingBottom: '2rem', textAlign: 'center'}}>
 								<MuiLink 
@@ -107,10 +114,14 @@ export const LoginScreen = (props) => {
 									sx={{marginTop: '1rem', fontSize: '1rem'}}> Back to sign in
 								</MuiLink>
 							</Typography>
-						</div>
+					
+							
 
-					</Stack>
-                </Paper>
+							
+							</div>
+						</Stack>
+					</Paper>
+				</SignInUpStyle>
             </Grid>
         </Grid>
 	);
