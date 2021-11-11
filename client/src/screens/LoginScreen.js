@@ -102,8 +102,7 @@ export const LoginScreen = (props) => {
 							
 							{/* google button */}
 							<GoogleAuth setGAlert={setGAlert} type={'login'}/>
-							
-							
+									
 							{/* forgot password -> reset password page */}
 							<Typography variant='subtitle1' sx={{paddingBottom: '2rem', textAlign: 'center'}}>
 								<MuiLink 
@@ -114,10 +113,7 @@ export const LoginScreen = (props) => {
 									sx={{marginTop: '1rem', fontSize: '1rem'}}> Back to sign in
 								</MuiLink>
 							</Typography>
-					
-							
 
-							
 							</div>
 						</Stack>
 					</Paper>
