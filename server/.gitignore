@@ -30,3 +30,4 @@ dbcon.js
 package-lock.json
 
 .env
+.env_prev

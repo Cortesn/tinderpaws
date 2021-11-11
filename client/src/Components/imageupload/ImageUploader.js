@@ -41,7 +41,7 @@ const ImageUploader = (props) => {
                 image={image} 
                 open={open} 
                 handleClose={handleClose}
-                pet_id={pet_id}/>
+                />
         </>
     )
 }

@@ -12,6 +12,7 @@ import UpdateProfileRequest from '../../helperFunctions/UserHome/updateProfileRe
 import signUpRequest from '../../helperFunctions/signUp.js/signUpRequest';
 import UserUpdateFormik from './UserUpdate';
 import PetInfoFormik from './PetInfoForm';
+import AddPetFormik from './AddPetForm';
 
 var formik;
 // all possible form inputs with validation
@@ -36,6 +37,8 @@ const FormInputs = (type, data) =>{
         formik = ResetPasswordFormik(data)
     }else if (type === 'pet'){
         formik = PetInfoFormik(data)
+    }else if (type === 'addPet'){
+        formik = AddPetFormik(data)
     }
 
     
@@ -84,7 +87,7 @@ const FormInputs = (type, data) =>{
             helperText: formik.touched.employeeId && formik.errors.employeeId
         },
         {
-            types: ['employee', 'pet'],
+            types: ['employee', 'pet', 'addPet'],
             id: 'name',
             label: 'Name',
             value: formik.values.name,
@@ -200,7 +203,7 @@ const FormInputs = (type, data) =>{
             }
         },
         {
-            types: ['pet'],
+            types: ['pet', 'addPet'],
             id: 'type',
             label: 'Type',
             value: formik.values.type,
@@ -210,7 +213,7 @@ const FormInputs = (type, data) =>{
             options: [{id: 1, name: 'Dog'}, {id: 2, name: 'Cat'}, {id: 3, name: 'Other'}]
         },
         {
-            types: ['pet'],
+            types: ['pet', 'addPet'],
             id: 'breed',
             label: 'Breed',
             value: formik.values.breed,
@@ -220,7 +223,7 @@ const FormInputs = (type, data) =>{
             // options: [{id: 1, name: 'Breed 1'}, {id: 2, name: 'Breed 2'}, {id: 3, name: 'Breed 3'}] // need to get breeds
         },
         {
-            types: ['pet'],
+            types: ['pet', 'addPet'],
             id: 'status',
             label: 'Status',
             value: formik.values.status,
@@ -230,7 +233,7 @@ const FormInputs = (type, data) =>{
             options: [{id: 1, name: 'Not Available'}, {id: 2, name: 'Available'}, {id: 3, name: 'Pending'}, {id: 4 , name: 'Adopted'}]
         },
         {
-            types: ['pet'],
+            types: ['pet', 'addPet'],
             id: 'dispositions',
             label: 'Dispositions',
             value: formik.values.dispositions || [],
@@ -241,7 +244,7 @@ const FormInputs = (type, data) =>{
             checkboxes: [{id: 1, name: 'Good with other animals'}, {id: 2, name: 'Good with children'}, {id: 3, name: 'Animal must be leashed at all times'}]
         },
         {
-            types: ['pet'],
+            types: ['pet', 'addPet'],
             id: 'description',
             label: 'Description',
             value: formik.values.description,
