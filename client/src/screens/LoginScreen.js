@@ -4,6 +4,7 @@ import { Avatar, Divider, Grid, Paper, Link as MuiLink, Stack, Typography } from
 import FormTemplate from '../Components/forms/FormTemplate';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import GoogleAuth from "../Components/GoogleAuth";
+import { SignInUpStyle } from "../Components/Themes";
 
 export const LoginScreen = (props) => {
 	const [passwordReset, setPasswordReset] = useState(false)
@@ -18,6 +19,7 @@ export const LoginScreen = (props) => {
 				xs={12} 
 				sx={{margin: 'auto', maxWidth: '420px ! important'}} 
 				item>
+				<SignInUpStyle>
                 <Paper elevation={10} >
 					<Stack 
 						direction="column"
@@ -28,7 +30,7 @@ export const LoginScreen = (props) => {
 						<Avatar sx={{margin:'auto', marginTop: '2rem'}}>
 							<VpnKeyIcon />
 						</Avatar>
-						
+
 						{/* normal login screen */}
 						<div style={{ display: !passwordReset ? 'block' : 'none' }}>
 							<Typography variant='h6' sx={{textAlign: 'center'}}>Sign in</Typography>
@@ -99,6 +101,7 @@ export const LoginScreen = (props) => {
 						</div>
 					</Stack>
                 </Paper>
+				</SignInUpStyle>
             </Grid>
         </Grid>
 	);
