@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Drawer, useMediaQuery } from '@mui/material';
+import { Drawer, IconButton, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuDrawerItems from './MenuDrawerItems.js'
@@ -13,9 +13,9 @@ const MobileMenu = (props) => {
 
     return(
         <React.Fragment key={anchor}>
-            <Button onClick={toggleDrawer(anchor, true)}>
+            <IconButton onClick={toggleDrawer(anchor, true)}>
                 <MenuIcon sx={{color:'white'}}/>
-            </Button>
+            </IconButton>
             <Drawer
                 sx={{'.MuiDrawer-paper': {
                         width: sm ? 250: '100% ! important'

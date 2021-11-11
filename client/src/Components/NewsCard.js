@@ -9,7 +9,6 @@ import {
     CardHeader} from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
-import celebration from '../assets/images/celebration.png'
 
 const NewsCard = (props) => {
     const {data} = props
@@ -32,7 +31,7 @@ const NewsCard = (props) => {
                         alt="pet"/>
                     {/* image overlay */}
                     <img 
-                        src={celebration} 
+                        src={'assets/images/celebration.png'} 
                         alt='celebration overlay'
                         style={{
                             position: 'absolute',
