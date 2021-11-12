@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react";
 import {api, setToken} from '../helperFunctions/axiosInstace'
-import {
-	Grid,
-} from "@mui/material";
-import { useParams } from "react-router";
-import AnimalFilterSection from "../Components/userpage/AnimalFilterSection";
+import { Grid, useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles';
+// import { useParams } from "react-router";
+import AnimalFilterSection from "../Components/userpage/AnimalFilterSection2";
 import AnimalCardSection from "../Components/userpage/AnimalCardSection";
+import useButtonState from "../hooks/useButtonState";
 
-const UserHome = () => {
+const UserHome = (props) => {
 	const [petState, setPetState] = useState([]);  // Array of pets displayed on cards
 	const [shelters, setShelters] = useState(null);  // Shelters for the filter
-    const id = useParams();
-    console.log(id)
+    // const id = useParams();
+    // console.log(petState)
+
+	// reference to remove column spacing between cards
+    const theme = useTheme();
+    const desktop = useMediaQuery(theme.breakpoints.up('md')); 
+	// toggle views in mobile
+	const [buttonClicked, handleButtonChange] = useButtonState(false);
+
+
 	useEffect(() => {
 		// Get all shelters from DB for Filter
 		const url = "/filterSetting/shelters";
@@ -22,6 +30,7 @@ const UserHome = () => {
 		const petUrl = `/user/pets`;
         setToken(localStorage.token); // setting token to get user id
 		api.get(petUrl).then((response) => {
+			// console.log(response)
 			response.data.forEach((pet) => {
 				pet.images = pet.images.split(",");
 				pet.type = pet.animalType;
@@ -34,9 +43,27 @@ const UserHome = () => {
 
 
 	return (
-		<Grid container sx={{ width: "80%", mx: "auto" }}>
-			<AnimalFilterSection shelters={shelters} setPetState={setPetState}/>
-			<AnimalCardSection petState={petState} setPetState={setPetState} id={id}/>
+		<Grid 
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="stretch"
+            sx={{margin:'auto !important', maxWidth: 1400}} 
+            columnSpacing={{ md: desktop ? 1 : 0 }}
+            // ref={containerRef}
+			>
+			<AnimalFilterSection 
+				buttonClicked={buttonClicked}
+				handleButtonChange={handleButtonChange}
+				shelters={shelters} 
+				setPetState={setPetState}/>
+
+			<AnimalCardSection 
+				buttonClicked={buttonClicked}
+				handleButtonChange={handleButtonChange}
+				petState={petState} 
+				setPetState={setPetState} 
+				user_id={props.auth.user_id}/>
 		</Grid>
 	);
 };

@@ -1,120 +1,158 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import {
 	Grid,
 	IconButton,
-	Container,
+	Stack,
+	useMediaQuery
 } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
 import { Clear, Favorite } from "@mui/icons-material";
 import { AnimalCard } from "./AnimalCard";
 import { api } from "../../helperFunctions/axiosInstace";
 
-const alreadyRemoved = [];
 
-const AnimalCardSection = ({petState, setPetState, id }) => {
-	const childRefs = useMemo(() => {
-		console.log("from cR", petState);
-		return Array(petState.length)
+const AnimalCardSection = ({petState, user_id, buttonClicked, handleButtonChange}) => {
+	const [currentIndex, setCurrentIndex] = useState()
+	// insert a default placeholder in the front of the list used for end
+	// console.log(petState)
+	useEffect(() => {
+		setCurrentIndex(petState.length-1)
+	}, [petState.length])
+	
+	// used for outOfFrame closure
+	const currentIndexRef = useRef(currentIndex)
+
+	const childRefs = useMemo(() =>
+		 Array(petState.length)
 			.fill(0)
-			.map((i) => React.createRef());
-	}, [petState]);
+			.map((i) => React.createRef())
+	, [petState.length]); 
 
-	const swiped = (direction, idToDelete) => {
-		console.log("removing: " + idToDelete + " on the " + direction);
-		// setLastDirection(direction);
+	const updateCurrentIndex = (val) => {
+		setCurrentIndex(val)
+		currentIndexRef.current = val
+	}
+
+	// const canGoBack = currentIndex < petState.length - 1
+  	const canSwipe = currentIndex >= 0
+
+	const swiped = (direction, idToDelete, index) => {
+		updateCurrentIndex(index - 1)
 		// Add pet-user pair to db matches table
-		const data = { user_id: parseInt(id.id), pet_id: idToDelete };
+		const data = { user_id: user_id, pet_id: idToDelete };
 		if (direction === "right") {
 			api.post("/user/match", data).then((response) => {
-				console.log(response.data);
+				// console.log(response.data);
 			});
 		}
-
-		alreadyRemoved.push(idToDelete);
-		console.log("alreadyRemoved", alreadyRemoved);
 	};
 
-	const outOfFrame = (id) => {
-		console.log(id + " left the screen!");
-		const charactersState = petState.filter(
-			(character) => character.id !== id
-		);
-		console.log("before out of frame", petState);
-		setPetState(charactersState);
-		console.log("after out of frame", charactersState);
+	const outOfFrame = (pet_id, idx) => {
+		// handle the case in which go back is pressed before card goes outOfFrame
+		currentIndexRef.current >= idx && childRefs[idx].current.restoreCard()
 	};
 
-	const swipe = (dir) => {
-		const cardsLeft = petState.filter(
-			(person) => !alreadyRemoved.includes(person.id)
-		);
-		console.log("cardsLeft", cardsLeft);
-		if (cardsLeft.length) {
-			const toBeRemoved = cardsLeft[cardsLeft.length - 1].id; // Find the card object to be removed
-			console.log("tobeRemoved ", toBeRemoved);
-			const index = petState
-				.map((person) => person.id)
-				.indexOf(toBeRemoved); // Find the index of which to make the reference to
-			alreadyRemoved.push(toBeRemoved); // Make sure the next card gets removed next time if this card do not have time to exit the screen
-			console.log("found index", index);
-			console.log("childRefs", childRefs);
-			childRefs[index].current.swipe(dir); // Swipe the card!
+	const swipe = async (dir) => {
+		// console.log(canSwipe, currentIndex, childRefs[currentIndex])
+		if (canSwipe && currentIndex < petState.length) {
+			await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
 		}
 	};
 
+	// increase current index and show card
+	// const goBack = async () => {
+	// 	if (!canGoBack) return
+		// 	const newIndex = currentIndex + 1
+		// 	updateCurrentIndex(newIndex)
+		// 	await childRefs[newIndex].current.restoreCard()
+	// }
+
+	// reference to remove column spacing between cards
+    const theme = useTheme();
+    const desktop = useMediaQuery(theme.breakpoints.up('md')); 
+
+	const [detailRef, setDetailRef] = useState()
+	// console.log(detailRef)
+
+	const [detailHeight, setDetailHeight] = useState('')
+
+	useEffect(() => {
+		console.log(detailRef)
+		if (detailRef && desktop){
+			var height = 540 + detailRef.current.clientHeight
+			console.log(height, detailRef.current.clientHeight)
+			setDetailHeight(`${height}px ! important`)
+		}else{
+			setDetailHeight('540px ! important')
+		}
+	},[detailRef])
+
+
 	return (
-			<Grid
-				xs={12}
-				sm={7}
-				md={5}
-				lg={4}
-				xl={3}
-				sx={{ margin: "auto" }}
-				item
-			>
-				<Container
-					xs={12}
-					sm={9}
-					md={8}
-					lg={7}
-					xl={6}
-					sx={{
-						display: "flex",
-						justifyContent: "center",
-						marginTop: "2vh",
-						height: "720px",
-					}}
-					item
-					container
-				>
-					{petState.map((pet, index) => (
-						<AnimalCard
-							pet={pet}
-							key={pet.id}
-							swiped={swiped}
-							outOfFrame={outOfFrame}
-							swipe={swipe}
-							index={index}
-							childRefs={childRefs}
-						/>
-					))}
-				</Container>
-				<Container sx={{ textAlign: "center" }}>
-					<IconButton
-						onClick={() => swipe("left")}
-						color="secondary"
-						sx={{ mr: "5vw" }}
-					>
-						<Clear fontSize="large" />
-					</IconButton>
-					<IconButton
-						onClick={() => swipe("right")}
-						color="error"
-						sx={{ ml: "5vw" }}
-					>
-						<Favorite fontSize="large" />
-					</IconButton>
-				</Container>
-			</Grid>
+		<Grid 
+			item 
+			xs={12} sm={12} md={6} lg={4} 
+			sx={{ 
+				display: { xs: buttonClicked ? 'none':'block', md: 'block' },
+				maxWidth: '650px ! important',
+				paddingBottom: '2rem'
+				}}>
+			<div >
+				<Stack
+					direction="column"
+					justifyContent="center"
+					alignItems="center"
+					spacing={1}>
+
+					<div style={{
+						position: 'relative', 
+						width: '100%', 
+						maxWidth: '650px'}}>
+
+						{petState.map((pet, index) => (
+							<AnimalCard
+								pet={pet}
+								key={pet.id}
+								cardRef={childRefs[index]}
+								swiped={swiped}
+								outOfFrame={outOfFrame}
+								index={index}
+								setDetailRef={setDetailRef}/>
+						))}
+					</div>
+
+					{/* buttons */}
+					<Stack
+						direction="row"
+						justifyContent="center"
+						alignItems="center"
+						spacing={6}
+						sx={{ 
+							marginTop: desktop ? detailHeight : '440px ! important'
+							}}>
+				
+						<IconButton
+							onClick={() => swipe("left")}
+							color="secondary"
+							sx={{ 
+								boxShadow:'0px 5px 20px 0px rgba(0, 0, 0, 0.3)'
+								}}>
+							<Clear fontSize="large" />
+						</IconButton>
+						
+						<IconButton
+							onClick={() => swipe("right")}
+							color="error"
+							sx={{ 
+								boxShadow:'0px 5px 20px 0px rgba(0, 0, 0, 0.3)' 
+								}}>
+							<Favorite fontSize="large" />
+						</IconButton>
+					</Stack>
+				</Stack>
+
+			</div>
+		</Grid>
 	);
 };
 
