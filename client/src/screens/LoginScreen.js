@@ -6,7 +6,7 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import GoogleAuth from "../Components/GoogleAuth";
 import { SignInUpStyle } from "../Components/Themes";
 
-export const LoginScreen = (props) => {
+const LoginScreen = (props) => {
 	const [passwordReset, setPasswordReset] = useState(false)
 	const handleChange = () => {
 		setPasswordReset(!passwordReset);
@@ -106,3 +106,5 @@ export const LoginScreen = (props) => {
         </Grid>
 	);
 };
+
+export default LoginScreen
