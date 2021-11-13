@@ -39,10 +39,10 @@ const AuthRoute = ({ component: Component, auth, ...rest }) => {
         <Route
             {...rest}
             render={props =>
-                auth.isAuth && auth.loading ? 
+                auth.loading ? 
                 ( <Progress /> ) :
                 allowedScreens(auth, props.location.pathname) ? 
-                ( <Component {...props}/>) : 
+                ( <Component {...props} auth={auth}/>) : 
                 ( <Redirect
                     to={{
                         pathname: "/unauthorized",
