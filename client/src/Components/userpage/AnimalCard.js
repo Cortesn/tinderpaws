@@ -18,18 +18,6 @@ import TinderCard from "react-tinder-card";
 import useImagesState from "../../hooks/useImagesState";
 
 
-const ExpandMore = styled((props) => {
-	const { expand, ...other } = props;
-	return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-	transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-	marginLeft: 'auto',
-	transition: theme.transitions.create('transform', {
-	  	duration: theme.transitions.duration.shortest,
-	}),
-}));
-
-
 export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, detailRef, handleHeightChange }) => {
 	const [imgIdx, prevImg, nextImg] = useImagesState();
 
@@ -77,6 +65,7 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, detailRef,
 					{/* back button */}
 					<IconButton
 						onClick={() => prevImg(imgIdx)}
+						onTouchStart={() => prevImg(imgIdx)}
 						sx={{
 							position: "absolute",
 							color: "white",
@@ -89,6 +78,7 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, detailRef,
 					{/* next button */}
 					<IconButton
 						onClick={() => nextImg(pet.images, imgIdx)}
+						onTouchStart={() => nextImg(pet.images, imgIdx)}
 						sx={{
 							position: "absolute",
 							color: "white",
@@ -126,18 +116,16 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, detailRef,
 							</Typography>
 						</span>
 
-						<ExpandMore
-							expand={expanded}
+						<IconButton
 							onClick={handleExpandClick}
-							aria-expanded={expanded}
+							onTouchStart={handleExpandClick}
 							aria-label="show more"
-							sx={{color: 'white' }}>
+							sx={{color: 'white'}}>
 							<InfoIcon fontSize='large' />
-						</ExpandMore>
+						</IconButton>
 					</Stack>
 
 					{/* pet information details*/}
-
 					<Collapse in={expanded} >
 						<CardContent ref={detailRef} >
 						<Stack
@@ -151,6 +139,7 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, detailRef,
 							</Typography>
 							<IconButton 
 								onClick={handleExpandClick}
+								onTouchStart={handleExpandClick}
 								sx={{color: 'orange' }}>
 								<ArrowUpwardIcon fontSize='large'  />
 							</IconButton>

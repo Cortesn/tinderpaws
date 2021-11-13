@@ -11,7 +11,6 @@ const UserHome = (props) => {
 	const [petState, setPetState] = useState([]);  // Array of pets displayed on cards
 	const [shelters, setShelters] = useState(null);  // Shelters for the filter
     // const id = useParams();
-    // console.log(petState)
 
 	// reference to remove column spacing between cards
     const theme = useTheme();
@@ -27,18 +26,13 @@ const UserHome = (props) => {
 			setShelters(response.data);
 		});
 		// Get all pets from DB to show as initial page
-		const petUrl = `/user/pets`;
-        setToken(localStorage.token); // setting token to get user id
-		api.get(petUrl).then((response) => {
-			// console.log(response)
-			response.data.forEach((pet) => {
-				pet.images = pet.images.split(",");
-				pet.type = pet.animalType;
-				pet.id = pet.pet_id;
-				return pet;
+		if (petState.length === 0){
+			setToken(localStorage.token); // setting token to get user id
+			api.get('/pets').then((response) => {
+				console.log(response.data)
+				setPetState(response.data);
 			});
-			setPetState(response.data);
-		});
+		}
 	}, []);
 
 
@@ -52,12 +46,14 @@ const UserHome = (props) => {
             columnSpacing={{ md: desktop ? 1 : 0 }}
             // ref={containerRef}
 			>
+			
 			<AnimalFilterSection 
 				buttonClicked={buttonClicked}
 				handleButtonChange={handleButtonChange}
 				shelters={shelters} 
 				setPetState={setPetState}/>
-
+			
+			
 			<AnimalCardSection 
 				buttonClicked={buttonClicked}
 				handleButtonChange={handleButtonChange}
