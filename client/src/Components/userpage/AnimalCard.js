@@ -42,7 +42,7 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, detailRef,
 			
 			<TinderCard
 				className='tinderCard'
-				key={pet.name}
+				key={index}
 				ref={cardRef}
 				onSwipe={(dir) => swiped(dir, pet.pet_id, index)}
 				onCardLeftScreen={() => outOfFrame(pet.pet_id, index)}>
@@ -58,10 +58,13 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, detailRef,
 						image={pet.images[imgIdx]}
 						alt={pet.name}
 						sx={{
+							opacity: index===0? 0.3 : 1,
 							overflow: 'hidden',
 							objectFit: "cover ! important",
 						}}/>
 
+					{index !== 0 ?
+					<>
 					{/* back button */}
 					<IconButton
 						onClick={() => prevImg(imgIdx)}
@@ -149,8 +152,9 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, detailRef,
 							</Typography>
 
 						</CardContent>
-					</Collapse>		
-
+					</Collapse>	
+					</>	
+				: null}
 				</Card>
 			</TinderCard>
 		</Box>

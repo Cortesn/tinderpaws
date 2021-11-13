@@ -1,4 +1,11 @@
-import React, { useEffect, useState, useMemo, useRef, createRef } from "react";
+import 
+	React, { 
+		useEffect, 
+		useState, 
+		useMemo, 
+		useRef, 
+		createRef 
+	} from "react";
 import {
 	Grid,
 	IconButton,
@@ -7,14 +14,16 @@ import {
 } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import { Clear, Favorite } from "@mui/icons-material";
+import SettingsIcon from '@mui/icons-material/Settings';
+import PetsIcon from '@mui/icons-material/Pets';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { AnimalCard } from "./AnimalCard";
 import { api, setToken } from "../../helperFunctions/axiosInstace";
 
 
-const AnimalCardSection = ({petState, user_id, buttonClicked, handleButtonChange}) => {
+const AnimalCardSection = ({petState, buttonClicked }) => {
 	const [currentIndex, setCurrentIndex] = useState()
-	// insert a default placeholder in the front of the list used for end
-	// console.log(petState)
+
 	useEffect(() => {
 		setCurrentIndex(petState.length-1)
 	}, [petState.length])
@@ -34,7 +43,7 @@ const AnimalCardSection = ({petState, user_id, buttonClicked, handleButtonChange
 	}
 
 	// const canGoBack = currentIndex < petState.length - 1
-  	const canSwipe = currentIndex >= 0
+  	const canSwipe = currentIndex >= 1
 
 	const swiped = (direction, idToDelete, index) => {
 		updateCurrentIndex(index - 1)
@@ -48,7 +57,7 @@ const AnimalCardSection = ({petState, user_id, buttonClicked, handleButtonChange
 		}
 	};
 
-	const outOfFrame = (pet_id, idx) => {
+	const outOfFrame = (idx) => {
 		// handle the case in which go back is pressed before card goes outOfFrame
 		currentIndexRef.current >= idx && childRefs[idx].current.restoreCard()
 	};
@@ -85,7 +94,6 @@ const AnimalCardSection = ({petState, user_id, buttonClicked, handleButtonChange
 		if (!expanded){
 			setIsExpanded(true)
 			const height = detailHeight.height + detailRef.current.clientHeight
-			
 			setDetailHeight({
 				...detailHeight, 
 				value: `${height}px ! important`})
@@ -142,7 +150,29 @@ const AnimalCardSection = ({petState, user_id, buttonClicked, handleButtonChange
 					justifyContent="center"
 					alignItems="center"
 					spacing={1}>
-
+						
+						{/* header menu in mobile */}
+						<Stack
+							direction="row"
+							justifyContent="space-between"
+							alignItems="center"
+							sx={{
+								display: { xs: 'flex', md: 'none'},
+								width: '95%',
+								maxWidth: desktop? 420 : 370}}>
+							<span>			
+								<IconButton>
+									<PetsIcon/>
+								</IconButton>
+								<IconButton>
+									<SettingsIcon/>
+								</IconButton>
+							</span>
+							<IconButton>
+								<AccountCircleIcon/>
+							</IconButton>
+						</Stack>
+						
 					<div
 						style={{
 						position: 'relative', 
@@ -152,7 +182,7 @@ const AnimalCardSection = ({petState, user_id, buttonClicked, handleButtonChange
 						{petState.map((pet, index) => (
 							<AnimalCard
 								pet={pet}
-								key={pet.pet_id}
+								key={index}
 								cardRef={childRefs[index]}
 								swiped={swiped}
 								outOfFrame={outOfFrame}
