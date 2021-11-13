@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
 	Typography,
 	Card,
@@ -6,13 +6,14 @@ import {
 	IconButton,
 	useMediaQuery,
 	Stack,
-	Grow,
 	Collapse,
-	CardContent
+	CardContent,
+	Box
 } from "@mui/material";
 import { useTheme, styled } from '@mui/material/styles';
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import InfoIcon from '@mui/icons-material/Info';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import TinderCard from "react-tinder-card";
 import useImagesState from "../../hooks/useImagesState";
 
@@ -29,31 +30,30 @@ const ExpandMore = styled((props) => {
 }));
 
 
-export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, setDetailRef }) => {
+export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, detailRef, handleHeightChange }) => {
 	const [imgIdx, prevImg, nextImg] = useImagesState();
 
 	// console.log(pet)
 	// reference to remove column spacing between cards
     const theme = useTheme();
     const desktop = useMediaQuery(theme.breakpoints.up('md')); 
-
 	const [expanded, setExpanded] = useState(false);
 	const handleExpandClick = () => {
 		setExpanded(!expanded);
+		handleHeightChange(expanded, detailRef)
 	};
-
-	// used to get the css of the expanded info details
-	const ref= useRef(null)
 
 	return (
 		// {/* absolute container to stack cards on top of each other */}
-		<div style={{
+		<Box sx={{
+			width: '100% ! important',
 			position:'absolute', 
 			left:'50%', 
 			transform:'translate(-50%, 0%)', 
-			width: desktop ? '370px' : '310px'}}>
+			}}>
 			
 			<TinderCard
+				className='tinderCard'
 				key={pet.name}
 				ref={cardRef}
 				onSwipe={(dir) => swiped(dir, pet.pet_id, index)}
@@ -70,8 +70,8 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, setDetailR
 						image={pet.images[imgIdx]}
 						alt={pet.name}
 						sx={{
-							width: "100%",
-							objectFit: "cover",
+							overflow: 'hidden',
+							objectFit: "cover ! important",
 						}}/>
 
 					{/* back button */}
@@ -80,7 +80,7 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, setDetailR
 						sx={{
 							position: "absolute",
 							color: "white",
-							top: "40%",
+							top: 200,
 							display: imgIdx === 0 ? "none" : "block",
 						}}>
 						<NavigateBefore fontSize="large" />
@@ -92,7 +92,7 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, setDetailR
 						sx={{
 							position: "absolute",
 							color: "white",
-							top: "40%",
+							top: 200,
 							right: "0",
 							display:
 								imgIdx === pet.images.length - 1
@@ -128,10 +128,7 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, setDetailR
 
 						<ExpandMore
 							expand={expanded}
-							onClick={() => {
-								setDetailRef(ref)
-								handleExpandClick()
-							}}
+							onClick={handleExpandClick}
 							aria-expanded={expanded}
 							aria-label="show more"
 							sx={{color: 'white' }}>
@@ -140,90 +137,33 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, setDetailR
 					</Stack>
 
 					{/* pet information details*/}
-					<Collapse 
-						ref={ref}
-						in={expanded} 
-						timeout={2}>
-						<CardContent>
+
+					<Collapse in={expanded} >
+						<CardContent ref={detailRef} >
+						<Stack
+							direction="row"
+							justifyContent="space-between"
+							alignItems="center"
+							spacing={0}
+							>
 							<Typography variant='h5'>
 								{pet.name}
 							</Typography>
+							<IconButton 
+								onClick={handleExpandClick}
+								sx={{color: 'orange' }}>
+								<ArrowUpwardIcon fontSize='large'  />
+							</IconButton>
+							</Stack>
 							<Typography variant='subtitle1'>
 								{pet.description}
 							</Typography>
-	
-							<IconButton 
-								onClick={handleExpandClick}
-								sx={{color: 'red' }}>
-								<InfoIcon fontSize='large' />
-							</IconButton>
+
 						</CardContent>
 					</Collapse>		
 
 				</Card>
 			</TinderCard>
-		</div>
+		</Box>
 	);
 };
-
-
-export const DetailsCard = React.forwardRef(({pet}, ref) => {
-	console.log(pet)
-	// const {pet} = props
-	const [imgIdx, prevImg, nextImg] = useImagesState();
-	console.log("deeets : ", pet)
-	return (
-		<Stack
-			direction="column"
-			justifyContent="center"
-			alignItems="center"
-			spacing={2}>
-
-			<div>The is the GROW! </div>
-
-			<Card sx={{ 
-				position: 'relative', 
-				borderRadius: '20px',
-				boxShadow: '0px 2px 5px 0px rgba(0, 0, 0, 0.3)'}}>
-
-				{/* pet image */}
-				<CardMedia
-					component="img"
-					image={pet.images[imgIdx]}
-					alt={pet.name}
-					sx={{
-						width: "100%",
-						objectFit: "cover",
-					}}/>
-
-				{/* back button */}
-				<IconButton
-					onClick={() => prevImg(imgIdx)}
-					sx={{
-						position: "absolute",
-						color: "white",
-						top: "40%",
-						display: imgIdx === 0 ? "none" : "block",
-					}}>
-					<NavigateBefore fontSize="large" />
-				</IconButton>
-
-				{/* next button */}
-				<IconButton
-					onClick={() => nextImg(pet.images, imgIdx)}
-					sx={{
-						position: "absolute",
-						color: "white",
-						top: "40%",
-						right: "0",
-						display:
-							imgIdx === pet.images.length - 1
-								? "none"
-								: "block",
-					}}>
-					<NavigateNext fontSize="large" />
-				</IconButton>
-			</Card>
-		</Stack>
-	)
-})

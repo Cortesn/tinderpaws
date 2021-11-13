@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useRef } from "react";
+import React, { useEffect, useState, useMemo, useRef, createRef } from "react";
 import {
 	Grid,
 	IconButton,
@@ -25,7 +25,7 @@ const AnimalCardSection = ({petState, user_id, buttonClicked, handleButtonChange
 	const childRefs = useMemo(() =>
 		 Array(petState.length)
 			.fill(0)
-			.map((i) => React.createRef())
+			.map((i) => createRef())
 	, [petState.length]); 
 
 	const updateCurrentIndex = (val) => {
@@ -41,9 +41,9 @@ const AnimalCardSection = ({petState, user_id, buttonClicked, handleButtonChange
 		// Add pet-user pair to db matches table
 		const data = { user_id: user_id, pet_id: idToDelete };
 		if (direction === "right") {
-			api.post("/user/match", data).then((response) => {
-				// console.log(response.data);
-			});
+			// api.post("/user/match", data).then((response) => {
+			// 	// console.log(response.data);
+			// });
 		}
 	};
 
@@ -69,25 +69,63 @@ const AnimalCardSection = ({petState, user_id, buttonClicked, handleButtonChange
 
 	// reference to remove column spacing between cards
     const theme = useTheme();
-    const desktop = useMediaQuery(theme.breakpoints.up('md')); 
+    const desktop = useMediaQuery(theme.breakpoints.up('sm')); 
 
-	const [detailRef, setDetailRef] = useState()
-	// console.log(detailRef)
+	const detailRefs = useMemo(() =>
+		 Array(petState.length)
+			.fill(0)
+			.map((i) => createRef())
+	, [petState.length]); 
 
-	const [detailHeight, setDetailHeight] = useState('')
+	const [detailHeight, setDetailHeight] = useState({})
+	const [isExpanded, setIsExpanded] = useState(false)
 
-	useEffect(() => {
-		console.log(detailRef)
-		if (detailRef && desktop){
-			var height = 540 + detailRef.current.clientHeight
-			console.log(height, detailRef.current.clientHeight)
-			setDetailHeight(`${height}px ! important`)
+	const handleHeightChange = (expanded, detailRef) => {
+		if (!expanded){
+			setIsExpanded(true)
+			const height = detailHeight.height + detailRef.current.clientHeight
+			// set a delay *********
+			setDetailHeight({
+				...detailHeight, 
+				value: `${height}px ! important`})
 		}else{
-			setDetailHeight('540px ! important')
+			setIsExpanded(false)
+			setTimeout(function (){ 
+				setDetailHeight({
+				...detailHeight, 
+				value: `${detailHeight.height}px ! important`})}, 1000
+			)
 		}
-	},[detailRef])
+	};
 
+	// update state when mediaquery is set
+	useEffect(()=> {
+		if (desktop && isExpanded){
+			// toggle to desktop expanded
+			const height = 600 + detailRefs[currentIndex].current.clientHeight
+			setDetailHeight({ 
+				height: 600, 
+				value: `${height}px ! important` })
+		} else if (desktop){
+			// toggle to desktop not expanded
+			setDetailHeight({ 
+				height: 600 , 
+				value: '600px ! important' })
+		} else if (isExpanded){
+			// toggle to mobile expanded
+			const height = 540 + detailRefs[currentIndex].current.clientHeight
+			setDetailHeight({ 
+				height: 540, 
+				value: `${height}px ! important`})
+		} else{
+			// toggle to mobile not expanded
+			setDetailHeight({ 
+				height: 540, 
+				value: '540px ! important'})
+		}
+	}, [desktop, detailRefs, currentIndex, isExpanded])
 
+	
 	return (
 		<Grid 
 			item 
@@ -104,10 +142,12 @@ const AnimalCardSection = ({petState, user_id, buttonClicked, handleButtonChange
 					alignItems="center"
 					spacing={1}>
 
-					<div style={{
+					<Grid 
+						xs={11}
+						sx={{
 						position: 'relative', 
 						width: '100%', 
-						maxWidth: '650px'}}>
+						maxWidth: desktop? 420 : 370}}>
 
 						{petState.map((pet, index) => (
 							<AnimalCard
@@ -117,9 +157,11 @@ const AnimalCardSection = ({petState, user_id, buttonClicked, handleButtonChange
 								swiped={swiped}
 								outOfFrame={outOfFrame}
 								index={index}
-								setDetailRef={setDetailRef}/>
+								detailRef={detailRefs[index]}
+								handleHeightChange={handleHeightChange}
+								/>
 						))}
-					</div>
+					</Grid>	
 
 					{/* buttons */}
 					<Stack
@@ -127,11 +169,10 @@ const AnimalCardSection = ({petState, user_id, buttonClicked, handleButtonChange
 						justifyContent="center"
 						alignItems="center"
 						spacing={6}
-						sx={{ 
-							marginTop: desktop ? detailHeight : '440px ! important'
-							}}>
+						sx={{ marginTop: detailHeight.value }}>
 				
 						<IconButton
+							disabled={canSwipe ? false : true}
 							onClick={() => swipe("left")}
 							color="secondary"
 							sx={{ 
@@ -141,6 +182,7 @@ const AnimalCardSection = ({petState, user_id, buttonClicked, handleButtonChange
 						</IconButton>
 						
 						<IconButton
+							disabled={canSwipe ? false : true}
 							onClick={() => swipe("right")}
 							color="error"
 							sx={{ 
