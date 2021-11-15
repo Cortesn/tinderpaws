@@ -96,6 +96,7 @@ export const RenderInputs = (props) => {
             <>
             <TextareaAutosize
                 aria-label="textarea"
+                id={input.textArea.id}
                 minRows={input.textArea.rows}
                 placeholder={input.label + '...'}
                 defaultValue={input.value}

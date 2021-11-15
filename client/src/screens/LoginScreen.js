@@ -26,6 +26,7 @@ export const LoginScreen = (props) => {
 							{/* link to signup page  */}
 							<Typography variant='subtitle1' sx={{textAlign: 'center', marginBottom: '1rem'}}>Don't have an account? Click  
 								<Link 
+									id="signupLink"
 									href='/signup' 
 									underline='none' 
 									color='primary'

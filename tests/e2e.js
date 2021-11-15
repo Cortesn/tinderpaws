@@ -2,6 +2,7 @@
 "use strict";
 const path = require('path');
 const {
+    alert,
     openBrowser,
     write,
     closeBrowser,
@@ -122,7 +123,6 @@ step("profile update", async function () {
     await click($('#profile-settings-header'))
 });
 
-// leaving off here for now
 step("animal filter", async function () {
     // click on accordion
     await click($('#filter-settings-header'))
@@ -131,7 +131,7 @@ step("animal filter", async function () {
     await click(text('Test Shelter No.1'))
     // click on cats
     await click($('#Cat'))
-    // click on 1st and 2nd breeds
+    // click on 1st breed
     await click(textBox('Breeds'))
     await click(text('Golden Retriever'))
     // click click on 1st disposition
@@ -172,71 +172,81 @@ step("user log out", async function () {
 // */
 step("employee sign up", async function () {
     // redirect to sign up
-    await goto('http://ec2-54-177-253-69.us-west-1.compute.amazonaws.com/signup')
+   // await goto('http://ec2-54-177-253-69.us-west-1.compute.amazonaws.com/signup')
+
+    // click on sign up link
+    await click($('#signupLink'))
     // click on shelter sign up
     await click(button('Shelter Sign Up'))
     // click on Employee switch
     await click(checkBox({id: 'shelter_emp_switch'}))
     // get shelter name
-    await dropDown('Shelters Name').select({index: '0'})
+    await click(textBox('Shelter Name'))
+    await click(text('Test Shelter No.1'))
 
     // employee id 
     await click($('#employeeId'))
+    await write('12121')
 
     // click on text First Name
     await click($('#name'))
     await write('etest100')
 
     // click on text First Name
-    await click(text('#email'))
+    await click($('#email'))
     await write('etest100@test_employee.com')
 
     // click on text First Name
-    await click(text('#password'))
-    await write('12345678')
+    await click($('#password'))
+    await write('12345679')
 
     // click on text First Name
-    await click(text('#password2'))
-    await write('12345678')
+    await click($('#password2'))
+    await write('12345679')
 
     await click(button('signup'))
 
-    await click(link({id: 'logout'}))
+    await click($('#logout'))
 
 
 });
 
 step("employee log in", async function () {
-    await click($('#email'));
+    await click($('#email'))
     await write('etest100@test_employee.com')
 
-    await click(text('password'))
-    await write('12345678')
+    await click($('#password'))
+    await write('12345679')
+
+    await click(button('login'))
 });
 
 // user home
 
 step("admin home page", async function () {
-    // hard code url but need to change this. login should redirect to userHome/:user_id of current user
-    await goto('http://ec2-54-186-169-222.us-west-2.compute.amazonaws.com/admin')
+   // before click - at home page after successful login from step prior 
+   await click($('#nav_admin'))
 });
 
 step("edit shelter", async function () {
     // toggle form
     await click(button({id: 'editshelter'}))
     // change zip code
-    await click(text({id: 'zip'}))
+    await clear($('#zip'))
     await write('88899')
+    // set up alert so flow is not disrupted
+    alert(async ({message}) => {
+        await accept();
+      })
     // click on update
     await click(button('Update Shelter Info'))
-
     // hide form again
     await click($('#hide_shelter_update'))
 
 });
 
 step("admin home redirect add pet", async function () {
-    // click on add new animal profile
+    // click on add new animal profile -- this page isnt ready yet 
     await click($('#addpet'))
     // go back to admin home 
     await goBack()
@@ -252,7 +262,7 @@ step("admin home redirect edit pet", async function () {
 step("add pet", async function () {
     // click on matches 
     await click($('#addpet'))
-    // not sure what goes in here - need to look @ page
+    // not sure what goes in here - need to look @ page - page not done yet it seems
 
 });
 
@@ -261,19 +271,45 @@ step("edit pet", async function () {
     await goto('http://ec2-54-186-169-222.us-west-2.compute.amazonaws.com/admin')
     await click($('#editpet'))
 
-    // click on delete button
-    // click on animal profile for edit
+    // filter by cat
+    await click($('#search'))
+    await click(text('Cat'))
 
+    // click on delete button - this works but not running all the way due to limited animal profiles
+    await click($('#delete_Paul'))
+    await click(button('Cancel'))
+
+    // click on animal profile for edit - paul
+    await click($('#Paul'))
 });
 step("edit pet page", async function () {
     // all functionality for edit page
+
     // check matches
     // delete match
-    // delete image
-    // add image
     // edit name
+    // edit description
     // save changes
+    
+    // delete image -- not deleting image due to limited animal profiles - will show action and not delete
+    // add image - limitation in taiko does not allow image upload (off browser action) - allows for file upload but does not work
+                    // src: https://github.com/getgauge/taiko/blob/master/examples/01-file_upload.js
+    // not doing small screen testing -> single component screen changes not tested (matches vs profile)
 
+    // edit matches
+    await click(button('edit'))
+
+    // delete
+    await click($('#EmployeeTest2_EmployeeTest2'))
+
+    // edit pet name
+    await clear($('#name'))
+    await write($('Pauly'))
+
+    await clear($('#textarea'))
+    await write("This is an updated description. Replaced Lorem Ipsum.")
+
+    await click(button('Save Changes'))
 });
 
 // /*

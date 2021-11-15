@@ -102,7 +102,7 @@ router.post('/shelter', (req, res) => {
                 password = await bcrypt.hash(password, salt)
                 console.log(password)
                 // get current date format to YYYY-MM-DD
-                const date = new Date(Date.now()).toLocaleDateString('en-CA')
+                const date = new Date().toISOString().slice(0,10);
    
                 //  save data to database
                 const saveShelter = 'INSERT INTO Shelters (name, street, city, state, zip, email, password, date_created, last_updated) VALUES (?,?,?,?,?,?,?,?,?)'
@@ -162,7 +162,7 @@ router.post('/employee', (req, res) => {
                 password = await bcrypt.hash(password, salt)
 
                 // get current date format to YYYY-MM-DD
-                const date = new Date(Date.now()).toLocaleDateString('en-CA')
+                const date = new Date().toISOString().slice(0,10);
    
                 //  save data to database
                 const saveEmployee = 'INSERT INTO Employees (employee_id, shelter_id, name, email, password, date_created) VALUES (?,?,?,?,?,?)'

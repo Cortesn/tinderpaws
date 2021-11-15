@@ -2,9 +2,10 @@ import React from 'react'
 import { IconButton, Typography } from '@mui/material'
 
 const NavLink = (props) => {
-    const { name, link } = props
+    const { name, link, id} = props
     return (
         <IconButton
+            id={id}
             size="small"
             color="inherit"
             aria-label="menu"
