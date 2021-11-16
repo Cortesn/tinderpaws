@@ -24,13 +24,18 @@ To execute this specification, use
 ## employee story
 * employee sign up
 * employee log in
+
+## employee story2
+* employee log in2
 * admin home page
 * edit shelter
 * admin home redirect add pet
 * admin home redirect edit pet
-* add pet
 * edit pet
 * edit pet page
-___
-* Clear all tasks
+
+## shelter story
+* shelter sign up
+* shelter log out
+* shelter sign in
 

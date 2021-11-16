@@ -47,7 +47,7 @@ export default function Navbar(props) {
                         
                         {/* displays the "News feed" */}
                         { account.shelter_id || account.employee_id || account.user_id ?
-                            <NavLink name={'News'} id="nav_news" link={'/news'} />
+                            <NavLink name={'News'} id="nav_news" link={'/newsFeed'} />
                         : null }
 
                         {/* displays the "Pets button to view available pets" */}
