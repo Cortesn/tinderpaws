@@ -225,17 +225,6 @@ step("employee log in", async function () {
     await click(button('login'))
 });
 
-
-step("employee log in2", async function () {
-    await goto('http://localhost:3000/login')
-    await click($('#email'))
-    await write('etest200@test_employee.com')
-
-    await click($('#password'))
-    await write('12345679')
-
-    await click(button('login'))
-});
 // user home
 
 step("admin home page", async function () {
@@ -393,6 +382,17 @@ step("shelter sign in", async function () {
 **********************************************************
     - newsfeed
 */
+
+step("employee log in2", async function () {
+    await goto('http://localhost:3000/login')
+    await click($('#email'))
+    await write('etest200@test_employee.com')
+
+    await click($('#password'))
+    await write('12345679')
+
+    await click(button('login'))
+});
 
 step("newsfeed", async function(){
     // go to news page

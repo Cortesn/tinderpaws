@@ -24,9 +24,6 @@ To execute this specification, use
 ## employee story
 * employee sign up
 * employee log in
-
-## employee story2
-* employee log in2
 * admin home page
 * edit shelter
 * admin home redirect add pet
@@ -38,4 +35,8 @@ To execute this specification, use
 * shelter sign up
 * shelter log out
 * shelter sign in
+
+## newsfeed
+* employee log in2
+* newsfeed
 

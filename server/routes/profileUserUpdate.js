@@ -10,15 +10,12 @@ const db = pool
 */
 router.get("/userData/", auth, (req,res)=>{
     const user_id = req.user.user_id
-    console.log(req.user)
-    console.log(user_id)
     const getProfileData = 'SELECT Users.f_name, Users.l_name, Users.email FROM Users WHERE Users.user_id = ?';
 
     db.query(`${getProfileData}`, [user_id], (err,result)=>{
         if(err){
             console.error(err.message);
         }else{
-            console.log(result)
             res.send(result)
         }
     })
