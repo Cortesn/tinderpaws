@@ -2,7 +2,6 @@
 "use strict";
 const path = require('path');
 const {
-    alert,
     openBrowser,
     write,
     closeBrowser,
@@ -12,8 +11,6 @@ const {
     text,
     textBox,
     button,
-    reload,
-    currentURL,
     waitFor,
     goBack,
     clear,
