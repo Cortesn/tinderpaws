@@ -16,7 +16,7 @@ import {
 
 
 export const RenderInputs = (props) => {
-    const {input} = props;
+    const {input, type} = props;
 
     if (input.password){
         // passwords
@@ -109,7 +109,7 @@ export const RenderInputs = (props) => {
         return (
             <TextField
                 variant= 'filled'
-                id={input.id}
+                id={input.id + type}
                 label={input.label}
                 name={input.id}
                 value={input.value || ''}

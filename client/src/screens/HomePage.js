@@ -36,7 +36,7 @@ const HomePage = () => {
             alignItems="center"
             justifyContent="space-evenly">
                 {createFlowchartItems(sequence)}
-                <Button id="signupLink" variant="contained" color="success" href="/signUp">
+                <Button id="signupLink" variant="contained" color="success" href="/signup">
                     Get Started!
                 </Button>
             </Stack>

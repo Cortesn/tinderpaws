@@ -66,7 +66,7 @@ step("user sign up", async function () {
 
     await click($('#formButton'))
 
-    await click($('#logout'))
+    await click($('#signout'))
 
 
 });
@@ -82,7 +82,7 @@ step("user log in", async function () {
 });
 
 step("user log in 2", async function () {
-    await goto('localhost:3000/login')
+    await goto('localhost:3000/signin')
     await click($('#email'));
     await write('testuser1006@test_user.com')
 
@@ -149,7 +149,7 @@ step("matches", async function () {
 
 step("user log out", async function () {
     // click on log out icon
-    await click($('#logout'))
+    await click($('#signout'))
 });
 
 /*
@@ -207,7 +207,7 @@ step("employee sign up", async function () {
 
     await click($('#formButton'))
 
-    await click($('#logout'))
+    await click($('#signout'))
 
 
 });
@@ -219,7 +219,7 @@ step("employee log in", async function () {
     await click($('#password'))
     await write('12345679')
 
-    await click(button('login'))
+    await click(button('sign in'))
 });
 
 // user home
@@ -303,8 +303,8 @@ step("edit pet page", async function () {
     // save changes
     await click(button('Save Changes'))
 
-    // logout
-    await click($('#logout'))
+    // signout
+    await click($('#signout'))
 });
 
 /*
@@ -358,7 +358,7 @@ step("shelter sign up", async function () {
 })
 
 step("shelter log out", async function () { 
-    await click($('#logout'))
+    await click($('#signout'))
 })
 
 step("shelter sign in", async function () {  
@@ -369,7 +369,7 @@ step("shelter sign in", async function () {
     // password
     await click($('#password'))
     await write('12345678')
-    await click(button('login'))
+    await click(button('sign in'))
     await waitFor(4000)
 })
 
@@ -381,19 +381,19 @@ step("shelter sign in", async function () {
 */
 
 step("employee log in2", async function () {
-    await goto('http://localhost:3000/login')
+    await goto('http://localhost:3000/signin')
     await click($('#email'))
     await write('etest200@test_employee.com')
 
     await click($('#password'))
     await write('12345679')
 
-    await click(button('login'))
+    await click(button('sign in'))
 });
 
 step("newsfeed", async function(){
     // go to news page
     await click($('#nav_news'))
     // sign out
-    await click($('#logout'))
+    await click($('#signout'))
 })

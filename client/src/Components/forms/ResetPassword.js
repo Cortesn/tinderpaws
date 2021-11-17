@@ -14,7 +14,7 @@ const passwordValidation = () => Yup.object({
 });
 
 // formik state & login
-const ResetPasswordFormik = (props) => useFormik({
+const ResetPasswordFormik = (urlData, {...props}) => useFormik({
     initialValues: {
         password: '',
         passwordConfirm: ''
@@ -24,8 +24,8 @@ const ResetPasswordFormik = (props) => useFormik({
         // make a copy and clean data
         var data = JSON.parse(JSON.stringify(values))
         delete data.passwordConfirm
-        data.email = props.email
-        data.reset_key = props.reset_key
+        data.email = urlData.email
+        data.reset_key = urlData.reset_key
 
         // make request
         api.patch('/password/reset', data )
@@ -35,14 +35,14 @@ const ResetPasswordFormik = (props) => useFormik({
                 setFieldValue('success', response.data.msg)
                 
                 // redirects page
-                window.location = '/login'
+                props.history.push('/login')
             })
             .catch(function(error){
                 console.log(error)
                 // set error msg with formik
                 setFieldValue('error', error.response.data.msg)
                 // redirects page
-                window.location = '/login'
+                props.history.push('/login')
             })
             // might not need this promise -> always executes
             .then(function(){

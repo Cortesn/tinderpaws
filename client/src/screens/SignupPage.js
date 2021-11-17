@@ -4,15 +4,19 @@ import UserTab from '../Components/tabs/UserTab';
 import ShelterTab from '../Components/tabs/ShelterTab';
 import TabPanel from '../Components/tabs/TabPanel';
 import useTabState from '../hooks/useTabState';
+import { SignInUpStyle } from "../Components/Themes";
 
-
-const SignupPage = () => {
+const SignupPage = (props) => {
     const [value, handleChange] = useTabState(0);
 
     return (
         // main container for the signup forms set to max width of screen
         <Grid container>
-            <Grid xs={12} sm={7} md={5} lg={4} xl={3} sx={{margin: 'auto'}} item>
+            <Grid 
+                xs={12} 
+                sx={{margin: 'auto', padding: 0}} 
+                item>
+                <SignInUpStyle >
                 <Paper elevation={10} >
                         <Tabs 
                             sx={{
@@ -35,14 +39,15 @@ const SignupPage = () => {
                     
                     <TabPanel value={value} index={0} >
                         {/* form for new user signup */}
-                        <UserTab/>
+                        <UserTab {...props}/>
                     </TabPanel>
                     <TabPanel value={value} index={1} >
                         {/* form for new shelter/ employee signup */}
-                        <ShelterTab />
+                        <ShelterTab {...props}/>
                     </TabPanel>
                    
                 </Paper>
+                </SignInUpStyle>
             </Grid>
         </Grid>
     )

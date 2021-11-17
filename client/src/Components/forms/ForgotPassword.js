@@ -11,7 +11,7 @@ const passwordValidation = () => Yup.object({
 });
 
 // formik state & login
-const ForgotPasswordFormik = () => useFormik({
+const ForgotPasswordFormik = ({...props}) => useFormik({
     initialValues: {
         email: ''
     },
@@ -26,7 +26,7 @@ const ForgotPasswordFormik = () => useFormik({
                 setFieldValue('error', '')
                 setFieldValue('success', response.data.msg)
                 // redirects back to login page
-                window.location = '/login'
+                props.history.push('/login')
             })
             .catch(function(error){
                 console.log(error)
@@ -34,7 +34,7 @@ const ForgotPasswordFormik = () => useFormik({
                 // only send error if there was a server error not for invalid emails
                 setFieldValue('error', error.response.data.msg)
                 // redirects back to login page
-                window.location = '/login'
+                props.history.push('/login')
             })
             // might not need this promise -> always executes
             .then(function(){

@@ -3,6 +3,7 @@ const router = express.Router()
 import pool from '../Database/dbcon.js'
 const db = pool
 import auth from '../middleware/auth.js'
+import { OAuth2Client } from 'google-auth-library'
 
 // route used to authenticate user as they move about the webpage
 // should be called on every "protected route"
@@ -34,5 +35,22 @@ router.get('/', auth, (req, res) => {
         }
     }) 
 })
+
+
+// Google OAuth
+router.post('/google', async (req, res) => {
+    const idToken = req.header('x-auth-token')
+    const client = new OAuth2Client(process.env.GAPI_CLIENT_ID)
+    const ticket = await client.verifyIdToken({
+        idToken: idToken,
+        audience: process.env.GAPI_CLIENT_ID
+    })
+    const payload = ticket.getPayload()
+    console.log(payload)
+})
+
+
+
+
 
 export {router as auth}

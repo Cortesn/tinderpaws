@@ -1,0 +1,12 @@
+#my-signin2{
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+  
+#my-signin2 > div{
+    margin: 0 auto;
+}
+
+.abcRioButtonContents{
+    padding-right: 34px ! important;
+}
