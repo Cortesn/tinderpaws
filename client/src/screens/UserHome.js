@@ -30,7 +30,7 @@ const UserHome = (props) => {
 				}
 				// add the 'no more pets' placeholder to the front of the list
 				response.data.unshift(noMorePets)
-				console.log(response.data)
+				// console.log(response.data)
 				setPetState(response.data);
 			});
 		}

@@ -161,18 +161,28 @@ const AnimalCardSection = ({petState, buttonClicked }) => {
 								width: '95%',
 								maxWidth: desktop? 420 : 370}}>
 							<span>			
-								<IconButton>
-									<PetsIcon/>
+								<IconButton
+									sx={{ 
+										// boxShadow:'0px 5px 20px 0px rgba(0, 0, 0, 0.3)' 
+										}}>
+									<PetsIcon fontSize="large"/>
 								</IconButton>
-								<IconButton>
-									<SettingsIcon/>
+								<IconButton 
+									sx={{ 
+										marginLeft: '1rem',
+										// boxShadow:'0px 5px 20px 0px rgba(0, 0, 0, 0.3)' 
+										}}>
+									<SettingsIcon fontSize="large"/>
 								</IconButton>
 							</span>
-							<IconButton>
-								<AccountCircleIcon/>
+							<IconButton
+								sx={{ 
+									// boxShadow:'0px 5px 20px 0px rgba(0, 0, 0, 0.3)' 
+									}}>
+								<AccountCircleIcon fontSize="large"/>
 							</IconButton>
 						</Stack>
-						
+
 					<div
 						style={{
 						position: 'relative', 

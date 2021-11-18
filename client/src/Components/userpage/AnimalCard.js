@@ -143,11 +143,22 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, detailRef,
 							<IconButton 
 								onClick={handleExpandClick}
 								onTouchStart={handleExpandClick}
-								sx={{color: 'orange' }}>
+								color='warning'>
 								<ArrowUpwardIcon fontSize='large'  />
 							</IconButton>
 							</Stack>
-							<Typography variant='subtitle1'>
+							<div style={{display: 'flex', justifyContent: 'space-between'}}>
+								<Typography component='span' variant='subtitle2'>
+									<b>Created:</b> {pet.date_created}
+								</Typography>
+								<Typography component='span' variant='subtitle2'>
+									<b>Updated:</b> {pet.last_updated}
+								</Typography>
+							</div>
+							<Typography variant='subtitle2'>
+								<b>Breed:</b> {pet.breed}
+							</Typography>
+							<Typography variant='subtitle1' sx={{paddingTop: '0.5rem'}}>
 								{pet.description}
 							</Typography>
 

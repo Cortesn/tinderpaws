@@ -54,7 +54,12 @@ router.get('/', auth, (req, res) => {
             console.log(error)
             return
         } 
-        results.forEach(result => result.images = result.images.split(','))
+        results.forEach(result => {
+            result.images = result.images.split(',')
+            result.date_created = result.date_created.toISOString().slice(0,10)
+            result.last_updated = result.last_updated.toISOString().slice(0,10)
+            return result
+        })
         // console.log(results)
         return res.status(200).json(results)
     })
