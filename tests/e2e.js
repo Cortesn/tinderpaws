@@ -16,13 +16,14 @@ const {
     $
 } = require('taiko');
 
+const home_url = process.env.REACT_APP_SITE
 beforeSuite(async () => {
     await openBrowser({headless: 'true'})
 });
 
 // static pages 
 step("Home page", async () => {
-    await goto("http://ec2-54-177-253-69.us-west-1.compute.amazonaws.com/");
+    await goto(home_url);
     await click($('#signupLink')) // change this to id of button
 });
 
@@ -81,7 +82,7 @@ step("user log in", async function () {
 });
 
 step("user log in 2", async function () {
-    await goto('localhost:3000/signin')
+    await goto(path.join(home_url, "signin"))
     await click($('#email'));
     await write('testuser1006@test_user.com')
 
@@ -89,14 +90,14 @@ step("user log in 2", async function () {
     await write('12345678')
 
     await click($('#formButton'))
-    await goto('http://localhost:3000/userHome')
+    await goto(path.join(home_url, "userHome"))
 });
 
 // user home
 
 step("left swipe", async function () {
     // hard code url but need to change this. login should redirect to userHome/:user_id of current user
-    await goto('http://localhost:3000/userHome')
+    await goto(path.join(home_url, "userHome"))
     
     await click($('#leftSwipe'))
 });
@@ -172,8 +173,7 @@ step("user log out", async function () {
 */
 step("employee sign up", async function () {
     // redirect to sign up
-   // await goto('http://ec2-54-177-253-69.us-west-1.compute.amazonaws.com/')
-    await goto("http://localhost:3000/");
+    await goto(home_url);
     // click on sign up link
     await click($('#signupLink'))
     // click on shelter sign up
@@ -261,7 +261,7 @@ step("admin home redirect edit pet", async function () {
 });
 
 step("edit pet", async function () {
-    await goto("localhost:3000/adminHome")
+    await goto(path.join(home_url, "adminHome"))
     await waitFor(3000)
     await click($('#editpet'))
 
@@ -315,7 +315,7 @@ step("edit pet page", async function () {
         - forgot password not included
 */
 step("shelter sign up", async function () { 
-    await goto("localhost:3000/") 
+    await goto(home_url) 
     // click on sign up link
     await click($('#signupLink'))
     // click on shelter sign up
@@ -380,7 +380,7 @@ step("shelter sign in", async function () {
 */
 
 step("employee log in2", async function () {
-    await goto('http://localhost:3000/signin')
+    await goto(path.join(home_url, "signin"))
     await click($('#email'))
     await write('etest200@test_employee.com')
 
