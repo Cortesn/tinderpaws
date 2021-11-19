@@ -41,7 +41,7 @@ const App = () => {
 				<Route exact path="/admin/edit/:pet_id" component={AdminEditPetPage} />
 				<Route exact path="/signout" render={props => <Logout {...props} handleAuthChange={handleAuthChange} />} />
 				<Route exact path="/adminHome/pets" render={() => <AdminPage />} />
-				<AuthRoute exact path="/userHome/:id" component={UserHome} auth={authValues}/>
+				<AuthRoute exact path="/userHome" component={UserHome} auth={authValues}/>
 				<Route exact path="/addpet" component={AddPet}/>
 				<Route exact path="/adminHome" component={AdminHome}/>
 				<AuthRoute exact path="/news" component={NewsFeed} auth={authValues} />

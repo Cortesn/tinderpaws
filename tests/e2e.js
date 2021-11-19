@@ -4,7 +4,6 @@ const path = require('path');
 const {
     openBrowser,
     write,
-    closeBrowser,
     goto,
     click,
     checkBox,
@@ -23,7 +22,7 @@ beforeSuite(async () => {
 
 // static pages 
 step("Home page", async () => {
-    await goto("http://localhost:3000/");
+    await goto("http://ec2-54-177-253-69.us-west-1.compute.amazonaws.com/");
     await click($('#signupLink')) // change this to id of button
 });
 
@@ -45,15 +44,15 @@ step("Mission Page", async function () {
 */
 step("user sign up", async function () {
     // click on text First Name
-    await click($('#fname'))
+    await click($('#fnameuser'))
     await write('test1006')
 
     // click on text Last Name
-    await click($('#lname'))
+    await click($('#lnameuser'))
     await write('user1006')
 
     // click on text First Name
-    await click($('#email'))
+    await click($('#emailuser'))
     await write('testuser1006@test_user.com')
 
     // click on text First Name
@@ -90,14 +89,14 @@ step("user log in 2", async function () {
     await write('12345678')
 
     await click($('#formButton'))
-    await goto('http://localhost:3000/userHome/18')
+    await goto('http://localhost:3000/userHome')
 });
 
 // user home
 
 step("left swipe", async function () {
     // hard code url but need to change this. login should redirect to userHome/:user_id of current user
-    await goto('http://localhost:3000/userHome/19')
+    await goto('http://localhost:3000/userHome')
     
     await click($('#leftSwipe'))
 });
@@ -173,7 +172,7 @@ step("user log out", async function () {
 */
 step("employee sign up", async function () {
     // redirect to sign up
-   // await goto('http://ec2-54-177-253-69.us-west-1.compute.amazonaws.com/signup')
+   // await goto('http://ec2-54-177-253-69.us-west-1.compute.amazonaws.com/')
     await goto("http://localhost:3000/");
     // click on sign up link
     await click($('#signupLink'))
@@ -186,15 +185,15 @@ step("employee sign up", async function () {
     await click(text('Test Shelter No.1'))
 
     // employee id 
-    await click($('#employeeId'))
+    await click($('#employeeIdemployee'))
     await write('12122')
 
     // click on text First Name
-    await click($('#name'))
+    await click($('#nameemployee'))
     await write('etest200')
 
     // click on text First Name
-    await click($('#email'))
+    await click($('#emailemployee'))
     await write('etest200@test_employee.com')
 
     // click on text First Name
@@ -323,15 +322,15 @@ step("shelter sign up", async function () {
     await click(button('Shelter Sign Up'))
 
     // shelter name
-    await click($('#sname'))
+    await click($('#snameshelter'))
     await write("Test Shelter No.5")
 
     // street 
-    await click($('#street'))
+    await click($('#streetshelter'))
     await write("128 Adoption St")
 
     // city
-    await click($('#city'))
+    await click($('#cityshelter'))
     await write("San Jose")
 
     // state
@@ -343,7 +342,7 @@ step("shelter sign up", async function () {
     await write('99988')
 
     // email
-    await click($('#email'))
+    await click($('#emailshelter'))
     await write('testShelter5@testShelter.com')
 
     // password
@@ -375,7 +374,7 @@ step("shelter sign in", async function () {
 
 /*
 **********************************************************
-                        All 
+                    The Rest
 **********************************************************
     - newsfeed
 */
