@@ -44,6 +44,7 @@ function stringAvatar(name) {
 /* Returns a single matched user for a pet */
 const MatchItem = (props) => {
     const {match, deleteMatch, buttonClicked, snackBar} = props;
+    const delete_id = match.f_name + "_" + match.l_name;
     return (
         <>
             <ListItem >
@@ -61,6 +62,7 @@ const MatchItem = (props) => {
                 {/* delete button */}
                 <Collapse orientation="horizontal" in={buttonClicked}>
                     <IconButton 
+                        id={delete_id}
                         color='error' 
                         aria-label="delete"
                         sx={{marginRight: '1rem'}}

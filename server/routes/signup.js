@@ -17,7 +17,7 @@ router.post('/user', (req, res) => {
         if (error){
             // server error
             console.log(error)
-            return res.status(400).json({ msg : 'Somthing went wrong. Please try agian later.'})
+            return res.status(400).json({ msg : 'Something went wrong. Please try agian later.'})
         } else {
             // console.log(results)
             // try/catch incase async/await fails

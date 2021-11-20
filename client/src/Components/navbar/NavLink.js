@@ -3,9 +3,10 @@ import { IconButton, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 const NavLink = (props) => {
-    const { name, link } = props
+    const { name, link, id} = props
     return (
         <IconButton
+            id={id}
             size="small"
             color="inherit"
             aria-label="menu"

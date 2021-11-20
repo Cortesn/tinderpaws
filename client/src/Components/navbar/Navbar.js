@@ -48,6 +48,7 @@ export default function Navbar(props) {
                         color="inherit"
                         aria-label="open drawer"
                         sx={{ mr: 2 }}
+                        id="nav_home"
                         component={Link}
                         to="/">
                         <PetsIcon sx={{ fontSize: "2rem" }}/>
@@ -61,21 +62,21 @@ export default function Navbar(props) {
                     </IconButton>
 
                     <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>
-                        <NavLink name={'Mission'} link={'/mission'} />
+                        <NavLink name={'Mission'} id="nav_mission" link={'/mission'} />
                         
                         {/* displays the "News feed" */}
                         { account.shelter_id || account.employee_id || account.user_id ?
-                            <NavLink name={'News'} link={'/news'} />
+                            <NavLink name={'News'} id="nav_news" link={'/newsFeed'} />
                         : null }
 
                         {/* displays the "Pets button to view available pets" */}
                         { account.employee_id || account.user_id ?
-                            <NavLink name={'Pets'} link={'/userHome'}/>
+                            <NavLink name={'Pets'} id="nav_pet" link={'/userHome'}/>
                         : null }
 
                         {/* displays the "page to manage shelter pets */}
                         { account.employee_id || account.shelter_id ?
-                            <NavLink name={'Admin'} link={'/adminHome'} />
+                            <NavLink name={'Manage'} id="nav_admin" link={'/adminHome'} />
                         : null }
 
                         {/* displays the "page to manage shelter employees" */}
@@ -99,6 +100,7 @@ export default function Navbar(props) {
                                 edge="end"
                                 aria-label="logout current user"
                                 color="inherit"
+                                id="signout"
                                 to='/signout'>  
                                 <LogoutIcon />
                             </IconButton>
@@ -123,6 +125,7 @@ export default function Navbar(props) {
                                 open={open}
                                 onClose={handleClose} >
                                 <MenuItem 
+                                    id="signup"
                                     component={Link}
                                     to='/signup'
                                     onClick={handleClose}>
@@ -130,6 +133,7 @@ export default function Navbar(props) {
                                 </MenuItem>
                                 <MenuItem 
                                     component={Link}
+                                    id="signin"
                                     to='/signin'
                                     onClick={handleClose}>
                                     Sign in

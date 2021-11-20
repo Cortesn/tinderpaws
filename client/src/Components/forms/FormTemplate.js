@@ -49,6 +49,7 @@ const FormTemplate = (props) => {
                 }  
             })}
             <Button 
+                id="formButton"
                 type='submit' 
                 variant='contained' 
                 color='primary'

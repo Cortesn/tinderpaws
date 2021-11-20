@@ -69,7 +69,7 @@ const AnimalFilterForm = (props) => {
                     {/* need this for multiselect: https://mui.com/components/autocomplete/ */}
                     <Autocomplete
                         multiple
-                        id="size-small-standard-multi"
+                        id="size-small-standard-multi shelters"
                         size="small"
                         onChange={handleSelectedShelters}
                         options={shelters}
@@ -80,6 +80,7 @@ const AnimalFilterForm = (props) => {
                             variant="standard"
                             label="Shelters"
                             placeholder="Shelters"
+                            id="sheltersDropDown"
                         />
                         )}
                     />
@@ -95,9 +96,9 @@ const AnimalFilterForm = (props) => {
                 <Grid item>    
                     <FormGroup>
                     {/* https://mui.com/components/checkboxes/ */}
-                        <FormControlLabel control={<Checkbox checked={Dog} onChange={handleAnimalSelectionChange} name="Dog" />} label="Dog" />
-                        <FormControlLabel  control={<Checkbox checked={Cat} onChange={handleAnimalSelectionChange} name="Cat"/>} label="Cat" />
-                        <FormControlLabel  control={<Checkbox checked={Other} onChange={handleAnimalSelectionChange} name="Other" />} label="Other" />
+                        <FormControlLabel control={<Checkbox checked={Dog} onChange={handleAnimalSelectionChange} name="Dog" />} label="Dog" id="Dog"/>
+                        <FormControlLabel  control={<Checkbox checked={Cat} onChange={handleAnimalSelectionChange} name="Cat"/>} label="Cat" id="Cat"/>
+                        <FormControlLabel  control={<Checkbox checked={Other} onChange={handleAnimalSelectionChange} name="Other" />} label="Other" id="Other" />
                     </FormGroup>
                 </Grid>
                 <Grid item align="center">
@@ -138,15 +139,15 @@ const AnimalFilterForm = (props) => {
                 <Grid item>
                     <FormGroup>
                     {/* https://mui.com/components/checkboxes/ */}
-                        <FormControlLabel control={<Checkbox checked={OtherAnimals} onChange={handleDispositionChange} name="OtherAnimals" />} label="Good with other animals" />
-                        <FormControlLabel  control={<Checkbox checked={Children} onChange={handleDispositionChange} name="Children"/>} label="Good with children" />
-                        <FormControlLabel  control={<Checkbox checked={Leashed} onChange={handleDispositionChange} name="Leashed" />} label="Animal must be leashed at all times" />
-                        <FormControlLabel  control={<Checkbox checked={Available} onChange={handleDispositionChange} name="Available"/>} label="Available" />
-                        <FormControlLabel  control={<Checkbox checked={Pending} onChange={handleDispositionChange} name="Pending" />} label="Pending" />
+                        <FormControlLabel control={<Checkbox checked={OtherAnimals} onChange={handleDispositionChange} name="OtherAnimals" />} label="Good with other animals" id="animals" />
+                        <FormControlLabel  control={<Checkbox checked={Children} onChange={handleDispositionChange} name="Children"/>} label="Good with children" id="child"/>
+                        <FormControlLabel  control={<Checkbox checked={Leashed} onChange={handleDispositionChange} name="Leashed" />} label="Animal must be leashed at all times" id="leash"/>
+                        <FormControlLabel  control={<Checkbox checked={Available} onChange={handleDispositionChange} name="Available"/>} label="Available" id="avail"/>
+                        <FormControlLabel  control={<Checkbox checked={Pending} onChange={handleDispositionChange} name="Pending" />} label="Pending" id="pending"/>
                     </FormGroup>
                 </Grid>
                 <Grid item>
-                    <Button fullWidth align="center" variant="contained" color="success" onClick={submitAnimalFilter}>
+                    <Button fullWidth align="center" variant="contained" color="success" id="applyAnimalFilter" onClick={submitAnimalFilter}>
                         Apply Filter
                     </Button>
                 </Grid>

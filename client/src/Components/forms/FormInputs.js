@@ -248,7 +248,7 @@ const FormInputs = (type, data, {...props}) =>{
             onChange: formik.handleChange('description'),
             error: formik.touched.description && Boolean(formik.errors.description),
             helperText: formik.touched.description && formik.errors.description,
-            textArea: {rows: 5}
+            textArea: { id: "textarea", rows: 5}
         },
     ]
 
