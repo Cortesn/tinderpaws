@@ -1,6 +1,4 @@
 import React, {useState, useEffect} from "react";
-import {Grid} from "@mui/material";
-import createDynamicMatches from "../../helperFunctions/UserHome/createDynamicMatches";
 import { api, setToken } from "../../helperFunctions/axiosInstace";
 import MatchList from "../userpage/MatchList";
 
@@ -15,10 +13,7 @@ const MatchesGrid = () => {
             });
         },[]);
     
-    return ( 
-        // <Grid container direction={"column"} spacing={1}>
-        //     {createDynamicMatches(matchesState)}
-        // </Grid>     
+    return (   
        < MatchList matches={matchesState}/>
      );
 }
