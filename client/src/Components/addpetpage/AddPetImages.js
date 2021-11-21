@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageList, Button, Box, Grid, Stack } from "@mui/material";
+import { ImageList, Button, Box, Grid, Stack, Typography } from "@mui/material";
 import ImageUploader from "../imageupload/ImageUploader.js";
 import ImageItem from "../petprofile/ImageItem.js";
 import useButtonState from "../../hooks/useButtonState";
@@ -15,9 +15,7 @@ const updateDisplayCol = (items) => {
 export const AddPetImages = (props) => {
 	const { pet, nextStep } = props;
 	const [deleteClicked, handleDeleteChange] = useButtonState(false);
-	const {items:images, addItem:addImage, deleteItem:deleteImage} = useDeleteItemState(
-		[]
-	);
+	const [images, , addImage, deleteImage] = useDeleteItemState([]);
 
 	console.log("images", images);
 	console.log("pet", pet);
@@ -40,6 +38,9 @@ export const AddPetImages = (props) => {
 						snackBar={pet.snackBar}
 						pet_id={pet.pet_id}
 					/>
+				</Box>
+				<Box sx={{pt:1}}>
+					<Typography>Add Images and Click Finish!</Typography>
 				</Box>
 
 				<Box>

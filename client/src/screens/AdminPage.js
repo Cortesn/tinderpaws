@@ -39,10 +39,10 @@ export const AdminPage = () => {
 		setPetState(petState.filter((pet) => pet.id !== id));
 
 		// Delete from DB
-		// const deleteUrl = `/adminHome/pet/${id}`;
-		// api.delete(deleteUrl).then((response) => {
-		// 	console.log(response.data);
-		// });
+		const deleteUrl = `/adminHome/pet/${id}`;
+		api.delete(deleteUrl).then((response) => {
+			console.log(response.data);
+		});
 	};
 
 	const filterPets = (e) => {
@@ -52,6 +52,7 @@ export const AdminPage = () => {
 			if (type === "all") {
 				pet.display = true;
 			} else {
+				console.log(pet, type)
 				pet.display = pet.type.toLowerCase() === type.toLowerCase();
 			}
 			return pet;
@@ -63,7 +64,7 @@ export const AdminPage = () => {
 	const animalTypes = ["all", "dog", "cat", "other"];
 
 	return (
-		<Container>
+		<Container sx={{pb:5}}>
 			<Grid container alignItems="center" sx={{ mt: "4rem", mb: "2rem" }}>
 				<Grid container item xs={6}>
 					<Typography variant="h3">Shelter Animals</Typography>
@@ -78,7 +79,7 @@ export const AdminPage = () => {
 							value={filter}
 							onChange={filterPets}
 						>
-							<Grid container alignItems='stretch'>
+							{/* <Grid container alignItems='stretch'> */}
 								{animalTypes.map((animal) => {
 									const formattedAnimal =
 										animal[0].toUpperCase() + animal.slice(1);
@@ -88,7 +89,7 @@ export const AdminPage = () => {
 										</MenuItem>
 									);
 								})}
-							</Grid>
+							{/* </Grid> */}
 						</Select>
 					</FormControl>
 				</Grid>

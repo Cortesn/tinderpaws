@@ -85,10 +85,7 @@ router.get("/pets", auth, (req, res)=> {
 // endpoint to delete pet from all db tables given pet id
 router.delete("/pet/:pet_id", (req, res)=> {
     const pet_id = req.params.pet_id;
-    // delete from Images
-    // delete from Pets_Dispositions
-    // delete from Matches
-    // delete from Pets
+    // delete from Images, Pets_Dispositions, Matches, and Pets
     const query = `DELETE FROM Pets
     WHERE Pets.pet_id=?`;
     db.query(query, [pet_id], (err, result)=>{
