@@ -73,7 +73,7 @@ const ShelterTab = (props) => {
                 to='/signin' 
                 sx={{
                     '&:link': { textDecoration: 'none' },
-                    '&:visited': { color: '#1976d2' }
+                    '&:visited': { color: '#467eac' }
                 }}>Already have an account?
             </Typography>
             

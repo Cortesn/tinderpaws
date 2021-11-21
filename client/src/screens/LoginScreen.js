@@ -44,7 +44,7 @@ export const LoginScreen = (props) => {
 									to='/signup' 
 									sx={{
 										'&:link': { textDecoration: 'none' },
-										'&:visited': { color: '#1976d2' }
+										'&:visited': { color: '#467eac' }
 									}}> here
 								</Typography>
 							</Typography>
@@ -61,7 +61,7 @@ export const LoginScreen = (props) => {
 									component='button'
 									onClick={handleChange}
 									underline='none' 
-									color='primary'
+									color='#467eac'
 									sx={{marginTop: '1rem', fontSize: '1rem'}}>
 										Forgot password?
 								</MuiLink>
