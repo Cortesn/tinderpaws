@@ -40,7 +40,7 @@ const App = () => {
 				<Route exact path="/signout" render={props => <Logout {...props} handleAuthChange={handleAuthChange} />} />
 				<Route exact path="/adminHome/pets" render={() => <AdminPage />} />
 				<AuthRoute exact path="/userHome" component={UserHome} auth={authValues}/>
-				<Route exact path="/addpet" render={(props) => ( <AddPet {...props} auth={authValues} /> )} />
+				<Route exact path="/addpet" component={AddPet} />
 				<Route exact path="/adminHome" component={AdminHome}/>
 				<AuthRoute exact path="/news" component={NewsFeed} auth={authValues} />
         <Route exact path="/resetPassword/email/:email/reset_key/:reset_key" component={ResetPassword}/>

@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { api } from "../../helperFunctions/axiosInstace";
+import { api, setToken } from "../../helperFunctions/axiosInstace";
 
 // Formik Schema (shelters)
 const petValidation = () =>
@@ -36,6 +36,7 @@ const AddPetFormik = (data) =>
 		onSubmit: (values, { resetForm, setFieldValue }) => {
 			data = { ...data, ...values };
 			console.log(data);
+			setToken(localStorage.token)
 			// make request
 			api.post("/pets/", data).then(function (response) {
 				console.log(response);

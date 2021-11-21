@@ -18,9 +18,7 @@ import { Redirect } from "react-router";
 const steps = ["Create Pet", "Add Images"];
 
 /* Page to add a Pet*/
-const AddPet = (props) => {
-	// Employee id from authstate
-	const { employee_id } = props.auth;
+const AddPet = () => {
 	// Pet will be returned after created
 	const [pet, setPet] = useState({});
 	// Handles change in stepper
@@ -58,7 +56,7 @@ const AddPet = (props) => {
 							type={"addPet"}
 							button={"Create Pet"}
 							data={{
-								employee_id: employee_id,
+								// employee_id: employee_id,
 								setPet: setPet,
 								nextStep: nextStep,
 								pet:pet,

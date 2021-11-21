@@ -1,6 +1,7 @@
 import express from "express";
 const router = express.Router();
 import pool from "../Database/dbcon.js";
+import auth from "../middleware/auth.js";
 const db = pool;
 
 // get all pets with optional pagination for news feed
@@ -120,8 +121,9 @@ router.patch("/:pet_id", (req, res) => {
 });
 
 // create a pet
-router.post("/", async (req, res) => {
-	const { name, type, breed, status, dispositions, description, employee_id } = req.body;
+router.post("/", auth, (req, res) => {
+	const { name, type, breed, status, dispositions, description } = req.body;
+	const employee_id = req.user.employee_id;
 	// insert new pet
 	const query1 = `INSERT INTO Pets(name, type, breed, status, date_created, last_updated, description, shelter_id)
     VALUES (?, ?, ?, ?, CURDATE(), CURDATE(), ?, (SELECT shelter_id FROM Employees WHERE employee_id=?));`;
@@ -150,7 +152,7 @@ router.post("/", async (req, res) => {
                     console.log(error);
                     return res
                         .status(400)
-                        .json({ msg: "Somthing went wrong. Please try agian later." });
+                        .json({ msg: "Somthing went wrong. Please try again later." });
                 }
                 console.log(result)
                 return res.status(201).json({ msg: "Added Pet w Dispositions", pet_id: pet_id });

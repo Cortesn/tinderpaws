@@ -39,27 +39,6 @@ router.get("/employees", auth, (req,res)=>{
 })
 
 // endpoint to get pets that belong to the employee's shelter given employee id
-// router.get("/:admin_id/pets", (req, res)=> {
-//     const admin_id = req.params.admin_id;
-//     const query = `SELECT p.*, a.type as animalType, GROUP_CONCAT(i.url) as images 
-//     FROM Pets as p
-//     INNER JOIN Images as i ON p.pet_id=i.pet_id
-//     INNER JOIN Animals as a ON p.type=a.animal_id
-//     WHERE p.shelter_id = (
-//       SELECT e.shelter_id
-//       FROM Employees as e
-//       WHERE e.employee_id=?
-//     )
-//     GROUP BY p.pet_id;`;
-//     db.query(query, [admin_id], (err, result)=>{
-//         if(err){
-//             console.error(err.message)
-//         }else{
-//             console.log(result)
-//             res.send(result)
-//         }
-//     });
-// })
 router.get("/pets", auth, (req, res)=> {
     const admin_id = req.user.employee_id;
     const query = `SELECT p.*, a.type as animalType, GROUP_CONCAT(i.url) as images 
@@ -82,8 +61,8 @@ router.get("/pets", auth, (req, res)=> {
     });
 })
 
-// endpoint to delete pet from all db tables given pet id
-router.delete("/pet/:pet_id", (req, res)=> {
+// endpoint to delete pet from db tables given pet id
+router.delete("/pet/:pet_id", auth, (req, res)=> {
     const pet_id = req.params.pet_id;
     // delete from Images, Pets_Dispositions, Matches, and Pets
     const query = `DELETE FROM Pets
