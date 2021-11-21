@@ -6,19 +6,24 @@ import {
 } from "@mui/material";
 import { Clear, Favorite } from "@mui/icons-material";
 import { AnimalCard } from "./AnimalCard";
-import { api } from "../../helperFunctions/axiosInstace";
+import { api, setToken } from "../../helperFunctions/axiosInstace";
 
 const alreadyRemoved = [];
 
-const AnimalCardSection = ({petState, setPetState, id }) => {
-
-	const childRefs = useMemo(() => Array(petState.length).fill(0).map((i) => React.createRef()), [petState]);
+const AnimalCardSection = ({petState, setPetState }) => {
+	const childRefs = useMemo(() => {
+		console.log("from cR", petState);
+		return Array(petState.length)
+			.fill(0)
+			.map((i) => React.createRef());
+	}, [petState]);
 
 	const swiped = (direction, idToDelete) => {
 		console.log("removing: " + idToDelete + " on the " + direction);
 		// setLastDirection(direction);
 		// Add pet-user pair to db matches table
-		const data = { user_id: parseInt(id.id), pet_id: idToDelete };
+		const data = {pet_id: idToDelete };
+		setToken(localStorage.token)
 		if (direction === "right") {
 			api.post("/user/match", data).then((response) => {
 				console.log(response.data);
@@ -29,7 +34,7 @@ const AnimalCardSection = ({petState, setPetState, id }) => {
 		console.log("alreadyRemoved", alreadyRemoved);
 	};
 
-	const outOfFrame = (id) => {
+	const outOfFrame = (id) => { // this is the pet id
 		console.log(id + " left the screen!");
 		const charactersState = petState.filter(
 			(character) => character.id !== id
@@ -39,6 +44,7 @@ const AnimalCardSection = ({petState, setPetState, id }) => {
 		console.log("after out of frame", charactersState);
 	};
 
+	// is swipe not being used? passed to animal card, but animal card does not use it
 	const swipe = (dir) => {
 		const cardsLeft = petState.filter(
 			(person) => !alreadyRemoved.includes(person.id)
@@ -96,6 +102,7 @@ const AnimalCardSection = ({petState, setPetState, id }) => {
 				</Container>
 				<Container sx={{ textAlign: "center" }}>
 					<IconButton
+						id="leftSwipe"
 						onClick={() => swipe("left")}
 						color="secondary"
 						sx={{ mr: "5vw" }}
@@ -103,6 +110,7 @@ const AnimalCardSection = ({petState, setPetState, id }) => {
 						<Clear fontSize="large" />
 					</IconButton>
 					<IconButton
+						id="rightSwipe"
 						onClick={() => swipe("right")}
 						color="error"
 						sx={{ ml: "5vw" }}

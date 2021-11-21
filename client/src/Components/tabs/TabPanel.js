@@ -12,7 +12,7 @@ export default function TabPanel(props) {
             aria-labelledby={`full-width-tab-${index}`}
             {...other}>
             {value === index && (
-            <Paper sx={{ p: 3 }}>
+            <Paper sx={{ p:2.5, paddingBottom: '0px ! important' }}>
                 <Typography component={'span'}>{children}</Typography>
             </Paper>
             )}

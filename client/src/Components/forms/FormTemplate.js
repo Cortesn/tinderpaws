@@ -5,11 +5,14 @@ import RenderTwoInputs from './RenderTwoInputs';
 import { FormInputs, formik } from './FormInputs';
 
 const FormTemplate = (props) => {
-    const {type, button, data} = props;
-    const {filteredInputs} = FormInputs(type, data);
+    const {type, button, data, gAlert} = props;
+    const {filteredInputs} = FormInputs(type, data, {...props});
     var tempInput = null;
     return (
         <Stack
+            direction="column"
+            justifyContent="center"
+            // alignItems="center"
             component="form"
             spacing={1}
             noValidate
@@ -18,8 +21,12 @@ const FormTemplate = (props) => {
             onSubmit={formik.handleSubmit}>
             
             {/* display alert messages */}
-            {formik.values.error ? <Alert severity="error">{formik.values.error}</Alert> : null}
-            {formik.values.success ? <Alert severity="success">{formik.values.success}</Alert> : null}
+            {formik.values.error || (gAlert && gAlert.error) ? 
+                <Alert sx={{'.MuiAlert-message': {margin: 'auto', paddingRight: '30px'}}}
+                    severity="error">{formik.values.error || gAlert.error }</Alert> : null}
+            {formik.values.success || (gAlert && gAlert.success) ? 
+                <Alert sx={{'.MuiAlert-message': {margin: 'auto', paddingRight: '30px'}}}
+                    severity="success">{formik.values.success || gAlert.success}</Alert> : null}
             
             {filteredInputs.map(input =>{
                 
@@ -36,15 +43,17 @@ const FormTemplate = (props) => {
                 } else {
                     return (
                         <FormControl key={input.id} variant="filled">   
-                            <RenderInputs input={input}/> 
+                            <RenderInputs input={input} type={type}/> 
                         </FormControl>
                     )
                 }  
             })}
             <Button 
+                id="formButton"
                 type='submit' 
                 variant='contained' 
                 color='primary'
+                sx={{textTransform: 'none'}}
                 >
                 {button}
             </Button>

@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react'
+import { Link } from 'react-router-dom'
 import { 
-    Grid, 
     Typography, 
     Avatar, 
-    Link, 
     FormGroup, 
     Stack, 
     Switch } from '@mui/material';
@@ -12,7 +11,7 @@ import FormTemplate from '../forms/FormTemplate';
 import { formik } from '../forms/FormInputs';
 import { api } from "../../helperFunctions/axiosInstace";
 
-const ShelterTab = () => {
+const ShelterTab = (props) => {
     const [shelter, setShelter] = React.useState(true);
     const toggleForms = (event, value) => {
         setShelter(value ? false : true);
@@ -39,31 +38,67 @@ const ShelterTab = () => {
     })
 
     return (
-        <>
+
+        <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={1}
+            sx={{maxWidth: '370px', margin: '0 auto'}}>
+
             <Avatar sx={{margin:'auto'}}>
                 <PersonIcon/>
             </Avatar>
-            <Typography variant='subtitle1' sx={{textAlign: 'center'}}>Please complete this form to create a new shelter or employee account!</Typography>
-            <Grid item sx={{textAlign:'center'}}>
-                <Link href='/login' underline='none' color='primary' sx={{textAlign:'center'}}>Already have an account?</Link>
-            </Grid>
 
+            <Typography variant='h6'>Sign up</Typography>
+            <Typography 
+                variant='subtitle1' 
+                sx={{textAlign: 'center'}}>
+                Complete this form to create a new shelter or employee account!
+            </Typography>
+            
+            {/* <Typography 
+                component='a' 
+                align='center'
+                href='/signin' 
+                sx={{
+                    '&:link': { textDecoration: 'none' },
+                    '&:visited': { color: '#1976d2' }
+                }}>
+                Already have an account?
+            </Typography> */}
+            <Typography 
+                component={Link} 
+                align='center'
+                to='/signin' 
+                sx={{
+                    '&:link': { textDecoration: 'none' },
+                    '&:visited': { color: '#1976d2' }
+                }}>Already have an account?
+            </Typography>
+            
             <FormGroup>
                 <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
                     <Typography>Shelter</Typography>
-                        <Switch onChange={toggleForms} />
+                        <Switch id="shelter_emp_switch" onChange={toggleForms} />
                     <Typography>Employee</Typography>
                 </Stack>
             </FormGroup>
 
-            { shelter ? <FormTemplate 
-                            type={'shelter'} 
-                            button={'Signup'}/> 
-                        : <FormTemplate 
-                            type={'employee'} 
-                            button={'Signup'}
-                            data={{options:options}}/> }
-        </>
+            <div style={{width: '100%', paddingBottom: '24px'}}>
+                { shelter ? 
+                    <FormTemplate 
+                        {...props}
+                        type={'shelter'} 
+                        button={'Sign up'}/> 
+                :   <FormTemplate 
+                        {...props}
+                        type={'employee'} 
+                        button={'Sign up'}
+                        data={{options:options}}/> 
+                }
+            </div>
+        </Stack>
     )
 }
 

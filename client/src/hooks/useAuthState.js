@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { api, setToken } from "../helperFunctions/axiosInstace";
+import { api, setToken, removeTokenLogout } from "../helperFunctions/axiosInstace";
 
 // hook to manage login/signup authenication state
 const useAuthState = (initialValue) => {
     const [authValues, setAuthValues] = useState(initialValue)
 
-    // toggle to auth state
+    // toggle to auth state to trigger the re render and api call
     const handleAuthChange = () => {
-        setAuthValues({ ...authValues, [authValues.auth]: !authValues.auth })
+        setAuthValues({ ...authValues, isAuth : !authValues.isAuth })
     }
 
     // check if valid token and load user or admin information
@@ -21,13 +21,13 @@ const useAuthState = (initialValue) => {
                 .then( response => {
                     // set state here
                     var data = response.data
-                    data.auth = true
-                    // console.log(data)
+                    data.isAuth = true
+                    data.loading = false
                     setAuthValues(data)
                 })
                 .catch( error => {
-                    // console.log(error)
-                    // set axios interceptors to handle browser errors
+                    console.log(error)
+                    removeTokenLogout()
                 })
         } else {
             // remove values from state
@@ -36,11 +36,12 @@ const useAuthState = (initialValue) => {
                 shelter_id: '',
                 employee_id: '',
                 email: '', 
-                auth: false
+                isAuth: false,
+                loading: true
             })
         }
 
-    }, [authValues.auth]) // monitor if auth changes to false then remove other data
+    }, [authValues.isAuth]) // monitor if auth changes to false then remove other data
 
     return [authValues, handleAuthChange]
 }

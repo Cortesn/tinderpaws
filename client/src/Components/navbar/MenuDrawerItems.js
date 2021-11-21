@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import { 
     Box, 
     ListItemIcon, 
@@ -41,34 +42,34 @@ export default function MenuDrawerItems(anchor, toggleDrawer, account){
 
                 <Divider />
 
-                <ListItem button component='a' href='/' key='Home'>
+                <ListItem button component={Link} to='/' key='Home'>
                     <ListItemText primary='Home' />
                 </ListItem>
 
-                <ListItem button component='a' href='/mission' key='Mission'>
+                <ListItem button component={Link} to='/mission' key='Mission'>
                     <ListItemText primary='Mission' />
                 </ListItem>
 
                 { account.shelter_id || account.employee_id || account.user_id ?
-                <ListItem button component='a' href='/news' key='News'>
+                <ListItem button component={Link} to='/news' key='News'>
                     <ListItemText primary='News' />
                 </ListItem>
                 : null}
 
                 { account.employee_id || account.user_id ?
-                <ListItem button component='a' href='/user' key='Pets'>
+                <ListItem button component={Link} to='/user' key='Pets'>
                     <ListItemText primary='Pets' />
                 </ListItem>
                 : null }
 
                 { account.employee_id || account.shelter_id ?
-                <ListItem button component='a' href='/adminHome' key='Admin'>
+                <ListItem button component={Link} to='/adminHome' key='Admin'>
                     <ListItemText primary='Admin' />
                 </ListItem>
                 : null }
 
                 {/* { account.shelter_id ?
-                <ListItem button component='a' href='/' key='Admin'>
+                <ListItem button component={Link} to='/' key='Admin'>
                     <ListItemText primary='Admin' />
                 </ListItem>
                 : null } */}
@@ -77,26 +78,26 @@ export default function MenuDrawerItems(anchor, toggleDrawer, account){
             <Divider />
 
             <List>
-                {account.auth ? 
-                    <ListItem button component='a' href='/logout' key='Logout'>
-                        <ListItemText primary='Log Out' />
+                {account.isAuth ? 
+                    <ListItem button component={Link} to='/signout' key='Signout'>
+                        <ListItemText primary='Sign out' />
                         <LogoutIcon sx={{paddingRight: '8px'}}/>
                     </ListItem>
                 :
                     <>
-                        <ListItem button component='a' href='/signup' key='Signup'>
+                        <ListItem button component={Link} to='/signup' key='Signup'>
                             <ListItemIcon>
                                 <AccountCircle/>
                             </ListItemIcon>
                             <ListItemText primary='Create an Account' />
                         </ListItem>
 
-                        <ListItem button component='a' href='/login' key='Login'>
+                        <ListItem button component={Link} to='/signin' key='Signin'>
                             
                             <ListItemIcon>
                                 <VpnKeyIcon/>
                             </ListItemIcon>
-                            <ListItemText primary='Log in' />
+                            <ListItemText primary='Sign in' />
                         </ListItem>
                     </>
                 }   

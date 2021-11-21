@@ -38,7 +38,7 @@ const AddPetFormik = (data) =>
 			data = { ...data, ...values };
 			console.log(data);
 			// make request
-			api.post("/pets", data).then(function (response) {
+			api.post("/pets/", data).then(function (response) {
 				console.log(response);
 				if (response.status === 201) {
 					console.log("Successfully Created Pet ");

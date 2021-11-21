@@ -44,7 +44,7 @@ const shelterValidation = () => Yup.object({
 });
 
 // formik state
-const ShelterFormik =()=> useFormik({
+const ShelterFormik =({...props})=> useFormik({
     enableReinitialize: true, // allows to reset the initial fields
     initialValues: {
         sname: '',
@@ -66,27 +66,20 @@ const ShelterFormik =()=> useFormik({
         // make request
         api.post('/signup/shelter', data )
             .then( response => {
-                // console.log(response)
-                // console.log(response.data)
-                
                 const {token} = response.data
                 setToken(token)
 
                 // remove error if exists
                 setFieldValue('error', '')
                 setFieldValue('success', 'Success!')
-
+                props.handleAuthChange()
                 // redirects page
-                window.location = '/'
+                props.history.push('/')
             })
             .catch( error => {
                 // set error msg with formik
                 setFieldValue('error', error.response.data.msg)
             })
-            // might not need this promise -> always executes
-            // .then(function(){
-            //     // resetForm()
-            // })
     },
 });
 

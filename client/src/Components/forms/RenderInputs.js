@@ -16,7 +16,7 @@ import {
 
 
 export const RenderInputs = (props) => {
-    const {input} = props;
+    const {input, type} = props;
 
     if (input.password){
         // passwords
@@ -96,6 +96,7 @@ export const RenderInputs = (props) => {
             <>
             <TextareaAutosize
                 aria-label="textarea"
+                id={input.textArea.id}
                 minRows={input.textArea.rows}
                 placeholder={input.label + '...'}
                 defaultValue={input.value}
@@ -108,7 +109,7 @@ export const RenderInputs = (props) => {
         return (
             <TextField
                 variant= 'filled'
-                id={input.id}
+                id={input.id + type}
                 label={input.label}
                 name={input.id}
                 value={input.value || ''}

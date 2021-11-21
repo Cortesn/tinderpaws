@@ -5,6 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 
 export const DeletePetButton = ({ deletePet, pet }) => {
+    const delete_btn_id = "delete_" + pet.name;
 	const [open, setOpen] = useState(false);
 
 	const handleClickOpen = () => {
@@ -23,6 +24,7 @@ export const DeletePetButton = ({ deletePet, pet }) => {
 	return (
 		<div>
 			<Button size="large"
+            id={delete_btn_id}
 			variant="contained"
 			color="error"
       onClick={handleClickOpen}>

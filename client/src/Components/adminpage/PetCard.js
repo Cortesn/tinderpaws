@@ -88,7 +88,7 @@ export const PetCard = ({ pet, deletePet }) => {
 						<NavigateNext fontSize="large" />
 					</IconButton>
 				</Grid>
-				<Link to={`/admin/edit/${pet.pet_id}`} style={{textDecoration:"none", color:"black"}}>
+				<Link to={`/admin/edit/${pet.pet_id}`} id={`${pet.name}`} style={{textDecoration:"none", color:"black"}}>
 					<CardActionArea>
 						<CardContent sx={{ textAlign: "center" }}>
 							<ThemeProvider theme={theme}>

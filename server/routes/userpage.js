@@ -22,14 +22,15 @@ userRouter.get('/pets', auth, (req, res) => {
             console.log(error)
             return
         } 
-        console.log(results)
+        // console.log(results)
         return res.status(200).json(results)
     })
 });
 
 // endpoint to add match
-userRouter.post('/match', (req,res)=>{
-    const {pet_id, user_id} = req.body
+userRouter.post('/match', auth, (req,res)=>{
+    const {pet_id} = req.body
+    const user_id = req.user.user_id
 
     // Insert if match does not exists
     const query = `INSERT INTO Matches(pet_id, user_id, date_matched)
@@ -43,7 +44,7 @@ userRouter.post('/match', (req,res)=>{
             console.log(error)
             return
         } 
-        console.log("from /user/matches", results)
+        // console.log("from /user/matches", results)
         return res.status(201).json(results)
     })
 });
