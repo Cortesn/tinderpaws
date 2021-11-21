@@ -1,7 +1,6 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { api } from "../../helperFunctions/axiosInstace";
-import { Redirect } from "react-router";
 
 // Formik Schema (shelters)
 const petValidation = () =>

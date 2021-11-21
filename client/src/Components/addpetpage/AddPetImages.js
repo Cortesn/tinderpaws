@@ -1,6 +1,5 @@
 import React from "react";
-import { ImageList, Button, Box, IconButton, Grid } from "@mui/material";
-import GroupsIcon from "@mui/icons-material/Groups";
+import { ImageList, Button, Box, Grid, Stack } from "@mui/material";
 import ImageUploader from "../imageupload/ImageUploader.js";
 import ImageItem from "../petprofile/ImageItem.js";
 import useButtonState from "../../hooks/useButtonState";
@@ -16,10 +15,12 @@ const updateDisplayCol = (items) => {
 export const AddPetImages = (props) => {
 	const { pet, nextStep } = props;
 	const [deleteClicked, handleDeleteChange] = useButtonState(false);
-	const [images, handleChange, addImage, deleteImage] = useDeleteItemState([]);
+	const {items:images, addItem:addImage, deleteItem:deleteImage} = useDeleteItemState(
+		[]
+	);
 
-	console.log('images',images);
-	console.log('pet',pet);
+	console.log("images", images);
+	console.log("pet", pet);
 
 	return (
 		<Grid sx={{ paddingTop: "1rem" }} item>
@@ -53,44 +54,55 @@ export const AddPetImages = (props) => {
 						}}
 					></Box>
 
-					<Button
-						onClick={handleDeleteChange}
-						sx={{
-							textTransform: "none",
-							display: "inline",
-						}}
-					>
-						{deleteClicked ? "done" : "delete"}
-					</Button>
+					{images.length !== 0 && (
+						<Button
+							onClick={handleDeleteChange}
+							sx={{
+								textTransform: "none",
+								display: "inline",
+							}}
+						>
+							{deleteClicked ? "done" : "delete"}
+						</Button>
+					)}
 				</Box>
 			</Box>
 
 			{/* images */}
-			<ImageList
-				sx={{
-					margin: "auto",
-					padding: "20px",
-					maxWidth: "100%",
-					maxHeight: 500,
-				}}
-				cols={updateDisplayCol(images)}
+			<Stack
+				direction="column"
+				justifyContent="flex-start"
+				alignItems="center"
+				spacing={2}
 			>
-				{images
-					? images.map((image) => (
-							<ImageItem
-								key={image.image_id}
-								image={image}
-								deleteImage={deleteImage}
-								deleteClicked={deleteClicked}
-								snackBar={pet.snackBar}
-							/>
-					  ))
-					: null}
-			</ImageList>
-			<Box textAlign='center'>
+				<ImageList
+					sx={{
+						margin: "auto",
+						padding: "20px",
+						maxWidth: "100%",
+						maxHeight: 500,
+					}}
+					cols={updateDisplayCol(images)}
+				>
+					{images
+						? images.map((image) => (
+								<ImageItem
+									key={image.image_id}
+									image={image}
+									deleteImage={deleteImage}
+									deleteClicked={deleteClicked}
+									snackBar={pet.snackBar}
+								/>
+						  ))
+						: null}
+				</ImageList>
+			</Stack>
+			<Box textAlign="center" sx={{ p: 3 }}>
 				<Button
+					variant="contained"
+					size="large"
 					onClick={nextStep}
-          disabled = {images.length === 0}
+					disabled={images.length === 0}
 				>
 					Finish
 				</Button>

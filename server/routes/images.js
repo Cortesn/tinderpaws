@@ -41,10 +41,10 @@ router.post('/:pet_id', upload.single('image'), async (req, res) => {
                 console.log(error)
                 return res.status(400).json({msg: 'Something went wrong. Please try again later.'})
             } else {
-                // console.log(results)
+                console.log("post image results:", results)
                 const payload = {
                     msg: 'Success! New image added.',
-                    image_id: results.insertId,
+                    image_id: file.filename,
                     url: s3Object.Location
                 }
                 return res.status(201).json({payload})

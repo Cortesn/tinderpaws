@@ -44,7 +44,7 @@ const AddPet = (props) => {
 
 	// handles logic for which step to display
 	const currentPage = () => {
-		if (activeStep == 0) {
+		if (activeStep === 0) {
 			return (
 				<Stack
 					direction="column"
@@ -68,15 +68,15 @@ const AddPet = (props) => {
 					</div>
 				</Stack>
 			);
-		} else if (activeStep == 1) {
+		} else if (activeStep === 1) {
 			return (
 				<AddPetImages
 					pet={{...pet, snackBar:handleOpen}}
 					nextStep={nextStep}
 				/>
 			);
-		} else if (activeStep == 2) {
-			return <Redirect to="/" />;
+		} else if (activeStep === 2) {
+			return <Redirect to="/adminHome" />;
 		}
 	};
 
