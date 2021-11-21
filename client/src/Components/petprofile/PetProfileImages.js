@@ -45,7 +45,8 @@ const PetProfileImages = (props) => {
                     <ImageUploader 
                         style={{left: 20}}
                         addImage={addImage} 
-                        snackBar={pet.snackBar}/>
+                        snackBar={pet.snackBar}
+                        pet_id={pet.pet_id}/>
                 </Box>
 
                 <Typography 

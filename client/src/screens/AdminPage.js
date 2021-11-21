@@ -77,15 +77,17 @@ export const AdminPage = () => {
 							value={filter}
 							onChange={filterPets}
 						>
-							{animalTypes.map((animal) => {
-								const formattedAnimal =
-									animal[0].toUpperCase() + animal.slice(1);
-								return (
-									<MenuItem key={animal} value={animal}>
-										{formattedAnimal}
-									</MenuItem>
-								);
-							})}
+							<Grid container alignItems='stretch'>
+								{animalTypes.map((animal) => {
+									const formattedAnimal =
+										animal[0].toUpperCase() + animal.slice(1);
+									return (
+										<MenuItem key={animal} value={animal}>
+											{formattedAnimal}
+										</MenuItem>
+									);
+								})}
+							</Grid>
 						</Select>
 					</FormControl>
 				</Grid>

@@ -121,11 +121,11 @@ router.patch("/:pet_id", (req, res) => {
 
 // create a pet
 router.post("/", async (req, res) => {
-	const { name, type, breed, status, dispositions, description, shelter_id } = req.body;
+	const { name, type, breed, status, dispositions, description, employee_id } = req.body;
 	// insert new pet
 	const query1 = `INSERT INTO Pets(name, type, breed, status, date_created, last_updated, description, shelter_id)
-    VALUES (?, ?, ?, ?, CURDATE(), CURDATE(), ?, ?);`;
-	const values1 = [name, type, breed, status, description, shelter_id];
+    VALUES (?, ?, ?, ?, CURDATE(), CURDATE(), ?, (SELECT shelter_id FROM Employees WHERE employee_id=?));`;
+	const values1 = [name, type, breed, status, description, employee_id];
 	const query2 =
 		"INSERT INTO Pets_Dispositions (pet_id, disposition_id) VALUES ";
 	db.query(query1, values1, (err, results) => {
@@ -137,22 +137,27 @@ router.post("/", async (req, res) => {
 		}
 
 		const pet_id = results.insertId;
-        const newDisp = dispositions.map(() => '(?,?)').join();
-        const query2 = `INSERT INTO Pets_Dispositions (pet_id, disposition_id) 
-        VALUES ${newDisp};`;
-        const values2 = [];
-        dispositions.map(disp=> values2.push(pet_id, disp));
-        console.log(values2);
-		db.query(query2, values2, (err, result) => {
-            if (err) {
-                console.log(error);
-                return res
-                    .status(400)
-                    .json({ msg: "Somthing went wrong. Please try agian later." });
-            }
-            console.log(result)
-            return res.status(201).json({ msg: "Added Pet" });
-        })
+
+        if (dispositions) {
+            const newDisp = dispositions.map(() => '(?,?)').join();
+            const query2 = `INSERT INTO Pets_Dispositions (pet_id, disposition_id) 
+            VALUES ${newDisp};`;
+            const values2 = [];
+            dispositions.map(disp=> values2.push(pet_id, disp));
+            console.log(values2);
+            db.query(query2, values2, (err, result) => {
+                if (err) {
+                    console.log(error);
+                    return res
+                        .status(400)
+                        .json({ msg: "Somthing went wrong. Please try agian later." });
+                }
+                console.log(result)
+                return res.status(201).json({ msg: "Added Pet w Dispositions", pet_id: pet_id });
+            })
+        } else {
+            return res.status(201).json({ msg: "Added Pet", pet_id: pet_id });
+        }
 	});
 });
 

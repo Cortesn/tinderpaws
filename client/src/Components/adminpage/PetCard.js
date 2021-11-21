@@ -52,7 +52,7 @@ export const PetCard = ({ pet, deletePet }) => {
 			justifyContent="center"
 			sx={{ px: 0, display: pet.display ? "block" : "none" }}
 		>
-			<Card sx={{ width: 345 }}>
+			<Card sx={{ width: 345 , display:"stretch"}}>
 				<Grid container sx={{ position: "relative" }}>
 					<IconButton
 						onClick={prevImg}

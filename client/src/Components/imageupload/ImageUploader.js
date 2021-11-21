@@ -6,7 +6,7 @@ import useImageUploadState from '../../hooks/useImageUploadState';
 
 
 const ImageUploader = (props) => {
-    const {addImage, snackBar} = props;
+    const {addImage, snackBar, pet_id} = props;
 
     const [image, 
             handleImageChange, 
@@ -41,6 +41,7 @@ const ImageUploader = (props) => {
                 image={image} 
                 open={open} 
                 handleClose={handleClose}
+                pet_id={pet_id}
                 />
         </>
     )

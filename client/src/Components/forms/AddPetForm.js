@@ -41,16 +41,23 @@ const AddPetFormik = (data) =>
 			api.post("/pets", data).then(function (response) {
 				console.log(response);
 				if (response.status === 201) {
-					alert("Successfully Created Pet ");
+					console.log("Successfully Created Pet ");
 				} else {
 					console.error("Something went wrong");
 				}
-
-				// redirects page
-				window.location = "/adminHome";
+				data.setPet({...data.pet,
+					pet_id:response.data.pet_id,
+					name: data.name,
+					type: data.type,
+					breed: data.breed,
+					status: data.status,
+					description: data.description
+				})
+				// data.snackBar({success: "response.data.msg"})
+				// redirects page to add images
+				data.nextStep();
 			});
 		},
-		// validator: () => ({}) // used to catch error while testing
 	});
 
 export default AddPetFormik;
