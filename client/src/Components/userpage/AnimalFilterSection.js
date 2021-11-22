@@ -12,76 +12,73 @@ import AnimalFilterForm from "../forms/AnimalFilterForm";
 import MatchesGrid from "../grids/MatchesGrid";
 import UserAccordionState from "../../hooks/useAccordionState";
 
-const AnimalFilterSection = ({shelters, id, setPetState}) => {
+const AnimalFilterSection = ({shelters, setPetState}) => {
 	const [expanded, handleChangeAccordion] = UserAccordionState(false);
 
 	return (
-			<Grid
-				xs={12}
-				sm={7}
-				md={5}
-				lg={4}
-				xl={3}
-				sx={{ mx: "auto", mt: 3 }}
-				item
+		<Grid 
+			item 
+			xs={12} sm={12} md={6} lg={4} 
+			sx={{ 
+				display: { xs: 'none', md: 'block' },
+				maxWidth: '650px'
+				}}>
+			<Accordion
+				sx={{ width: "100%" }}
+				expanded={expanded === "profileSettings"}
+				onChange={handleChangeAccordion("profileSettings")}
 			>
-				<Accordion
-					sx={{ width: "100%" }}
-					expanded={expanded === "profileSettings"}
-					onChange={handleChangeAccordion("profileSettings")}
+				<AccordionSummary
+					expandIcon={<ExpandMoreIcon />}
+					aria-controls="profile-settings-content"
+					id="profile-settings-header"
 				>
-					<AccordionSummary
-						expandIcon={<ExpandMoreIcon />}
-						aria-controls="profile-settings-content"
-						id="profile-settings-header"
-					>
-						<Typography sx={{ flexShrink: 0 }}>Profile</Typography>
-					</AccordionSummary>
-					<AccordionDetails>
-						<UserProfileUpdateForm/>
-					</AccordionDetails>
-				</Accordion>
-				<Accordion
-					expanded={expanded === "filterSettings"}
-					onChange={handleChangeAccordion("filterSettings")}
+					<Typography sx={{ flexShrink: 0 }}>Profile</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					<UserProfileUpdateForm/>
+				</AccordionDetails>
+			</Accordion>
+			<Accordion
+				expanded={expanded === "filterSettings"}
+				onChange={handleChangeAccordion("filterSettings")}
+			>
+				<AccordionSummary
+					expandIcon={<ExpandMoreIcon />}
+					aria-controls="filter-settings-content"
+					id="filter-settings-header"
 				>
-					<AccordionSummary
-						expandIcon={<ExpandMoreIcon />}
-						aria-controls="filter-settings-content"
-						id="filter-settings-header"
-					>
-						<Typography sx={{ width: "33%", flexShrink: 0 }}>
-							Filter
-						</Typography>
-					</AccordionSummary>
-					<AccordionDetails>
-						{shelters && (
-							<AnimalFilterForm
-								shelters={shelters}
-								setPetState={setPetState}
-							/>
-						)}
-					</AccordionDetails>
-				</Accordion>
-				<Accordion
-					expanded={expanded === "matches"}
-					onChange={handleChangeAccordion("matches")}
+					<Typography sx={{ width: "33%", flexShrink: 0 }}>
+						Filter
+					</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					{shelters && (
+						<AnimalFilterForm
+							shelters={shelters}
+							setPetState={setPetState}
+						/>
+					)}
+				</AccordionDetails>
+			</Accordion>
+			<Accordion
+				expanded={expanded === "matches"}
+				onChange={handleChangeAccordion("matches")}
+			>
+				<AccordionSummary
+					expandIcon={<ExpandMoreIcon />}
+					aria-controls="matches-content"
+					id="matches-header"
 				>
-					<AccordionSummary
-						expandIcon={<ExpandMoreIcon />}
-						aria-controls="matches-content"
-						id="matches-header"
-					>
-						<Typography sx={{ width: "33%", flexShrink: 0 }}>
-							Matches
-						</Typography>
-					</AccordionSummary>
-					<AccordionDetails>
-						<MatchesGrid/>
-					</AccordionDetails>
-				</Accordion>
-			</Grid>
-			
+					<Typography sx={{ width: "33%", flexShrink: 0 }}>
+						Matches
+					</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					<MatchesGrid/>
+				</AccordionDetails>
+			</Accordion>
+		</Grid>
 	);
 };
 

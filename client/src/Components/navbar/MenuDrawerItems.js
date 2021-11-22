@@ -57,7 +57,7 @@ export default function MenuDrawerItems(anchor, toggleDrawer, account){
                 : null}
 
                 { account.employee_id || account.user_id ?
-                <ListItem button component={Link} to='/user' key='Pets'>
+                <ListItem button component={Link} to='/userHome' key='Pets'>
                     <ListItemText primary='Pets' />
                 </ListItem>
                 : null }
