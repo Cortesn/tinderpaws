@@ -23,7 +23,6 @@ const updateDisplayCol = (items) => {
 const PetProfileImages = (props) => {
     const {handleButtonChange, pet, images, addImage, deleteImage} = props;
     const [deleteClicked, handleDeleteChange] = useButtonState(false);
-
     return(
         <Grid sx={{paddingTop: '1rem'}} item>
             {/* heading */}
@@ -46,7 +45,8 @@ const PetProfileImages = (props) => {
                     <ImageUploader 
                         style={{left: 20}}
                         addImage={addImage} 
-                        snackBar={pet.snackBar}/>
+                        snackBar={pet.snackBar}
+                        pet_id={pet.pet_id}/>
                 </Box>
 
                 <Typography 
