@@ -1,8 +1,8 @@
-import express from "express";
-const router = express.Router();
-import pool from "../Database/dbcon.js";
-import auth from "../middleware/auth.js";
-const db = pool;
+import express from 'express'
+const router = express.Router()
+import pool from '../Database/dbcon.js'
+const db = pool
+import auth from '../middleware/auth.js'
 
 // get all pets with optional pagination for news feed
 router.get("/offset/:offset?", (req, res) => {
@@ -42,10 +42,38 @@ router.get("/offset/:offset?", (req, res) => {
 	);
 });
 
-// route to get all pet data for the /admin/edit/:pet_id path ( single pet )
-router.get("/:pet_id", (req, res) => {
-	const id = req.params.pet_id;
-	const pet = `SELECT Pets.pet_id, name, type, breed, status, date_created, last_updated, 
+// endpoint to get all available pets not matched for user from db
+router.get('/', auth, (req, res) => {
+    const user_id = req.user.user_id;
+    const getPets = `SELECT p.*, GROUP_CONCAT(i.url) as images 
+                    FROM Pets as p
+                    INNER JOIN Images as i ON p.pet_id=i.pet_id
+                    WHERE p.pet_id NOT IN (
+                        SELECT m.pet_id
+                        FROM Matches as m
+                        WHERE m.user_id=?
+                    )
+                    GROUP BY p.pet_id;`
+    db.query(getPets,[user_id], (error, results) => {
+        if (error){
+            console.log(error)
+            return
+        } 
+        results.forEach(result => {
+            result.images = result.images.split(',')
+            result.date_created = result.date_created.toISOString().slice(0,10)
+            result.last_updated = result.last_updated.toISOString().slice(0,10)
+            return result
+        })
+        // console.log(results)
+        return res.status(200).json(results)
+    })
+});
+
+// route to get all pet data for the /admin/edit/:pet_id path ( single pet by pet_id)
+router.get('/:pet_id', (req,res) => {
+    const id = req.params.pet_id;
+    const pet =`SELECT Pets.pet_id, name, type, breed, status, date_created, last_updated, 
                 description, shelter_id, GROUP_CONCAT(disposition_id) AS dispositions FROM 
                 Pets LEFT JOIN Pets_Dispositions ON Pets.pet_id=Pets_Dispositions.pet_id 
                 WHERE Pets.pet_id=?;`;

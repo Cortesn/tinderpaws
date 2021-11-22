@@ -20,6 +20,29 @@ router.get("/users/user", auth, (req, res)=>{
     })
 })
 
+// endpoint to add match
+router.post('/', auth, (req,res)=>{
+    const {pet_id} = req.body
+    const user_id = req.user.user_id
+    // Insert if match does not exists
+    // const query = `INSERT INTO Matches(pet_id, user_id, date_matched)
+    //                 SELECT ?, ?, CURDATE()
+    //                 WHERE NOT EXISTS(
+    //                 SELECT 1 FROM Matches as m
+    //                 WHERE m.pet_id=?
+    //                 AND m.user_id=?);`
+    const query = 'INSERT INTO Matches(pet_id, user_id, date_matched) VALUES (?,?,?)'
+    const date = new Date().toISOString().slice(0,10);
+    db.query(query, [pet_id, user_id, date], (error, results) =>{
+        if (error){
+            console.log(error)
+            return
+        } 
+        // console.log(results)
+        return res.status(201).json(results)
+    })
+});
+
 // delete a single match from a pet
 router.delete('/:match_id', (req,res) => {
     const match_id = req.params.match_id
