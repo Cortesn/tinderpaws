@@ -47,7 +47,7 @@ router.get("/animals/breed", (req,res)=>{
         }
     })
 })
-
+// filter animal based off user selections - shelter, animal type, pet breed, pet dispositions
 router.get("/filteredAnimals", auth, (req,res)=>{
     const user_id = req.user.user_id;
     const shelters = req.query.shelters;
@@ -59,7 +59,8 @@ router.get("/filteredAnimals", auth, (req,res)=>{
     const sqlDispositionsArray = dispositions.join(',');
     const sqlSheltersArray = shelters.join(',');
 
-    const getDispositionIds = `SELECT Dispositions.disposition_id from Dispositions WHERE Dispositions.description IN (${sqlDispositionsArray})`;
+    const getDispositionIds = `SELECT Dispositions.disposition_id from 
+    Dispositions WHERE Dispositions.description IN (${sqlDispositionsArray})`;
     const shelterSubQuery = `SELECT Shelters.shelter_id FROM Shelters WHERE Shelters.name IN (${sqlSheltersArray})`;
     const dispositionsSubQuery = `SELECT DISTINCT(p.pet_id) FROM tinder_paws.Pets_Dispositions pd 
     join tinder_paws.Pets p on pd.pet_id = p.pet_id 
