@@ -47,11 +47,7 @@ const AdminEditPetPage = () => {
         if (!pet.pet_id){
             api.get('/pets/' + pet_id)
             .then( response => {
-                // console.log("response data:", response.data)
-                var petData = response.data.pet
-                petData.setPet = setPet
-                petData.snackBar = handleOpen
-                setPet(petData)
+                setPet(response.data.pet)
                 if (response.data.images) handleImageChange(response.data.images)
                 if (response.data.matches) handleMatchChange(response.data.matches)
             })
@@ -60,7 +56,15 @@ const AdminEditPetPage = () => {
                 // redirect to a 404 page
             })
         } 
-    })
+
+        // get the pet breed options
+        if (pet.type && !pet.options){
+            api.get('/breeds/', {params: {type: pet.type}})
+                .then((response) => {
+                    setPet({...pet, 'options': response.data})
+                })
+        }
+    }, [pet.type, handleImageChange, handleMatchChange, pet, pet_id])
 
     const containerRef = React.useRef(null);
 
@@ -78,7 +82,11 @@ const AdminEditPetPage = () => {
         <PetProfile
             buttonClicked={buttonClicked}
             handleButtonChange={handleButtonChange}
-            pet={pet} 
+            pet={{
+                pet: pet,
+                setPet: setPet,
+                snackBar: handleOpen
+            }} 
             images={images}
             addImage={addImage}
             deleteImage={deleteImage}/>
