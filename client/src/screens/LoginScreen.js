@@ -7,6 +7,7 @@ import GoogleAuth from "../Components/GoogleAuth";
 import { SignInUpStyle } from "../Components/Themes";
 
 const LoginScreen = (props) => {
+	console.log(props)
 	const [passwordReset, setPasswordReset] = useState(false)
 	const handleChange = () => {
 		setPasswordReset(!passwordReset);
@@ -42,6 +43,7 @@ const LoginScreen = (props) => {
 									component={Link} 
 									align='center'
 									to='/signup' 
+									handleAuthChange={props.handleAuthChange}
 									sx={{
 										'&:link': { textDecoration: 'none' },
 										'&:visited': { color: '#467eac' }
