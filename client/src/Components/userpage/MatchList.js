@@ -14,7 +14,7 @@ const MatchList = (props) => {
             {/* iterate through list of users */}
             {matches.map((match) => (
                     <MatchItem 
-                        key={match.match_id} 
+                        key={match.pet_id} 
                         match={match} 
                         />   
                     )

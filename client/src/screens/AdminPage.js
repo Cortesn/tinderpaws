@@ -36,13 +36,13 @@ export const AdminPage = () => {
 	}, []);
 
 	const deletePet = (id) => {
-		setPetState(petState.filter((pet) => pet.id !== id));
-
+		
 		// Delete from DB
 		const deleteUrl = `/adminHome/pet/${id}`;
 		api.delete(deleteUrl).then((response) => {
-			console.log(response.data);
 		});
+
+		setPetState(petState.filter((pet) => pet.id !== id));
 	};
 
 	const filterPets = (e) => {
@@ -52,7 +52,6 @@ export const AdminPage = () => {
 			if (type === "all") {
 				pet.display = true;
 			} else {
-				console.log(pet, type)
 				pet.display = pet.type.toLowerCase() === type.toLowerCase();
 			}
 			return pet;

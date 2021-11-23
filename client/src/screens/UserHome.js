@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import {api, setToken} from '../helperFunctions/axiosInstace'
-import {Grid} from "@mui/material";
-// import { useParams } from "react-router";
+import { Grid, useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles';
 import AnimalFilterSection from "../Components/userpage/AnimalFilterSection";
 import AnimalCardSection from "../Components/userpage/AnimalCardSection";
 
-const UserHome = () => {
+
+const UserHome = (props) => {
 	const [petState, setPetState] = useState([]);  // Array of pets displayed on cards
 	const [shelters, setShelters] = useState(null);  // Shelters for the filter
-    // const id = useParams();
-    //console.log(id)
+
+	// reference to remove column spacing between cards
+    const theme = useTheme();
+    const desktop = useMediaQuery(theme.breakpoints.up('md')); 
+
 	useEffect(() => {
 		// Get all shelters from DB for Filter
 		const url = "/filterSetting/shelters";
@@ -17,24 +21,40 @@ const UserHome = () => {
 			setShelters(response.data);
 		});
 		// Get all pets from DB to show as initial page
-		const petUrl = `/user/pets`;
-        setToken(localStorage.token); // setting token to get user id
-		api.get(petUrl).then((response) => {
-			response.data.forEach((pet) => {
-				pet.images = pet.images.split(",");
-				pet.type = pet.animalType;
-				pet.id = pet.pet_id;
-				return pet;
+		if (petState.length === 0){
+			setToken(localStorage.token); // setting token to get user id
+			api.get('/pets').then((response) => {
+				const noMorePets = {
+					images: ['/assets/images/nomorepets.png'],
+					pet_id: null
+				}
+				// add the 'no more pets' placeholder to the front of the list
+				response.data.unshift(noMorePets)
+				// console.log(response.data)
+				setPetState(response.data);
 			});
-			setPetState(response.data);
-		});
+		}
 	}, []);
 
 
 	return (
-		<Grid container sx={{ width: "80%", mx: "auto" }}>
-			<AnimalFilterSection shelters={shelters} setPetState={setPetState}/>
-			<AnimalCardSection petState={petState} setPetState={setPetState}/>
+		<Grid 
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="stretch"
+            sx={{margin:'auto !important', maxWidth: 1400}} 
+            columnSpacing={{ md: desktop ? 1 : 0 }}
+			>
+			
+			<AnimalFilterSection 
+				shelters={shelters} 
+				setPetState={setPetState}/>
+			
+			<AnimalCardSection 
+				petState={petState} 
+				setPetState={setPetState}/>
+
 		</Grid>
 	);
 };

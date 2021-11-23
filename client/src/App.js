@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from "./screens/HomePage";
 import MissionPage from "./screens/MissionPage";
 import SignupPage from "./screens/SignupPage";
-import { LoginScreen } from "./screens/LoginScreen";
+import LoginScreen from "./screens/LoginScreen";
 import Navbar from "./Components/navbar/Navbar.js";
 import AdminEditPetPage from "./screens/AdminEditPetPage";
 import NewsFeed from "./screens/NewsFeed";

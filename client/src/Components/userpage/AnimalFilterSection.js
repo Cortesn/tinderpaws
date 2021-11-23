@@ -12,7 +12,7 @@ import AnimalFilterForm from "../forms/AnimalFilterForm";
 import MatchesGrid from "../grids/MatchesGrid";
 import UserAccordionState from "../../hooks/useAccordionState";
 
-const AnimalFilterSection = ({shelters, id, setPetState}) => {
+const AnimalFilterSection = ({shelters, setPetState}) => {
 	const [expanded, handleChangeAccordion] = UserAccordionState(false);
 	
 	return (
@@ -79,7 +79,6 @@ const AnimalFilterSection = ({shelters, id, setPetState}) => {
 				</AccordionDetails>
 			</Accordion>
 		</Grid>
-			
 	);
 };
 
