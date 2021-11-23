@@ -1,9 +1,8 @@
 
 import { api, setToken } from "../axiosInstace";
 const UpdateProfileRequest = (values) => {
-    let url = `/userProfileUpdate/update`;
     setToken(localStorage.token)
-    api.patch(url, values).then((response)=>{
+    api.patch(`/users/user`, values).then((response)=>{
         if(response.status === 200){
             alert("Successfully updated profile! :) ")
         }else{

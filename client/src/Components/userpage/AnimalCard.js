@@ -4,13 +4,13 @@ import {
 	Card,
 	CardMedia,
 	IconButton,
-	useMediaQuery,
+	// useMediaQuery,
 	Stack,
 	Collapse,
 	CardContent,
 	Box
 } from "@mui/material";
-import { useTheme, styled } from '@mui/material/styles';
+// import { useTheme } from '@mui/material/styles';
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import InfoIcon from '@mui/icons-material/Info';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -23,8 +23,8 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, detailRef,
 
 	// console.log(pet)
 	// reference to remove column spacing between cards
-    const theme = useTheme();
-    const desktop = useMediaQuery(theme.breakpoints.up('md')); 
+    // const theme = useTheme();
+    // const desktop = useMediaQuery(theme.breakpoints.up('md')); 
 	const [expanded, setExpanded] = useState(false);
 	const handleExpandClick = () => {
 		setExpanded(!expanded);

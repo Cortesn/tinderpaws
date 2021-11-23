@@ -16,8 +16,7 @@ const UserHome = (props) => {
 
 	useEffect(() => {
 		// Get all shelters from DB for Filter
-		const url = "/filterSetting/shelters";
-		api.get(url).then((response) => {
+		api.get("/shelters").then((response) => {
 			setShelters(response.data);
 		});
 		// Get all pets from DB to show as initial page
@@ -34,7 +33,7 @@ const UserHome = (props) => {
 				setPetState(response.data);
 			});
 		}
-	}, []);
+	}, [petState.length]);
 
 
 	return (

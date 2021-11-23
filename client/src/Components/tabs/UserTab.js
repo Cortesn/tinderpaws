@@ -39,16 +39,7 @@ const UserTab = (props) => {
                 <Typography align='center' variant='subtitle1'>
                     Complete this form to create a new user account!
                 </Typography>
-                {/* <Typography 
-                    component='a' 
-                    align='center'
-                    href='/signin' 
-                    sx={{
-                        '&:link': { textDecoration: 'none' },
-                        '&:visited': { color: '#1976d2' }
-                    }}>
-                    Already have an account?
-                </Typography> */}
+
                 <Typography 
                     component={Link} 
                     align='center'
@@ -71,7 +62,7 @@ const UserTab = (props) => {
             <Divider variant="middle" style={{width:'100%', marginTop:20, marginBottom:20}}/>
             {/* google button */}
             <div style={{ marginTop: 0}}>
-                <GoogleAuth setGAlert={setGAlert} type={'signup'}/>
+                <GoogleAuth setGAlert={setGAlert} type={'signup'} {...props}/>
             </div>
         </Stack>
     )

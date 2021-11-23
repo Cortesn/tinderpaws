@@ -6,7 +6,7 @@ import FormTemplate from '../forms/FormTemplate'
 /* Returns the 'right side' card for the Pet Images and update form */
 const PetProfile = (props) => {
     const {buttonClicked, handleButtonChange, pet, images, addImage, deleteImage} = props;
-    console.log(pet)
+
     return (
         <Grid 
             item 
