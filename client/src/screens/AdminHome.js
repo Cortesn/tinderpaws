@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from "react";
-// import {useParams} from "react-router";
+import { Link } from 'react-router-dom';
 import { Typography, Button, Stack, Grid, Card, CardContent} from "@mui/material";
 import {createTheme} from '@mui/material/styles';
 import { ThemeProvider } from "@mui/system";
@@ -8,7 +8,7 @@ import { FormInputs } from '../Components/forms/FormInputs';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { api, setToken } from "../helperFunctions/axiosInstace";
 
-const AdminHome = () => {
+const AdminHome = (props) => {
     const theme = createTheme({
             palette: {
               primary: {
@@ -16,15 +16,13 @@ const AdminHome = () => {
               }
             }
           })
-    // // useParams is to get the ID passed into the parent route
-    // const {id} = useParams()
+
 
     // get shelter info
     const [shelterInfoState, setShelterInfoState] = useState(null);
     useEffect(() => {
-        const url = `/adminHome/shelters/shelter/employees`;
         setToken(localStorage.token)
-        api.get(url).then((response)=>{
+        api.get(`/shelters/shelter`).then((response)=>{
             const data = {data: response.data[0]}
             setShelterInfoState(data);
             });
@@ -33,7 +31,7 @@ const AdminHome = () => {
     // get employee name
     const [employeeNameState, setEmployeeNameState] = useState(null);
     useEffect(()=>{
-        const url = `/adminHome/employees`;
+        const url = `/shelters/employee`;
         setToken(localStorage.token)
         api.get(url).then((response)=>{
             setEmployeeNameState(response.data[0]["name"])
@@ -103,14 +101,14 @@ const AdminHome = () => {
                 justifyContent="center"
                 spacing={6}>
                     <ThemeProvider theme={theme}>
-                        <Button id="addpet" variant="contained" href="/addpet">
+                        <Button id="addpet" component={Link} variant="contained" to="/adminHome/add" auth={props.auth}>
                             Add new animal profile
                         </Button>
-                        <Button id="editpet" variant="contained" href="/adminHome/pets">
+                        <Button id="editpet" component={Link} variant="contained" to="/adminHome/pets" auth={props.auth}>
                             Edit animal profile
                         </Button>
                         <Button id="editshelter" variant="contained" onClick={toggleShelterForm}>
-                            Edit shelter info
+                            {updateFormState? 'Close shelter info' : 'Edit shelter info'}
                         </Button>
                     </ThemeProvider>
                 </Stack>
