@@ -8,7 +8,6 @@ import LoginFormik from './Login';
 import ForgotPasswordFormik from './ForgotPassword';
 import ResetPasswordFormik from './ResetPassword';
 import useFormPasswordState from '../../hooks/useFormPasswordState';
-import UpdateProfileRequest from '../../helperFunctions/UserHome/updateProfileRequest';
 import signUpRequest from '../../helperFunctions/signUp.js/signUpRequest';
 import UserUpdateFormik from './UserUpdate';
 import PetInfoFormik from './PetInfoForm';
@@ -28,7 +27,7 @@ const FormInputs = (type, data, {...props}) =>{
     }else if (type === 'login'){
         formik = LoginFormik({...props})
     }else if (type === 'userUpdate'){
-        formik = UserUpdateFormik(data, UpdateProfileRequest)
+        formik = UserUpdateFormik(data)
     }else if (type === 'shelterUpdate'){
         formik = ShelterUpdateFormik(data.data, data.data.shelter_id)
     }else if (type === 'forgotPassword'){

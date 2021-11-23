@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {TextField, Button, Typography, Autocomplete, FormGroup, FormControlLabel, Checkbox, Grid} from "@mui/material";
+import {TextField, Button, Typography, Autocomplete, FormGroup, FormControlLabel, Checkbox, Grid, Alert} from "@mui/material";
 import UseDispositionState from "../../hooks/useDispositionState";
 import UseAnimalFilterState from "../../hooks/useAnimalFilterState";
 import {api, setToken} from '../../helperFunctions/axiosInstace'
@@ -34,15 +34,11 @@ const AnimalFilterForm = (props) => {
                     pet.id = pet.pet_id;
                     return pet;
                 });
-                const noMorePets = {
-					images: ['/assets/images/nomorepets.png'],
-					pet_id: null
-				}
-				// add the 'no more pets' placeholder to the front of the list
-				response.data.unshift(noMorePets)
+                props.setSuccessState(!props.success)
                 props.setPetState(response.data);
             })
         }catch(error){
+            props.setFilterErrorState(!props.filterError)
             console.error(error)
         }
     }
@@ -76,7 +72,7 @@ const AnimalFilterForm = (props) => {
     // disposition - hook for final query
     const [disposition, handleDispositionChange] = UseDispositionState();
     const { OtherAnimals, Children, Leashed, Available, Pending} = disposition;
-
+    
     return ( 
         <form>
             <Grid container direction={"column"} spacing={1}>
@@ -177,6 +173,8 @@ const AnimalFilterForm = (props) => {
                     </FormGroup>
                 </Grid>
                 <Grid item>
+                    {props.success && <Alert severity="success">Successfully filtered! </Alert>}
+                    {props.filterError && <Alert severity="error">Error, please double check selected values!</Alert>}
                     <Button fullWidth align="center" variant="contained" style={{backgroundColor: '#467eac'}} id="applyAnimalFilter" onClick={submitAnimalFilter}>
                         Apply Filter
                     </Button>

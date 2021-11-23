@@ -21,7 +21,7 @@ import { AnimalCard } from "./AnimalCard";
 import { api, setToken } from "../../helperFunctions/axiosInstace";
 
 
-const AnimalCardSection = ({petState, buttonClicked }) => {
+const AnimalCardSection = ({petState, buttonClicked, handleProfileButton, handleFilterButton, handleMatchesButton}) => {
 	const [currentIndex, setCurrentIndex] = useState()
 
 	useEffect(() => {
@@ -165,12 +165,14 @@ const AnimalCardSection = ({petState, buttonClicked }) => {
 								maxWidth: desktop? 420 : 370}}>
 							<span>			
 								<IconButton
+									onClick={handleMatchesButton}
 									sx={{ 
 										// boxShadow:'0px 5px 20px 0px rgba(0, 0, 0, 0.3)' 
 										}}>
 									<PetsIcon fontSize="large"/>
 								</IconButton>
 								<IconButton 
+									onClick={handleFilterButton}
 									sx={{ 
 										marginLeft: '1rem',
 										// boxShadow:'0px 5px 20px 0px rgba(0, 0, 0, 0.3)' 
@@ -179,6 +181,7 @@ const AnimalCardSection = ({petState, buttonClicked }) => {
 								</IconButton>
 							</span>
 							<IconButton
+								onClick={handleProfileButton}
 								sx={{ 
 									// boxShadow:'0px 5px 20px 0px rgba(0, 0, 0, 0.3)' 
 									}}>
