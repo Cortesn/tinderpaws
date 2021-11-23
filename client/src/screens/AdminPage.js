@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { useParams } from "react-router";
 import {
 	Container,
 	Grid,
@@ -13,16 +12,14 @@ import { PetCard } from "../Components/adminpage/PetCard";
 import useInputState from "../hooks/useInputState";
 import { api, setToken } from "../helperFunctions/axiosInstace";
 
-export const AdminPage = () => {
-	// const { id } = useParams(); // User Id from URL
+const AdminPage = () => {
 	const [petState, setPetState] = useState([]);
 	const [filter, handleFilterChange] = useInputState("");
 
 	useEffect(() => {
 		// Get all shelter pets from DB to show as initial page
-		const petUrl = `/adminHome/pets`;
 		setToken(localStorage.token)
-		api.get(petUrl).then((response) => {
+		api.get(`/pets/shelter`).then((response) => {
 			response.data.forEach((pet) => {
 				pet.images = pet.images.split(",");
 				pet.type = pet.animalType;
@@ -30,18 +27,16 @@ export const AdminPage = () => {
 				pet.display = true;
 				return pet;
 			});
-			console.log(response.data);
+			// console.log(response.data);
 			setPetState(response.data);
 		});
 	}, []);
 
 	const deletePet = (id) => {
-		setPetState(petState.filter((pet) => pet.id !== id));
-
 		// Delete from DB
-		const deleteUrl = `/adminHome/pet/${id}`;
-		api.delete(deleteUrl).then((response) => {
+		api.delete(`/pets/${id}`).then((response) => {
 			console.log(response.data);
+			setPetState(petState.filter((pet) => pet.id !== id));
 		});
 	};
 
@@ -102,3 +97,5 @@ export const AdminPage = () => {
 		</Container>
 	);
 };
+
+export default AdminPage;
