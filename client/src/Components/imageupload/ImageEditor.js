@@ -35,26 +35,32 @@ class ImageEditor extends React.Component {
                     // make a new form element
                     let fd = new FormData();
                     fd.append('image', file)
-                    // make request to upload a photo
-                    api.post('/images', fd )
-                        .then( response => {
-                            // console.log("response data:", response.data)
-                            const {payload} = response.data
-                            // update the list of images
-                            this.props.addImage({id: payload.image_id, url: payload.url})
-                            // display snackbar alert
-                            this.props.snackBar({success: payload.msg})
-                            // close the modal
-                            this.props.handleClose()
-                        })
-                        .catch( error => {
-                            console.log("error:", error)
-                            // display snackbar alert
-                            this.props.snackBar({error: error.response.data.msg})
-                            // close the modal
-                            this.props.handleClose()
-                        })
-                    })
+                    console.log("fd", fd)
+                    if (this.props.pet_id) {
+                        // make request to upload a photo
+                        api.post(`/images/${this.props.pet_id}`, fd )
+                            .then( response => {
+                                console.log("response data:", response.data)
+                                const {payload} = response.data
+                                // update the list of images
+                                this.props.addImage({image_id: payload.image_id, url: payload.url})
+                                // display snackbar alert
+                                this.props.snackBar({success: payload.msg})
+                                // close the modal
+                                this.props.handleClose()
+                            })
+                            .catch( error => {
+                                console.log("error:", error)
+                                // display snackbar alert
+                                this.props.snackBar({error: error.response.data.msg})
+                                // close the modal
+                                this.props.handleClose()
+                            })
+                    } else {
+                        console.log("no pet id")
+
+                    }
+                })
         }
     }
     

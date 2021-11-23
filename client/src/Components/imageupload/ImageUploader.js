@@ -6,13 +6,12 @@ import useImageUploadState from '../../hooks/useImageUploadState';
 
 
 const ImageUploader = (props) => {
-    const {addImage, snackBar} = props;
+    const {addImage, snackBar, pet_id} = props;
 
     const [image, 
             handleImageChange, 
             open, 
             handleClose] = useImageUploadState('')
-
     return (
         <>
             <label htmlFor="icon-button-file">
@@ -41,7 +40,9 @@ const ImageUploader = (props) => {
                 addImage={addImage}
                 image={image} 
                 open={open} 
-                handleClose={handleClose}/>
+                handleClose={handleClose}
+                pet_id={pet_id}
+                />
         </>
     )
 }

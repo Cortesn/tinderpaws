@@ -22,11 +22,10 @@ yarn-debug.log*
 yarn-error.log*
 
 /.vscode
-dbcon.js
 .env
 
-/Database/dbcon.js
 # package-lock.json
 package-lock.json
 
 .env
+.env_prev

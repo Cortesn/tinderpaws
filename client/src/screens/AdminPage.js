@@ -39,10 +39,10 @@ export const AdminPage = () => {
 		setPetState(petState.filter((pet) => pet.id !== id));
 
 		// Delete from DB
-		// const deleteUrl = `/adminHome/pet/${id}`;
-		// api.delete(deleteUrl).then((response) => {
-		// 	console.log(response.data);
-		// });
+		const deleteUrl = `/adminHome/pet/${id}`;
+		api.delete(deleteUrl).then((response) => {
+			console.log(response.data);
+		});
 	};
 
 	const filterPets = (e) => {
@@ -52,6 +52,7 @@ export const AdminPage = () => {
 			if (type === "all") {
 				pet.display = true;
 			} else {
+				console.log(pet, type)
 				pet.display = pet.type.toLowerCase() === type.toLowerCase();
 			}
 			return pet;
@@ -63,30 +64,32 @@ export const AdminPage = () => {
 	const animalTypes = ["all", "dog", "cat", "other"];
 
 	return (
-		<Container>
+		<Container sx={{pb:5}}>
 			<Grid container alignItems="center" sx={{ mt: "4rem", mb: "2rem" }}>
 				<Grid container item xs={6}>
 					<Typography variant="h3">Shelter Animals</Typography>
 				</Grid>
 				<Grid item xs={6}>
 					<FormControl fullWidth size="small">
-						<InputLabel id="search-label">Choose</InputLabel>
+						<InputLabel id="search-label">Choose Animal</InputLabel>
 						<Select
 							labelId="search-label"
-							label="Choose"
+							label="Choose Animal"
 							id="search"
 							value={filter}
 							onChange={filterPets}
 						>
-							{animalTypes.map((animal) => {
-								const formattedAnimal =
-									animal[0].toUpperCase() + animal.slice(1);
-								return (
-									<MenuItem key={animal} value={animal}>
-										{formattedAnimal}
-									</MenuItem>
-								);
-							})}
+							{/* <Grid container alignItems='stretch'> */}
+								{animalTypes.map((animal) => {
+									const formattedAnimal =
+										animal[0].toUpperCase() + animal.slice(1);
+									return (
+										<MenuItem key={animal} value={animal}>
+											{formattedAnimal}
+										</MenuItem>
+									);
+								})}
+							{/* </Grid> */}
 						</Select>
 					</FormControl>
 				</Grid>

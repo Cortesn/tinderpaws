@@ -29,7 +29,7 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, childRefs }) => {
 
 	return (
 		<Container
-			sx={{ position: "absolute", alignContent: "stretch", width: 500 }}
+			sx={{ position: "absolute", alignContent: "stretch", width: 400 }}
 		>
 			<TinderCard
 				key={pet.name}
@@ -87,7 +87,7 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, childRefs }) => {
 						<CardContent sx={{ mx: 2 }}>
 							<Typography
 								gutterBottom
-								variant="h4"
+								variant="h5"
 								component="div"
 							>
 								{`${pet.type.toUpperCase()} - ${pet.breed}`}
