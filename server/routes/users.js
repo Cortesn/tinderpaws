@@ -8,10 +8,9 @@ const db = pool
     - get profile data
     - update profile
 */
-router.get("/userData/", auth, (req,res)=>{
+router.get("/user", auth, (req,res)=>{
     const user_id = req.user.user_id
     const getProfileData = 'SELECT Users.f_name, Users.l_name, Users.email FROM Users WHERE Users.user_id = ?';
-
     db.query(`${getProfileData}`, [user_id], (err,result)=>{
         if(err){
             console.error(err.message);
@@ -20,7 +19,8 @@ router.get("/userData/", auth, (req,res)=>{
         }
     })
 })
-router.patch("/update", auth, (req, res)=>{
+
+router.patch("/user", auth, (req, res)=>{
     const user_id = req.user.user_id
     let {fname, lname, email} = req.body
     // sql format
@@ -35,4 +35,4 @@ router.patch("/update", auth, (req, res)=>{
     })
 })
 
-export {router as profileUserUpdate}
+export {router as users}

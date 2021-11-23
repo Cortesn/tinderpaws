@@ -56,9 +56,10 @@ export const RenderInputs = (props) => {
                 id={input.id}
                 value={input.value || ''}
                 onChange={input.onChange}
+                onBlur={input.onBlur}
                 error={input.error}>
                 {input.options.map(option =>
-                    <MenuItem key={option.id} id={option.id} value={option.id}>{option.name}</MenuItem>
+                    <MenuItem key={option.id || option.name} id={option.id || option.name} value={option.id || option.name}>{option.name}</MenuItem>
                 )}
             </Select>
             <FormHelperText sx={{color: '#d32f2f'}}>{input.helperText}</FormHelperText>

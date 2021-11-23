@@ -31,12 +31,12 @@ const PetInfoFormik =(data)=> useFormik({
     // validateOnChange: false,
     enableReinitialize: true, // allows to reset the initial fields (setting values from state)
     initialValues: {
-        name: data.name,
-        type: data.type,
-        breed: data.breed,
-        status: data.status,
-        dispositions: data.dispositions,
-        description: data.description
+        name: data.pet.name,
+        type: data.pet.type,
+        breed: data.pet.breed,
+        status: data.pet.status,
+        dispositions: data.pet.dispositions,
+        description: data.pet.description
     },
     validationSchema: petValidation(),
     onSubmit: (values, {resetForm, setFieldValue}) => {

@@ -17,8 +17,8 @@ export const AddPetImages = (props) => {
 	const [deleteClicked, handleDeleteChange] = useButtonState(false);
 	const [images, , addImage, deleteImage] = useDeleteItemState([]);
 
-	console.log("images", images);
-	console.log("pet", pet);
+	// console.log("images", images);
+	// console.log("pet", pet);
 
 	return (
 		<Grid sx={{ paddingTop: "1rem" }} item>
@@ -98,6 +98,7 @@ export const AddPetImages = (props) => {
 						: null}
 				</ImageList>
 			</Stack>
+			
 			<Box textAlign="center" sx={{ p: 3 }}>
 				<Button
 					variant="contained"

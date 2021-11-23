@@ -20,6 +20,7 @@ const Progress =() => (
 
 // check if user is authorized to content
 const allowedScreens = (auth, path) => {
+    // console.log(auth, path)
     if (!auth.isAuth) {
         return false
     } else if (path.includes('news')) {

@@ -13,11 +13,11 @@ import signUpRequest from '../../helperFunctions/signUp.js/signUpRequest';
 import UserUpdateFormik from './UserUpdate';
 import PetInfoFormik from './PetInfoForm';
 import AddPetFormik from './AddPetForm';
+import { api } from '../../helperFunctions/axiosInstace';
 
 var formik;
 // all possible form inputs with validation
 const FormInputs = (type, data, {...props}) =>{
-    
     // get the validation schema
     if(type === "user"){
         formik = UserFormik(data, signUpRequest, {...props})
@@ -62,10 +62,7 @@ const FormInputs = (type, data, {...props}) =>{
         }
     );
 
-    // inputs to build the signup forms
-    // use the password prop for passwords and the options prop for select/options(dropdown)
-    // all others that do not have these will be normal input fields
-    // ** add a checkbox and radio option
+    // inputs to build forms
     const inputFields = [
         {
             types: ['employee'],
@@ -208,6 +205,18 @@ const FormInputs = (type, data, {...props}) =>{
             label: 'Type',
             value: formik.values.type,
             onChange: formik.handleChange('type'),
+            onBlur: () =>{ 
+                const type = formik.values.type;
+                api.get('/breeds/', {params: {type: type}})
+                    .then((response) => {
+                        data.setPet({
+                            ...data.pet, 
+                            'type':type, 
+                            // 'breed': response.data[0].name, 
+                            'options': response.data
+                        })
+                    })
+            } ,
             error: formik.touched.type && Boolean(formik.errors.type),
             helperText: formik.touched.type && formik.errors.type,
             options: [{id: 1, name: 'Dog'}, {id: 2, name: 'Cat'}, {id: 3, name: 'Other'}]
@@ -217,10 +226,10 @@ const FormInputs = (type, data, {...props}) =>{
             id: 'breed',
             label: 'Breed',
             value: formik.values.breed,
-            onChange: formik.handleChange,
+            onChange: formik.handleChange('breed'),
             error: formik.touched.breed && Boolean(formik.errors.breed),
             helperText: formik.touched.breed && formik.errors.breed,
-            // options: [{id: 1, name: 'Breed 1'}, {id: 2, name: 'Breed 2'}, {id: 3, name: 'Breed 3'}] // need to get breeds
+            options: data && data.pet? data.pet.options || [] : ''// need to get breeds
         },
         {
             types: ['pet', 'addPet'],

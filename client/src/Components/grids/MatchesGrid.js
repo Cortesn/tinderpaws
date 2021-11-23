@@ -6,9 +6,8 @@ const MatchesGrid = () => {
     // populating breeds drop down -- cant move out due to initial render
     const [matchesState, setMatchesState] = useState([]);
     useEffect(() => {
-        const url = `/matches/users/user`;
         setToken(localStorage.token)
-        api.get(url).then((response)=>{
+        api.get(`/matches/pets`).then((response)=>{
             setMatchesState(response.data);
             });
         },[]);

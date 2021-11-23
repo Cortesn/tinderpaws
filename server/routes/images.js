@@ -16,7 +16,6 @@ router.get('/:pet_id', (req, res) => {
             console.log(error)
             return res.status(400).json({msg: 'Something went wrong. Please try again later.'})
         } 
-        // console.log(results)
         return res.status(200).json({results})
     })
 })
@@ -24,24 +23,18 @@ router.get('/:pet_id', (req, res) => {
 
 // add an image for a pet
 router.post('/:pet_id', upload.single('image'), async (req, res) => {
-    // console.log(req.file)
     const file = req.file
     // upload image to s3 bucket
     const s3Object = await uploadImage(file)
-
     // remove the image from local storage
     fs.unlinkSync(file.path)
-    // ***** Temp id... once user auth route is linked id will be in the req.
-    const tempId = req.params.pet_id
     // upload url to sql db
     if(s3Object.Location){
         const saveImgUrl = 'INSERT INTO Images (image_id, pet_id, url) VALUES (?,?,?)';
-        db.query(saveImgUrl, [file.filename, tempId, s3Object.Location], (error, results) => {
+        db.query(saveImgUrl, [file.filename, req.params.pet_id, s3Object.Location], (error, results) => {
             if (error){
-                console.log(error)
                 return res.status(400).json({msg: 'Something went wrong. Please try again later.'})
             } else {
-                console.log("post image results:", results)
                 const payload = {
                     msg: 'Success! New image added.',
                     image_id: file.filename,

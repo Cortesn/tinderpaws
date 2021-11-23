@@ -2,31 +2,52 @@ import React, {useState, useEffect} from "react";
 import {TextField, Button, Typography, Autocomplete, FormGroup, FormControlLabel, Checkbox, Grid} from "@mui/material";
 import UseDispositionState from "../../hooks/useDispositionState";
 import UseAnimalFilterState from "../../hooks/useAnimalFilterState";
-import {api} from '../../helperFunctions/axiosInstace'
+import {api, setToken} from '../../helperFunctions/axiosInstace'
 import createAnimalTypeArray from "../../helperFunctions/UserHome/createAnimalTypeArray";
 import createObjectToArray from "../../helperFunctions/UserHome/createObjectToArray";
 import convertDispObjToArray from "../../helperFunctions/UserHome/convertDispObjToArray";
 import UseShelterState from "../../hooks/useShelterState";
 import UseBreedState from "../../hooks/useBreedState";
 
+
 const AnimalFilterForm = (props) => {
     const submitAnimalFilter = ()=>{
-        const params = {params: {shelters: createObjectToArray(selectedShelters,[]), breeds: createObjectToArray(selectedBreeds,[]), dispositions: convertDispObjToArray(disposition,[])}}
+        // create types arr
+        var petTypes =[] 
+        for (const key in state){
+            if (state[key] === true){
+                petTypes.push(`'${key}'`)
+            }
+        }
+        const params = {params: {
+                            shelters: createObjectToArray(selectedShelters,[]),
+                            types: petTypes, 
+                            breeds: createObjectToArray(selectedBreeds,[]), 
+                            dispositions: convertDispObjToArray(disposition,[])
+                        }}
         try{
-            api.get('/filterSetting/filteredAnimals', params).then((response)=>{
+            setToken(localStorage.token)
+            api.get('/pets/filter', params).then((response)=>{
+                // console.log("submitanimalFilter",response.data)
                 response.data.forEach((pet) => {
                     pet.images = pet.images.split(",");
                     pet.type = pet.animalType;
                     pet.id = pet.pet_id;
                     return pet;
                 });
-                console.log("submitanimalFilter",response.data)
+                // console.log("submitanimalFilter",response.data)
+                const noMorePets = {
+					images: ['/assets/images/nomorepets.png'],
+					pet_id: null
+				}
+				// add the 'no more pets' placeholder to the front of the list
+				response.data.unshift(noMorePets)
                 props.setPetState(response.data);
             })
         }catch(error){
             console.error(error)
-            }
         }
+    }
 
     // shelters to populate dropdown on initial page render
     const shelters = props.shelters;
@@ -42,13 +63,18 @@ const AnimalFilterForm = (props) => {
     const[selectedBreeds, handleSelectedBreeds] = UseBreedState();
     
     // populating breeds drop down -- cant move out due to initial render
-    const [breedState, setBreedState] = useState(null);
+    const [breedState, setBreedState] = useState([]);
     useEffect(() => {
-        const animalTypes = {params: {shelter: createObjectToArray(selectedShelters,[]), animalTypes: createAnimalTypeArray(state,[])}}
-        api.get('/filterSetting/animals/breed', animalTypes).then((response)=>{
-            setBreedState(response.data);
-            });
-        }, [state, selectedShelters]);
+        if (Dog || Cat || Other){
+            const animalTypes = {params: {animalTypes: createAnimalTypeArray(state,[])}}
+            setToken(localStorage.token)
+            api.get('/breeds/filter/', animalTypes).then((response)=>{
+                // var tempBreeds = selectedBreeds.concat(response.data);
+                setBreedState(response.data);
+                });
+            }
+    }, [Dog, Cat, Other, state, selectedShelters]);
+        
     
     // disposition - hook for final query
     const [disposition, handleDispositionChange] = UseDispositionState();
@@ -74,12 +100,12 @@ const AnimalFilterForm = (props) => {
                         onChange={handleSelectedShelters}
                         options={shelters}
                         getOptionLabel={(option) => option.name}
+                        isOptionEqualToValue={(option, value) => option.name === value.name}
                         renderInput={(params) => (
                         <TextField
                             {...params}
                             variant="standard"
                             label="Shelters"
-                            placeholder="Shelters"
                             id="sheltersDropDown"
                         />
                         )}
@@ -111,22 +137,22 @@ const AnimalFilterForm = (props) => {
                 </Grid>
                 <Grid item>
                     {/* need this for multiselect: https://mui.com/components/autocomplete/ */}
-                    {breedState && <Autocomplete
+                     <Autocomplete
                         onChange={handleSelectedBreeds}
                         multiple
                         id="size-small-standard-multi"
                         size="small"
                         options={breedState}
-                        getOptionLabel={(option) => option.breed}
+                        getOptionLabel={(option) => option.name}
+                        isOptionEqualToValue={(option, value) => option.name === value.name}
                         renderInput={(params) => (
                         <TextField
                             {...params}
                             variant="standard"
                             label="Breeds"
-                            placeholder="Breeds"
                         />
                         )}
-                    /> }
+                    />
                 </Grid>
                 <Grid item align="center" marginTop="2%">
                     <Typography
@@ -142,6 +168,13 @@ const AnimalFilterForm = (props) => {
                         <FormControlLabel control={<Checkbox checked={OtherAnimals} onChange={handleDispositionChange} name="OtherAnimals" />} label="Good with other animals" id="animals" />
                         <FormControlLabel  control={<Checkbox checked={Children} onChange={handleDispositionChange} name="Children"/>} label="Good with children" id="child"/>
                         <FormControlLabel  control={<Checkbox checked={Leashed} onChange={handleDispositionChange} name="Leashed" />} label="Animal must be leashed at all times" id="leash"/>
+                        
+                        <Typography
+                            variant="p"
+                            align="center"
+                            style={{fontWeight: 600, fontSize: "large"}}>
+                            Status
+                        </Typography>
                         <FormControlLabel  control={<Checkbox checked={Available} onChange={handleDispositionChange} name="Available"/>} label="Available" id="avail"/>
                         <FormControlLabel  control={<Checkbox checked={Pending} onChange={handleDispositionChange} name="Pending" />} label="Pending" id="pending"/>
                     </FormGroup>

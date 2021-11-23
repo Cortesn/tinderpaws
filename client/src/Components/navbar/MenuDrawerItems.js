@@ -56,7 +56,7 @@ export default function MenuDrawerItems(anchor, toggleDrawer, account){
                 </ListItem>
                 : null}
 
-                { account.employee_id || account.user_id ?
+                { account.user_id ?
                 <ListItem button component={Link} to='/userHome' key='Pets'>
                     <ListItemText primary='Pets' />
                 </ListItem>
@@ -68,11 +68,6 @@ export default function MenuDrawerItems(anchor, toggleDrawer, account){
                 </ListItem>
                 : null }
 
-                {/* { account.shelter_id ?
-                <ListItem button component={Link} to='/' key='Admin'>
-                    <ListItemText primary='Admin' />
-                </ListItem>
-                : null } */}
             </List>
 
             <Divider />

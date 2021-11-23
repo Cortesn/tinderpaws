@@ -69,7 +69,7 @@ export default function Navbar(props) {
                         : null }
 
                         {/* displays the "Pets button to view available pets" */}
-                        { account.employee_id || account.user_id ?
+                        { account.user_id ?
                             <NavLink name={'Pets'} id="nav_pet" link={'/userHome'}/>
                         : null }
 
@@ -78,10 +78,6 @@ export default function Navbar(props) {
                             <NavLink name={'Manage'} id="nav_admin" link={'/adminHome'} />
                         : null }
 
-                        {/* displays the "page to manage shelter employees" */}
-                        {/* { account.shelter_id ?
-                            <NavLink name={'Admin'} link={'/'} />
-                        : null } */}
                     </Box>
 
                     {/* divider */}

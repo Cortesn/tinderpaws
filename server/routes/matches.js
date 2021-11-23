@@ -8,9 +8,14 @@ const db = pool
     user matches endpoint
     - get matches for user -> get names of animals
 */
-router.get("/users/user", auth, (req, res)=>{
+
+// returns all pet matches for a single user
+router.get("/pets", auth, (req, res)=>{
     const user_id = req.user.user_id;
-    const getMatches = 'SELECT Pets.name, Pets.pet_id, Pets.type, Pets.status FROM tinder_paws.Pets JOIN tinder_paws.Matches on Pets.pet_id = Matches.pet_id JOIN tinder_paws.Users on Users.user_id = Matches.user_id WHERE Users.user_id=?';
+    const getMatches = `SELECT Pets.name, Pets.pet_id, Pets.type, Pets.status FROM tinder_paws.Pets 
+                        JOIN tinder_paws.Matches on Pets.pet_id = Matches.pet_id 
+                        JOIN tinder_paws.Users on Users.user_id = Matches.user_id 
+                        WHERE Users.user_id=?`;
     db.query(`${getMatches};`, [user_id], (err, result)=>{
         if(err){
             console.error(err.message);
@@ -24,13 +29,6 @@ router.get("/users/user", auth, (req, res)=>{
 router.post('/', auth, (req,res)=>{
     const {pet_id} = req.body
     const user_id = req.user.user_id
-    // Insert if match does not exists
-    // const query = `INSERT INTO Matches(pet_id, user_id, date_matched)
-    //                 SELECT ?, ?, CURDATE()
-    //                 WHERE NOT EXISTS(
-    //                 SELECT 1 FROM Matches as m
-    //                 WHERE m.pet_id=?
-    //                 AND m.user_id=?);`
     const query = 'INSERT INTO Matches(pet_id, user_id, date_matched) VALUES (?,?,?)'
     const date = new Date().toISOString().slice(0,10);
     db.query(query, [pet_id, user_id, date], (error, results) =>{
@@ -38,7 +36,6 @@ router.post('/', auth, (req,res)=>{
             console.log(error)
             return
         } 
-        // console.log(results)
         return res.status(201).json(results)
     })
 });
@@ -50,7 +47,6 @@ router.delete('/:match_id', (req,res) => {
     const deleteMatch = 'DELETE FROM Matches WHERE match_id=?'
     db.query(deleteMatch, [match_id], (error, results) => {
         if (error){
-            console.log(error)
             return res.status(400).json({msg: 'Something went wrong. Please try again later.'})
             // server msg
         } else if (results.affectedRows === 1){

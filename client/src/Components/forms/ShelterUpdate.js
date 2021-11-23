@@ -43,7 +43,7 @@ const ShelterUpdateFormik =(data, shelter_id)=> useFormik({
     },
     validationSchema: shelterValidation,
     onSubmit: (values) => {
-        api.patch(`/adminHome/shelters/${shelter_id}`, values).then((response)=>{
+        api.patch(`/shelters/${shelter_id}`, values).then((response)=>{
             if(response.status === 200){
                 alert("Successfully updated profile! :) ")
             }else{
