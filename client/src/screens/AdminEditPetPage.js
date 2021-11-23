@@ -4,7 +4,7 @@ import { Box, Grid, Snackbar, useMediaQuery, Slide } from '@mui/material'
 import MuiAlert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 import useButtonState from '../hooks/useButtonState';
-import {api} from '../helperFunctions/axiosInstace'
+import {api, setToken} from '../helperFunctions/axiosInstace'
 import useDeleteItemState from '../hooks/useDeleteItemState.js';
 import PetProfile from '../Components/petprofile/PetProfile';
 import MatchList from '../Components/petprofile/MatchList';
@@ -45,6 +45,7 @@ const AdminEditPetPage = () => {
     useEffect(() => {
         // only make the request if there is not pet data
         if (!pet.pet_id){
+            setToken(localStorage.token)
             api.get('/pets/' + pet_id)
             .then( response => {
                 setPet(response.data.pet)
@@ -59,6 +60,7 @@ const AdminEditPetPage = () => {
 
         // get the pet breed options
         if (pet.type && !pet.options){
+            setToken(localStorage.token)
             api.get('/breeds/', {params: {type: pet.type}})
                 .then((response) => {
                     setPet({...pet, 'options': response.data})

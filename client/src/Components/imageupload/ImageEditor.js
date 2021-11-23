@@ -3,7 +3,7 @@ import { Button, Slider, Stack } from '@mui/material'
 import AvatarEditor from 'react-avatar-editor'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import {api} from '../../helperFunctions/axiosInstace'
+import {api, setToken} from '../../helperFunctions/axiosInstace'
 
 /* Reference: https://www.npmjs.com/package/react-avatar-editor */
 class ImageEditor extends React.Component {
@@ -38,6 +38,7 @@ class ImageEditor extends React.Component {
                     console.log("fd", fd)
                     if (this.props.pet_id) {
                         // make request to upload a photo
+                        setToken(localStorage.token)
                         api.post(`/images/${this.props.pet_id}`, fd )
                             .then( response => {
                                 console.log("response data:", response.data)

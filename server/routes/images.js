@@ -6,9 +6,10 @@ import {uploadImage, deleteImage} from '../Database/awsS3/bucket.js'
 import pool from '../Database/dbcon.js'
 const db = pool
 import * as fs from 'fs';
+import auth from '../middleware/auth.js'
 
 // get all images for a pet
-router.get('/:pet_id', (req, res) => {
+router.get('/:pet_id', auth, (req, res) => {
     const pet_id = parseInt(req.params.pet_id)
     const getImages = 'SELECT image_id, url FROM Images WHERE pet_id=?';
     db.query(getImages, [pet_id], (error, results) => {
@@ -22,7 +23,7 @@ router.get('/:pet_id', (req, res) => {
 
 
 // add an image for a pet
-router.post('/:pet_id', upload.single('image'), async (req, res) => {
+router.post('/:pet_id', auth, upload.single('image'), async (req, res) => {
     const file = req.file
     // upload image to s3 bucket
     const s3Object = await uploadImage(file)
@@ -48,7 +49,7 @@ router.post('/:pet_id', upload.single('image'), async (req, res) => {
 
 
 // delete a single image for a pet
-router.delete('/:image_id', (req,res) => {
+router.delete('/:image_id', auth, (req,res) => {
     const image_id = req.params.image_id
     // delete image from sql db
     const deleteImg = 'DELETE FROM Images WHERE image_id=?'

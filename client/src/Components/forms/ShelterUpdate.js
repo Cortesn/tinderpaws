@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { api } from "../../helperFunctions/axiosInstace";
+import { api, setToken } from "../../helperFunctions/axiosInstace";
 
 
 // Formik Schema (shelters)
@@ -43,6 +43,7 @@ const ShelterUpdateFormik =(data, shelter_id)=> useFormik({
     },
     validationSchema: shelterValidation,
     onSubmit: (values) => {
+        setToken(localStorage.token)
         api.patch(`/shelters/${shelter_id}`, values).then((response)=>{
             if(response.status === 200){
                 alert("Successfully updated profile! :) ")

@@ -10,7 +10,7 @@ const db = pool
     - all breeds for mutiple types
 */
 
-router.get("/filter", (req,res)=>{
+router.get("/filter", auth, (req,res)=>{
     const animalTypes = req.query.animalTypes;
     var sqlAnimalTypesArray = [];
     animalTypes.forEach(num => sqlAnimalTypesArray.push(parseInt(num)));
@@ -25,7 +25,7 @@ router.get("/filter", (req,res)=>{
 })
 
 // get all breeds
-router.get('/', (req,res)=> {
+router.get('/', auth, (req,res)=> {
     const type = req.query.type;
     const breeds = 'SELECT breed_name AS name FROM Breeds WHERE type=?;'
     db.query(breeds, [type], (err, result)=>{

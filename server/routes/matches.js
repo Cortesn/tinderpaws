@@ -7,6 +7,8 @@ const db = pool
 /* 
     user matches endpoint
     - get matches for user -> get names of animals
+    - add a match 
+    - delete a match
 */
 
 // returns all pet matches for a single user
@@ -41,7 +43,7 @@ router.post('/', auth, (req,res)=>{
 });
 
 // delete a single match from a pet
-router.delete('/:match_id', (req,res) => {
+router.delete('/:match_id', auth, (req,res) => {
     const match_id = req.params.match_id
     // delete match from sql db
     const deleteMatch = 'DELETE FROM Matches WHERE match_id=?'

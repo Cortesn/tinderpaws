@@ -1,7 +1,6 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import {api} from '../../helperFunctions/axiosInstace'
-
+import {api, setToken} from '../../helperFunctions/axiosInstace'
 
 // Formik Schema (shelters)
 const petValidation = () => Yup.object({
@@ -41,10 +40,10 @@ const PetInfoFormik =(data)=> useFormik({
     validationSchema: petValidation(),
     onSubmit: (values, {resetForm, setFieldValue}) => {
         // make request
+        setToken(localStorage.token)
         api.patch('/pets/' + data.pet_id, values )
             .then(function(response){
                 // set the new pet data
-                // console.log(response)
                 data.setPet(values)
                 data.snackBar({success: response.data.msg})
             })

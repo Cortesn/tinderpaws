@@ -5,9 +5,11 @@ const db = pool
 import auth from '../middleware/auth.js'
 
 /*
-    admin page endpoints 
-    - employee name
-    - shelter information given employee
+    shelter endpoints 
+    - get a single shelter's information given employee
+    - get all shelter names
+    - get shelter employee infromation given employee_id
+    - update shelter information
 */
 
 // endpoint to get shelter information given employee id
@@ -23,7 +25,7 @@ router.get("/shelter", auth, (req,res)=>{
     });
 })
 
-// return all available shelters in the db
+// return all available shelters in the db. No auth middleware because used int he sign up forms
 router.get('/', (req, res) => {
     const getShelters = 'SELECT shelter_id, name FROM Shelters;'
     db.query(getShelters, (error, results) => {
@@ -31,7 +33,6 @@ router.get('/', (req, res) => {
             console.log(error)
             return
         } 
-        // console.log(results)
         return res.status(200).json(results)
     })
 })
@@ -61,8 +62,6 @@ router.patch("/:shelter_id", auth, (req, res)=>{
         if(err){
             console.error(err.message);
         }else{
-            // console.log("success")
-            // console.log(result)
             res.send("Successfully updated user profile!")
         }
     })

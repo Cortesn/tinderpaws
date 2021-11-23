@@ -28,14 +28,12 @@ const AnimalFilterForm = (props) => {
         try{
             setToken(localStorage.token)
             api.get('/pets/filter', params).then((response)=>{
-                // console.log("submitanimalFilter",response.data)
                 response.data.forEach((pet) => {
                     pet.images = pet.images.split(",");
                     pet.type = pet.animalType;
                     pet.id = pet.pet_id;
                     return pet;
                 });
-                // console.log("submitanimalFilter",response.data)
                 const noMorePets = {
 					images: ['/assets/images/nomorepets.png'],
 					pet_id: null
@@ -69,7 +67,6 @@ const AnimalFilterForm = (props) => {
             const animalTypes = {params: {animalTypes: createAnimalTypeArray(state,[])}}
             setToken(localStorage.token)
             api.get('/breeds/filter/', animalTypes).then((response)=>{
-                // var tempBreeds = selectedBreeds.concat(response.data);
                 setBreedState(response.data);
                 });
             }

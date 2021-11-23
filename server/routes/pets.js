@@ -4,19 +4,30 @@ import pool from '../Database/dbcon.js'
 const db = pool
 import auth from '../middleware/auth.js'
 
+
+/* 
+    Pets endpoints
+    - get all pets with pagination
+    - get all pets from shelter given employee_id
+    - get all pets based on user filter options
+    - get a single pet's data given pet_id
+    - get all pets not matched to a user
+    - update a pet
+    - create a pet
+    - delete a pet
+*/
+
 // get all pets with optional pagination for news feed
-router.get("/offset/:offset?", (req, res) => {
+router.get("/offset/:offset?", auth, (req, res) => {
 	const offset = req.params.offset ? parseInt(req.params.offset) : 0;
 	const limit = 12;
 	const startDate = new Date();
-	startDate.setDate(startDate.getDate() - 6);
+	startDate.setDate(startDate.getDate() - 13);
 	const endDate = new Date();
 	endDate.setDate(endDate.getDate() + 1);
-	// console.log(startDate, endDate)
 	const getAllPets = `SELECT Pets.pet_id, name, status, description, last_updated, GROUP_CONCAT(url) AS images FROM Pets 
                         JOIN Images ON Images.pet_id=Pets.pet_id WHERE last_updated BETWEEN ? AND ?
                         GROUP BY Pets.pet_id ORDER BY last_updated ASC LIMIT ? OFFSET ?;`;
-	// const getImages =
 	db.query(
 		getAllPets,
 		[startDate, endDate, limit, offset],
@@ -36,7 +47,6 @@ router.get("/offset/:offset?", (req, res) => {
 				pets: results,
 				offset: offset + limit,
 			};
-			// console.log('payload : ', payload)
 			return res.status(200).send(payload);
 		}
 	);
@@ -109,7 +119,7 @@ router.get("/filter", auth, (req,res)=>{
 })
 
 // // route to get all pet data for the /admin/edit/:pet_id path ( single pet by pet_id)
-router.get('/:pet_id', (req,res) => {
+router.get('/:pet_id', auth, (req,res) => {
     const id = req.params.pet_id;
     const pet =`SELECT Pets.pet_id, name, type, breed, status, date_created, last_updated, 
                 description, shelter_id, GROUP_CONCAT(disposition_id) AS dispositions FROM 
@@ -173,7 +183,7 @@ router.get('/', auth, (req, res) => {
 });
 
 // update a pet
-router.patch("/:pet_id", (req, res) => {
+router.patch("/:pet_id", auth, (req, res) => {
 	const pet_id = parseInt(req.params.pet_id);
 	const { name, type, breed, status, dispositions, description } = req.body;
 	const date = new Date().toISOString().slice(0, 10);
