@@ -38,6 +38,8 @@ const AdminPage = () => {
 			console.log(response.data);
 			setPetState(petState.filter((pet) => pet.id !== id));
 		});
+
+		setPetState(petState.filter((pet) => pet.id !== id));
 	};
 
 	const filterPets = (e) => {
@@ -47,7 +49,6 @@ const AdminPage = () => {
 			if (type === "all") {
 				pet.display = true;
 			} else {
-				console.log(pet, type)
 				pet.display = pet.type.toLowerCase() === type.toLowerCase();
 			}
 			return pet;

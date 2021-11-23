@@ -95,7 +95,7 @@ export const PetCard = ({ pet, deletePet }) => {
 								<Typography variant="h3">{pet.name}</Typography>
 							</ThemeProvider>
 							<Typography variant="h6">{types[pet.type]} {pet.breed}</Typography>
-							<Typography variant="h6">{status[pet.status]}</Typography>
+							<Typography variant="h6">{status[pet.status-1]}</Typography>
 						</CardContent>
 					</CardActionArea>
 				</Link>

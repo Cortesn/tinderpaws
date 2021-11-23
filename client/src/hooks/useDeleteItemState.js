@@ -11,7 +11,6 @@ const useDeleteItemState = (initialValue) => {
     const addItem = (item) => {
         var temp = items;
         temp.push(item)
-        console.log('temp',temp)
         setItems(temp)
     }
 

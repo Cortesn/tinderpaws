@@ -46,14 +46,17 @@ const AnimalCardSection = ({petState, buttonClicked }) => {
   	const canSwipe = currentIndex >= 1
 
 	const swiped = (direction, idToDelete, index) => {
-		updateCurrentIndex(index - 1)
-		// Add pet-user pair to db matches table
-		const data = { pet_id: idToDelete };
-		if (direction === "right") {
+		if (canSwipe) {
+			updateCurrentIndex(index - 1)
+			// Add pet-user pair to db matches table
+			const data = {pet_id: idToDelete };
 			setToken(localStorage.token)
-			api.post("/matches", data).then((response) => {
-				console.log(response.data);
-			});
+			if (direction === "right") {
+				setToken(localStorage.token)
+				api.post("/matches", data).then((response) => {
+					console.log(response.data);
+				});
+			}
 		}
 	};
 

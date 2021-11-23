@@ -79,7 +79,6 @@ const AnimalFilterSection = ({shelters, setPetState}) => {
 				</AccordionDetails>
 			</Accordion>
 		</Grid>
-			
 	);
 };
 
