@@ -5,7 +5,7 @@ import ProfileUpdateAccordion from "./ProfileUpdateAccordion";
 import FilterAnimalAccordion from "./FilterAnimalAccordion";
 import MatchesAccordion from "./MatchesAccordion";
 
-const AnimalFilterSection = ({shelters, setPetState}) => {
+const AnimalFilterSection = ({shelters, setPetState, success, setSuccessState, filterError, setFilterErrorState}) => {
 	const [expanded, handleChangeAccordion] = UserAccordionState(false);
 	
 	return (
@@ -25,6 +25,10 @@ const AnimalFilterSection = ({shelters, setPetState}) => {
 				handleChangeAccordion={handleChangeAccordion}
 				shelters={shelters}
 				setPetState={setPetState}
+				success={success}
+				setSuccessState={setSuccessState}
+				filterError={filterError}
+				setFilterErrorState={setFilterErrorState}
 			/>
 			<MatchesAccordion
 				expanded={expanded}

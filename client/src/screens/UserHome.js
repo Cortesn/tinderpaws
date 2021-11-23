@@ -29,6 +29,11 @@ const UserHome = (props) => {
 	const [profileButton, handleProfileButton] = useButtonState(false);
 	const [filterButton, handleFilterButton] = useButtonState(false);
 	const [matchesButton, handleMatchesButton] = useButtonState(false);
+
+	// success / error msg for apply filter
+	const [success, setSuccessState] = useState(false);
+	const [filterError, setFilterErrorState] = useState(false);
+
 	const [petState, setPetState] = useState([]);  // Array of pets displayed on cards
 	const [shelters, setShelters] = useState(null);  // Shelters for the filter
 
@@ -75,7 +80,12 @@ const UserHome = (props) => {
 			<>
 				<AnimalFilterSection 
 				shelters={shelters} 
-				setPetState={setPetState}/>
+				setPetState={setPetState}
+				success={success}
+				setSuccessState={setSuccessState}
+				filterError={filterError}
+				setFilterErrorState={setFilterErrorState}
+				/>
 				<AnimalCardSection 
 				petState={petState} 
 				setPetState={setPetState}/>
@@ -103,7 +113,7 @@ const UserHome = (props) => {
 									<IconButton 
 										onClick={handleProfileButton}
 										sx={{ display: {xs: 'block' , md: 'none'} }}>
-										<PetsIcon color="secondary" />
+										<PetsIcon color="#467eac"/>
 									</IconButton>
 								</Box>
 								<Typography sx={{display:'inline', fontWeight: 'bold' }}>
@@ -145,7 +155,7 @@ const UserHome = (props) => {
 									<IconButton 
 										onClick={handleMatchesButton}
 										sx={{ display: {xs: 'block' , md: 'none'} }}>
-										<PetsIcon color="secondary" />
+										<PetsIcon color="#467eac"/>
 									</IconButton>
 								</Box>
 							</Stack>
@@ -174,9 +184,12 @@ const UserHome = (props) => {
 								{/* placeholder div to even out the header */}
 								<Box sx={{ minWidth: 64 }}>
 									<IconButton 
-										onClick={handleFilterButton}
+										onClick={()=>{ 
+											setFilterErrorState(false)
+											setSuccessState(false)
+											handleFilterButton()}}
 										sx={{ display: {xs: 'block' , md: 'none'} }}>
-										<PetsIcon color="secondary" />
+										<PetsIcon color="#467eac"/>
 									</IconButton>
 								</Box>
 								<Typography sx={{textAlign: 'center', fontWeight: 'bold',paddingLeft:'2rem' }}>
@@ -191,6 +204,10 @@ const UserHome = (props) => {
 									<AnimalFilterForm
 										shelters={shelters}
 										setPetState={setPetState}
+										success={success}
+										setSuccessState={setSuccessState}
+										filterError={filterError}
+										setFilterErrorState={setFilterErrorState}
 									/>
 								)}
 							</Container>

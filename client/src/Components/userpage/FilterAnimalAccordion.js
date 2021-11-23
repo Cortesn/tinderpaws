@@ -9,11 +9,23 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AnimalFilterForm from "../forms/AnimalFilterForm";
 
 const FilterAnimalAccordion = (props) => {
-    const {expanded, handleChangeAccordion, shelters, setPetState} = props;
+    const {expanded, 
+        handleChangeAccordion, 
+        shelters, 
+        setPetState,
+        success, 
+        setSuccessState, 
+        filterError, 
+        setFilterErrorState
+    } = props;
     return ( 
         <Accordion
         expanded={expanded === "filterSettings"}
         onChange={handleChangeAccordion("filterSettings")}
+        onClick={()=>{
+            setFilterErrorState(false)
+		    setSuccessState(false)
+        }}
     >
         <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -29,6 +41,10 @@ const FilterAnimalAccordion = (props) => {
                 <AnimalFilterForm
                     shelters={shelters}
                     setPetState={setPetState}
+                    success={success}
+				    setSuccessState={setSuccessState}
+				    filterError={filterError}
+				    setFilterErrorState={setFilterErrorState}
                 />
             )}
         </AccordionDetails>
