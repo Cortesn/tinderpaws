@@ -36,11 +36,10 @@ export default function Navbar(props) {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
     return (
         // Main navbar items
         <Box sx={{ flexGrow: 2 , paddingBottom:'20px'}}>
-            <AppBar position="static" >
+            <AppBar style={{backgroundColor: '#467eac'}} position="static" >
                 <Toolbar >
                     <IconButton
                         size="large"

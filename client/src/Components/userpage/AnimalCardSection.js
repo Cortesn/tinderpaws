@@ -18,6 +18,7 @@ const AnimalCardSection = ({petState, setPetState }) => {
 			.map((i) => React.createRef());
 	}, [petState]);
 
+	// keeping track of swiped cards
 	const swiped = (direction, idToDelete) => {
 		console.log("removing: " + idToDelete + " on the " + direction);
 		// setLastDirection(direction);
@@ -33,7 +34,7 @@ const AnimalCardSection = ({petState, setPetState }) => {
 		alreadyRemoved.push(idToDelete);
 		console.log("alreadyRemoved", alreadyRemoved);
 	};
-
+	// keep track of cards being swiped
 	const outOfFrame = (id) => { // this is the pet id
 		console.log(id + " left the screen!");
 		const charactersState = petState.filter(
@@ -44,7 +45,6 @@ const AnimalCardSection = ({petState, setPetState }) => {
 		console.log("after out of frame", charactersState);
 	};
 
-	// is swipe not being used? passed to animal card, but animal card does not use it
 	const swipe = (dir) => {
 		const cardsLeft = petState.filter(
 			(person) => !alreadyRemoved.includes(person.id)

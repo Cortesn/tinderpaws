@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {api, setToken} from '../helperFunctions/axiosInstace'
-import {
-	Grid,
-} from "@mui/material";
+import {Grid} from "@mui/material";
 // import { useParams } from "react-router";
 import AnimalFilterSection from "../Components/userpage/AnimalFilterSection";
 import AnimalCardSection from "../Components/userpage/AnimalCardSection";
