@@ -147,7 +147,7 @@ const AnimalFilterForm = (props) => {
                     </FormGroup>
                 </Grid>
                 <Grid item>
-                    <Button fullWidth align="center" variant="contained" color="success" id="applyAnimalFilter" onClick={submitAnimalFilter}>
+                    <Button fullWidth align="center" variant="contained" style={{backgroundColor: '#467eac'}} id="applyAnimalFilter" onClick={submitAnimalFilter}>
                         Apply Filter
                     </Button>
                 </Grid>

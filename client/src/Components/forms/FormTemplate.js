@@ -52,7 +52,7 @@ const FormTemplate = (props) => {
                 id="formButton"
                 type='submit' 
                 variant='contained' 
-                color='primary'
+                style={{backgroundColor: '#467eac'}}
                 sx={{textTransform: 'none'}}
                 >
                 {button}

@@ -14,7 +14,7 @@ import UserAccordionState from "../../hooks/useAccordionState";
 
 const AnimalFilterSection = ({shelters, setPetState}) => {
 	const [expanded, handleChangeAccordion] = UserAccordionState(false);
-
+	
 	return (
 		<Grid 
 			item 
