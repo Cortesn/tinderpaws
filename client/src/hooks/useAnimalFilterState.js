@@ -2,7 +2,7 @@ import { useState } from "react";
 const UseAnimalFilterState = () => {
     // animals
     const [state, setState] = useState({
-        Dog:true,
+        Dog: false,
         Cat: false,
         Other: false
     });
