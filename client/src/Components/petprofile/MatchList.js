@@ -33,7 +33,7 @@ const MatchList = (props) => {
             }}>
 
             <Card sx={{height:'100%', maxWidth: '600px', margin: 'auto !important'}}>
-                <Paper elevation={10} sx={{height: '100%', minHeight: '70vh', paddingTop: '1rem'}} >
+                <Paper elevation={10} sx={{height: '100%', paddingTop: '1rem'}} >
 
                     {/* Heading */}
                     {/* onClick event to hide/show delete buttons */}
