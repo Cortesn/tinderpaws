@@ -44,6 +44,7 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, detailRef,
 				className='tinderCard'
 				key={index}
 				ref={cardRef}
+				preventSwipe={index===0? ['left','right','up','down'] : ['up', 'down']}
 				onSwipe={(dir) => swiped(dir, pet.pet_id, index)}
 				onCardLeftScreen={() => outOfFrame(pet.pet_id, index)}>
 				
