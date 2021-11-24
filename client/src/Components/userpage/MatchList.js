@@ -1,11 +1,11 @@
 import React from "react";
-import { List, Button } from "@mui/material";
+import { List, Button, Box } from "@mui/material";
 import MatchItem from "./MatchItem";
 import useButtonState from "../../hooks/useButtonState";
 
 /* Returns a compiled list of user matches for a specific pet */
 const MatchList = (props) => {
-	const { matches } = props;
+	const { matches, deleteMatch } = props;
 
 	const [unmatch, toggleUnmatch] = useButtonState(false);
 	// add a listener to check for new matches + addMatch
@@ -17,12 +17,15 @@ const MatchList = (props) => {
 				<MatchItem
 					key={match.pet_id}
 					match={match}
+					deleteMatch={deleteMatch}
 					unmatch={unmatch}
 				/>
 			))}
-			<Button onClick={toggleUnmatch} sx={{ textTransform: "none" }}>
-				{unmatch ? "done" : "edit"}
-			</Button>
+			<Box sx={{textAlign: 'end', pt:1}}>
+				<Button onClick={toggleUnmatch} sx={{ textTransform: "none" }}>
+					{unmatch ? "done" : "edit"}
+				</Button>
+			</Box>
 		</List>
 	);
 };

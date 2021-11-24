@@ -39,14 +39,14 @@ function animalStatus(status){
 
 /* Returns a single matched user for a pet */
 const MatchItem = (props) => {
-    const {match, unmatch} = props;
+    const {match, unmatch, deleteMatch} = props;
     const matchColor = typeColor(match.type)
     const matchType = animalType(match.type)
     const matchStatus = animalStatus(match.status)
     const matchIcon = animalIcon(match.type)
     return (
         <>
-            <ListItem >
+            <ListItem>
                 <ListItemIcon
                     sx={{marginRight: '3rem'}}>
                     <Chip avatar={<Avatar>{matchIcon}</Avatar>} label={matchType} variant="outlined"/>
@@ -69,8 +69,8 @@ const MatchItem = (props) => {
                         // id={delete_id}
                         color='error' 
                         aria-label="delete"
-                        sx={{marginRight: '1rem'}}
-                        // onClick={() => deleteMatch(match.match_id, 'match', snackBar)}
+                        // sx={{marginRight: '1rem'}}
+                        onClick={() => deleteMatch(match.match_id, 'match')}
                         >
                         <RemoveCircleOutlineIcon />
                     </IconButton>
