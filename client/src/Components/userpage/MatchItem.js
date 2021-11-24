@@ -6,8 +6,11 @@ import {
     ListItemText, 
     ListItemIcon, 
     Chip,
-    Avatar
+    Avatar,
+    Collapse,
+    IconButton,
 } from '@mui/material';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { FaDog, FaCat, FaOctopusDeploy} from "react-icons/fa"
 import { indigo, teal, blue } from '@mui/material/colors';
 
@@ -36,7 +39,7 @@ function animalStatus(status){
 
 /* Returns a single matched user for a pet */
 const MatchItem = (props) => {
-    const {match} = props;
+    const {match, unmatch} = props;
     const matchColor = typeColor(match.type)
     const matchType = animalType(match.type)
     const matchStatus = animalStatus(match.status)
@@ -59,6 +62,19 @@ const MatchItem = (props) => {
                     {/* <Button>{matchStatus}</Button> */}
                     <Chip label={matchStatus} color="primary" style={{backgroundColor: matchColor }}/>
                 </ListItemIcon>
+
+                {/* delete button */}
+                <Collapse orientation="horizontal" in={unmatch}>
+                    <IconButton 
+                        // id={delete_id}
+                        color='error' 
+                        aria-label="delete"
+                        sx={{marginRight: '1rem'}}
+                        // onClick={() => deleteMatch(match.match_id, 'match', snackBar)}
+                        >
+                        <RemoveCircleOutlineIcon />
+                    </IconButton>
+                </Collapse> 
             </ListItem>
 
             {/* separator */}
