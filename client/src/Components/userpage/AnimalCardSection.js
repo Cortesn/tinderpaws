@@ -42,7 +42,6 @@ const AnimalCardSection = ({petState, handleProfileButton, handleFilterButton, h
 		currentIndexRef.current = val
 	}
 
-	// const canGoBack = currentIndex < petState.length - 1
   	const canSwipe = currentIndex >= 1
 
 	const swiped = (direction, idToDelete, index) => {

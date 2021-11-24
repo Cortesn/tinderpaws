@@ -17,7 +17,6 @@ const AnimalFilterSection = ({shelters, setPetState, success, setSuccessState, f
 			xs={12} sm={12} md={6} lg={4} 
 			sx={{ 
 				display: { xs: 'none', md: 'block' },
-				paddingTop: '1rem',
 				maxWidth: desktop? '420px ! important' : '370px ! important'
 				}}>
 			<div style={{width: '95%', marginLeft: 'auto'}}>
