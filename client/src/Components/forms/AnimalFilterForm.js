@@ -34,6 +34,13 @@ const AnimalFilterForm = (props) => {
                     pet.id = pet.pet_id;
                     return pet;
                 });
+                const noMorePets = {
+					images: ['/assets/images/nomorepets.png'],
+					pet_id: null
+				}
+				// add the 'no more pets' placeholder to the front of the list
+				response.data.unshift(noMorePets)
+
                 props.setSuccessState(!props.success)
                 props.setPetState(response.data);
             })
@@ -76,6 +83,18 @@ const AnimalFilterForm = (props) => {
     return ( 
         <form>
             <Grid container direction={"column"} spacing={1}>
+                {props.success && 
+                    <Alert 
+                        severity="success" 
+                        sx={{'.MuiAlert-message': {margin: 'auto', paddingRight: '30px'}}}>
+                        Successfully filtered! 
+                    </Alert>}
+                {props.filterError && 
+                    <Alert 
+                        severity="error"
+                        sx={{'.MuiAlert-message': {margin: 'auto', paddingRight: '30px'}}}>
+                        Error, please double check selected values!
+                    </Alert>}
                 <Grid item align="center">
                     <Typography
                     variant="p"
@@ -173,8 +192,7 @@ const AnimalFilterForm = (props) => {
                     </FormGroup>
                 </Grid>
                 <Grid item>
-                    {props.success && <Alert severity="success">Successfully filtered! </Alert>}
-                    {props.filterError && <Alert severity="error">Error, please double check selected values!</Alert>}
+                    
                     <Button fullWidth align="center" variant="contained" style={{backgroundColor: '#467eac'}} id="applyAnimalFilter" onClick={submitAnimalFilter}>
                         Apply Filter
                     </Button>
