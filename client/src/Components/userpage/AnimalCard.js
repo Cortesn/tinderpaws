@@ -150,10 +150,10 @@ export const AnimalCard = ({ pet, swiped, outOfFrame, index, cardRef, detailRef,
 							</Stack>
 							<div style={{display: 'flex', justifyContent: 'space-between'}}>
 								<Typography component='span' variant='subtitle2'>
-									<b>Created:</b> {pet.date_created}
+									<b>Created:</b> {pet.date_created.substring(0,10)}
 								</Typography>
 								<Typography component='span' variant='subtitle2'>
-									<b>Updated:</b> {pet.last_updated}
+									<b>Updated:</b> {pet.last_updated.substring(0,10)}
 								</Typography>
 							</div>
 							<Typography variant='subtitle2'>
