@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 import { Typography, Box, Button, Stack } from "@mui/material";
 import createIntro from "../helperFunctions/HomePage/createIntroduction";
 
@@ -33,7 +34,7 @@ const MissionPage = () => {
             <Stack
             alignItems="center"
             justifyContent="space-evenly">
-                <Button id="signupLink" variant="contained" color="success" href="/signup">
+                <Button id="signupLink" variant="contained" component={Link} color="success" to="/signup">
                     Start your journey
                 </Button>
             </Stack>

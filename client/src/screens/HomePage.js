@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 import { Typography, Box, Button, Stack } from "@mui/material";
 import createIntro from "../helperFunctions/HomePage/createIntroduction";
 import createFlowchartItems from "../helperFunctions/HomePage/createFlowchartItems"
@@ -36,7 +37,7 @@ const HomePage = () => {
             alignItems="center"
             justifyContent="space-evenly">
                 {createFlowchartItems(sequence)}
-                <Button id="signupLink" variant="contained" color="success" href="/signup">
+                <Button id="signupLink" component={Link} variant="contained" color="success" to="/signup">
                     Get Started!
                 </Button>
             </Stack>
