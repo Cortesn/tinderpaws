@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { api, setToken } from "../../helperFunctions/axiosInstace";
 
 // Formik Schema (users)
 const userValidation = () => Yup.object({
@@ -20,11 +21,21 @@ const userValidation = () => Yup.object({
 });
 
 // formik state & create new user
-const UserUpdateFormik = (initialValues, onSubmitFunction) => useFormik({
+const UserUpdateFormik = (initialValues) => useFormik({
     initialValues: initialValues,
     validationSchema: userValidation(),
-    onSubmit: (values) => {
-        onSubmitFunction(values)
+    onSubmit: (values, {setFieldValue}) => {
+        let url = `/userProfileUpdate/update`;
+        setToken(localStorage.token)
+        api.patch(url, values).then((response)=>{
+            if(response.status === 200){
+                setFieldValue('error', '')
+                setFieldValue('success', 'Success!')
+                //alert("Successfully updated profile! :) ")
+            }else{
+                console.error("Something went wrong");
+            }
+        })
     },
 });
 

@@ -52,7 +52,7 @@ const MatchItem = (props) => {
                 {/* user name */}
                 <ListItemText 
                     primary={match.name}
-                    sx={{marginLeft: '2rem', textAlign:"center"}} />
+                    sx={{marginLeft: '.75rem', textAlign:"center"}} />
 
                 <ListItemIcon
                     sx={{marginLeft: '3rem'}}>
