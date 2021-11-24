@@ -12,7 +12,6 @@ const FormTemplate = (props) => {
         <Stack
             direction="column"
             justifyContent="center"
-            // alignItems="center"
             component="form"
             spacing={1}
             noValidate
