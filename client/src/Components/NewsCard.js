@@ -3,19 +3,18 @@ import {
     Card,
     CardMedia, 
     CardContent, 
-    CardActions, 
-    IconButton, 
+    // CardActions, 
+    // IconButton, 
     Typography,
     CardHeader} from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
+// import ShareIcon from '@mui/icons-material/Share';
 
 const NewsCard = (props) => {
     const {data} = props
     
     return (
-        <Card >
-            
+        <Card>
             {/* image */}
             {data.status === 4 ?
                 // adopted
@@ -65,7 +64,7 @@ const NewsCard = (props) => {
                 <Typography variant="h5" >
                     {data.name}
                 </Typography>
-                <Typography variant="body2" >
+                <Typography variant="body2" sx={{paddingBottom: '1rem'}}>
                     {data.status === 4 ? 
                         `ADOPTED! Congratulations to ${data.name} and their new family! 
                         ${data.name} was adopted on ${data.last_updated} `
@@ -75,16 +74,16 @@ const NewsCard = (props) => {
                 </Typography>
 
                 {/* bottom buttons */}
-                <CardActions disableSpacing>
-                    {/* add to matched pets */}
+                {/* <CardActions disableSpacing>
+                    
                     <IconButton aria-label="add to favorites">
                         <FavoriteIcon className='buttons'/>
                     </IconButton>
-                    {/* future use: email/social */}
+                    
                     <IconButton aria-label="share">
                         <ShareIcon className='buttons'/>
                     </IconButton>
-                </CardActions>
+                </CardActions> */}
 
             </CardContent>
         </Card>

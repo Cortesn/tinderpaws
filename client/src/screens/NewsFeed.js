@@ -77,14 +77,11 @@ const NewsFeed = () => {
 
                 <ImageList 
                     variant="masonry" 
-                    cols={ sm ? 
-                    updateDisplayCol('sm') 
-                    : md ? 
-                    updateDisplayCol('md') : 3 } 
+                    cols={3} 
                     gap={8}>
 
                 {newsItems.map((item) => (
-                    <ImageListItem key={item.pet_id}>
+                    <ImageListItem key={item.pet_id} sx={{width: '100%'}}>
                         <NewsCard data={item}/>
                     </ImageListItem>
                 ))}
