@@ -77,7 +77,10 @@ const NewsFeed = () => {
 
                 <ImageList 
                     variant="masonry" 
-                    cols={3} 
+                    cols={ sm ? 
+                    updateDisplayCol('sm') 
+                    : md ? 
+                    updateDisplayCol('md') : 3 } 
                     gap={8}>
 
                 {newsItems.map((item) => (
