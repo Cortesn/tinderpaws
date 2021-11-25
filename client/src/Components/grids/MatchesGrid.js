@@ -3,7 +3,7 @@ import { api, setToken } from "../../helperFunctions/axiosInstace";
 import useDeleteItemState from "../../hooks/useDeleteItemState";
 import MatchList from "../userpage/MatchList";
 
-const MatchesGrid = () => {
+const MatchesGrid = ({snackBar}) => {
     // populating breeds drop down -- cant move out due to initial render
     const [matchesState, setMatchesState,, deleteMatch] = useDeleteItemState([]);
     useEffect(() => {
@@ -14,7 +14,7 @@ const MatchesGrid = () => {
         });
     
     return (   
-       < MatchList matches={matchesState} deleteMatch={deleteMatch}/>
+       < MatchList matches={matchesState} deleteMatch={deleteMatch} snackBar={snackBar}/>
      );
 }
  

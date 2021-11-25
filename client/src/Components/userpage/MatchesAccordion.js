@@ -9,7 +9,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MatchesGrid from "../grids/MatchesGrid";
 
 const MatchesAccordion = (props) => {
-    const {expanded, handleChangeAccordion} = props;
+    const {expanded, handleChangeAccordion, handleOpen} = props;
     return ( 
         <Accordion
         expanded={expanded === "matches"}
@@ -25,7 +25,7 @@ const MatchesAccordion = (props) => {
             </Typography>
         </AccordionSummary>
         <AccordionDetails>
-            <MatchesGrid/>
+            <MatchesGrid snackBar={handleOpen}/>
         </AccordionDetails>
     </Accordion>
     );

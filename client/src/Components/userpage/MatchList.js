@@ -5,7 +5,7 @@ import useButtonState from "../../hooks/useButtonState";
 
 /* Returns a compiled list of user matches for a specific pet */
 const MatchList = (props) => {
-	const { matches, deleteMatch } = props;
+	const { matches, deleteMatch, snackBar } = props;
 
 	const [unmatch, toggleUnmatch] = useButtonState(false);
 	// add a listener to check for new matches + addMatch
@@ -19,13 +19,14 @@ const MatchList = (props) => {
 					match={match}
 					deleteMatch={deleteMatch}
 					unmatch={unmatch}
+					snackBar={snackBar}
 				/>
 			))}
-			<Box sx={{textAlign: 'end', pt:1}}>
+			{matches && <Box sx={{textAlign: 'end', pt:1}}>
 				<Button onClick={toggleUnmatch} sx={{ textTransform: "none" }}>
 					{unmatch ? "done" : "edit"}
 				</Button>
-			</Box>
+			</Box>}
 		</List>
 	);
 };
