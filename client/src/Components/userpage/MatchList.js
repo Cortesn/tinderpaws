@@ -22,7 +22,7 @@ const MatchList = (props) => {
 					snackBar={snackBar}
 				/>
 			))}
-			{matches && <Box sx={{textAlign: 'end', pt:1}}>
+			{matches.length > 0 && <Box sx={{textAlign: 'end', pt:1}}>
 				<Button onClick={toggleUnmatch} sx={{ textTransform: "none" }}>
 					{unmatch ? "done" : "edit"}
 				</Button>
