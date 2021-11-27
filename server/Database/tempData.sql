@@ -103,4 +103,13 @@ INSERT INTO Breeds VALUES
 ('Munchkin', 2),
 ('American Wirehair', 2),
 ('Burmese', 2),
-('Chartreux', 2);
+('Chartreux', 2),
+('Snake', 3),
+('Frog', 3),
+('Turtle', 3),
+('Bird', 3),
+('Fish', 3),
+('Hamster', 3),
+('Mouse', 3),
+('Rat', 3),
+('Rabbit', 3);
