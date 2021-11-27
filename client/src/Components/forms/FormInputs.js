@@ -203,19 +203,20 @@ const FormInputs = (type, data, {...props}) =>{
             id: 'type',
             label: 'Type',
             value: formik.values.type,
-            onChange: formik.handleChange('type'),
-            onBlur: () =>{ 
-                const type = formik.values.type;
-                api.get('/breeds/', {params: {type: type}})
+            onChange: (event)=> {
+                formik.setFieldValue('type', event.target.value)
+                formik.setFieldValue('breed', '')
+                data.setPet({...data.pet, 'type': event.target.value, 'breed': '',})
+                api.get('/breeds/', {params: {type: event.target.value}})
                     .then((response) => {
                         data.setPet({
                             ...data.pet, 
-                            'type':type, 
-                            // 'breed': response.data[0].name, 
+                            'type': event.target.value, 
+                            'breed': '',
                             'options': response.data
                         })
                     })
-            } ,
+            },
             error: formik.touched.type && Boolean(formik.errors.type),
             helperText: formik.touched.type && formik.errors.type,
             options: [{id: 1, name: 'Dog'}, {id: 2, name: 'Cat'}, {id: 3, name: 'Other'}]
@@ -228,7 +229,7 @@ const FormInputs = (type, data, {...props}) =>{
             onChange: formik.handleChange('breed'),
             error: formik.touched.breed && Boolean(formik.errors.breed),
             helperText: formik.touched.breed && formik.errors.breed,
-            options: data && data.pet? data.pet.options || [] : ''// need to get breeds
+            options: data && data.pet && type==='addPet'?  data.pet.options || [] : data && data.pet? data.pet.options || '' : ''
         },
         {
             types: ['pet', 'addPet'],

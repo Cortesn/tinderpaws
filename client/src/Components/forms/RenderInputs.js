@@ -56,7 +56,6 @@ export const RenderInputs = (props) => {
                 id={input.id}
                 value={input.value || ''}
                 onChange={input.onChange}
-                onBlur={input.onBlur}
                 error={input.error}>
                 {input.options.map(option =>
                     <MenuItem key={option.id || option.name} id={option.id || option.name} value={option.id || option.name}>{option.name}</MenuItem>
