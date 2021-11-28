@@ -1,27 +1,34 @@
-import React from 'react'
-import { 
-    List,
-} from '@mui/material';
-import MatchItem from './MatchItem';
+import React from "react";
+import { List, Button, Box } from "@mui/material";
+import MatchItem from "./MatchItem";
+import useButtonState from "../../hooks/useButtonState";
 
 /* Returns a compiled list of user matches for a specific pet */
 const MatchList = (props) => {
-    const {matches} = props;
-    // add a listener to check for new matches + addMatch
-    // or check for chats with match.user_id
-    return (
-        <List> 
-            {/* iterate through list of users */}
-            {matches.map((match) => (
-                    <MatchItem 
-                        key={match.pet_id} 
-                        match={match} 
-                        />   
-                    )
-                )
-            }
-        </List>
-    )
-}
+	const { matches, deleteMatch, snackBar, unmatch } = props;
+
+	// const [unmatch, toggleUnmatch] = useButtonState(false);
+	// add a listener to check for new matches + addMatch
+	// or check for chats with match.user_id
+	return (
+		<List>
+			{/* iterate through list of users */}
+			{matches.map((match) => (
+				<MatchItem
+					key={match.pet_id}
+					match={match}
+					deleteMatch={deleteMatch}
+					unmatch={unmatch}
+					snackBar={snackBar}
+				/>
+			))}
+			{matches.length > 0 && <Box sx={{textAlign: 'end', pt:1}}>
+				{/* <Button onClick={toggleUnmatch} sx={{ textTransform: "none" }}>
+					{unmatch ? "done" : "edit"}
+				</Button> */}
+			</Box>}
+		</List>
+	);
+};
 
 export default MatchList;

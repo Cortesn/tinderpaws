@@ -6,7 +6,7 @@ import FilterAnimalAccordion from "./FilterAnimalAccordion";
 import MatchesAccordion from "./MatchesAccordion";
 import { useTheme } from '@mui/material/styles';
 
-const AnimalFilterSection = ({shelters, setPetState, success, setSuccessState, filterError, setFilterErrorState}) => {
+const AnimalFilterSection = ({shelters, setPetState, success, setSuccessState, filterError, setFilterErrorState, handleOpen}) => {
 	const [expanded, handleChangeAccordion] = UserAccordionState(false);
 	// reference to remove column spacing between cards
     const theme = useTheme();
@@ -37,6 +37,7 @@ const AnimalFilterSection = ({shelters, setPetState, success, setSuccessState, f
 			<MatchesAccordion
 				expanded={expanded}
 				handleChangeAccordion={handleChangeAccordion}
+				handleOpen={handleOpen}
 			/>
 			</div>
 		</Grid>

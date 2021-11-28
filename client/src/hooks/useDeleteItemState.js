@@ -20,22 +20,22 @@ const useDeleteItemState = (initialValue) => {
             api.delete('/images/' + id)
                 .then( response => {
                     setItems(items.filter((item) => item.image_id !== id));
-                    snackBar({success: response.data.msg})
+                    snackBar && snackBar({success: response.data.msg})
                 })
                 .catch( error => {
                     console.log(error)
-                    snackBar({error: error.response.data.msg})
+                    snackBar && snackBar({error: error.response.data.msg})
                 })
         } else if (type === 'match'){
             setToken(localStorage.token)
             api.delete('/matches/' + id)
                 .then( response => {
                     setItems(items.filter((item) => item.match_id !== id));
-                    snackBar({success: response.data.msg})
+                    snackBar && snackBar({success: response.data.msg})
                 })
                 .catch( error => {
                     console.log(error)
-                    snackBar({error: error.response.data.msg})
+                    snackBar && snackBar({error: error.response.data.msg})
                 })
         } 
     }
