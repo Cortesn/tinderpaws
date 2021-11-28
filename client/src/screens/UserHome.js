@@ -42,6 +42,9 @@ const UserHome = (props) => {
 	// snackbar alerts
 	const [open, setOpen] = useState(false);
 	const [snackMsg, setSnackMsg] = useState({})
+
+	const [unmatch, toggleUnmatch] = useButtonState(false);
+
 	// displaying snackbar
 	const handleOpen = (msg) => {
 			setSnackMsg(msg)
@@ -219,7 +222,9 @@ const UserHome = (props) => {
 								alignItems="center"
 								spacing={2}
 							>
-								<Button>Edit</Button>
+								<Button onClick={toggleUnmatch} sx={{ textTransform: "none" }}>
+									{unmatch ? "Done" : "Edit"}
+								</Button>
 								<Typography
 									sx={{
 										display: "inline",
@@ -249,7 +254,7 @@ const UserHome = (props) => {
 									sx={{ paddingBottom: ".5rem" }}
 								/>
 							</Grid>
-							<MatchesGrid snackBar={handleOpen} />
+							<MatchesGrid snackBar={handleOpen} unmatch={unmatch} />
 						</Paper>
 					</Card>
 				</Box>
