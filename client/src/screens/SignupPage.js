@@ -22,7 +22,7 @@ const SignupPage = (props) => {
                             sx={{
                                 // controlls the selected tab display by using mui classes
                                 '.Mui-selected':{
-                                    bgcolor: 'primary.main',
+                                    bgcolor: 'rgb(70, 126, 172)',
                                     borderRadius: '5px 5px 0px 0px',
                                     color: 'white'
                                 }

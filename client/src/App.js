@@ -7,7 +7,7 @@ import LoginScreen from "./screens/LoginScreen";
 import Navbar from "./Components/navbar/Navbar.js";
 import AdminEditPetPage from "./screens/AdminEditPetPage";
 import NewsFeed from "./screens/NewsFeed";
-import { AdminPage } from "./screens/AdminPage";
+import AdminPage from "./screens/AdminPage";
 import ResetPassword from './screens/ResetPassword';
 import Logout from "./Components/Logout";
 import AdminHome from "./screens/AdminHome";
@@ -37,12 +37,12 @@ const App = () => {
 				<Route exact path="/signin" render={props => authValues.isAuth ? <HomePage/> : <LoginScreen {...props} handleAuthChange={handleAuthChange}/>} />
 				<Route exact path="/signup" render={props => authValues.isAuth ? <HomePage/> : <SignupPage {...props} handleAuthChange={handleAuthChange}/>} />
 				<Route exact path="/signout" render={props => <Logout {...props} handleAuthChange={handleAuthChange} />} />
-        <Route exact path="/resetPassword/email/:email/reset_key/:reset_key" component={ResetPassword}/>
-				<AuthRoute exact path="/userHome" component={UserHome} auth={authValues}/>
-				<Route exact path="/adminHome" component={AdminHome}/>
-				<Route exact path="/adminHome/pets" component={AdminPage} />
-				<Route exact path="/admin/edit/:pet_id" component={AdminEditPetPage} />
-				<Route exact path="/addpet" component={AddPet} />
+        		<Route exact path="/resetPassword/email/:email/reset_key/:reset_key" component={ResetPassword}/>
+				<AuthRoute exact path="/userHome" component={UserHome} auth={authValues} />
+				<AuthRoute exact path="/adminHome" component={AdminHome} auth={authValues} />
+				<AuthRoute exact path="/adminHome/pets" component={AdminPage} auth={authValues} />
+				<AuthRoute exact path="/adminHome/edit/:pet_id" component={AdminEditPetPage} auth={authValues} />
+				<AuthRoute exact path="/adminHome/add" component={AddPet} auth={authValues} />
 				<AuthRoute exact path="/news" component={NewsFeed} auth={authValues} />
 				<Route path='/unauthorized' component={NotAuth401} />
 				<Route path="*" component={NotFound404} />

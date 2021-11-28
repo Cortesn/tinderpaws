@@ -21,7 +21,7 @@ import { AnimalCard } from "./AnimalCard";
 import { api, setToken } from "../../helperFunctions/axiosInstace";
 
 
-const AnimalCardSection = ({petState, buttonClicked, handleProfileButton, handleFilterButton, handleMatchesButton}) => {
+const AnimalCardSection = ({petState, handleProfileButton, handleFilterButton, handleMatchesButton}) => {
 	const [currentIndex, setCurrentIndex] = useState()
 
 	useEffect(() => {
@@ -42,7 +42,6 @@ const AnimalCardSection = ({petState, buttonClicked, handleProfileButton, handle
 		currentIndexRef.current = val
 	}
 
-	// const canGoBack = currentIndex < petState.length - 1
   	const canSwipe = currentIndex >= 1
 
 	const swiped = (direction, idToDelete, index) => {
@@ -55,6 +54,7 @@ const AnimalCardSection = ({petState, buttonClicked, handleProfileButton, handle
 				setToken(localStorage.token)
 				api.post("/matches", data).then((response) => {
 					console.log(response.data);
+					// use the snackbar
 				});
 			}
 		}
@@ -72,17 +72,9 @@ const AnimalCardSection = ({petState, buttonClicked, handleProfileButton, handle
 		}
 	};
 
-	// increase current index and show card
-	// const goBack = async () => {
-	// 	if (!canGoBack) return
-		// 	const newIndex = currentIndex + 1
-		// 	updateCurrentIndex(newIndex)
-		// 	await childRefs[newIndex].current.restoreCard()
-	// }
-
 	// reference to remove column spacing between cards
     const theme = useTheme();
-    const desktop = useMediaQuery(theme.breakpoints.up('sm')); 
+    const desktop = useMediaQuery(theme.breakpoints.up('md')); 
 
 	const detailRefs = useMemo(() =>
 		 Array(petState.length)
@@ -139,19 +131,20 @@ const AnimalCardSection = ({petState, buttonClicked, handleProfileButton, handle
 
 	
 	return (
+		
 		<Grid 
 			item 
 			xs={12} sm={12} md={6} lg={4} 
 			sx={{ 
-				display: { xs: buttonClicked ? 'none':'block', md: 'block' },
-				maxWidth: '650px ! important',
-				paddingBottom: '2rem'
+				display: { xs: 'block', md: 'block' },
+				paddingBottom: '2rem',
+				maxWidth: desktop? '420px ! important' : '370px ! important',
+				margin: desktop? 0 : 'auto'
 				}}>
-			<div >
+			{/* <div > */}
 				<Stack
 					direction="column"
 					justifyContent="center"
-					alignItems="center"
 					spacing={1}>
 						
 						{/* header menu in mobile */}
@@ -160,9 +153,10 @@ const AnimalCardSection = ({petState, buttonClicked, handleProfileButton, handle
 							justifyContent="space-between"
 							alignItems="center"
 							sx={{
-								display: { xs: 'flex', md: 'none'},
-								width: '95%',
-								maxWidth: desktop? 420 : 370}}>
+								display: { xs: 'flex', md: 'none'}, 
+								paddingLeft: '1rem', 
+								paddingRight: '1rem'
+								}}>
 							<span>			
 								<IconButton
 									onClick={handleMatchesButton}
@@ -193,7 +187,8 @@ const AnimalCardSection = ({petState, buttonClicked, handleProfileButton, handle
 						style={{
 						position: 'relative', 
 						width: '95%', 
-						maxWidth: desktop? 420 : 370}}>
+						margin: 'auto'
+						}}>
 
 						{petState.map((pet, index) => (
 							<AnimalCard
@@ -239,7 +234,7 @@ const AnimalCardSection = ({petState, buttonClicked, handleProfileButton, handle
 					</Stack>
 				</Stack>
 
-			</div>
+			{/* </div> */}
 		</Grid>
 	);
 };

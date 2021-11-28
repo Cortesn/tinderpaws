@@ -44,8 +44,7 @@ const UserHome = (props) => {
 
 	useEffect(() => {
 		// Get all shelters from DB for Filter
-		const url = "/filterSetting/shelters";
-		api.get(url).then((response) => {
+		api.get("/shelters").then((response) => {
 			setShelters(response.data);
 		});
 		// Get all pets from DB to show as initial page
@@ -71,24 +70,23 @@ const UserHome = (props) => {
             direction="row"
             justifyContent="center"
             alignItems="stretch"
-            sx={{margin:'auto !important', maxWidth: 1400}} 
-            columnSpacing={{ md: desktop ? 1 : 0 }}
+            sx={{margin:'auto', maxWidth: 1400, marginTop: '2rem'}} 
 			ref={containerRef}>
 
 		 {/* large screen rendering */}
 		 {desktop ?
 			<>
 				<AnimalFilterSection 
-				shelters={shelters} 
-				setPetState={setPetState}
-				success={success}
-				setSuccessState={setSuccessState}
-				filterError={filterError}
-				setFilterErrorState={setFilterErrorState}
+					shelters={shelters} 
+					setPetState={setPetState}
+					success={success}
+					setSuccessState={setSuccessState}
+					filterError={filterError}
+					setFilterErrorState={setFilterErrorState}
 				/>
 				<AnimalCardSection 
-				petState={petState} 
-				setPetState={setPetState}/>
+					petState={petState} 
+					setPetState={setPetState}/>
 			</>
 			: null
 		}
@@ -96,10 +94,14 @@ const UserHome = (props) => {
 			{/* transitions */}
 			
 			{/* right slide profile accordion */}
-			<Slide direction='left' in={profileButton} container={containerRef.current} mountOnEnter unmountOnExit>
+			<Slide 
+				direction='left' 
+				in={profileButton} 
+				container={containerRef.current} 
+			>
 				<Box sx={{ 
 					width: '100%',
-					display: { xs: 'block', md: 'none'}
+					display: { xs: !profileButton ? 'none' : 'block', md: 'none'}
 				}}>
 					<Card sx={{height:'100%', maxWidth: '600px', margin: 'auto !important'}}>
 						<Paper elevation={10} sx={{height: '100%', minHeight: '50vh', paddingTop: '1rem'}} >
@@ -132,10 +134,14 @@ const UserHome = (props) => {
 			</Slide>
 			
 			{/* left slide matches accordion */}
-			<Slide direction='left' in={matchesButton} container={containerRef.current} mountOnEnter unmountOnExit>
+			<Slide 
+				direction='right' 
+				in={matchesButton} 
+				container={containerRef.current} 
+			>
 				<Box sx={{ 
 					width: '100%',
-					display: { md: 'none'}
+					display: { xs: !matchesButton ? 'none' : 'block', md: 'none'}
 				}}>
 					<Card sx={{height:'100%', maxWidth: '600px', margin: 'auto !important'}}>
 						<Paper elevation={10} sx={{height: '100%', minHeight: '70vh', paddingTop: '1rem'}} >
@@ -169,10 +175,14 @@ const UserHome = (props) => {
 			</Slide>
 
 			{/* left slide filter accordion */}
-			<Slide direction='left' in={filterButton} container={containerRef.current} mountOnEnter unmountOnExit>
+			<Slide 
+				direction='right' 
+				in={filterButton} 
+				container={containerRef.current} 
+			>
 				<Box sx={{ 
 					width: '100%',
-					display: { xs: 'block', md: 'none'}
+					display: { xs: !filterButton ? 'none' : 'block', md: 'none'}
 				}}>
 					<Card sx={{height:'100%', maxWidth: '600px', margin: 'auto !important'}}>
 						<Paper elevation={10} sx={{height: '100%', minHeight: '70vh', paddingTop: '1rem'}} >
@@ -221,19 +231,17 @@ const UserHome = (props) => {
 				direction='left' 
 				in={!profileButton && !matchesButton && !filterButton} 
 				container={containerRef.current}
-				mountOnEnter 
-				unmountOnExit
 			>
 				<Box sx={{ 
 					width: '100%',
-					display: { xs: 'block', md: 'none'}
+					display: { xs: filterButton || matchesButton || profileButton ? 'none' : 'block', md: 'none'},
 				}}> 
 					<AnimalCardSection 
-					petState={petState} 
-					setPetState={setPetState}
-					handleProfileButton={handleProfileButton}
-					handleFilterButton={handleFilterButton}
-					handleMatchesButton={handleMatchesButton}
+						petState={petState} 
+						setPetState={setPetState}
+						handleProfileButton={handleProfileButton}
+						handleFilterButton={handleFilterButton}
+						handleMatchesButton={handleMatchesButton}
 					/>
 				</Box>
 			</Slide>

@@ -35,11 +35,11 @@ const AddPetFormik = (data) =>
 		validationSchema: petValidation(),
 		onSubmit: (values, { resetForm, setFieldValue }) => {
 			data = { ...data, ...values };
-			console.log(data);
+			// console.log(data);
 			setToken(localStorage.token)
 			// make request
 			api.post("/pets/", data).then(function (response) {
-				console.log(response);
+				// console.log(response);
 				if (response.status === 201) {
 					console.log("Successfully Created Pet ");
 				} else {

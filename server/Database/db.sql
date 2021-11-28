@@ -110,12 +110,8 @@ CREATE TABLE Images (
 	FOREIGN KEY (pet_id) REFERENCES Pets (pet_id) ON DELETE CASCADE
 );
 
--- Chats table (optional)
--- CREATE TABLE Chats (
--- 	chat_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
--- 	match_id int NOT NULL,
--- 	msg varchar(225),
--- 	time_stamp dateTime,
--- 	pet boolean,
--- 	FOREIGN KEY (match_id) REFERENCES Matches (match_id)
--- );
+CREATE TABLE Breeds (
+	breed_name VARCHAR(30) NOT NULL PRIMARY KEY,
+	type int NOT NULL,
+	FOREIGN KEY (type) REFERENCES Animals (animal_id)
+);

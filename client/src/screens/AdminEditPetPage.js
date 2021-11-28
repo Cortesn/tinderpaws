@@ -4,7 +4,7 @@ import { Box, Grid, Snackbar, useMediaQuery, Slide } from '@mui/material'
 import MuiAlert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 import useButtonState from '../hooks/useButtonState';
-import {api} from '../helperFunctions/axiosInstace'
+import {api, setToken} from '../helperFunctions/axiosInstace'
 import useDeleteItemState from '../hooks/useDeleteItemState.js';
 import PetProfile from '../Components/petprofile/PetProfile';
 import MatchList from '../Components/petprofile/MatchList';
@@ -45,13 +45,10 @@ const AdminEditPetPage = () => {
     useEffect(() => {
         // only make the request if there is not pet data
         if (!pet.pet_id){
+            setToken(localStorage.token)
             api.get('/pets/' + pet_id)
             .then( response => {
-                // console.log("response data:", response.data)
-                var petData = response.data.pet
-                petData.setPet = setPet
-                petData.snackBar = handleOpen
-                setPet(petData)
+                setPet(response.data.pet)
                 if (response.data.images) handleImageChange(response.data.images)
                 if (response.data.matches) handleMatchChange(response.data.matches)
             })
@@ -60,7 +57,16 @@ const AdminEditPetPage = () => {
                 // redirect to a 404 page
             })
         } 
-    })
+
+        // get the pet breed options
+        if (pet.type && !pet.options){
+            setToken(localStorage.token)
+            api.get('/breeds/', {params: {type: pet.type}})
+                .then((response) => {
+                    setPet({...pet, 'options': response.data})
+                })
+        }
+    }, [pet.type, handleImageChange, handleMatchChange, pet, pet_id])
 
     const containerRef = React.useRef(null);
 
@@ -78,7 +84,11 @@ const AdminEditPetPage = () => {
         <PetProfile
             buttonClicked={buttonClicked}
             handleButtonChange={handleButtonChange}
-            pet={pet} 
+            pet={{
+                pet: pet,
+                setPet: setPet,
+                snackBar: handleOpen
+            }} 
             images={images}
             addImage={addImage}
             deleteImage={deleteImage}/>

@@ -9,7 +9,7 @@ import {
     useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import NewsCard from '../Components/NewsCard';
-import { api } from '../helperFunctions/axiosInstace'
+import { api, setToken } from '../helperFunctions/axiosInstace'
 
 
 // transitions columns from 2 to 1
@@ -32,8 +32,6 @@ const NewsFeed = () => {
  
     // check scroll position
     const loadMorePets = (event) => {
-        // console.log(offset)
-        // console.log(event.target.scrollTop, event.target.offsetHeight, event.target.scrollHeight)
         if (event.target.scrollTop + event.target.offsetHeight === event.target.scrollHeight 
             && newsItems.length !== 0 && newsItems.length - offset === 0){
             // progress indicator
@@ -50,9 +48,9 @@ const NewsFeed = () => {
     // get news items
     useEffect(() => {
         if (newsItems.length === 0){
+            setToken(localStorage.token)
             api.get('/pets/offset')
             .then(response => {
-                // console.log("response :", response.data)
                 setNewsItems(prevArr => prevArr.concat(response.data.pets))
                 setOffset(response.data.offset)
             })
@@ -86,7 +84,7 @@ const NewsFeed = () => {
                     gap={8}>
 
                 {newsItems.map((item) => (
-                    <ImageListItem key={item.pet_id}>
+                    <ImageListItem key={item.pet_id} sx={{width: '100%'}}>
                         <NewsCard data={item}/>
                     </ImageListItem>
                 ))}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { api } from "../helperFunctions/axiosInstace";
+import { api, setToken } from "../helperFunctions/axiosInstace";
 
 const useDeleteItemState = (initialValue) => {
     const [items, setItems] = useState(initialValue);
@@ -16,6 +16,7 @@ const useDeleteItemState = (initialValue) => {
 
     const deleteItem = (id, type, snackBar) => {
         if (type === 'image'){
+            setToken(localStorage.token)
             api.delete('/images/' + id)
                 .then( response => {
                     setItems(items.filter((item) => item.image_id !== id));
@@ -26,6 +27,7 @@ const useDeleteItemState = (initialValue) => {
                     snackBar({error: error.response.data.msg})
                 })
         } else if (type === 'match'){
+            setToken(localStorage.token)
             api.delete('/matches/' + id)
                 .then( response => {
                     setItems(items.filter((item) => item.match_id !== id));

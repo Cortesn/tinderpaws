@@ -78,10 +78,6 @@ export default function Navbar(props) {
                             <NavLink name={'Manage'} id="nav_admin" link={'/adminHome'} />
                         : null }
 
-                        {/* displays the "page to manage shelter employees" */}
-                        {/* { account.shelter_id ?
-                            <NavLink name={'Admin'} link={'/'} />
-                        : null } */}
                     </Box>
 
                     {/* divider */}

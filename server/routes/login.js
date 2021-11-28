@@ -22,7 +22,6 @@ router.post('/', (req,res) => {
         } else {
             // user is found
             try{
-                // console.log(results)
                 const result = await results.filter(arr => arr.length > 0)[0]
                 if (!result){
                     // did not find a email match
@@ -42,7 +41,6 @@ router.post('/', (req,res) => {
                     } else {
                         payload = { user: { employee_id : result[0].employee_id }}
                     }
-                    // console.log(payload)
                     jwt.sign( payload, process.env.JWT_SECRET, {expiresIn: 360000}, (error, token) => {
                         if (error){
                             console.log(error)
@@ -73,7 +71,6 @@ router.post('/google', async (req, res) => {
             audience: process.env.GAPI_CLIENT_ID
         })
         const payload = ticket.getPayload()
-        // console.log(payload)
         const findUser = 'SELECT user_id, email, password FROM Users WHERE email=?;'
         const findShelter = 'SELECT shelter_id, email, password FROM Shelters WHERE email=?;'
         const findEmployees = 'SELECT employee_id, email, password FROM Employees WHERE email=?;'
@@ -98,7 +95,6 @@ router.post('/google', async (req, res) => {
                         } else {
                             payload = { user: { employee_id : result[0].employee_id }}
                         }
-                        // console.log(payload)
                         jwt.sign( payload, process.env.JWT_SECRET, {expiresIn: 360000}, (error, token) => {
                             if (error){
                                 console.log(error)
@@ -109,14 +105,12 @@ router.post('/google', async (req, res) => {
                         })
                     }
                 } catch (error){
-                    // console.log(error)
                     return res.status(500).json({ msg: 'Server error. Please try again later.' })
                 }
             }
         })
     }
     verify().catch( error => {
-        // console.log(error)
         return res.status(500).json({ msg: 'Server error. Please try again later.' })
     })    
 })

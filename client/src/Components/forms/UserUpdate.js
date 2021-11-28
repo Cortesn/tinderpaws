@@ -25,7 +25,7 @@ const UserUpdateFormik = (initialValues) => useFormik({
     initialValues: initialValues,
     validationSchema: userValidation(),
     onSubmit: (values, {setFieldValue}) => {
-        let url = `/userProfileUpdate/update`;
+        let url = `/users/user`;
         setToken(localStorage.token)
         api.patch(url, values).then((response)=>{
             if(response.status === 200){

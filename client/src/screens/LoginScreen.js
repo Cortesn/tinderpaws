@@ -42,6 +42,7 @@ const LoginScreen = (props) => {
 									component={Link} 
 									align='center'
 									to='/signup' 
+									// handleAuthChange={props.handleAuthChange}
 									sx={{
 										'&:link': { textDecoration: 'none' },
 										'&:visited': { color: '#467eac' }

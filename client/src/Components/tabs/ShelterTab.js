@@ -24,7 +24,7 @@ const ShelterTab = (props) => {
     // get the list of shelters from the database
     useEffect( () => {
         if (shelter && options.length === 0){
-            api.get('/forms/shelters')
+            api.get('/shelters')
                 .then( response => {
                     // set state here
                     const data = response.data.map(shelter => ({ id: shelter.shelter_id , name: shelter.name }))
@@ -57,16 +57,6 @@ const ShelterTab = (props) => {
                 Complete this form to create a new shelter or employee account!
             </Typography>
             
-            {/* <Typography 
-                component='a' 
-                align='center'
-                href='/signin' 
-                sx={{
-                    '&:link': { textDecoration: 'none' },
-                    '&:visited': { color: '#1976d2' }
-                }}>
-                Already have an account?
-            </Typography> */}
             <Typography 
                 component={Link} 
                 align='center'

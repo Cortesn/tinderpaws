@@ -6,9 +6,8 @@ const UserProfileUpdateForm = () => {
     const [userData, setUserData] = useState(null)
     // query for user data here
     useEffect(() => {
-        const url = `/userProfileUpdate/userData`;
         setToken(localStorage.token)
-        api.get(url).then((response)=>{
+        api.get('users/user').then((response)=>{
             setUserData(
                 {
                     fname: response.data[0].f_name,
