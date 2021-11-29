@@ -6,7 +6,7 @@ import FormTemplate from '../forms/FormTemplate'
 /* Returns the 'right side' card for the Pet Images and update form */
 const PetProfile = (props) => {
     const {buttonClicked, handleButtonChange, pet, images, addImage, deleteImage} = props;
-
+    console.log(pet)
     return (
         <Grid 
             item 
@@ -37,8 +37,8 @@ const PetProfile = (props) => {
                             justifyContent="space-between"
                             alignItems="center"
                             sx={{width: '90%'}}>
-                            <Typography varriant='subtitle1'>created: {pet.date_created}</Typography>
-                            <Typography varriant='subtitle1'>updated: {pet.last_updated}</Typography>
+                            <Typography varriant='subtitle1'>created: {pet.pet.date_created}</Typography>
+                            <Typography varriant='subtitle1'>updated: {pet.pet.last_updated}</Typography>
                         </Stack>
                     
                         {/* details about a pet */}

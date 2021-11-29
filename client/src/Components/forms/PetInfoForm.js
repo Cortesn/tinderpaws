@@ -41,7 +41,9 @@ const PetInfoFormik =(data)=> useFormik({
     onSubmit: (values, {resetForm, setFieldValue}) => {
         // make request
         setToken(localStorage.token)
-        api.patch('/pets/' + data.pet_id, values )
+        // console.log("values", values)
+        // console.log("data", data)
+        api.patch('/pets/' + data.pet.pet_id, values )
             .then(function(response){
                 // set the new pet data
                 data.setPet(values)
