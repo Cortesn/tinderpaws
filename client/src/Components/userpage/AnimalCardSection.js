@@ -42,7 +42,10 @@ const AnimalCardSection = ({petState, handleProfileButton, handleFilterButton, h
 		currentIndexRef.current = val
 	}
 
-  	const canSwipe = currentIndex >= 1
+	const [canSwipe, setSwipe] = useState(true);
+	const handleSwipe = () => {
+		setSwipe(currentIndex > 1);
+	}
 
 	const swiped = (direction, idToDelete, index) => {
 		if (canSwipe) {
@@ -53,10 +56,10 @@ const AnimalCardSection = ({petState, handleProfileButton, handleFilterButton, h
 			if (direction === "right") {
 				setToken(localStorage.token)
 				api.post("/matches", data).then((response) => {
-					console.log(response.data);
 					// use the snackbar
 				});
 			}
+			handleSwipe();
 		}
 	};
 
